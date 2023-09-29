@@ -1,0 +1,166 @@
+/*Version Escritorio*/
+/*Botón Amarillo Grande*/
+.card-btn
+{
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    background-image: linear-gradient(to top, #fce944 100%, #f7e861 80%, #ded36a 0%);
+    border-radius: 30px;
+    border: 1px solid #8F9092;
+    transition: all 0.2s ease;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(14, 39, 165);
+    text-shadow: 0 1px #24b5d6;
+  }
+  
+  .card-btn:hover 
+  {
+    box-shadow: 0 4px 3px 1px #e1de4a, 0 6px 8px #d9d9d6, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+  }
+  
+  .card-btn:active {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+  
+  .card-btn:focus {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+/*Fin Botón Amarillo Grande*/
+
+/*inputs*/
+.input-opcion-1
+{
+    margin: 20px 30px 0px 30px;
+    background-color: white;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+    width: 50%;
+}
+
+.input-opcion-2
+{
+    background-color: #fce944;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+    width: 35%;
+
+}
+
+.input-opcion-3
+{
+    margin: 20px 30px 0px 30px;
+    background-color: #fce944;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+    width: 80%;
+}
+
+.input-opcion-4
+{
+    width: 100%;
+    background-color: #fce944;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+}
+
+.input-opcion-5
+{
+    background-color: #fce944;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+    width: 35%;
+
+}
+
+.input-opcion-6
+{
+    background-color: #fce944;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+}
+
+.input-opcion-7
+{
+    width: 100%;
+    background-color: white;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 0px 0px rgb(135, 138, 40);
+    color: rgb(14, 39, 165);
+}
+/*fin de los inputs*/
+
+/*titulos*/
+.form-label, .modal-title, .modal-icon, .fas
+{
+    color: rgb(14,39,165);
+    font-weight: bold;
+}
+/*titulos*/
+
+.modal-header, .modal-body
+{
+    background-image: url('../../img/arts/fondoblanco1242x2208.jpg');
+    align-items: center !important;
+}
+
+/*modales swal*/
+.swal-footer
+{
+    text-align: center;
+}
+/*modales swal*/
+
+/*flecha de retroceso*/
+.back-btn
+{
+    position: absolute;
+    left: 0px;
+}
+/*flecha de retroceso*/
+
+
+
+/*Version Escritorio*/
+
+/*Version Movil*/
+/*Version Movil*/

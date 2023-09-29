@@ -1,0 +1,221 @@
+/*Version Escritorio*/
+@media screen and (min-width: 500px)
+{
+    .hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../img/arts/fondo_movil_2208X1242.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: inline-flex;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.water-mark
+{
+    width: 100%;
+    height: 60px;
+}
+#water-mark-img
+{
+    width: 200px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    z-index: 9;
+}
+
+.page-footer
+ { 
+  height: 50px; 
+  background-image: url('../../img/arts/fondoblanco1242x2208.jpg');
+  color: rgb(14,39,165);
+  width:100%; 
+  position: fixed; 
+  bottom:0; 
+  left:0px; 
+}
+
+
+/*Formulario Calculadora*/
+.from-calculadora
+{
+    color: white;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+/*Formulario Calculadora*/
+
+/*Cards del Index*/
+.container-index
+{
+   display: grid;
+   place-items: center;
+
+}
+
+#card_registrarse, #card_admin
+{
+    display: none;
+}
+
+.card-img
+{
+    margin-top: 50px;
+    width: 200px !important;
+    align-self: center;
+}
+
+#card_sesion, #card_registrarse, #card_admin
+{
+    top: 20%;
+    background-image: url('../../img/arts/fondoblanco1242x2208.jpg');
+    border: solid 5px;
+    border-color: grey;
+    text-align: center;
+    color: rgb(14, 39, 165);
+    margin: auto;
+}
+.ul-index
+{
+    border-bottom: 5px solid grey;
+    display: table;
+}
+
+.card-div
+{
+    margin-bottom: 10px;
+}
+/*Cards del Index*/
+}
+
+/*Version Escritorio*/
+
+/******************************************************************************************************************/
+/******************************************************************************************************************/
+/*Version Movil*/
+@media screen and (max-width: 500px)
+{
+.hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../img/arts/fondomovil_1080x1920.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: inline-flex;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.page-footer
+ { 
+    display: none;
+  height: 50px; 
+  background-image: url('../../img/arts/fondoblanco1242x2208.jpg');
+  color: rgb(14,39,165);
+  width:100%; 
+  position: fixed; 
+  bottom:0; 
+  left:0px; 
+}
+
+.water-mark
+{
+    width: 100%;
+    height: 60px;
+}
+#water-mark-img
+{
+    width: 200px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    z-index: 9;
+}
+
+/*Formulario Calculadora*/
+.from-calculadora
+{
+    color: white;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+/*Formulario Calculadora*/
+
+/*Cards del Index*/
+.container-index
+{
+   display: grid;
+   place-items: center;
+
+}
+
+ #card_registrarse, #card_admin
+{
+    display: none; 
+}
+
+.card-img
+{
+    margin-top: 50px;
+    width: 200px !important;
+    align-self: center;
+}
+
+.ul-index
+{
+    text-align: center;
+}
+
+#card_sesion, #card_registrarse, #card_admin
+{
+    top: 30%;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    border: solid 2px grey;
+    color: rgb(14, 39, 165);
+
+}
+.footer-card-body
+{
+    width: 100%;
+    text-align: center;
+    border-top: solid 2px grey;
+}
+
+.card-div
+{
+    margin-bottom: 10px;
+}
+
+/*Cards del Index*/
+}
+
+/*Version Movil*/

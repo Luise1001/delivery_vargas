@@ -1,0 +1,542 @@
+<?php 
+$crear = $pdo->query("USE delivery_vargas");
+
+if(!$crear)
+{
+    exit ('No se ha Podido Seleccionar la base de datos');
+}
+
+$tablas = 
+[
+  ' CREATE TABLE IF NOT EXISTS datos_empresa 
+  (
+    Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Letra VARCHAR(10) NOT NULL,
+    Rif VARCHAR(40) UNIQUE NOT NULL,
+    Empresa VARCHAR(80) NOT NULL,
+    Firebase_key VARCHAR(255) NOT NULL
+  )',
+' CREATE TABLE IF NOT EXISTS niveles_administrativos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nivel INT UNSIGNED NOT NULL,
+  Categoria VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NOT NULL,
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+  ' CREATE TABLE IF NOT EXISTS usuarios 
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  User_name VARCHAR(40) NOT NULL,
+  Correo VARCHAR(40) UNIQUE NOT NULL,
+  Pass VARCHAR(100)  NOT NULL,
+  Nivel INT UNSIGNED NOT NULL DEFAULT(0),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Nivel) REFERENCES niveles_administrativos (Nivel)
+)',
+  ' CREATE TABLE IF NOT EXISTS clientes
+  (
+    Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Id_usuario INT UNSIGNED NOT NULL,
+    Tipo_id CHAR(8) NOT NULL,
+    Cedula VARCHAR(20) UNIQUE NOT NULL,
+    Nombre VARCHAR(40) NOT NULL,
+    Apellido VARCHAR(40) NOT NULL,
+    Telefono VARCHAR(20) NOT NULL,
+    Fecha DATE  NOT NULL,
+    U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+    FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
+  )',
+' CREATE TABLE IF NOT EXISTS conductores 
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_usuario INT UNSIGNED NOT NULL,
+  Tipo_id CHAR(8) NOT NULL,
+  Cedula VARCHAR(20) UNIQUE NOT NULL,
+  Licencia VARCHAR(100) NOT NULL DEFAULT(0),
+  Nombre VARCHAR(40) NOT NULL,
+  Apellido VARCHAR(40) NOT NULL,
+  Telefono VARCHAR(20) NOT NULL,
+  Direccion VARCHAR(70) NOT NULL,
+  Disponible tinyint(1) NOT NULL DEFAULT(1),
+  Administrador INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id),
+  FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
+)',
+'CREATE TABLE IF NOT EXISTS motos 
+(
+    Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Marca VARCHAR(40) NOT NULL,
+    Placa VARCHAR(20) UNIQUE NOT NULL,
+    Modelo VARCHAR(20) NOT NULL,
+    Year_moto VARCHAR(20) NOT NULL,
+    Id_conductor INT UNSIGNED NOT NULL,
+    Administrador INT UNSIGNED NOT NULL,
+    Fecha DATE  NOT NULL,
+    U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+    FOREIGN KEY (Id_conductor) REFERENCES conductores (Id),
+    FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS routes
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nro_pedido INT UNSIGNED NOT NULL,
+  Salida VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Destino VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Paradas INT NULL DEFAULT(NULL),
+  Url_ruta TEXT NOT NULL,
+  Tiempo VARCHAR(10) NOT NULL,
+  Distancia DOUBLE NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido)
+)',
+' CREATE TABLE IF NOT EXISTS locations
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Latitude DOUBLE NOT NULL,
+  Longitude DOUBLE NOT NULL,
+  Ubicacion VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Id_usuario INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS tarifas
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  KM double NOT NULL,
+  Precio double NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS tarifas_especiales
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Categoria VARCHAR(100) NOT NULL,
+  Precio_partida double NOT NULL,
+  Precio double NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS metodos_pago
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Categoria VARCHAR(40) NOT NULL,
+  Estatus tinyint(1) NOT NULL DEFAULT(1),
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS firebase_users
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_usuario INT UNSIGNED NOT NULL,
+  Token VARCHAR(255) NOT NULL,
+  Nivel INT NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS categorias
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Categoria VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS comercios
+(
+ Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ Id_usuario INT UNSIGNED NOT NULL,
+ Tipo_id CHAR(8) NOT NULL,
+ Rif VARCHAR(20) UNIQUE NOT NULL,
+ Razon_social VARCHAR(40) NOT NULL,
+ Telefono VARCHAR(20) NOT NULL,
+ Disponible tinyint(1) NOT NULL DEFAULT(1),
+ Fecha DATE  NOT NULL,
+ U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+ FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS categoria_comercios
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_categoria INT UNSIGNED NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_categoria) REFERENCES categorias (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS static_locations
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nombre VARCHAR(50) NOT NULL,
+  Latitude DOUBLE NOT NULL,
+  Longitude DOUBLE NOT NULL,
+  Ubicacion VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Id_usuario INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS bancos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Banco VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS pago_movil
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Tipo_id CHAR(10) NOT NULL,
+  Documento VARCHAR(50) NOT NULL,
+  Id_banco INT UNSIGNED NOT NULL,
+  Telefono VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_banco) REFERENCES bancos (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS transferencia
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Tipo_id CHAR(10) NOT NULL,
+  Documento VARCHAR(50) NOT NULL,
+  Id_banco INT UNSIGNED NOT NULL,
+  Cuenta VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_banco) REFERENCES bancos (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS zelle
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Correo VARCHAR(50) NOT NULL,
+  Titular VARCHAR(60) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS tasas
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Tasa DOUBLE NOT NULL,
+  Administrador INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS monedas
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Moneda VARCHAR(50) NOT NULL,
+  Alicuota INT NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+)',
+' CREATE TABLE IF NOT EXISTS referencias_pagos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_cliente INT UNSIGNED NOT NULL,
+  Nro_pedido INT UNSIGNED NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Referencia VARCHAR(20) NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Nro_pedido) REFERENCES  pedidos (Nro_pedido),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS categoria_de_productos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Categoria VARCHAR(50) NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS marcas_de_productos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Marca VARCHAR(50) NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS productos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Codigo VARCHAR(10) NOT NULL,
+  Descripcion VARCHAR(100) NOT NULL,
+  Foto VARCHAR(100) NOT NULL,
+  P_siva DOUBLE NOT NULL,
+  P_civa DOUBLE NOT NULL,
+  Alicuota CHAR(8) NOT NULL,
+  Peso DOUBLE NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_comercio) REFERENCES  comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS inventario
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Id_producto INT UNSIGNED NOT NULL,
+  Existencia INT NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_comercio) REFERENCES  comercios (Id),
+  FOREIGN KEY (Id_producto) REFERENCES  productos (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS categorias_y_productos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_categoria INT UNSIGNED NOT NULL,
+  Id_producto INT UNSIGNED NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_categoria) REFERENCES  categoria_de_productos (Id),
+  FOREIGN KEY (Id_producto) REFERENCES productos (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS productos_favoritos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_producto INT UNSIGNED NOT NULL,
+  Votos INT NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_producto) REFERENCES productos (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS prod_favoritos_usuarios
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_usuario INT UNSIGNED NOT NULL,
+  Id_producto INT UNSIGNED NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_producto) REFERENCES productos (Id),
+  FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS carrito
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_cliente INT UNSIGNED NOT NULL,
+  Id_producto INT UNSIGNED NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Cantidad  INT NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_producto) REFERENCES productos (Id),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS pedidos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nro_pedido INT UNSIGNED NOT NULL,
+  Id_cliente INT UNSIGNED NOT NULL,
+  Id_producto INT UNSIGNED NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Cantidad  INT NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_producto) REFERENCES productos (Id),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS pedidos_monto
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_cliente INT UNSIGNED NOT NULL,
+  Nro_pedido INT UNSIGNED NOT NULL,
+  Subtotal DOUBLE NOT NULL,
+  Iva DOUBLE NOT NULL,
+  Total DOUBLE NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS estatus_pedidos
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nro_pedido INT UNSIGNED UNIQUE NOT NULL,
+  Creado INT NOT NULL,
+  Recibido INT NOT NULL DEFAULT(0),
+  Pagado INT NOT NULL DEFAULT(0),
+  Retirar INT NOT NULL DEFAULT(0),
+  Asignado INT NOT NULL DEFAULT(0),
+  Aceptado INT NOT NULL DEFAULT(0),
+  Enviado INT NOT NULL DEFAULT(0),
+  Entregado INT NOT NULL DEFAULT(0),
+  Anulado INT NOT NULL DEFAULT(0),
+  Id_cliente INT UNSIGNED NOT NULL,
+  Id_conductor INT UNSIGNED NULL DEFAULT(NULL),
+  Id_comercio INT UNSIGNED NOT NULL,
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Id_conductor) REFERENCES conductores (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS metodos_pago_comercios
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_metodo INT UNSIGNED  NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  FOREIGN KEY (Id_metodo) REFERENCES metodos_pago (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
+
+)',
+' CREATE TABLE IF NOT EXISTS envios
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nro_pedido INT UNSIGNED UNIQUE NOT NULL,
+  Id_cliente INT UNSIGNED NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Id_route INT UNSIGNED NOT NULL,
+  Id_conductor INT UNSIGNED DEFAULT(NULL),
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  Asignado tinyint(1) NOT NULL DEFAULT(0),
+  Aceptado tinyint(1) NOT NULL DEFAULT(0),
+  Completado tinyint(1) NOT NULL DEFAULT(0),
+  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
+  FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Id_route) REFERENCES routes (Id),
+  FOREIGN KEY (Id_conductor) REFERENCES conductores (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS envios_monto
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_envio INT UNSIGNED UNIQUE NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Monto DOUBLE NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  FOREIGN KEY (Id_envio) REFERENCES envios (Id),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS dias
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Dia VARCHAR(20) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS horario
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Id_dia INT UNSIGNED NOT NULL,
+  Abrir TIME NOT NULL,
+  Cerrar TIME NOT NULL,
+  Turno VARCHAR(10) NOT NULL,
+  Id_comercio INT UNSIGNED NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Id_dia) REFERENCES dias (Id),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+' CREATE TABLE IF NOT EXISTS codigos_enviados
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Codigo VARCHAR(15) NOT NULL,
+  Correo VARCHAR(50) NOT NULL,
+  Fecha DATE  NOT NULL,
+  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Administrador INT UNSIGNED NULL DEFAULT(NULL),
+  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+)',
+];
+
+foreach($tablas as $tabla)
+{
+    $pdo->exec($tabla);
+}
+
+$letra = 'G';
+$rif = '200168757';
+$empresa = 'Delivery Vargas, S.A';
+$firebase_key = 'AAAA3uBMB5E:APA91bFP04Q1Bj26OAkDJIsO7uY1FbTbtDhqFrnnZTyWwoDjixmM_e3QKUmYldp2gXcSVgNzC1G8zkEbUSCSBM5xZbGV64AFwrKmrnrjgO_uzVzGjFmort4oezDBoDWSf3A7zzHfkb4S';
+
+$consulta_sql = "SELECT * FROM datos_empresa WHERE Rif= ?";
+$preparar_sql = $pdo->prepare($consulta_sql);
+$preparar_sql->execute(array($rif));
+$resultado = $preparar_sql->fetchAll();
+
+if(!$resultado)
+{
+  $insert_sql = 'INSERT INTO datos_empresa (Letra, Rif, Empresa, Firebase_key) VALUES (?,?,?,?)';
+  $sent = $pdo->prepare($insert_sql);
+  $sent->execute(array($letra, $rif, $empresa, $firebase_key));
+}
+else
+{
+  $editsql = 'UPDATE datos_empresa SET Firebase_key=? WHERE Rif=?';
+  $editar_sentence = $pdo->prepare($editsql);
+  $editar_sentence->execute(array($firebase_key, $rif));
+}
+
+?>
+

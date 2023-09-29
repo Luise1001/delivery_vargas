@@ -1,0 +1,499 @@
+#contenido
+{
+    padding-bottom: 60px;
+}
+/*Version Escritorio*/
+@media screen and (min-width: 500px)
+{
+    .hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../../img/arts/fondo_movil_2208X1242.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: inline-flex;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.page-footer
+ { 
+  height: 50px; 
+  background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+  color: rgb(14,39,165);
+  width:100%; 
+  position: fixed; 
+  bottom:0; 
+  left:0px; 
+}
+
+.water-mark
+{
+    width: 100%;
+    height: 60px;
+}
+#water-mark-img
+{
+    width: 200px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    z-index: 9;
+}
+
+/*Mi perfil*/
+.user-head
+{
+    padding-top: 20px;
+    text-align: center;
+}
+#foto_perfil
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+.container-foto-perfil
+{
+    position: relative;
+    width: 100%;
+    height: 120px;
+}
+.file-selector
+{
+  display: none;
+}
+.file-selector + label
+{
+    display: flex;
+    position: absolute;
+    margin-left: 50%;
+    bottom: 3px;
+}
+
+.fa-angle-down, .fa-angle-up
+{
+    right: 20px;
+    position: absolute;
+}
+
+.cuerpo
+{
+    margin-left: 210px;
+}
+
+.text-switch
+{
+    display: inline-block;
+    left: 220px;
+    position: absolute;
+}
+
+/*fin de mi perfil*/
+
+/*datos bancarios*/
+.mis-datos-bancarios
+{
+    padding-top: 20px;
+}
+.card-datos-bancarios
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: solid 5px grey;
+    text-align: center;
+    margin-bottom: 5px;
+}
+/*datos bancarios*/
+
+/*lista de direcciones guardadas*/
+.lista-de-direcciones
+{
+    padding-top: 20px;
+}
+.address-card
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: 1px solid grey;
+    border-radius: 10px;
+    text-align: center;
+    margin: 5px;
+}
+/*fin de direcciones guardadas*/
+
+/*Pagina de Pedidos*/
+.cabecera
+{
+    position: fixed;
+    background-color: #fce944;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    padding-top: 20px;
+}
+.lista-de-pedidos
+{
+    padding-top: 50px;
+}
+.orden-pedido
+{
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 1px;
+    margin-left: 0px !important;
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+}
+.orden-pedido-link
+{
+    width: 100%;
+    text-align: left;
+}
+.img-pedido-comercio
+{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.pedido-tag-p
+{
+    margin-bottom: 0px;
+}
+.pedido-footer
+{
+    margin: 10px;
+    text-align: center;
+}
+.pedido-botones
+{
+    text-align: center;
+    margin: 10px;
+}
+.div-referencia-pago
+{
+    color: rgb(14, 39, 165);
+    margin: 10px;
+    border-top: 1px solid grey;
+}
+.ref_btn
+{
+    text-align: center;
+    margin: 10px;
+}
+.ws-btn-pedidos
+{
+    position: absolute;
+    right: 10px;
+}
+/*Fin de pagina de pedidos*/
+
+/*Catalogo de productos*/
+.catalogo-productos
+{
+    padding-top: 20px;
+}
+.foto-producto-catalogo
+{
+    padding: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.titulo-producto
+{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.cuerpo-producto
+{
+    display: grid;
+}
+.cabecera-productos
+{
+    display: none;
+}
+/*Fin de catalogo de productos*/
+
+}
+
+
+
+/*Version Escritorio*/
+
+/******************************************************************************************************************/
+/******************************************************************************************************************/
+/*Version Movil*/
+@media screen and (max-width: 500px)
+{
+.hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../../img/arts/fondomovil_1080x1920.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: inline-flex;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.page-footer
+ { 
+    display: none;
+  height: 50px; 
+  background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+  color: rgb(14,39,165);
+  width:100%; 
+  position: fixed; 
+  bottom:0; 
+  left:0px; 
+}
+
+.water-mark
+{
+    width: 100%;
+    height: 60px;
+}
+#water-mark-img
+{
+    width: 200px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    z-index: 9;
+}
+
+/*Mi perfil*/
+.user-head
+{
+   padding-top: 50px;
+    text-align: center;
+}
+#foto_perfil
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+.container-foto-perfil
+{
+    position: relative;
+    width: 100%;
+    height: 120px;
+}
+.file-selector
+{
+  display: none;
+}
+.file-selector + label
+{
+    display: flex;
+    position: absolute;
+    margin-left: 50%;
+    bottom: 3px;
+}
+
+.fa-angle-down, .fa-angle-up
+{
+    right: 20px;
+    position: absolute;
+}
+
+.text-switch
+{
+    display: inline-block;
+    left: 20px;
+    position: absolute;
+}
+
+/*fin de mi perfil*/
+
+/*datos bancarios*/
+.mis-datos-bancarios
+{
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+.card-datos-bancarios
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: solid 5px grey;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.cabecera-datos-bancarios
+{
+    position: relative;
+    top: 40px;
+    background-color: #fce944;
+    height: 30px;
+    padding-left: 20px;
+}
+/*datos bancarios*/
+
+/*lista de direcciones guardadas*/
+.lista-de-direcciones
+{
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+.address-card
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: 1px solid grey;
+    border-radius: 10px;
+    text-align: center;
+    margin: 5px;
+}
+/*fin de direcciones guardadas*/
+
+/*Pagina de Pedidos*/
+.cabecera
+{
+    background-color: #fce944;
+    padding-bottom: 10px;
+    height: 50px;
+    margin-bottom: 5px !important;
+
+}
+.nav-link
+{
+    color: rgb(14, 39, 165);
+}
+.lista-de-pedidos
+{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+.orden-pedido
+{
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 1px;
+    margin-left: 0px !important;
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+}
+.orden-pedido-link
+{
+    width: 100%;
+    text-align: left;
+}
+.img-pedido-comercio
+{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.pedido-tag-p
+{
+    margin-bottom: 0px;
+}
+.pedido-footer
+{
+    margin: 10px;
+    text-align: center;
+}
+.pedido-botones
+{
+    text-align: center;
+    margin: 10px;
+}
+.div-referencia-pago
+{
+    color: rgb(14, 39, 165);
+    margin: 10px;
+    border-top: 1px solid grey;
+}
+.ref_btn
+{
+    text-align: center;
+    margin: 10px;
+}
+.ws-btn-pedidos
+{
+    position: absolute;
+    right: 10px;
+}
+/*Fin de pagina de pedidos*/
+
+/*Catalogo de productos*/
+.catalogo-productos
+{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.foto-producto-catalogo
+{
+    padding: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.titulo-producto
+{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.cuerpo-producto
+{
+    display: grid;
+}
+.cabecera-productos
+{
+    position: fixed;
+    top: 40px;
+    background-color: #fce944;
+    height: 30px;
+    padding-left: 20px;
+    width: 100%;
+    z-index: 1;
+}
+#div_foto_producto
+{
+    text-align: center;
+
+}
+/*Fin de catalogo de productos*/
+
+}
+
+/*Version Movil*/

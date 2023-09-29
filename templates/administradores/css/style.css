@@ -1,0 +1,432 @@
+#contenido
+{
+    padding-bottom: 60px;
+}
+/*Version Escritorio*/
+@media screen and (min-width: 500px)
+{
+    .hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../../img/arts/fondo_movil_2208X1242.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: inline-flex;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.page-footer
+ { 
+  height: 50px; 
+  background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+  color: rgb(14,39,165);
+  width:100%; 
+  position: fixed; 
+  bottom:0; 
+  left:0px; 
+}
+
+/*Mi perfil*/
+.user-head
+{
+    padding-top: 50px;
+    text-align: center;
+}
+#foto_perfil
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+.container-foto-perfil
+{
+    position: relative;
+    width: 100%;
+    height: 120px;
+}
+.file-selector
+{
+  display: none;
+}
+.file-selector + label
+{
+    display: flex;
+    position: absolute;
+    margin-left: 50%;
+    bottom: 3px;
+}
+
+.fa-angle-down, .fa-angle-up
+{
+    right: 20px;
+    position: absolute;
+}
+
+.cuerpo
+{
+    margin-left: 210px;
+}
+
+.text-switch
+{
+    display: inline-block;
+    left: 220px;
+    position: absolute;
+}
+
+/*fin de mi perfil*/
+
+/*Card de Pagina Vacía*/
+.address-card
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: 1px solid grey;
+    border-radius: 10px;
+    text-align: center;
+    margin: 5px;
+}
+/*Card de Pagina Vacía*/
+
+/*Pagina de usuarios*/
+.lista-de-usuarios
+{
+    padding-top: 50px;
+}
+.orden-pedido
+{
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 1px;
+    margin-left: 0px !important;
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+}
+.orden-pedido-link
+{
+    width: 100%;
+    text-align: left;
+}
+.img-pedido-comercio
+{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.pedido-tag-p
+{
+    margin-bottom: 0px;
+}
+.pedido-footer
+{
+    margin: 10px;
+    text-align: center;
+}
+.pedido-botones
+{
+    text-align: center;
+    margin: 10px;
+}
+.div-referencia-pago
+{
+    color: rgb(14, 39, 165);
+    margin: 10px;
+    border-top: 1px solid grey;
+}
+.ref_btn
+{
+    text-align: center;
+    margin: 10px;
+}
+.ws-btn-pedidos
+{
+    position: absolute;
+    right: 10px;
+}
+/*Fin de pagina de usuarios*/
+
+/*Pagina de Envíos*/
+.card-envios
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: solid 5px grey;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.cabecera
+{
+    position: fixed;
+    background-color: #fce944;
+    top: 0px;
+    height: 50px;
+    width: 100%;
+    padding-top: 20px;
+}
+.carousel-indicators [data-bs-target]
+{
+  background: none !important;
+  opacity: unset !important;
+  text-decoration: none;
+}
+.carousel
+{
+    padding-top: 20px;
+}
+.carousel-indicators
+{
+  justify-content: flex-start !important;
+  margin-left: 5% !important;
+  z-index: unset;
+}
+
+.headerbar-link:focus
+{
+  background: rgb(14, 39, 165) !important;
+  color: #fce944;
+  border-radius: 10% 10% 0% 0%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+/*Pagina de Envíos*/
+
+/*Pagina de administradores*/
+.lista-de-administradores
+{
+    padding-top: 40px;
+}
+/*Pagina de administradores*/
+
+}
+
+
+
+
+/*Version Escritorio*/
+
+/******************************************************************************************************************/
+/******************************************************************************************************************/
+/*Version Movil*/
+@media screen and (max-width: 500px)
+{
+.hide-content
+{
+    overflow: hidden;
+}
+body
+{
+    background-image: url('../../../img/arts/fondomovil_1080x1920.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.redes-sociales
+{
+    display: none;
+}
+
+.menu-inferior
+{
+    position: relative;
+}
+
+.page-footer
+ { 
+    display: none; 
+}
+
+
+/*Mi perfil*/
+.user-head
+{
+   padding-top: 50px;
+    text-align: center;
+}
+#foto_perfil
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+.container-foto-perfil
+{
+    position: relative;
+    width: 100%;
+    height: 120px;
+}
+.file-selector
+{
+  display: none;
+}
+.file-selector + label
+{
+    display: flex;
+    position: absolute;
+    margin-left: 50%;
+    bottom: 3px;
+}
+
+.fa-angle-down, .fa-angle-up
+{
+    right: 20px;
+    position: absolute;
+}
+
+.text-switch
+{
+    display: inline-block;
+    left: 20px;
+    position: absolute;
+}
+
+/*fin de mi perfil*/
+
+
+
+/*Card de Pagina Vacía*/
+.address-card
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: 1px solid grey;
+    border-radius: 10px;
+    text-align: center;
+    margin: 5px;
+}
+/* Card de Pagina Vacía*/
+
+
+/*Pagina de usuarios*/
+.lista-de-usuarios
+{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+.orden-pedido
+{
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 1px;
+    margin-left: 0px !important;
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+}
+.orden-pedido-link
+{
+    width: 100%;
+    text-align: left;
+}
+.img-pedido-comercio
+{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.pedido-tag-p
+{
+    margin-bottom: 0px;
+}
+.pedido-footer
+{
+    margin: 10px;
+    text-align: center;
+}
+.pedido-botones
+{
+    text-align: center;
+    margin: 10px;
+}
+.div-referencia-pago
+{
+    color: rgb(14, 39, 165);
+    margin: 10px;
+    border-top: 1px solid grey;
+}
+.ref_btn
+{
+    text-align: center;
+    margin: 10px;
+}
+.ws-btn-pedidos
+{
+    position: absolute;
+    right: 10px;
+}
+/*Fin de pagina de usuarios*/
+
+
+/*Pagina de Envíos*/
+.lista-de-envios
+{
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+.card-envios
+{
+    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    border: solid 5px grey;
+    text-align: center;
+    margin-bottom: 5px;
+}
+/*Pagina de Envíos*/
+
+/*Pagina de Comercios*/
+.lista-de-comercios
+{
+    padding-top: 50px;
+}
+/*Pagina de Comercios*/
+
+/*Pagina de Clientes*/
+.lista-de-clientes
+{
+    padding-top: 50px;
+}
+/*Pagina de Clientes*/
+
+/*Pagina de Conductores*/
+.lista-de-conductores
+{
+    padding-top: 50px;
+}
+/*Pagina de Conductores*/
+
+/*Pagina de motos*/
+.lista-de-motos
+{
+    padding-top: 50px;
+}
+/*Pagina de motos*/
+
+/*Pagina de tarifas*/
+.lista-de-tarifas
+{
+    padding-top: 50px;
+}
+/*Pagina de tarifas*/
+
+/*Pagina de administradores*/
+.lista-de-administradores
+{
+    padding-top: 40px;
+}
+/*Pagina de administradores*/
+
+}
+
+/*Version Movil*/
