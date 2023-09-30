@@ -79,7 +79,7 @@ function metodos_de_pago(nro_pedido)
 
   })
   .done(function(res)
-  { 
+  {
     $('#metodos_pago').html(res);
   })
   .fail(function()

@@ -375,6 +375,7 @@ $tablas =
   Id_cliente INT UNSIGNED NOT NULL,
   Id_producto INT UNSIGNED NOT NULL,
   Id_comercio INT UNSIGNED NOT NULL,
+  Metodo_pago INT UNSIGNED NULL DEFAULT(NULL),
   Cantidad  INT NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
@@ -382,6 +383,7 @@ $tablas =
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Metodo_pago) REFERENCES metodos_pago (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
 )',

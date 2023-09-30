@@ -86,3 +86,87 @@ function TransformDay($day)
     break;
 }
 }
+
+function TimeDifference($fecha_ini, $fecha_final)
+{
+   $inicial = date_create($fecha_ini);
+   $final = date_create($fecha_final);
+
+   $intervalo = date_diff($inicial, $final);
+   $horas = $intervalo->h;
+   $minutos = $intervalo->i;
+   $segundos = $intervalo->s;
+   $dias = $intervalo->d;
+   $meses = $intervalo->m;
+   $years = $intervalo->y;
+   
+   $respuesta = '';
+
+   if(!$minutos && !$horas && !$dias)
+   {
+     $respuesta = "Justo Ahora";
+   }
+
+   if($minutos)
+   {
+     if($minutos === 1)
+     {
+        $respuesta = "Hace $minutos Minuto";
+     }
+     else
+     {
+        $respuesta = "Hace $minutos Minutos";
+     }
+
+   }
+
+   if($horas)
+   {
+    if($horas === 1)
+    {
+        $respuesta = "Hace $horas Hora";
+    }
+    else
+    {
+        $respuesta = "Hace $horas Horas";
+    }
+   }
+
+   if($dias)
+   {
+     if($dias === 1)
+     {
+        $respuesta = "Ayer";
+     }
+     else
+     {
+         $respuesta = "Hace $dias Dias";
+     }
+   }
+
+   if($meses)
+   {
+     if($meses === 1)
+     {
+        $respuesta = "Hace $meses Mes";
+     }
+     else
+     {
+        $respuesta = "Hace $meses Meses";
+     }
+   }
+
+   if($years)
+   {
+     if($years === 1)
+     {
+         $respuesta = "Hace $years Año";
+     }
+     else
+     {
+         $respuesta = "Hace $years Años";
+     }
+   }
+
+   return $respuesta;
+}

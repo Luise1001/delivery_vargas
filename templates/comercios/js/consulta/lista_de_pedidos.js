@@ -16,7 +16,7 @@ function lista_de_pedidos()
 
   })
   .done(function(res)
-  {
+  { 
     $('#pendientes').html(res.pendientes);
     $('#completados').html(res.completados);
     $('#anulados').html(res.anulados);

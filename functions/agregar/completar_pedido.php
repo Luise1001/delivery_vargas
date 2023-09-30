@@ -46,12 +46,12 @@ function confirmar_pedido()
             $newRoute = NewRoute($nro_pedido, $salida, $destino, $paradas, $url_ruta, $tiempo, $distancia, $fecha);
         }
 
-         Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $referencia);
+         Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $referencia, $metodo_pago);
     
     }
 }
 
-function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $referencia)
+function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $referencia, $metodo_pago)
 {
     require 'conexion.php';
     $movimiento = CurrentTime();
@@ -75,6 +75,10 @@ function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $r
     $editsql = 'UPDATE estatus_pedidos SET Recibido=?, Pagado=?, Id_direccion=?, U_movimiento=? WHERE Nro_pedido=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($recibido, $pagado, $direccion, $movimiento, $nro_pedido));
+
+    $editsql = 'UPDATE pedidos SET Metodo_pago=?, U_movimiento=? WHERE Nro_pedido=?';
+    $editar_sentence = $pdo->prepare($editsql);
+    $editar_sentence->execute(array($metodo_pago, $movimiento, $nro_pedido));
 
     $key = requestKey();
     $tokens = getTokenIndividual($id_usuario_comercio, $nivel);

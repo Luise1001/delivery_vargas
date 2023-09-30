@@ -493,7 +493,8 @@ function OrderDetail($nro_pedido)
 
     $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
     INNER JOIN pedidos ON pedidos_monto.Nro_pedido = pedidos.Nro_pedido INNER JOIN productos ON pedidos.Id_producto = productos.Id
-    INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id WHERE pedidos_monto.Nro_pedido=?";
+    INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id
+    LEFT JOIN metodos_pago ON pedidos.Metodo_pago = metodos_pago.Id WHERE pedidos_monto.Nro_pedido=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($nro_pedido));
     $resultado = $preparar_sql->fetchAll();

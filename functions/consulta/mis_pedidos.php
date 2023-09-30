@@ -301,7 +301,8 @@ function BusinessOrders($id_usuario, $nivel)
   ];
 
   if($MyOrders)
-  {
+  { 
+
      foreach($MyOrders as $order)
      {
       $OrderStatus = $order['Recibido'];
@@ -319,8 +320,8 @@ function BusinessOrders($id_usuario, $nivel)
         $telefono_cliente = $clienteData[0]['Telefono'];
         $nro_pedido = $order['Nro_pedido'];
         $total = $order['Total'];
-  
         $OrderDetail = OrderDetail($nro_pedido);
+        $metodo_pago = $OrderDetail[0]['Categoria'];
   
         $perfil = SearchProfilePhoto($id_usuario_cliente, 'perfil');
         if($perfil === true)
@@ -342,6 +343,7 @@ function BusinessOrders($id_usuario, $nivel)
         $background = $estatus['background'];
         $progreso = $estatus['progreso'];
         $display_botones = $estatus['botones'];
+        $pagado = $estatus['pagado'];
   
         if($conductor)
         {
@@ -357,7 +359,7 @@ function BusinessOrders($id_usuario, $nivel)
   
           $informacion = 
           "
-          <li><h6>Información del Conductor</h6></li>
+          <li><h6>Detalles del Conductor</h6></li>
           <li><h6>Nombre:</h6> $nombre_conductor $apellido_conductor</li>
           <li><h6>Detalles del Vehículo</h6></li>
           <li><h6>Marca:</h6> $marca</li>
@@ -406,8 +408,12 @@ function BusinessOrders($id_usuario, $nivel)
              <div class='pedido-info'>
               $informacion
              </div>
+             <div class='pedido-info'>
+             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+             <li><h6>Estatus:</h6> $pagado</li>
+             </div>
              <div class='pedido-detalle'>
-             <li><h6>Detalle del Pedido</h6></li>
+             <li><h6>Contenido del Pedido</h6></li>
              ";
              
  
@@ -460,6 +466,10 @@ function BusinessOrders($id_usuario, $nivel)
              <div class='dropdown-container'>
              <div class='pedido-info'>
               $informacion
+             </div>
+             <div class='pedido-info'>
+             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+             <li><h6>Estatus:</h6> $pagado</li>
              </div>
              <div class='pedido-detalle'>
              <li><h6>Detalle del Pedido</h6></li>
@@ -554,7 +564,7 @@ function BusinessOrders($id_usuario, $nivel)
       }
 
      }
-     echo json_encode($mis_pedidos);
+    echo json_encode($mis_pedidos);
 
   }
 }
@@ -593,8 +603,13 @@ function ProcessOrderStatus($resultado)
     if($pagado)
     {
       $estatus = 'Pagado';
+      $pagado = 'Pagado';
       $botones = 0;
       $progress = 36;
+    }
+    else
+    {
+       $pagado = 'Por Pagar';
     }
     if($retirar)
     {
@@ -651,7 +666,8 @@ function ProcessOrderStatus($resultado)
       'movimiento'=> $movimiento,
       'background'=> $background,
       'botones'=> $botones,
-      'progreso'=> $progress
+      'progreso'=> $progress,
+      'pagado'=> $pagado
     ];
 
     return $estado;
