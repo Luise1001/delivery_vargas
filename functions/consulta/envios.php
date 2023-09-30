@@ -44,6 +44,19 @@ function envios_pendientes()
         $dia = DateDay($movimiento);
         $hora = DateHour($movimiento);
         $fecha = DateFormat($movimiento);
+        $orderDetail = OrderDetail($nro_pedido);
+        $orderStatus = OrderStatus($nro_pedido);
+        $metodo_pago = $orderDetail[0]['Categoria'];
+        $pago = $orderStatus[0]['Pagado'];
+
+        if($pago)
+        {
+           $pagado = 'Pagado';
+        }
+        else
+        {
+           $pagado = 'Por Pagar';
+        }
 
        
       $resp .=
@@ -58,6 +71,8 @@ function envios_pendientes()
         <ul class='list-group list-group-flush'>
         <div id='detalle_$id' class='m-0 dropdown-container'>
         <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -112,6 +127,19 @@ function envios_pendientes()
           $dia = DateDay($movimiento);
           $hora = DateHour($movimiento);
           $fecha = DateFormat($movimiento);
+          $orderDetail = OrderDetail($nro_pedido);
+          $orderStatus = OrderStatus($nro_pedido);
+          $metodo_pago = $orderDetail[0]['Categoria'];
+          $pago = $orderStatus[0]['Pagado'];
+  
+          if($pago)
+          {
+             $pagado = 'Pagado';
+          }
+          else
+          {
+             $pagado = 'Por Pagar';
+          }
           
          
         $resp .=
@@ -128,6 +156,8 @@ function envios_pendientes()
           <div id='detalle_$id' class=' m-0 dropdown-container'>
           <li class='list-group-item'><h6>Cliente:</h6> $cliente <button telefono='$telefono' class='btn ws-btn-envios'><i class='fab fa-whatsapp'></i></button>
           </li>
+          <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+          <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
           <li class='list-group-item'><h6>Salida:</h6> $salida</li>
           <li class='list-group-item'><h6>Destino:</h6> $destino</li>
           <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -194,6 +224,19 @@ function envios_asignados()
         $dia = DateDay($movimiento);
         $hora = DateHour($movimiento);
         $fecha = DateFormat($movimiento);
+        $orderDetail = OrderDetail($nro_pedido);
+        $orderStatus = OrderStatus($nro_pedido);
+        $metodo_pago = $orderDetail[0]['Categoria'];
+        $pago = $orderStatus[0]['Pagado'];
+
+        if($pago)
+        {
+           $pagado = 'Pagado';
+        }
+        else
+        {
+           $pagado = 'Por Pagar';
+        }
 
         foreach($DriverData as $driver)
         {
@@ -218,6 +261,8 @@ function envios_asignados()
 
         <div id='detalle_$id' class='m-0 dropdown-container'>
         <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -283,6 +328,19 @@ function envios_en_curso()
         $dia = DateDay($movimiento);
         $hora = DateHour($movimiento);
         $fecha = DateFormat($movimiento);
+        $orderDetail = OrderDetail($nro_pedido);
+        $orderStatus = OrderStatus($nro_pedido);
+        $metodo_pago = $orderDetail[0]['Categoria'];
+        $pago = $orderStatus[0]['Pagado'];
+
+        if($pago)
+        {
+           $pagado = 'Pagado';
+        }
+        else
+        {
+           $pagado = 'Por Pagar';
+        }
 
         foreach($DriverData as $driver)
         {
@@ -307,6 +365,8 @@ function envios_en_curso()
 
         <div id='detalle_$id' class='m-0 dropdown-container'>
         <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -363,6 +423,19 @@ function envios_en_curso()
          $dia = DateDay($movimiento);
          $hora = DateHour($movimiento);
          $fecha = DateFormat($movimiento);
+         $orderDetail = OrderDetail($nro_pedido);
+         $orderStatus = OrderStatus($nro_pedido);
+         $metodo_pago = $orderDetail[0]['Categoria'];
+         $pago = $orderStatus[0]['Pagado'];
+ 
+         if($pago)
+         {
+            $pagado = 'Pagado';
+         }
+         else
+         {
+            $pagado = 'Por Pagar';
+         }
  
          foreach($DriverData as $driver)
          {
@@ -383,6 +456,8 @@ function envios_en_curso()
          <ul class='list-group list-group-flush'>
          <div id='detalle_$id' class='m-0 dropdown-container''>
          <li class='list-group-item'><h6>Cliente:</h6> $cliente <button telefono='$telefono' class='btn ws-btn-envios'><i class='fab fa-whatsapp'></i></button></li>
+         <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+         <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
          <li class='list-group-item'><h6>Salida:</h6> $salida</li>
          <li class='list-group-item'><h6>Destino:</h6> $destino</li>
          <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -447,6 +522,19 @@ function envios_completados()
         $dia = DateDay($movimiento);
         $hora = DateHour($movimiento);
         $fecha = DateFormat($movimiento);
+        $orderDetail = OrderDetail($nro_pedido);
+        $orderStatus = OrderStatus($nro_pedido);
+        $metodo_pago = $orderDetail[0]['Categoria'];
+        $pago = $orderStatus[0]['Pagado'];
+
+        if($pago)
+        {
+           $pagado = 'Pagado';
+        }
+        else
+        {
+           $pagado = 'Por Pagar';
+        }
 
         foreach($DriverData as $driver)
         {
@@ -471,6 +559,8 @@ function envios_completados()
 
         <div id='detalle_$id' class='m-0 dropdown-container'>
         <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
@@ -524,6 +614,19 @@ function envios_completados()
          $dia = DateDay($movimiento);
          $hora = DateHour($movimiento);
          $fecha = DateFormat($movimiento);
+         $orderDetail = OrderDetail($nro_pedido);
+         $orderStatus = OrderStatus($nro_pedido);
+         $metodo_pago = $orderDetail[0]['Categoria'];
+         $pago = $orderStatus[0]['Pagado'];
+ 
+         if($pago)
+         {
+            $pagado = 'Pagado';
+         }
+         else
+         {
+            $pagado = 'Por Pagar';
+         }
  
          foreach($DriverData as $driver)
          {
@@ -544,6 +647,8 @@ function envios_completados()
          <ul class='list-group list-group-flush'> 
          <div id='detalle_$id' class='m-0 dropdown-container'>
          <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+         <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+         <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
          <li class='list-group-item'><h6>Salida:</h6> $salida</li>
          <li class='list-group-item'><h6>Destino:</h6> $destino</li>
          <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>

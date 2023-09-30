@@ -48,6 +48,7 @@ function ClientOrders($id_usuario, $nivel)
       $total = $order['Total'];
 
       $OrderDetail = OrderDetail($nro_pedido);
+      $metodo_pago = $OrderDetail[0]['Categoria'];
 
       $perfil = SearchProfilePhoto($id_usuario_comercio, 'perfil');
       if($perfil === true)
@@ -69,6 +70,7 @@ function ClientOrders($id_usuario, $nivel)
       $background = $estatus['background'];
       $progreso = $estatus['progreso'];
       $display_botones = $estatus['botones'];
+      $pagado = $estatus['pagado'];
 
       if($conductor)
       {
@@ -134,6 +136,10 @@ function ClientOrders($id_usuario, $nivel)
                <div class='pedido-info'>
                 $informacion
                </div>
+               <div class='pedido-info'>
+               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+               <li><h6>Estatus:</h6> $pagado</li>
+               </div>
                <div class='pedido-detalle'>
                <li><h6>Detalle del Pedido</h6></li>
                ";  
@@ -190,6 +196,10 @@ function ClientOrders($id_usuario, $nivel)
                <div class='pedido-info'>
                 $informacion
                </div>
+               <div class='pedido-info'>
+               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+               <li><h6>Estatus:</h6> $pagado</li>
+               </div>
                <div class='pedido-detalle'>
                <li><h6>Detalle del Pedido</h6></li>
                ";  
@@ -245,6 +255,10 @@ function ClientOrders($id_usuario, $nivel)
                <div class='dropdown-container'>
                <div class='pedido-info'>
                 $informacion
+               </div>
+               <div class='pedido-info'>
+               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+               <li><h6>Estatus:</h6> $pagado</li>
                </div>
                <div class='pedido-detalle'>
                <li><h6>Detalle del Pedido</h6></li>
@@ -525,6 +539,10 @@ function BusinessOrders($id_usuario, $nivel)
              <div class='dropdown-container'>
              <div class='pedido-info'>
               $informacion
+             </div>
+             <div class='pedido-info'>
+             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+             <li><h6>Estatus:</h6> $pagado</li>
              </div>
              <div class='pedido-detalle'>
              <li><h6>Detalle del Pedido</h6></li>
