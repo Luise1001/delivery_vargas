@@ -1,0 +1,166 @@
+SERVER
+{
+    ORGANIZAR CARPETAS EN ESTA RAMA
+    {
+       SERVER
+       {
+          FUNCTIONS
+          {
+             ADD
+             SELECT
+             EDIT
+             DELETE
+          }
+          GLOBAL_FUNCTIONS
+          {
+             ADD
+             {
+                MAKE_TABLES
+                {
+                    ADD STATIC DATA
+                }
+             }
+             SELECT
+             EDIT
+             DELETE
+          }
+          IMAGES
+          {
+             ICONS
+             FAVICON
+             PROFILE
+             {
+                JANE_DOE
+                USERS
+             }
+             ARTS
+          }
+          CONNECTION
+          REHACER SESIONES
+       }
+    }
+}
+INDEX
+{
+    INDEX.PHP
+    JS
+    CSS
+    REQUEST IMAGES TO SERVER
+}
+TEMPLATES
+{
+    PROFILES
+    {
+        GLOBAL
+        {
+            LOADER
+            FOOTER_MENU
+        }
+         USERS
+         {
+            CSS
+            JS
+            MODALS
+            TEMPLATES
+            VER METODO DE PAGO
+            VER ESTATUS DEL PAGO
+            FILTRO PARA ORDENAR CATALOGO DE PRODUCTOS
+            AGREGAR BUSCADOR
+            PUNTOS
+            {
+               PUNTOS ACUMULATIVOS PARA GASTAR DENTRO DE LA APP 
+            }
+            RECOMENDAR COMERCIOS CERCANOS
+            
+         }
+         BUSINESS
+         {
+            CSS
+            JS
+            MODALS
+            TEMPLATES
+            VER METODO DE PAGO
+            VER ESTATUS DEL PAGO
+            MARCAR PEDIDO COMO PAGADO
+            AGREGAR BUSCADOR
+            OPCIONES EN PRODUCTOS ESTILO WATAFORM
+            VARIAS FOTOS PARA EL MISMO PRODUCTO
+            DESTACAR PRODUCTO
+            {
+                BOTÓN EN PRODUCTO QUE DESPLIEGA UN MODAL DONDE PIDE UN MENSAJE PARA LA NOTIFICACIÓN
+                SE ENVÍA A TODOS LOS USUARIOS DE LA APP, EXCEPTO PERSONAL DE DELIVERY VARGAS
+   
+            }
+            PUNTOS
+            {
+               PUNTOS ACUMULATIVOS PARA GASTAR DESBLOQUEAR BENEFICIOS POR USAR LA APP
+            }
+            OPCIÓN DE COMPRAR
+
+         }
+         DRIVERS
+         {
+            CSS
+            JS
+            MODALS
+            TEMPLATES
+            VER METODO DE PAGO
+            VER ESTATUS DEL PAGO
+            NO INHABILITAR HASTA QUE ACEPTE UN PEDIDO
+            AGREGAR BUSCADOR
+            REPORTAR SI RECIBIÓ EFECTIVO (PERO NO MARCA EL PEDIDO COMO PAGADO)
+         }
+         ADMIN
+         {
+            ROLES ADMINISTRATIVOS
+            {
+
+            }
+            CSS
+            JS
+            MODALS
+            TEMPLATES
+            VER METODO DE PAGO
+            VER ESTATUS DEL PAGO
+            AGREGAR BUSCADOR
+            TARIFAS
+            {
+               VUELVE $1 POR 3KM Y $2 POR 6 KM.
+               $0,25 CADA KM ADICIONAL
+            }
+            VISITAS
+            {
+               VER CUANTOS USUARIOS VISITAN LA APP
+            }
+            IMPEDIR ELIMINAR EL ADMINISTRADOR DE LA SESIÓN
+         }
+    }
+}
+
+ESPECIALES
+{
+    - CORTAR FOTO ANTES DE SUBIRLA
+    - PAGINA DE TÉRMINOS Y CONDICIONES 
+    - DISEÑO DE PAGINA WEB (HABLA CON MAFER)
+    - MODULO CXC
+    - MODULO CXP
+}
+
+
+EL PROYECTO VA EXCELENTE, FELICIDADES.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Project: #tN(tle8ZA466Mnb3JzH
+
+Db: w*8]fD^S{zypB]}k
