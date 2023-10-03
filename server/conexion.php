@@ -25,6 +25,6 @@ $error = 0;
     echo "!Error!: " . $e ->getMessage() . "<br/>";
 
  }
- include_once 'global_functions/crear_tablas.php';
+ include_once 'global_functions/add/crear_tablas.php';
  ?>
 
