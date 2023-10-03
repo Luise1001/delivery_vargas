@@ -3,19 +3,13 @@
   "name": "Delivery Vargas",
   "icons": [
     {
-      "src": "img/arts/icons_01/logos/maskable_icon_x512.png",
+      "src": "server/images/icons/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
     },
     {
-      "src": "img/arts/icons_01/logos/maskable_icon_x384.png",
-      "type": "image/png",
-      "sizes": "384x384",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "img/arts/icons_01/logos/maskable_icon_x192.png",
+      "src": "server/images/icons/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
@@ -32,15 +26,15 @@
       "name": "Delivery Vargas",
       "short_name": "DLV",
       "description": "Rápido y Seguro.",
-      "url": "./templates/clientes/formulario_de_solicitud.php",
-      "icons": [{ "src": "img/arts/icons_01/logos/maskable_icon_x192.png", "sizes": "192x192" }]
+      "url": "./templates/inicio/inicio.php",
+      "icons": [{ "src": "server/images/icons/android-chrome-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Delivery Vargas",
       "short_name": "DLV",
       "description": "Rápido y Seguro.",
-      "url": "./templates/clientes/formulario_de_solicitud.php",
-      "icons": [{ "src": "img/arts/icons_01/logos/maskable_icon_x192.png", "sizes": "192x192" }]
+      "url": "./templates/inicio/inicio.php",
+      "icons": [{ "src": "server/images/icons/android-chrome-192x192.png", "sizes": "192x192" }]
     }
   ],
   "description": "Rápido y Seguro."

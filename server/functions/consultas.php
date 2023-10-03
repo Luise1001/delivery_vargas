@@ -1,7 +1,6 @@
 <?php
-require 'global_functions/global_functions.php';
-
-include_once 'consulta/scripts.php';
+require '../global_functions/select/scripts.php';
+include_once 'functions/select/scripts.php';
 
 $page = $_POST['page'];
 

@@ -1,0 +1,34 @@
+body
+{
+    background-image: url('../server/images/arts/arts/light_mobile.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+#card_sesion
+{
+  display: none;
+}
+#card_registrarse
+{
+    display: none;
+}
+
+.water-mark
+{
+    width: 40%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+@media screen and (min-width: 500px)
+{
+ .water-mark
+ {
+    width: 10%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+ }
+}

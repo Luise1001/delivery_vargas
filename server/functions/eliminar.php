@@ -1,6 +1,8 @@
 <?php
-require 'global_functions/global_functions.php';
-include_once 'eliminar/eliminar_funciones.php';
+require '../global_functions/select/scripts.php';
+require '../global_functions/edit/scripts.php';
+require '../global_functions/delete/scripts.php';
+include_once 'functions/delete/scripts.php';
 
 $page = $_POST['page'];
 

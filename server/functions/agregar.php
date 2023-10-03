@@ -1,6 +1,8 @@
 <?php
-require 'global_functions/global_functions.php';
-include_once 'agregar/scripts.php';
+require '../global_functions/add/scripts.php';
+require '../global_functions/edit/scripts.php';
+require '../global_functions/select/scripts.php';
+include_once 'functions/add/scripts.php';
 
 $page = $_POST['page'];
 

@@ -1,6 +1,7 @@
 <?php
-require 'global_functions/global_functions.php';
-include_once 'editar/scripts.php';
+require '../global_functions/edit/scripts.php';
+require '../global_functions/select/scripts.php';
+include_once 'functions/edit/scripts.php';
 
 $page = $_POST['page'];
 
