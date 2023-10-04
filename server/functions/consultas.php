@@ -1,16 +1,12 @@
 <?php
 require '../global_functions/select/scripts.php';
-include_once 'functions/select/scripts.php';
+include_once 'select/scripts.php';
 
 $page = $_POST['page'];
 
-if($page === 'sesion_cliente')
+if($page === 'login')
 {
-    sesion_cliente();
-}
-if($page === 'sesion_admin')
-{
-    sesion_admin();
+    login();
 }
 if($page === 'conductores')
 {

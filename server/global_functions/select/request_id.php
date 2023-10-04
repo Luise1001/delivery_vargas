@@ -2,7 +2,7 @@
 
 function UserID($correo)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Correo=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -23,7 +23,7 @@ function UserID($correo)
 
 function UserName($id)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -45,7 +45,7 @@ function UserName($id)
 
 function DriverID($cedula)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM conductores WHERE Cedula=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -67,7 +67,7 @@ function DriverID($cedula)
 
 function ClientID($cedula)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM clientes WHERE Cedula=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -88,7 +88,7 @@ function ClientID($cedula)
 
 function ComercioID($rif)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM comercios WHERE Rif=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -109,7 +109,7 @@ function ComercioID($rif)
 
 function FirebaseID($id)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM firebase_users WHERE Id_usuario=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -130,7 +130,7 @@ function FirebaseID($id)
 
 function LocationID($id_usuario)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM locations WHERE Id_usuario=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -151,7 +151,7 @@ function LocationID($id_usuario)
 
 function StaticLocationID($id_usuario)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -172,7 +172,7 @@ function StaticLocationID($id_usuario)
 
 function MonedaID($moneda)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM monedas WHERE Moneda=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -193,7 +193,7 @@ function MonedaID($moneda)
 
 function CodeID($codigo, $id_comercio)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM productos WHERE Codigo=? AND Id_comercio=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -212,7 +212,7 @@ function CodeID($codigo, $id_comercio)
 
 function LastProductAdded($id_comercio)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM productos WHERE Id_comercio=? ORDER BY Id DESC LIMIT 1";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -232,7 +232,7 @@ function LastProductAdded($id_comercio)
 
 function LastPaymentAdded($id_comercio)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $sql = "SELECT * FROM referencias_pagos WHERE Id_comercio=?  ORDER BY Id DESC LIMIT 1";
   $sql_prepare = $pdo->prepare($sql);
@@ -255,7 +255,7 @@ function LastPaymentAdded($id_comercio)
 
 function RouteID($nro_pedido)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $sql = "SELECT * FROM routes WHERE Nro_pedido=?";
   $sql_prepare = $pdo->prepare($sql);
@@ -276,7 +276,7 @@ function RouteID($nro_pedido)
 
 function DayID($dia)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $sql = "SELECT * FROM dias WHERE Dia=?";
   $sql_prepare = $pdo->prepare($sql);

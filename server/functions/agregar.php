@@ -2,10 +2,14 @@
 require '../global_functions/add/scripts.php';
 require '../global_functions/edit/scripts.php';
 require '../global_functions/select/scripts.php';
-include_once 'functions/add/scripts.php';
+include_once 'add/scripts.php';
 
 $page = $_POST['page'];
 
+if($page === 'nuevo_usuario')
+{
+    nuevo_usuario();
+}
 if($page === 'nuevo_conductor')
 {
     nuevo_conductor();
@@ -17,10 +21,6 @@ if($page === 'nueva_moto')
 if($page === 'nuevo_admin')
 {
     nuevo_admin();
-}
-if($page === 'nuevo_usuario')
-{
-    nuevo_usuario();
 }
 if($page === 'nueva_tarifa')
 {

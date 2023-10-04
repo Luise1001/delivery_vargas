@@ -139,28 +139,7 @@
 
 .modal-header, .modal-body
 {
-    background-image: url('../../img/arts/fondoblanco1242x2208.jpg');
+    background-image: url('../server/images/arts/arts/light_mobile.jpg');
     align-items: center !important;
 }
 
-/*modales swal*/
-.swal-footer
-{
-    text-align: center;
-}
-/*modales swal*/
-
-/*flecha de retroceso*/
-.back-btn
-{
-    position: absolute;
-    left: 0px;
-}
-/*flecha de retroceso*/
-
-
-
-/*Version Escritorio*/
-
-/*Version Movil*/
-/*Version Movil*/

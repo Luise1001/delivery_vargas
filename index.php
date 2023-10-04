@@ -25,6 +25,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="shortcut icon" href="server/images/icons/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tags.css">
 <link rel="stylesheet" href="css/modals.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -50,65 +51,66 @@
   <div>
     <p class="form-label">Iniciar Sesión</p>
   </div>
-  <form id="formSesion">
-  <ul class="ul-index">
-    <div class="col-md-12 card-div ">
-        <input class="input-opcion-6" type="email" id="user_name" name="user_name" placeholder="E-mail"  required>
+  <form method='POST' class='form-index'>
+    <div class="col-md-12 form-index-child">
+        <input class="input-opcion-6" type="email" id="user" name="user" placeholder="E-mail"  required>
     </div>
 
-    <div class="col-md-12 card-div ">
+    <div class="col-md-12 form-index-child">
         <input class="input-opcion-6" type="password" id="password" name="password" placeholder="Contraseña"  required>
     </div>
 
-    <div class="col-md-12 card-div">
-      <button id="installButton" hidden class="card-btn">Instalar App</button>
-    </div>
-
-    <div class="col-md-12 card-div">
+    <div class="col-md-12 form-index-child">
         <button id="log_in" name="log_in"  class="card-btn m-2"><i class="fas fa-sign-in-alt fa-2x m-2"></i></button>
     </div>
 
-    <div class="col-md-12 card-div">
+    <div class="col-md-12 form-index-child">
         <a class="sidebar-link reset-pass form-label" data-toggle="modal" data-target="#reset_password">Recuperar Contraseña</a>
     </div>
-  </ul>
+
+    <div class="col-md-12 form-index-child">
+      <button id="installButton" hidden  class="card-btn">Instalar App</button>
+    </div>
   </form>
 
-  <div class="card-body footer-card-body">
+  <div class="col-md-12 form-index-child">
     <a id="sing_up_option"  class="card-link form-label">Registrarse</a>
-    <a id="admin_option"  class="card-link form-label">Soy Administrador</a>
   </div>
 </div>
 
-<div id="card_registrarse" class="card">
-<img src="server/images/logos/deliveryvargas.png" class="card-img"  alt="logo">
+<div id="card_registrarse" class="card card-sesion">
+<img src="server/images/logos/deliveryvargas.png" class="brand-login"  alt="logo">
   <div>
     <p class="form-label">Registrarse</p>
   </div>
-<form id="FormSingUp">
-<ul class="ul-index">
-    <div class="col-md-12 card-div">
+<form class='form-index'>
+    <div class="col-md-12 form-index-child">
         <input class="input-opcion-6" type="email" id="r_user_name" name="r_user_name" placeholder="E-mail"  required>
     </div>
 
-    <div class="col-md-12 card-div">
+    <div class="col-md-12 form-index-child">
         <input class="input-opcion-6" type="password" id="r_password" name="r_password" placeholder="Contraseña"  required>
     </div>
 
-    <div class="col-md-12 card-div">
+    <div class="col-md-12 form-index-child">
         <input class="input-opcion-6" type="password" id="r_password_2" name="r_password_2" placeholder="Repetir Contraseña"  required>
-        <div id="alert" class="text-danger"></div>
     </div>
 
-    <div class="col-md-12 card-div">
-        <button type="button" id="sent_code"  data-toggle="modal" data-target="#verify_email"  class="card-btn m-2"><i class="fas fa-sign-in-alt fa-2x m-2"></i></button>
-        <p style="font-size: small;">Al Continuar Acepta Nuestros <a href="#" data-toggle="modal" data-target="#politicas">Términos y Condiciones</a></p>
-      </div>
-  </ul>
+    <div class="col-md-12 form-index-child">
+    <div id="alert" class="text-danger"></div>
+    </div>
+
+    <div class="col-md-12 form-index-child">
+        <button type="button" id="sent_code"  data-toggle="modal" data-target="#verify_email"  class="card-btn m-2">
+          <i class="fas fa-sign-in-alt fa-2x m-2"></i>
+        </button>
+    </div>
+    <div class="col-md-12 form-index-child">
+    <span class='span-option-1'>Al Continuar Acepta Nuestros <a href="#" data-toggle="modal" data-target="#politicas">Términos y Condiciones</a></span>
+    </div>
 </form>
-  <div class="card-body footer-card-body">
+  <div class="form-index-child">
     <a id="log_in_option"  class="card-link form-label">Iniciar Sesión</a>
-    <a id="admin_option"  class="card-link form-label">Soy Administrador</a>
   </div>
 </div>
 

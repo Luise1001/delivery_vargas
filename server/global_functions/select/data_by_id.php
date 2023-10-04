@@ -2,7 +2,7 @@
 
 function UserData($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -21,7 +21,7 @@ function UserData($id_usuario)
 
 function UserPassword($id_usuario, $nivel)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=? AND Nivel=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -41,7 +41,7 @@ function UserPassword($id_usuario, $nivel)
 
 function ClientData($id_cliente)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM clientes WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -60,7 +60,7 @@ function ClientData($id_cliente)
 
 function ClientExist($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM clientes WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -81,7 +81,7 @@ function ClientExist($id_usuario)
 
 function DriverData($id_conductor)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM conductores INNER JOIN motos ON motos.Id_conductor = conductores.Id WHERE conductores.Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -100,7 +100,7 @@ function DriverData($id_conductor)
 
 function DriverStatus($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM conductores  WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -120,7 +120,7 @@ function DriverStatus($id_usuario)
 
 function ComercioData($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM comercios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -139,7 +139,7 @@ function ComercioData($id_comercio)
 
 function UserEmail($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -159,7 +159,7 @@ function UserEmail($id_usuario)
 
 function StockProducts($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM inventario WHERE Id_producto=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -181,7 +181,7 @@ function StockProducts($id_producto)
 
 function StockCommerce($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM inventario WHERE Id_comercio=? AND Existencia > 0";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -201,7 +201,7 @@ function StockCommerce($id_comercio)
 
 function Rating($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM productos_favoritos WHERE Id_producto=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -224,7 +224,7 @@ function Rating($id_producto)
 
 function MyProductsCommerce($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM inventario INNER JOIN productos ON inventario.Id_producto = productos.Id
      WHERE inventario.Id_comercio=? ORDER BY Existencia DESC";
@@ -246,7 +246,7 @@ function MyProductsCommerce($id_comercio)
 
 function ShowProduct($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM productos WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -266,7 +266,7 @@ function ShowProduct($id_producto)
 
 function ProductInCar($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM carrito WHERE Id_producto=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -287,7 +287,7 @@ function ProductInCar($id_producto)
 
 function ProductName($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM productos WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -309,7 +309,7 @@ function ProductName($id_producto)
 
 function MyGlobalCar($id_cliente, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT Cantidad FROM carrito WHERE Id_cliente=? AND Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -335,7 +335,7 @@ function MyGlobalCar($id_cliente, $id_comercio)
 
 function InsideMyCar($id_cliente, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM carrito INNER JOIN productos ON carrito.Id_producto = productos.Id WHERE carrito.Id_cliente=? AND carrito.Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -356,7 +356,7 @@ function InsideMyCar($id_cliente, $id_comercio)
 
 function SubtotalCar($id_cliente, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM carrito INNER JOIN productos ON carrito.Id_producto = productos.Id WHERE carrito.Id_cliente=? AND carrito.Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -385,7 +385,7 @@ function SubtotalCar($id_cliente, $id_comercio)
 
 function IvaCar($id_cliente, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM carrito INNER JOIN productos ON carrito.Id_producto = productos.Id WHERE carrito.Id_cliente=? AND carrito.Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -415,7 +415,7 @@ function IvaCar($id_cliente, $id_comercio)
 
 function TotalCar($id_cliente, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM carrito INNER JOIN productos ON carrito.Id_producto = productos.Id WHERE carrito.Id_cliente=? AND carrito.Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -444,7 +444,7 @@ function TotalCar($id_cliente, $id_comercio)
 
 function MyOrders($id, $nivel)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $resultado = '';
 
    if(!$nivel)
@@ -489,7 +489,7 @@ function MyOrders($id, $nivel)
 
 function OrderDetail($nro_pedido)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
     INNER JOIN pedidos ON pedidos_monto.Nro_pedido = pedidos.Nro_pedido INNER JOIN productos ON pedidos.Id_producto = productos.Id
@@ -511,7 +511,7 @@ function OrderDetail($nro_pedido)
 
 function OrderClientName($nro_pedido)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM pedidos INNER JOIN clientes ON pedidos.Id_cliente = clientes.Id WHERE pedidos.Nro_pedido=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -533,7 +533,7 @@ function OrderClientName($nro_pedido)
 
 function OrderStatus($nro_pedido)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM estatus_pedidos WHERE Nro_pedido=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -555,7 +555,7 @@ function OrderStatus($nro_pedido)
 
 function MyStaticLocations($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -574,7 +574,7 @@ function MyStaticLocations($id_usuario)
 
 function MyCurrentLocation($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM locations WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -593,7 +593,7 @@ function MyCurrentLocation($id_usuario)
 
 function StaticLocationName($id_location, $id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM static_locations WHERE Id=? AND Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -629,7 +629,7 @@ function StaticLocationName($id_location, $id_usuario)
 
 function CheckPersonalData($table, $id_usuario)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM $table WHERE Id_usuario=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -648,7 +648,7 @@ function CheckPersonalData($table, $id_usuario)
 
 function BusinessByCategories($id_categoria)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM categoria_comercios INNER JOIN comercios ON categoria_comercios.Id_comercio = comercios.Id WHERE Id_categoria=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -667,7 +667,7 @@ function BusinessByCategories($id_categoria)
 
 function OptionsCategories($id_comercio)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM categoria_comercios INNER JOIN categorias ON categoria_comercios.Id_categoria = categorias.Id WHERE Id_comercio=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -686,7 +686,7 @@ function OptionsCategories($id_comercio)
 
 function ShowProducts($id_comercio)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM inventario INNER JOIN productos ON inventario.Id_producto = productos.Id 
   WHERE inventario.Id_comercio=? AND inventario.Existencia > 0";
@@ -706,7 +706,7 @@ function ShowProducts($id_comercio)
 
 function ListDelivery($asignado, $aceptado, $completado)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT envios.Id, envios.Nro_pedido, envios.Id_conductor, envios.Id_cliente, envios.Id_comercio, envios.Id_route, envios.Fecha, envios.U_movimiento,
   clientes.Nombre, clientes.Apellido, clientes.Telefono, comercios.Razon_social, routes.Salida, routes.Destino, routes.Url_ruta, routes.Tiempo, routes.Distancia
@@ -731,7 +731,7 @@ function ListDelivery($asignado, $aceptado, $completado)
 
 function ListDeliveryByDriver($asignado, $aceptado, $completado, $id_conductor)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT envios.Id, envios.Nro_pedido, envios.Id_conductor, envios.Id_cliente, envios.Id_comercio, envios.Id_route, envios.Fecha, envios.U_movimiento,
   clientes.Nombre, clientes.Apellido, clientes.Telefono, comercios.Razon_social, routes.Salida, routes.Destino, routes.Url_ruta, routes.Tiempo, routes.Distancia
@@ -756,7 +756,7 @@ function ListDeliveryByDriver($asignado, $aceptado, $completado, $id_conductor)
 
 function RouteData($id_route)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM routes WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -775,7 +775,7 @@ function RouteData($id_route)
 
 function DriverListForDelivery($estatus)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM conductores INNER JOIN motos ON motos.Id_conductor = conductores.Id 
     INNER JOIN usuarios ON conductores.Id_usuario = usuarios.Id INNER JOIN locations ON locations.Id_usuario = usuarios.Id WHERE Disponible=?";
@@ -795,7 +795,7 @@ function DriverListForDelivery($estatus)
 
 function UserList($nivel)
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
    $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY Fecha DESC";
    $preparar_sql = $pdo->prepare($consulta_sql);
@@ -814,7 +814,7 @@ function UserList($nivel)
 
 function MySchedule($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM horario INNER JOIN dias ON horario.Id_dia = dias.Id WHERE Id_comercio=? ORDER BY Id_dia ASC";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -833,7 +833,7 @@ function MySchedule($id_comercio)
 
 function UserStatus($id_usuario, $nivel)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $tabla = '';
     $estatus = '';
  
@@ -870,7 +870,7 @@ function UserStatus($id_usuario, $nivel)
 
 function ComercioDisponible($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM comercios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -890,7 +890,7 @@ function ComercioDisponible($id_comercio)
 
 function ComercioDisponiblePorFecha($id_comercio, $dia, $hora)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM horario WHERE Id_comercio=? AND Id_dia=? AND ? BETWEEN Abrir AND Cerrar";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -911,7 +911,7 @@ function ComercioDisponiblePorFecha($id_comercio, $dia, $hora)
 
 function VerifyPassword($id_usuario, $clave)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -939,7 +939,7 @@ function VerifyPassword($id_usuario, $clave)
 
 function ShowCode($correo)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM codigos_enviados WHERE correo=? ORDER BY U_movimiento DESC";
     $preparar_sql = $pdo->prepare($consulta_sql);

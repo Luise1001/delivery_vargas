@@ -2,7 +2,7 @@
 
 function nuevo_admin()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $fecha = CurrentDate();
   
   $correo = $_POST['correo'];
@@ -68,7 +68,7 @@ function nuevo_admin()
 
 function nuevo_usuario()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['user']) && isset($_POST['pass']) && isset($_POST['pass_2']) && isset($_POST['codigo']))
   {

@@ -2,7 +2,7 @@
 
 function AdminLevel($id)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);

@@ -2,7 +2,7 @@
 
 function nuevo_token_firebase()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $fecha = CurrentDate();
   $movimiento = CurrentTime();
 
@@ -36,7 +36,7 @@ function nuevo_token_firebase()
 
 function generar_codigo()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['correo']))
   {
@@ -51,7 +51,7 @@ function generar_codigo()
     $asunto = "Código de Verificación";
     $headers = "From: admin@deliveryvargaslg.com" . "\r\n" ."MIME-Version: 1.0" . "\r\n";
     $headers .="Content-type:text/html;charset=UTF-8" . "\r\n";
-    $mensaje = NewPasswordTemplate('Codigo De Verificación', $codigo);
+    $mensaje = EmailTemplate('Codigo De Verificación', $codigo);
     mail($correo, $asunto, $mensaje, $headers);
     
   }

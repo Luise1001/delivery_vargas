@@ -5,9 +5,26 @@ body
     background-size: cover;
     background-attachment: fixed;
 }
-#card_sesion
+/*index*/
+.card-sesion
 {
-  display: none;
+    background: transparent !important;
+    border: none !important;
+    width: 100%;
+    padding-top: 50%;
+    align-items: center;
+}
+.brand-login
+{
+  width: 60%;
+}
+.form-index
+{
+    display: contents;
+}
+.form-index-child
+{
+    padding: 5px;
 }
 #card_registrarse
 {
@@ -21,6 +38,37 @@ body
     bottom: 0px;
     right: 0px;
 }
+/*index*/
+
+/*modals*/
+.swal-modal
+{
+  border-radius: 10px;
+}
+.swal-icon
+{
+  display: none;
+}
+.swal-title
+{
+  font-size: 20px;
+  color: rgb(14,39,165);
+}
+.swal-text
+{
+  color: rgb(14,39,165);
+}
+.swal-footer
+{
+  text-align: center;
+}
+.swal-button
+{
+  background: none !important;
+  color: rgb(14,39,165);
+}
+/*modals*/
+
 
 @media screen and (min-width: 500px)
 {
