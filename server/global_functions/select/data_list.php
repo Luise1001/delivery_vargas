@@ -2,7 +2,7 @@
 
 function AdminList()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM usuarios WHERE Nivel BETWEEN 1 AND 2 ORDER BY Nivel ASC";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -22,7 +22,7 @@ function AdminList()
 
 function PrecioTarifa()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM tarifas WHERE KM=1";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -43,7 +43,7 @@ function PrecioTarifa()
 
 function ClientList()
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
    $consulta_sql = "SELECT * FROM clientes ORDER BY Fecha DESC";
    $preparar_sql = $pdo->prepare($consulta_sql);
@@ -62,7 +62,7 @@ function ClientList()
 
 function BusinessList()
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
    $consulta_sql = "SELECT * FROM comercios ORDER BY Fecha DESC";
    $preparar_sql = $pdo->prepare($consulta_sql);
@@ -81,7 +81,7 @@ function BusinessList()
 
 function DriverList()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM usuarios INNER JOIN conductores ON conductores.Id_usuario = usuarios.Id ORDER BY conductores.Id DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -101,7 +101,7 @@ function DriverList()
 
 function MotorcycleList()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM conductores INNER JOIN motos ON motos.Id_conductor = conductores.Id ORDER BY motos.Id DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -121,7 +121,7 @@ function MotorcycleList()
 
 function BusinessCategories()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM categorias";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -141,7 +141,7 @@ function BusinessCategories()
 
 function OrderNumber()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM pedidos ORDER BY Nro_pedido DESC LIMIT 1";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -164,7 +164,7 @@ function OrderNumber()
 
 function ListaTarifas()
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
    $consulta_sql = "SELECT * FROM tarifas";
    $preparar_sql = $pdo->prepare($consulta_sql);
@@ -184,7 +184,7 @@ function ListaTarifas()
 
 function Days()
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
    $consulta_sql = "SELECT * FROM dias ORDER BY Id ASC";
    $preparar_sql = $pdo->prepare($consulta_sql);

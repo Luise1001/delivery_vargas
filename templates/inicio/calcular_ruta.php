@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <?php include_once '../head_html.php';?>
+ <?php include_once 'head_html.php';?>
    <title>Delivery Vargas</title>
 </head>
 <body class='hide-content'>
     <?php include_once '../loader.php';?>
 <div id="contenido">
- <?php include_once '../sidebar.php';?>
+ <?php include_once 'menu.php';?>
 <div  class="container col-md-6">
   <div class="col-md-12">
 
-  <div class="container container-form">
+  <div class="container-form">
   <h4  class="form-solicitud-title"><i class="fa fa-calculator" aria-hidden="true"></i> Calculadora de Ruta</h4>
       <form class="form-calculadora">
         
@@ -50,7 +50,6 @@
 </div>
 
 <?php include_once 'scripts.php';?>
-<script src="../../js/mapas/google_map.js"></script>
-<?php include_once '../footer.php';?>
+<script src="js/google_map.js"></script>
 </body>
 </html>

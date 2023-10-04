@@ -12,18 +12,18 @@ else
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once '../head_html.php';?>
+    <?php include_once 'head_html.php';?>
     <title>Delivery Vargas</title>
 </head>
 <body class='hide-content'>
     <?php include_once '../loader.php';?>
-    <?php include_once '../sidebar.php';?>
+    <?php include_once 'menu.php';?>
 
 
-    <div class="container container-map">
+    <div class="container-map">
     <div class="index-map">
     <div class="container-fluid">
-      <form class="form-horizontal col-md-6">
+      <form class="form-horizontal">
 
         <div class="form-group col-md-12 text-center">
           <label id="label-my-location" for="from" class="form-label"> Mi Ubicación: </label>
@@ -55,7 +55,7 @@ else
 
       </form>
 
-      <div class="container container-map">
+      <div class="container-map">
         <div id="googleMap">
 
         </div>
@@ -71,7 +71,5 @@ else
 
    <?php include_once 'scripts.php';?>
 
-    <?php include_once '../footer.php';?>
-    
 </body>
 </html>

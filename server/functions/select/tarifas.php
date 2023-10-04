@@ -61,7 +61,7 @@ function lista_de_tarifas()
 
 function calcular_tarifa($distancia)
 {
-   include_once 'conexion.php';
+   include_once '../conexion.php';
    $precio = PrecioTarifa();
    $tarifa = $distancia * $precio;
 
