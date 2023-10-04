@@ -1,16 +1,16 @@
 <?php
 
-include_once 'editar_pedidos.php';
-include_once 'editar_datos_banco.php';
-include_once 'editar_tasa.php';
-include_once 'editar_envios.php';
-include_once 'editar_conductores.php';
-include_once 'editar_motos.php';
-include_once 'editar_tarifas.php';
-include_once 'editar_usuarios.php';
-include_once 'editar_clientes.php';
-include_once 'editar_comercios.php';
-include_once 'editar_productos.php';
-include_once 'editar_direcciones.php';
-include_once 'editar_horarios.php';
-include_once 'editar_switch.php';
+include_once 'bancos.php';
+include_once 'clientes.php';
+include_once 'comercios.php';
+include_once 'conductores.php';
+include_once 'direcciones.php';
+include_once 'envios.php';
+include_once 'horarios.php';
+include_once 'motos.php';
+include_once 'pedidos.php';
+include_once 'productos.php';
+include_once 'switches.php';
+include_once 'tarifas.php';
+include_once 'tasa.php';
+include_once 'usuarios.php';
