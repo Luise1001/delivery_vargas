@@ -32,7 +32,7 @@ $(document).on('click', '#modificar_producto', function()
 
 async function editar_producto()
 {
-    let page = 'editar_producto';
+    let funcion = 'editar_producto';
     let peso = $('#editar_peso').val();
     let descripcion = $('#editar_descripcion_producto').val();
     let precio_civa = $('#editar_p_civa').val();
@@ -43,7 +43,7 @@ async function editar_producto()
     var foto = $('#editar_foto_producto')[0].files[0];
 
     formData.append('file', foto);
-    formData.append('page', page);
+    formData.append('funcion', funcion);
     formData.append('id_producto', id_producto);
     formData.append('codigo', codigo);
     formData.append('descripcion', descripcion);
@@ -56,7 +56,7 @@ async function editar_producto()
   {
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        async: true,

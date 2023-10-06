@@ -24,16 +24,16 @@ $(document).on('click', '#eliminar_conductor_btn', function(data)
 
 function eliminar_conductor()
 {
-    let page = 'eliminar_conductor';
+    let funcion = 'eliminar_conductor';
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_conductor: id_conductor
        }
   

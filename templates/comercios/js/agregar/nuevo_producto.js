@@ -58,7 +58,7 @@ function CheckExento(tag)
 
 async function nuevo_producto()
 {
-    let page = 'nuevo_producto';
+    let funcion = 'nuevo_producto';
     let codigo = $('#codigo_producto').val();
     let peso = $('#peso').val();
     let descripcion = $('#descripcion_producto').val();
@@ -70,7 +70,7 @@ async function nuevo_producto()
     var foto = $('#foto_producto')[0].files[0];
 
     formData.append('file', foto);
-    formData.append('page', page);
+    formData.append('funcion', funcion);
     formData.append('codigo', codigo);
     formData.append('descripcion', descripcion);
     formData.append('peso', peso);
@@ -82,7 +82,7 @@ async function nuevo_producto()
    {
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        async: true,
@@ -111,16 +111,16 @@ async function nuevo_producto()
 function verificar_codigo()
 {
     let codigo = $('#codigo_producto').val();
-    let page = 'verificar_codigo';
+    let funcion = 'verificar_codigo';
     $.ajax
     ({
-       url: '../../functions/verificar.php',
+       url: '../../server/functions/verificar.php',
        type: 'POST',
        dataType: 'html',
        async: true,
        data: 
        {
-         page: page,
+         funcion: funcion,
          codigo: codigo
        }
   
@@ -147,17 +147,17 @@ function verificar_codigo()
 
 async function CheckPersonalData()
 {
-  let page = 'check_personal_data';
+  let funcion = 'check_personal_data';
   let tabla = 'comercios';
   const resp = 
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        tabla: tabla
     }
 

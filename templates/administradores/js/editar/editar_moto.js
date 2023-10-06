@@ -2,16 +2,16 @@ let id_moto = '';
 $(document).on('keyup', '#editar_cedula', function()
 {
    let cedula = $('#editar_cedula').val();
-   let page = 'verificar_cedula';
+   let funcion = 'verificar_cedula';
 
     $.ajax
     ({
-       url: '../../functions/verificar.php',
+       url: '../../server/functions/verificar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           cedula: cedula
        }
   
@@ -55,17 +55,17 @@ $(document).on('click', '#modificar_moto', function()
    let year =  $('#editar_year').val();
    let cedula = $('#editar_cedula').val();
 
-   let page = 'editar_moto';
+   let funcion = 'editar_moto';
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
           id_moto: id_moto,
-          page: page,
+          funcion: funcion,
           marca: marca,
           modelo: modelo,
           placa: placa,

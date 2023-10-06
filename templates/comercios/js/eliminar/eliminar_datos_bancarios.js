@@ -27,17 +27,17 @@ $(document).on('click', '.eliminar-datos-bancarios', function(data)
 })
 function eliminar_datos_bancarios(id, id_comercio, tabla)
 {
-    let page = 'eliminar_datos_bancarios';
+    let funcion = 'eliminar_datos_bancarios';
 
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id: id,
          id_comercio: id_comercio,
          tabla: tabla

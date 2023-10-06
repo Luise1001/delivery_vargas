@@ -2,16 +2,16 @@ $(document).ready(lista_de_motos());
 
 function lista_de_motos()
 {
-  page = 'lista_de_motos';
+  funcion = 'lista_de_motos';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

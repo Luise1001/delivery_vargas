@@ -2,16 +2,16 @@ $(document).ready(lista_de_usuarios());
 
 function lista_de_usuarios()
 {
-  page = 'lista_de_usuarios';
+  funcion = 'lista_de_usuarios';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
   })
   .done(function(res)

@@ -2,16 +2,16 @@ $(document).ready(lista_metodos_de_pago());
 
 function lista_metodos_de_pago()
 {
-    let page = 'metodos_de_pago';
+    let funcion = 'metodos_de_pago';
 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page
+         funcion : funcion
       }
   
     })

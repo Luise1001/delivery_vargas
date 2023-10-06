@@ -2,16 +2,16 @@ $(document).ready(perfil_setting());
 
 function perfil_setting()
 {
-    let page = 'menu_configuracion';
+    let funcion = 'menu_configuracion';
 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })

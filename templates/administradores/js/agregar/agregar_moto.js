@@ -6,7 +6,7 @@ $(document).on('keyup', '#cedula', function()
 
 $(document).on('click', '#agregar_moto', function()
 {  
-    let page = 'nueva_moto';
+    let funcion = 'nueva_moto';
     
     let marca = $('#marca').val();
     let modelo = $('#modelo').val();
@@ -16,12 +16,12 @@ $(document).on('click', '#agregar_moto', function()
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           marca: marca,
           modelo: modelo,
           placa: placa,
@@ -43,15 +43,15 @@ $(document).on('click', '#agregar_moto', function()
 
 function verificar_cedula(cedula)
 {
-   let page = 'verificar_cedula';
+   let funcion = 'verificar_cedula';
    $.ajax
    ({
-      url: '../../functions/verificar.php',
+      url: '../../server/functions/verificar.php',
       type: 'POST',
       dataType: 'html',
       data: 
       {
-         page: page,
+         funcion: funcion,
          cedula: cedula
       }
  

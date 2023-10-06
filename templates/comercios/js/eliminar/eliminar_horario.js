@@ -21,12 +21,12 @@ $(document).on('change', '.switch-time', function(data)
 
 function eliminar_horario()
 {
-    let page = 'eliminar_horario';
-    horario.append('page', page);
+    let funcion = 'eliminar_horario';
+    horario.append('funcion', funcion);
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        async: true,

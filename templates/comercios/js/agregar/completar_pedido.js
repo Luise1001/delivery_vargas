@@ -25,16 +25,16 @@ $(document).on('click', '.anular-pedido', function(data)
 
 function anular_pedido(nro_pedido)
 {
-  page = 'anular_pedido';
+  funcion = 'anular_pedido';
  
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        nro_pedido: nro_pedido
     }
 
@@ -56,17 +56,17 @@ $(document).on('click', '.retirar-pedido', function(data)
 
 function retirar_pedido(data)
 {
-    let page = 'retirar_pedido';
+    let funcion = 'retirar_pedido';
     let nro_pedido = data.currentTarget.attributes.pedido.value;
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          nro_pedido: nro_pedido
       }
   

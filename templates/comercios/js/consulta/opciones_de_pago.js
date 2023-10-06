@@ -2,15 +2,15 @@ $(document).ready(opciones_de_pago());
 
 function opciones_de_pago()
 { 
-    let page = 'opciones_de_pago';
+    let funcion = 'opciones_de_pago';
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })
@@ -32,18 +32,18 @@ $(document).on('click', '.select-pay-comer', function(e)
 
 function Selected_method(e)
 {
-   let page = 'elegir_metodo_pago';
+   let funcion = 'elegir_metodo_pago';
    let id_option = e.target.attributes.id.textContent;
    let id_metodo = e.target.attributes.name.textContent;
 
       $.ajax
       ({
-         url: '../../functions/agregar.php',
+         url: '../../server/functions/agregar.php',
          type: 'POST',
          dataType: 'html',
          data: 
          {
-            page: page,
+            funcion: funcion,
             id_metodo
          }
     

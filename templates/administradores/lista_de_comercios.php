@@ -1,5 +1,5 @@
 <?php 
-include_once '../../functions/verificar_sesion_admin.php';
+include_once 'redirect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +9,10 @@ include_once '../../functions/verificar_sesion_admin.php';
    <title>Delivery Vargas</title>
 </head>
 <body class='hide-content'>
-    <?php include_once 'loader.php';?>
+    <?php include_once '../loader.php';?>
 <div id="contenido" >
   
-<?php include_once 'sidebar.php';?>
+<?php include_once 'menu.php';?>
 
 
     <div class="lista-de-comercios cuerpo"></div>

@@ -11,7 +11,7 @@
       <form method="post"  enctype="multipart/form-data" class="row g-3">
       <div class="col-md-12">
         <div class="div-foto-producto">
-        <label class="card-img label-foto" for="foto_producto"><img id="foto" src="../../img/arts/deliveryvargaslogo.png" class="card-img foto-producto" alt="Subir Imagen"></label>
+        <label class="card-img label-foto" for="foto_producto"><img id="foto" src="../../server/images/logos/deliveryvargas.png" class="card-img foto-producto" alt="Subir Imagen"></label>
       <div>
       <input class="file-selector" accept="image/*" type='file' id="foto_producto" name="foto_producto" />
        <label for="foto_producto" class="file-selector-label"></label> 

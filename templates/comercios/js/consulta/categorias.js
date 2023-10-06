@@ -2,15 +2,15 @@ $(document).ready(mis_categorias());
 
 function mis_categorias()
 {
-    let page = 'categorias_comercios';
+    let funcion = 'categorias_comercios';
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })
@@ -32,18 +32,18 @@ $(document).on('click', '.select-cat-comer', function(e)
 
 function Selected_categories(e)
 {
-   let page = 'elegir_categoria';
+   let funcion = 'elegir_categoria';
    let id_option = e.target.attributes.id.textContent;
    let id_categoria = e.target.attributes.name.textContent;
 
       $.ajax
       ({
-         url: '../../functions/agregar.php',
+         url: '../../server/functions/agregar.php',
          type: 'POST',
          dataType: 'html',
          data: 
          {
-            page: page,
+            funcion: funcion,
             id_categoria
          }
     

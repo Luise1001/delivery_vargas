@@ -13,16 +13,16 @@ $(document).on('click', '#modificar_tarifa', function()
    let km =  $('#editar_de_km').val();
    let precio = $('#editar_precio').val();
 
-   let page = 'editar_tarifa';
+   let funcion = 'editar_tarifa';
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page: page,
+         funcion: funcion,
          id_tarifa: id_tarifa,
          km: km,
          precio: precio

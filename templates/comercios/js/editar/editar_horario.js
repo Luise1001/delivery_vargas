@@ -20,14 +20,14 @@ $(document).on('change', '.close-hour', function(data)
 
 function editar_horario()
 {
-    let page = 'editar_horario';
-    horario.append('page', page);
+    let funcion = 'editar_horario';
+    horario.append('funcion', funcion);
     let guardar_btn = document.getElementById('guardar_horario');
     guardar_btn.removeAttribute('hidden');
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        async: true,

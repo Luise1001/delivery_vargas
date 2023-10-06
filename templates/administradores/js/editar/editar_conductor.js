@@ -20,16 +20,16 @@ $(document).on('click', '#modificar_conductor', function()
    let telefono =  $('#editar_telefono').val();
    let direccion = $('#editar_direccion').val();
    let usuario = $('#editar_usuario_conductor').val();
-   let page = 'editar_conductor';
+   let funcion = 'editar_conductor';
     
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_conductor : id_conductor,
           nombre: nombre,
           apellido: apellido,

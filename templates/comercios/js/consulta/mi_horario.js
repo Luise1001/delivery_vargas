@@ -2,16 +2,16 @@ $(document).ready(mi_horario())
 
 function mi_horario()
 {
-    let page = 'mi_horario';
+    let funcion = 'mi_horario';
 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })

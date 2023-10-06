@@ -20,19 +20,19 @@ $(document).on('click', '#agregar_admin', function()
     let pass = $('#pass').val();
     let pass_2 = $('#pass_2').val();
     let nivel = $('#nivel').val();
-    let page = 'nuevo_admin';
+    let funcion = 'nuevo_admin';
 
       if(pass === pass_2)
       {
         $.ajax
         ({
-           url: '../../functions/agregar.php',
+           url: '../../server/functions/agregar.php',
            type: 'POST',
            dataType: 'json',
            async: true,
            data: 
            {
-              page: page,
+              funcion: funcion,
               correo: correo,
               pass: pass,
               pass_2: pass_2,

@@ -2,16 +2,16 @@ $(document).ready(mis_envios());
 
 function mis_envios()
 { 
-   page = 'mis_envios';
+   funcion = 'mis_envios';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })
@@ -51,16 +51,16 @@ function aceptar_envio(data)
   let ruta = data.target.attributes.ruta.value;
   let nro_pedido = data.target.attributes.pedido.value;
 
-  page = 'aceptar_envio';
+  funcion = 'aceptar_envio';
  
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        nro_pedido: nro_pedido
     }
 
@@ -85,16 +85,16 @@ function ruta_completada(data)
 {
     let nro_pedido = data.target.attributes.pedido.value;
     
-    let page = 'ruta_completada';
+    let funcion = 'ruta_completada';
  
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          nro_pedido: nro_pedido
       }
   

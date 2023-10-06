@@ -2,15 +2,15 @@ $(document).ready(mi_moto());
 
 function mi_moto()
 {
-    let page = 'mi_moto';
+    let funcion = 'mi_moto';
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })

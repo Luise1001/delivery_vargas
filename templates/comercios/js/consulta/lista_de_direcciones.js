@@ -2,16 +2,16 @@ $(document).ready(lista_de_direcciones());
 
 function lista_de_direcciones()
 { 
-   page = 'mis_direcciones';
+   funcion = 'mis_direcciones';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

@@ -2,16 +2,16 @@ $(document).ready(lista_de_tarifas());
 
 function lista_de_tarifas()
 {
-  page = 'lista_de_tarifas';
+  funcion = 'lista_de_tarifas';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

@@ -118,7 +118,7 @@ $(document).on('click', '#modificar_datos_banco', function()
 
 function editar_datos_banco()
 {
-    let page = 'editar_datos_banco';
+    let funcion = 'editar_datos_banco';
     let option = $('#position').val();
     let tipo_id = '';
     let documento = '';
@@ -129,7 +129,7 @@ function editar_datos_banco()
     let titular = '';
 
     let formData = new FormData();
-    formData.append('page', page);
+    formData.append('funcion', funcion);
     formData.append('option', option);
     formData.append('id', id);
     
@@ -173,7 +173,7 @@ function editar_datos_banco()
     { 
      $.ajax
      ({
-        url: '../../functions/editar.php',
+        url: '../../server/functions/editar.php',
         type: 'POST',
         dataType: 'html',
         async: true,

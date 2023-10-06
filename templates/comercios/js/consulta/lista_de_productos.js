@@ -2,16 +2,16 @@ $(document).ready(lista_de_productos());
 
 function lista_de_productos()
 { 
-   page = 'mis_productos';
+   funcion = 'mis_productos';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

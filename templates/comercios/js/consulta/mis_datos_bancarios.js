@@ -2,15 +2,15 @@ $(document).ready(mis_datos_bancarios());
 
 function mis_datos_bancarios()
 {
-    let page = 'mis_datos_bancarios';
+    let funcion = 'mis_datos_bancarios';
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'json',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })
@@ -28,16 +28,16 @@ function mis_datos_bancarios()
 
 async function lista_de_bancos()
 {
-   let page = 'lista_de_bancos';
+   let funcion = 'lista_de_bancos';
    const bancos = await
    $.ajax
    ({
-      url: '../../functions/consultas.php',
+      url: '../../server/functions/consultas.php',
       type: 'POST',
       dataType: 'html',
       data: 
       {
-         page: page
+         funcion: funcion
       }
  
    })

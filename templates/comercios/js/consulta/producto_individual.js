@@ -9,16 +9,16 @@ $(document).on('click', '.ver_producto', function(data)
 
 function full_descripcion(id_producto, id_usuario_comercio)
 { 
-   page = 'full_descripcion';
+   funcion = 'full_descripcion';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_producto : id_producto,
        id_usuario_comercio: id_usuario_comercio
     }

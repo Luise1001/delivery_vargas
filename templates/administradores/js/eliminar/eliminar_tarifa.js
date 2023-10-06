@@ -24,16 +24,16 @@ $(document).on('click', '#eliminar_tarifa_btn', function(data)
 
 function eliminar_tarifa()
 { 
-    let page = 'eliminar_tarifa';
+    let funcion = 'eliminar_tarifa';
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_tarifa: id_tarifa
        }
   

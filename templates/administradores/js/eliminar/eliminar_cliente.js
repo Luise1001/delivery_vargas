@@ -24,16 +24,16 @@ $(document).on('click', '#eliminar_cliente_btn', function(data)
 
 function eliminar_cliente()
 {
-    let page = 'eliminar_cliente';
+    let funcion = 'eliminar_cliente';
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_cliente: id_cliente
        }
   

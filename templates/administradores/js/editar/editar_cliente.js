@@ -32,16 +32,16 @@ function editar_cliente()
 
     if(nombre && apellido && tipo_id && cedula && telefono)
     {
-      let page = 'editar_cliente';
+      let funcion = 'editar_cliente';
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_cliente : id_cliente,
           nombre: nombre,
           apellido: apellido,

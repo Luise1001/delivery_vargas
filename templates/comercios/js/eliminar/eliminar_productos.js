@@ -27,17 +27,17 @@ $(document).on('click', '.eliminar-producto', function(data)
 })
 function eliminar_producto(id_producto, codigo, rif)
 {
-    let page = 'eliminar_producto';
+    let funcion = 'eliminar_producto';
 
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_producto: id_producto,
          codigo: codigo,
          rif: rif

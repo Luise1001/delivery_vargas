@@ -14,16 +14,16 @@ $(document).on('click', '#modificar_usuario_comercio', function()
 
 function editar_usuario_comercio(id_usuario, nivel)
 {  
-  let page = 'editar_usuario_cliente';
+  let funcion = 'editar_usuario_cliente';
 
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-        page: page,
+        funcion: funcion,
         id_usuario: id_usuario,
         nivel: nivel
      }

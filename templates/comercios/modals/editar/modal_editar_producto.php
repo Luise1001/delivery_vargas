@@ -12,7 +12,7 @@
 
       <div class="col-md-12">
         <div class="div-foto-producto">
-        <label class="card-img label-foto" for="editar_foto_producto"><img id="editar_foto" src="../../img/arts/deliveryvargaslogo.png" class="card-img foto-producto" alt="Subir Imagen"></label>
+        <label class="card-img label-foto" for="editar_foto_producto"><img id="editar_foto" src="../../server/images/logos/deliveryvargas.png" class="card-img foto-producto" alt="Subir Imagen"></label>
       <div>
       <input class="file-selector" accept="image/*" type='file' id="editar_foto_producto" name="editar_foto_producto" />
       <label for="editar_foto_producto" class="file-selector-label"></label> 

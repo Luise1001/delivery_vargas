@@ -11,7 +11,7 @@
 }
 body
 {
-    background-image: url('../../../img/arts/fondo_movil_2208X1242.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -31,7 +31,7 @@ body
 .page-footer
  { 
   height: 50px; 
-  background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+  background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
   color: rgb(14,39,165);
   width:100%; 
   position: fixed; 
@@ -98,7 +98,7 @@ body
 }
 .card-envios
 {
-    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     border: solid 5px grey;
     text-align: center;
     margin-bottom: 5px;
@@ -108,7 +108,7 @@ body
 /*card de paginas vacías*/
 .address-card
 {
-    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     border: 1px solid grey;
     border-radius: 10px;
     text-align: center;
@@ -131,7 +131,7 @@ body
 }
 body
 {
-    background-image: url('../../../img/arts/fondomovil_1080x1920.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -197,7 +197,7 @@ body
 /*card de paginas vacías*/
 .address-card
 {
-    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     border: 1px solid grey;
     border-radius: 10px;
     text-align: center;
@@ -221,7 +221,7 @@ body
 }
 .card-envios
 {
-    background-image: url('../../../img/arts/fondoblanco1242x2208.jpg');
+    background-image: url('../../../server/images/arts/arts/light_mobile.jpg');
     border: solid 5px grey;
     text-align: center;
     margin-bottom: 5px;

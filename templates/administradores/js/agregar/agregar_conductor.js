@@ -1,6 +1,6 @@
 $(document).on('click', '#agregar_conductor', function()
 {
-  let page = 'nuevo_conductor';
+  let funcion = 'nuevo_conductor';
 
   let nombre = $('#nombre').val();
   let apellido = $('#apellido').val();
@@ -12,12 +12,12 @@ $(document).on('click', '#agregar_conductor', function()
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           nombre: nombre,
           apellido: apellido,
           tipo_id: tipo_id,
@@ -47,16 +47,16 @@ $(document).on('keyup', '#usuario_conductor', function()
 
 function verificar_correo_conductor(correo)
 {
-  let page = 'verificar_correo_conductor';
+  let funcion = 'verificar_correo_conductor';
   let usuario = correo;
   $.ajax
   ({
-     url: '../../functions/verificar.php',
+     url: '../../server/functions/verificar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-        page: page,
+        funcion: funcion,
         usuario: usuario
      }
 

@@ -2,7 +2,7 @@ $(document).ready(tasa_del_dia());
 
 function tasa_del_dia()
 {
-    let page = 'tasa_del_dia';
+    let funcion = 'tasa_del_dia';
 
     $.ajax
     ({
@@ -11,7 +11,7 @@ function tasa_del_dia()
        dataType: 'html',
        data: 
        {
-         page: page
+         funcion: funcion
        }
   
     })
@@ -33,17 +33,17 @@ $(document).on('click', '#modificar_tasa', function()
 
 function editar_tasa()
 {
-    let page = 'editar_tasa';
+    let funcion = 'editar_tasa';
     let tasa = $('#edit_tasa').val();
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page: page,
+         funcion: funcion,
          tasa: tasa
        }
   

@@ -24,16 +24,16 @@ $(document).on('click', '#eliminar_moto_btn', function(data)
 
 function eliminar_moto()
 { 
-    let page = 'eliminar_moto';
+    let funcion = 'eliminar_moto';
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_moto: id_moto
        }
   

@@ -24,16 +24,16 @@ $(document).on('click', '#eliminar_admin_btn', function(data)
 
 function eliminar_admin()
 {
-    let page = 'eliminar_admin';
+    let funcion = 'eliminar_admin';
 
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           id_admin: id_admin
        }
   

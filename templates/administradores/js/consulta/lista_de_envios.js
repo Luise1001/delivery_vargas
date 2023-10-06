@@ -2,16 +2,16 @@ $(document).ready(lista_de_envios());
 
 function lista_de_envios()
 { 
-   page = 'mis_envios';
+   funcion = 'mis_envios';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

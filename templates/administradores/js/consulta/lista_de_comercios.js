@@ -2,16 +2,16 @@ $(document).ready(lista_de_comercios());
 
 function lista_de_comercios()
 {
-  page = 'lista_de_comercios';
+  funcion = 'lista_de_comercios';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

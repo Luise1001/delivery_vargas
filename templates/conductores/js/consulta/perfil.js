@@ -2,16 +2,16 @@ $(document).ready(mi_perfil());
 
 function mi_perfil()
 {
-   let page = 'mi_perfil';
+   let funcion = 'mi_perfil';
 
    $.ajax
    ({
-      url: '../../functions/consultas.php',
+      url: '../../server/functions/consultas.php',
       type: 'POST',
       dataType: 'json',
       data: 
       {
-         page: page
+         funcion: funcion
       }
  
    })
@@ -31,16 +31,16 @@ $(document).ready(mi_switch());
 
 function mi_switch()
 {
-   let page = 'mi_switch';
+   let funcion = 'mi_switch';
 
    $.ajax
    ({
-      url: '../../functions/consultas.php',
+      url: '../../server/functions/consultas.php',
       type: 'POST',
       dataType: 'html',
       data: 
       {
-         page: page
+         funcion: funcion
       }
  
    })

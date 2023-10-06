@@ -30,12 +30,12 @@ $(document).on('change', '.switch-time', function(data)
 
 function nuevo_horario()
 {
-    let page = 'nuevo_horario';
-    horario.append('page', page);
+    let funcion = 'nuevo_horario';
+    horario.append('funcion', funcion);
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        async: true,

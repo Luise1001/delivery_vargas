@@ -15,16 +15,16 @@ $(document).on('click', '#asignar', function()
 
 function conductores_disponibles(pedido)
 {
-   page = 'conductores_disponibles';
+   funcion = 'conductores_disponibles';
  
    $.ajax
    ({
-      url: '../../functions/consultas.php',
+      url: '../../server/functions/consultas.php',
       type: 'POST',
       dataType: 'html',
       data: 
       {
-        page : page,
+        funcion : funcion,
         pedido: pedido
      }
  
@@ -42,16 +42,16 @@ function conductores_disponibles(pedido)
 function asignar_conductor(pedido)
 {
    let id_conductor = $('#list_conductores').val();
-   let page = 'elegir_conductor';
+   let funcion = 'elegir_conductor';
    
    $.ajax
    ({
-      url: '../../functions/editar.php',
+      url: '../../server/functions/editar.php',
       type: 'POST',
       dataType: 'html',
       data: 
       {
-         page: page,
+         funcion: funcion,
         id_conductor: id_conductor,
         pedido: pedido
      }

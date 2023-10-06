@@ -19,18 +19,18 @@ function editar_usuario()
 {
     let user_name = $('#edit_user_name').val();
 
-    page = 'editar_nombre_usuario';
+    funcion = 'editar_nombre_usuario';
  
    if(user_name)
    {
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          user_name: user_name,
          id_usuario : id_usuario
       }
@@ -75,7 +75,7 @@ $(document).on('click', '#modificar_comercio', function()
     let rif = $('#editar_rif_comercio').val();
     let telefono = $('#editar_telefono_comercio').val();
 
-    let page = 'editar_comercio';
+    let funcion = 'editar_comercio';
 
     if(razon_social && tipo_id && rif && telefono)
     {
@@ -86,7 +86,7 @@ $(document).on('click', '#modificar_comercio', function()
          dataType: 'html',
          data: 
          {
-           page : page,
+           funcion : funcion,
            id_cliente: id_cliente,
            razon_social: razon_social,
            tipo_id: tipo_id,
@@ -122,17 +122,17 @@ $(document).on('change', '#input_fp', function()
 
 function editar_foto()
 {
-  let page = 'editar_foto_perfil';
+  let funcion = 'editar_foto_perfil';
   var formData = new FormData();
   var foto = $('#input_fp')[0].files[0];
   let confirmar = false;
 
   formData.append('file', foto);
-  formData.append('page', page);
+  formData.append('funcion', funcion);
 
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      async: true,

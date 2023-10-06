@@ -59,7 +59,7 @@ $(document).on('click', '#agregar_datos_banco', function()
 function nuevos_datos_banco()
 {
     let formData = new FormData();
-    let page = 'nuevos_datos_bancarios';
+    let funcion = 'nuevos_datos_bancarios';
     let banco = '';
     let letra = '';
     let rif = '';
@@ -68,7 +68,7 @@ function nuevos_datos_banco()
     let correo = '';
     let titular = '';
 
-    formData.append('page', page);
+    formData.append('funcion', funcion);
 
    if(selected == 1)
    { 
@@ -110,7 +110,7 @@ function nuevos_datos_banco()
    {
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        async: true,
@@ -154,16 +154,16 @@ $(document).on('keyup', '#correo_zelle', async function()
 
 async function AlertZelle(email)
 {
-    let page = 'valida_email';
+    let funcion = 'valida_email';
    const resp = 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page: page,
+         funcion: funcion,
          email: email
        }
   

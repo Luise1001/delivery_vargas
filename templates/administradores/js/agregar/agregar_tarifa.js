@@ -1,18 +1,18 @@
 $(document).on('click', '#agregar_tarifa', function()
 {
-    let page = 'nueva_tarifa';
+    let funcion = 'nueva_tarifa';
     
     let km = $('#de_km').val();
     let precio = $('#precio').val();
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           km: km,
           precio: precio
        }

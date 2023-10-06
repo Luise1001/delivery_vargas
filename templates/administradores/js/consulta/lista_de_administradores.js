@@ -2,16 +2,16 @@ $(document).ready(lista_de_administradores());
 
 function lista_de_administradores()
 {
-  page = 'administradores';
+  funcion = 'administradores';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

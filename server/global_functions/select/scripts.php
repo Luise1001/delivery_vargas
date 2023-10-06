@@ -9,3 +9,4 @@ include_once 'data_list.php';
 include_once 'date.php';
 include_once 'identifications.php';
 include_once 'request_id.php';
+include_once 'verify.php';

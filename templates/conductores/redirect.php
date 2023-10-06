@@ -1,8 +1,8 @@
 <?php 
 session_start();
-if(isset($_SESSION['admin']))
+if(isset($_SESSION['DLV']))
 {
-  $usuario = $_SESSION['admin'];
+  $usuario = $_SESSION['DLV']['admin'];
 }
 else
 {

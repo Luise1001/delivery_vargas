@@ -1,5 +1,4 @@
 <?php
-require 'global_functions/global_functions.php';
 
 function verificar_cedula()
 {
