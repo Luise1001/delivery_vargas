@@ -1,5 +1,5 @@
 <?php 
- include_once 'verificar_sesion.php';
+ include_once 'redirect.php';
 
  if($_GET)
  {
@@ -14,10 +14,10 @@
     <title>Delivery Vargas</title>
 </head>
 <body class='hide-content'>
-    <?php include_once 'loader.php';?>
+    <?php include_once '../loader.php';?>
     
    <div id="contenido">
-   <?php include_once 'sidebar.php';?>
+   <?php include_once 'menu.php';?>
 
    <input type="hidden" id="categoria" value="<?php echo $categoria;?>">
    <input type="hidden" id="comercio" value="<?php echo $comercio;?>">
@@ -35,8 +35,6 @@
   <script src="js/consulta/catalogo_productos.js"></script>
 
   <?php include_once 'scripts.php';?>
-  
-  <?php include_once 'footer.php';?>
     
 </body>
 </html>

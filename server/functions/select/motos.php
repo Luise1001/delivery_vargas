@@ -2,7 +2,7 @@
 
 function lista_de_motos()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     $lista_de_motos = MotorcycleList();
     $boton = 
@@ -53,12 +53,12 @@ function lista_de_motos()
             $perfil = SearchProfilePhoto($user_driver_id, 'perfil');
             if($perfil === true)
             {
-              $foto = "../../img/profile/users/$user_driver_id/photo/perfil.jpg";
+              $foto = "../../server/images/profile/users/$user_driver_id/photo/perfil.jpg";
             }
             else
             {
               ProfilePhoto($foto);
-              $foto = "../../img/profile/letters/$foto.jpg";
+              $foto = "../../server/images/profile/letters/$foto.jpg";
             }
             
             $resp['motos'] .=
@@ -115,8 +115,9 @@ function lista_de_motos()
 
 function mi_moto()
 {
-    require 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    require '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $cedula = DriverCedula($id_usuario);
     $id_conductor = DriverID($cedula);
     $resultado = '';

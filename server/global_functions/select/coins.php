@@ -2,7 +2,7 @@
 
 function Alicuota($id_moneda)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT * FROM monedas WHERE Id=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -23,7 +23,7 @@ function Alicuota($id_moneda)
 
 function TasaDD()
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
 
   $consulta_sql = "SELECT * FROM tasas  ORDER BY U_movimiento DESC LIMIT 1";

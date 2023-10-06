@@ -2,7 +2,7 @@
 
 function lista_de_administradores()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $boton = 
   '
     <a class="nav-link" data-toggle="modal" data-target="#nuevo_admin" title="Nuevo Administrador">
@@ -21,7 +21,7 @@ function lista_de_administradores()
 
 function AdminUsers()
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $lista_de_administradores = AdminList();
     $resp = '';
 
@@ -44,12 +44,12 @@ function AdminUsers()
             $perfil = SearchProfilePhoto($id, 'perfil');
             if($perfil === true)
             {
-              $foto = "../../img/profile/users/$id/photo/perfil.jpg'";
+              $foto = "../../server/images/profile/users/$id/photo/perfil.jpg'";
             }
             else
             {
               ProfilePhoto($foto);
-              $foto = "../../img/profile/letters/$foto.jpg'";
+              $foto = "../../server/images/profile/letters/$foto.jpg'";
             }
 
             $resp .= 
@@ -108,7 +108,7 @@ function AdminUsers()
 
 function DriverUsers()
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $lista_de_administradores = AdminList();
     $resp = '';
 
@@ -131,12 +131,12 @@ function DriverUsers()
             $perfil = SearchProfilePhoto($id, 'perfil');
             if($perfil === true)
             {
-              $foto = "../../img/profile/users/$id/photo/perfil.jpg'";
+              $foto = "../../server/images/profile/users/$id/photo/perfil.jpg'";
             }
             else
             {
               ProfilePhoto($foto);
-              $foto = "../../img/profile/letters/$foto.jpg'";
+              $foto = "../../server/images/profile/letters/$foto.jpg'";
             }
 
             $resp .= 
@@ -195,8 +195,9 @@ function DriverUsers()
 
 function lista_de_usuarios()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $nivel = AdminLevel($id_usuario);
   $mis_usuarios = 
   [
@@ -222,7 +223,7 @@ function lista_de_usuarios()
 
 function usuarios_clientes()
 {
-  require 'conexion.php';
+  require '../conexion.php';
   $resp = '';
   $lista_de_usuarios = UserList(0);
 
@@ -240,13 +241,13 @@ function usuarios_clientes()
   
         if($perfil === true)
         {
-          $foto = "../../img/profile/users/$id_usuario/photo/perfil.jpg";
+          $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
         }
         else
         {
           $letra = substr($user_name, 0,1);
   
-          $foto = "../../img/profile/letters/$letra.jpg";
+          $foto = "../../server/images/profile/letters/$letra.jpg";
         }
         
         $resp .=
@@ -302,7 +303,7 @@ function usuarios_clientes()
 
 function usuarios_comercios()
 {
-  require 'conexion.php';
+  require '../conexion.php';
   $resp = '';
   $lista_de_usuarios = UserList(3);
 
@@ -320,13 +321,13 @@ function usuarios_comercios()
   
         if($perfil === true)
         {
-          $foto = "../../img/profile/users/$id_usuario/photo/perfil.jpg";
+          $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
         }
         else
         {
           $letra = substr($user_name, 0,1);
   
-          $foto = "../../img/profile/letters/$letra.jpg";
+          $foto = "../../server/images/profile/letters/$letra.jpg";
         }
         
         $resp .=

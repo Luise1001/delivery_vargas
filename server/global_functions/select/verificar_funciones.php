@@ -3,7 +3,7 @@ require 'global_functions/global_functions.php';
 
 function verificar_cedula()
 {
-     include_once 'conexion.php';
+     include_once '../conexion.php';
 
      $cedula = DriverID($_POST['cedula']);
 
@@ -19,7 +19,7 @@ function verificar_cedula()
 
 function verificar_correo_conductor()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     $id_usuario = UserID($_POST['usuario']);
     $nivel = AdminLevel($id_usuario);
@@ -46,7 +46,7 @@ function verificar_correo_conductor()
 
 function verificar_codigo()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     $id_usuario = UserID($_SESSION['admin']);
     $rif_comercio = ComercioRif($id_usuario);

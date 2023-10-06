@@ -2,7 +2,7 @@
 
 function nuevo_pedido()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['id_cliente']) && isset($_POST['id_comercio']))
     {

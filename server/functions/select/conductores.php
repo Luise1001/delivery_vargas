@@ -2,7 +2,7 @@
 
 function lista_de_conductores()
 {  
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     $lista_de_conductores = DriverList();
     $boton = 
     '
@@ -53,12 +53,12 @@ function lista_de_conductores()
           $perfil = SearchProfilePhoto($user_id, 'perfil');
           if($perfil === true)
           {
-            $foto = "../../img/profile/users/$user_id/photo/perfil.jpg";
+            $foto = "../../server/images/profile/users/$user_id/photo/perfil.jpg";
           }
           else
           {
             ProfilePhoto($foto);
-            $foto = "../../img/profile/letters/$foto.jpg";
+            $foto = "../../server/images/profile/letters/$foto.jpg";
           }
   
           $resp['conductores'] .=
@@ -121,7 +121,7 @@ function lista_de_conductores()
 
 function conductores_disponibles()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   
   if(isset($_POST['pedido']))
   {

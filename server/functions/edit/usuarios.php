@@ -2,7 +2,7 @@
 
 function editar_admin()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_admin']) && isset($_POST['user_name']) && isset($_POST['correo']) && isset($_POST['nivel']))
     {
         $id = $_POST['id_admin'];
@@ -29,7 +29,7 @@ function editar_admin()
 
 function editar_usuario_cliente()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_usuario']))
     {
       $id_usuario = $_POST['id_usuario'];
@@ -44,7 +44,7 @@ function editar_usuario_cliente()
 
 function editar_nombre_usuario()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_usuario']) && isset($_POST['user_name']))
     {
       $id_usuario = $_POST['id_usuario'];
@@ -61,8 +61,9 @@ function editar_nombre_usuario()
 
 function editar_foto_perfil()
 {
-  include_once 'conexion.php';
-  $correo = $_SESSION['admin'];
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $correo = $admin;
   $id_usuario = UserID($correo);
   $movimiento = CurrentTime();
   $foto = 'perfil';
@@ -77,7 +78,7 @@ function editar_foto_perfil()
 
 function reset_password()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['correo']))
   {
@@ -147,9 +148,10 @@ function reset_password()
 
 function cambiar_mi_clave()
 {
-   include_once 'conexion.php';
-   $id_usuario = UserID($_SESSION['admin']);
-   $correo = $_SESSION['admin'];
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
+   $correo = $admin;
    $resp = 
    [
       'titulo' => 'warning',
@@ -214,7 +216,7 @@ function cambiar_mi_clave()
 
 function Cambiar_clave($id_usuario, $clave)
 {
-  require 'conexion.php';
+  require '../conexion.php';
   $movimiento = CurrentTime();
   $nueva_clave = password_hash($clave, PASSWORD_DEFAULT);
 

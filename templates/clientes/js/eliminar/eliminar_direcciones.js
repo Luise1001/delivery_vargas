@@ -24,15 +24,15 @@ $(document).on('click', '.eliminar-direccion', function(data)
 
 function eliminar_direccion(id_direccion)
 {
-    let page = 'eliminar_direccion';
+    let funcion = 'eliminar_direccion';
     $.ajax
     ({
-       url: '../../functions/eliminar.php',
+       url: '../../server/functions/eliminar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_direccion: id_direccion
       }
   

@@ -2,7 +2,7 @@
 
 function tasa_del_dia()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
    $tasa = TasaDD();
 
@@ -18,13 +18,14 @@ function tasa_del_dia()
 
 function editar_tasa()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['tasa']))
   {
     $tasa = $_POST['tasa'];
     $fecha = CurrentDate();
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
 
     $insert_sql = 'INSERT INTO tasas (Tasa, Administrador, Fecha) VALUES (?,?,?)';
     $sent = $pdo->prepare($insert_sql);

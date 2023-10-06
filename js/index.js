@@ -24,7 +24,7 @@ function login(e)
 
     let usuario = $('#user').val();
     let password = $('#password').val();
-    let page = 'login';
+    let funcion = 'login';
 
     $.ajax
     ({
@@ -34,7 +34,7 @@ function login(e)
        async: false,
        data: 
        {
-          page: page,
+          funcion: funcion,
           usuario: usuario,
           password: password
        }
@@ -76,7 +76,7 @@ function nuevo_usuario()
     let pass = $('#r_password').val();
     let pass_2 = $('#r_password_2').val();
     let codigo = $('#correo_code').val();
-    let page = 'nuevo_usuario';
+    let funcion = 'nuevo_usuario';
 
     $.ajax
     ({
@@ -86,7 +86,7 @@ function nuevo_usuario()
        async: false,
        data: 
        {
-          page: page,
+          funcion: funcion,
           user: user,
           pass: pass,
           pass_2: pass_2,
@@ -141,7 +141,7 @@ $(document).on('click', '#sent_code', function()
 function enviar_codigo()
 {
     let correo = $('#r_user_name').val();
-    let page = 'generar_codigo';
+    let funcion = 'generar_codigo';
 
     $.ajax
     ({
@@ -151,7 +151,7 @@ function enviar_codigo()
        async: false,
        data: 
        {
-          page: page,
+          funcion: funcion,
           correo: correo
        }
   
@@ -169,7 +169,7 @@ function enviar_codigo()
 $(document).on('click', '#reset_pass', function()
 {
     let correo = $('#correo_name').val();
-    let page = 'reset_password';
+    let funcion = 'reset_password';
     
     $.ajax
     ({
@@ -179,7 +179,7 @@ $(document).on('click', '#reset_pass', function()
        async: false,
        data: 
        {
-          page: page,
+          funcion: funcion,
           correo: correo
        }
   

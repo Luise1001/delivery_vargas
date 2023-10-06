@@ -2,11 +2,12 @@
 
 function elegir_conductor()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['id_conductor']) && isset($_POST['pedido']))
     {
-        $id_admin = UserID($_SESSION['admin']);
+        $admin = $_SESSION['DLV']['admin'];
+        $id_admin = UserID($admin);
         $id_conductor = $_POST['id_conductor'];
         $nro_pedido = $_POST['pedido'];
         $DriverData = DriverData($id_conductor);
@@ -39,7 +40,7 @@ function elegir_conductor()
 
 function aceptar_envio()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['nro_pedido']))
     {
     $nro_pedido = $_POST['nro_pedido'];
@@ -57,11 +58,12 @@ function aceptar_envio()
 
 function ruta_completada()
 {
-   include_once 'conexion.php';
+   include_once '../conexion.php';
    if(isset($_POST['nro_pedido']))
    {
     $nro_pedido = $_POST['nro_pedido'];
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $cedula = DriverCedula($id_usuario);
     $id_conductor = DriverID($cedula);
     $movimiento = CurrentTime();

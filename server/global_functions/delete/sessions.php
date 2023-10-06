@@ -7,10 +7,12 @@ function close()
   if(isset($_SESSION['DLV']))
   {
     unset($_SESSION['DLV']);
-
-    echo"<script type='text/javascript'>
-    window.location.href='../../index';
-    </script>";
+     
+    return true;
+  }
+  else
+  {
+    return false;
   }
 }
  

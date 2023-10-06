@@ -2,9 +2,10 @@
 
 function nuevo_producto()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
-  $id_usuario = UserID($_SESSION['admin']);
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $rif_comercio = ComercioRif($id_usuario);
   $id_comercio = ComercioID($rif_comercio);
   $fecha = CurrentDate();
@@ -58,7 +59,7 @@ function nuevo_producto()
 
 function addStock($id_comercio, $id_producto, $cantidad)
 {
-  require 'conexion.php';
+  require '../conexion.php';
   $fecha = CurrentDate();
 
   $insert_sql = 'INSERT INTO inventario (Id_comercio, Id_producto, Existencia, Fecha) VALUES (?,?,?,?)';

@@ -1,143 +1,156 @@
 <?php
+require '../global_functions/add/scripts.php';
+require '../global_functions/edit/scripts.php';
 require '../global_functions/select/scripts.php';
 include_once 'select/scripts.php';
 
-$page = $_POST['page'];
+$funcion = $_POST['funcion'];
 
-if($page === 'login')
+if($funcion === 'login')
 {
     login();
 }
-if($page === 'conductores')
+if($funcion === 'menu')
+{
+     menu();
+}
+
+
+
+
+
+
+if($funcion === 'conductores')
 {
     lista_de_conductores();
 }
-if($page === 'lista_de_motos')
+if($funcion === 'lista_de_motos')
 {
     lista_de_motos();
 }
-if($page === 'administradores')
+if($funcion === 'administradores')
 {
     lista_de_administradores();
 }
-if($page === 'metodos_de_pago')
+if($funcion === 'metodos_de_pago')
 {
     metodos_de_pago();
 }
-if($page === 'opciones_de_pago')
+if($funcion === 'opciones_de_pago')
 {
     opciones_de_pago();
 }
-if($page === 'mis_datos_bancarios')
+if($funcion === 'mis_datos_bancarios')
 {
     mis_datos_bancarios();
 }
-if($page === 'lista_de_bancos')
+if($funcion === 'lista_de_bancos')
 {
     lista_de_bancos();
 }
-if($page === 'mis_envios')
+if($funcion === 'mis_envios')
 {
     mis_envios();
 }
-if($page === 'conductores_disponibles')
+if($funcion === 'conductores_disponibles')
 {
     conductores_disponibles();
 }
-if($page === 'lista_de_tarifas')
+if($funcion === 'lista_de_tarifas')
 {
     lista_de_tarifas();
 }
-if($page === 'calcular_tarifa')
+if($funcion === 'calcular_tarifa')
 {
     $distancia = $_POST['distancia'];
     calcular_tarifa($distancia);
 }
-if($page === 'lista_de_clientes')
+if($funcion === 'lista_de_clientes')
 {
     lista_de_clientes();
 }
-if($page === 'lista_de_usuarios')
+if($funcion === 'lista_de_usuarios')
 {
     lista_de_usuarios();
 }
-if($page === 'conductores_cercanos')
+if($funcion === 'conductores_cercanos')
 {
     conductores_cercanos();
 }
-if($page === 'lista_de_usuarios_comercios')
+if($funcion === 'lista_de_usuarios_comercios')
 {
     lista_de_usuarios_comercios();
 }
-if($page === 'datos_bancarios')
+if($funcion === 'datos_bancarios')
 {
     datos_bancarios();
 }
-if($page === "categorias_comercios")
+if($funcion === "categorias_comercios")
 {
     categorias_comercios();
 }
-if($page === 'admin_level')
+if($funcion === 'admin_level')
 {
    include_once 'conexion.php';
 
-   $id_usuario = UserID($_SESSION['admin']);
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
    $nivel = AdminLevel($id_usuario);
    echo $nivel;
 }
-if($page === 'lista_de_comercios')
+if($funcion === 'lista_de_comercios')
 {
     lista_de_comercios();
 }
-if($page === 'mis_direcciones')
+if($funcion === 'mis_direcciones')
 {  
     mis_direcciones();
 }
-if($page === 'direccion_envio')
+if($funcion === 'direccion_envio')
 {
     direccion_envio();
 }
-if($page === 'direccion_salida')
+if($funcion === 'direccion_salida')
 {
     direccion_salida();
 }
-if($page === 'nombre_direccion')
+if($funcion === 'nombre_direccion')
 {
     nombre_direccion();
 }
-if($page === 'mis_productos')
+if($funcion === 'mis_productos')
 {
     mis_productos();
 }
-if($page === 'mi_perfil')
+if($funcion === 'mi_perfil')
 {
     mi_perfil();
 }
-if($page === 'full_descripcion')
+if($funcion === 'full_descripcion')
 {
     full_descripcion();
 }
-if($page === 'comercios_by_categoria')
+if($funcion === 'comercios_by_categoria')
 {
     comercios_by_categoria();
 }
-if($page === 'catalogo_productos')
+if($funcion === 'catalogo_productos')
 {
     catalogo_productos();
 }
-if($page === 'cantidad_productos_carrito')
+if($funcion === 'cantidad_productos_carrito')
 {
     cantidad_productos_carrito();
 }
-if($page === 'ver_mi_carrito')
+if($funcion === 'ver_mi_carrito')
 {
    ver_mi_carrito();
 }
-if($page === 'mis_pedidos')
+if($funcion === 'mis_pedidos')
 {
     mis_pedidos();
 }
-if($page === 'valida_email')
+if($funcion === 'valida_email')
 {
     if(isset($_POST['email']))
     {
@@ -146,35 +159,35 @@ if($page === 'valida_email')
        echo $result;
     }
 }
-if($page === 'check_personal_data')
+if($funcion === 'check_personal_data')
 {
    check_personal_data();
 }
-if($page === 'datos_pago_pedido')
+if($funcion === 'datos_pago_pedido')
 {
     datos_pago_pedido();
 }
-if($page === 'consultar_datos')
+if($funcion === 'consultar_datos')
 {
   consultar_datos();
 }
-if($page === 'mi_moto')
+if($funcion === 'mi_moto')
 {
     mi_moto();
 }
-if($page === 'mi_horario')
+if($funcion === 'mi_horario')
 {
     mi_horario();
 }
-if($page === 'ChequearHorario')
+if($funcion === 'ChequearHorario')
 {
    ChequearHorario();
 }
-if($page === 'menu_configuracion')
+if($funcion === 'menu_configuracion')
 {
     menu_configuracion();
 }
-if($page === 'mi_switch')
+if($funcion === 'mi_switch')
 {
     mi_switch();
 }

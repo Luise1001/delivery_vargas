@@ -1,6 +1,7 @@
 <?php
 
 include_once 'login.php';
+include_once 'menu.php';
 include_once 'categorias.php';
 include_once 'catalogo_productos.php';
 include_once 'carrito.php';

@@ -2,7 +2,7 @@
 
 function editar_moto()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_moto']) && isset($_POST['marca']) && isset($_POST['modelo']) && isset($_POST['placa']) && isset($_POST['year']) && isset($_POST['cedula']))
     {
         $id_moto = $_POST['id_moto'];

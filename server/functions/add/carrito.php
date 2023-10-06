@@ -2,11 +2,12 @@
 
 function agregar_al_carrito()
 {
-    require 'conexion.php';
+    require '../conexion.php';
     
     $fecha = CurrentDate();
     $movimiento = CurrentTime();
-    $correo_cliente = $_SESSION['admin'];
+    $admin = $_SESSION['DLV']['admin'];
+    $correo_cliente = $admin;
     $id_usuario_cliente = UserID($correo_cliente);
     $cedula = ClientCedula($id_usuario_cliente);
 

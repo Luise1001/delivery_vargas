@@ -31,16 +31,16 @@ $(document).on('click', '.anular-pedido', function(data)
 
 function anular_pedido(nro_pedido)
 {
-  page = 'anular_pedido';
+  funcion = 'anular_pedido';
  
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        nro_pedido: nro_pedido
     }
 
@@ -65,15 +65,15 @@ $(document).on('click', '.pagar-pedido', function(data)
 
 function metodos_de_pago(nro_pedido)
 {
-  let page = 'metodos_de_pago';
+  let funcion = 'metodos_de_pago';
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        nro_pedido: nro_pedido
     }
 
@@ -96,16 +96,16 @@ $(document).on('change', '#metodos_pago', function()
 
 function datos_pago_pedido(opcion, nro_pedido)
 {
-  let page = 'datos_pago_pedido';
+  let funcion = 'datos_pago_pedido';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        opcion: opcion,
        nro_pedido: nro_pedido
     }
@@ -123,16 +123,16 @@ function datos_pago_pedido(opcion, nro_pedido)
 
 function direccion_salida(id_comercio)
 {
-  let page = 'direccion_salida';
+  let funcion = 'direccion_salida';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_comercio: id_comercio
     }
 
@@ -160,16 +160,16 @@ $(document).ready(direccion_envio());
 
 function direccion_envio()
 {
-  let page = 'direccion_envio';
+  let funcion = 'direccion_envio';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })
@@ -191,7 +191,7 @@ $(document).on('click', '#enviar_pedido', function()
 
 async function verificar_datos_pedido()
 {
-    let page = 'confirmar_pedido';
+    let funcion = 'confirmar_pedido';
     let metodo_pago = $('#metodos_pago').val();
     let referencia = $('#referencia_pago').val();
     let direccion = $('#direccion_envio').val();
@@ -203,7 +203,7 @@ async function verificar_datos_pedido()
         {
             referencia = 0;
             ruta = await GenerarRuta();
-            completar_pedido(page,nro_pedido, metodo_pago, referencia, direccion, ruta);
+            completar_pedido(funcion,nro_pedido, metodo_pago, referencia, direccion, ruta);
         }
         else
         {
@@ -213,22 +213,22 @@ async function verificar_datos_pedido()
     else
     {
       ruta = await GenerarRuta();
-      completar_pedido(page, nro_pedido, metodo_pago, referencia, direccion, ruta);
+      completar_pedido(funcion, nro_pedido, metodo_pago, referencia, direccion, ruta);
     }
 
 
 }
 
-function completar_pedido(page, nro_pedido, metodo_pago, referencia, direccion, ruta)
+function completar_pedido(funcion, nro_pedido, metodo_pago, referencia, direccion, ruta)
 {
   $.ajax
   ({
-     url: '../../functions/agregar.php',
+     url: '../../server/functions/agregar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        nro_pedido: nro_pedido,
        metodo_pago: metodo_pago, 
        referencia: referencia,
@@ -283,15 +283,15 @@ async function GenerarRuta()
 
 async function RequestDirectionName(id_direccion)
 {
-  let page = 'nombre_direccion';
+  let funcion = 'nombre_direccion';
   const resp = await $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_direccion: id_direccion
     }
 

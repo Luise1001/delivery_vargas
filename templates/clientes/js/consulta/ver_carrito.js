@@ -7,18 +7,18 @@ $(document).on('click', '.mi-carrito', function()
 
 function ver_mi_carrito()
 {
-    let page = 'ver_mi_carrito';
+    let funcion = 'ver_mi_carrito';
     let id_categoria = $('#categoria').val();
     let id_comercio = $('#comercio').val();
 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_categoria: id_categoria,
          id_comercio: id_comercio
       }

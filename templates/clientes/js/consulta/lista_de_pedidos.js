@@ -2,16 +2,16 @@ $(document).ready(lista_de_pedidos());
 
 function lista_de_pedidos()
 { 
-   page = 'mis_pedidos';
+   funcion = 'mis_pedidos';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'json',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

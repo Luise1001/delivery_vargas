@@ -2,8 +2,9 @@
 
 function mi_perfil()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $adminLevel = AdminLevel($id_usuario);
 
   if($id_usuario)
@@ -24,12 +25,12 @@ function mi_perfil()
 
     if($perfil === true)
     {
-      $foto = "../../img/profile/users/$id_usuario/photo/perfil.jpg";
+      $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
     }
     else
     {
       ProfilePhoto($foto);
-      $foto = "../../img/profile/letters/$foto.jpg";
+      $foto = "../../server/images/profile/letters/$foto.jpg";
     }
     
 
@@ -88,11 +89,12 @@ function mi_perfil()
 
 function check_personal_data()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   if(isset($_POST['tabla']))
   {      
       $table = $_POST['tabla'];
-      $id_usuario = UserID($_SESSION['admin']);
+      $admin = $_SESSION['DLV']['admin'];
+      $id_usuario = UserID($admin);
       $perfil = CheckPersonalData($table, $id_usuario);
 
       echo $perfil;
@@ -101,7 +103,7 @@ function check_personal_data()
 
 function perfil_cliente($id_usuario)
 {
-   require 'conexion.php';
+   require '../conexion.php';
 
     $cedula = ClientCedula($id_usuario);
     $id_cliente = ClientID($cedula);
@@ -187,7 +189,7 @@ function perfil_cliente($id_usuario)
 
 function perfil_comercio($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $rif = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif);
@@ -271,7 +273,7 @@ function perfil_comercio($id_usuario)
 
 function perfil_conductor($id_usuario)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $cedula = DriverCedula($id_usuario);
     $id_conductor = DriverID($cedula);
@@ -370,8 +372,9 @@ function menu_configuracion()
 
 function mi_switch()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $nivel = AdminLevel($id_usuario);
   $checked = UserStatus($id_usuario, $nivel);
   $titulo = "<i class='fas fa-user-slash'></i> No Disponible";

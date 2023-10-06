@@ -2,7 +2,7 @@
 
 function checkCategory($id_categoria, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM categoria_comercios WHERE Id_categoria=? AND Id_comercio=?";
     $prepare_sql = $pdo->prepare($consulta_sql);
@@ -21,7 +21,7 @@ function checkCategory($id_categoria, $id_comercio)
 
 function checkPayment($id_metodo, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM metodos_pago_comercios WHERE Id_metodo=? AND Id_comercio=?";
     $prepare_sql = $pdo->prepare($consulta_sql);
@@ -40,7 +40,7 @@ function checkPayment($id_metodo, $id_comercio)
 
 function checkSchedule($id_dia, $id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM horario WHERE Id_dia=? AND Id_comercio=?";
     $prepare_sql = $pdo->prepare($consulta_sql);

@@ -2,9 +2,10 @@
 
 function nueva_direccion()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $fecha = CurrentDate();
-  $id_usuario = UserID($_SESSION['admin']);
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
 
   $lat = $_POST['lat'];
   $lng = $_POST['lng'];
@@ -27,9 +28,10 @@ function nueva_direccion()
 
 function mi_ubicacion_actual()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $fecha = CurrentDate();
-  $id_usuario = UserID($_SESSION['admin']);
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $movimiento = CurrentTime();
 
   $lat = $_POST['lat'];

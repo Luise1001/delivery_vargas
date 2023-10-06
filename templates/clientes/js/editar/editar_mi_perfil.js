@@ -19,25 +19,25 @@ function editar_usuario()
 {
     let user_name = $('#edit_user_name').val();
 
-    page = 'editar_nombre_usuario';
+    funcion = 'editar_nombre_usuario';
  
    if(user_name)
    {
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          user_name: user_name,
          id_usuario : id_usuario
       }
   
     })
     .done(function(res)
-    {
+    { console.log(res)
        mi_perfil();
       swal('Operacion Exitosa', '', 'success');
   
@@ -79,18 +79,18 @@ $(document).on('click', '#modificar_cliente', function()
     let cedula = $('#editar_cedula_cliente').val();
     let telefono = $('#editar_telefono_cliente').val();
 
-    let page = 'editar_cliente';
+    let funcion = 'editar_cliente';
 
     if(nombre && apellido && tipo_id && cedula && telefono)
     {
       $.ajax
       ({
-         url: '../../functions/editar.php',
+         url: '../../server/functions/editar.php',
          type: 'POST',
          dataType: 'html',
          data: 
          {
-           page : page,
+           funcion : funcion,
            id_cliente: id_cliente,
            nombre: nombre,
            apellido: apellido,
@@ -126,17 +126,17 @@ $(document).on('change', '#input_fp', function()
 });
 function editar_foto()
 {
-  let page = 'editar_foto_perfil';
+  let funcion = 'editar_foto_perfil';
   var formData = new FormData();
   var foto = $('#input_fp')[0].files[0];
   let confirmar = false;
 
   formData.append('file', foto);
-  formData.append('page', page);
+  formData.append('funcion', funcion);
 
   $.ajax
   ({
-     url: '../../functions/editar.php',
+     url: '../../server/functions/editar.php',
      type: 'POST',
      dataType: 'html',
      async: true,

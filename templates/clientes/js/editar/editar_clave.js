@@ -5,18 +5,18 @@ $(document).on('click', '#modificar_clave', function()
 
 function cambiar_clave()
 {
-    let page = 'cambiar_mi_clave';
+    let funcion = 'cambiar_mi_clave';
     let vieja_clave = $('#old_pass').val();
     let clave = $('#new_pass').val();
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'json',
        data: 
        {
-          page: page,
+          funcion: funcion,
           vieja_clave: vieja_clave,
           clave: clave
        }

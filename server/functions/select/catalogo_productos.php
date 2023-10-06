@@ -7,7 +7,7 @@ function catalogo_productos()
     $comercioData = ComercioData($id_comercio);
     $id_user_comercio = $comercioData[0]['Id_usuario'];
     $rif_comercio = ComercioRif($id_user_comercio);
-    $ruta = "../../img/$rif_comercio/productos/";
+    $ruta = "../../server/images/products/$rif_comercio/productos/";
 
     $productos = ShowProducts($id_comercio);
 
@@ -58,8 +58,9 @@ function catalogo_productos()
 
 function mis_productos()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $rif_comercio = ComercioRif($id_usuario);
   $id_comercio = ComercioID($rif_comercio);
   $boton = 
@@ -90,7 +91,7 @@ function mis_productos()
       $precio = $producto['P_civa'];
       $codigo = $producto['Codigo'];
       $movimiento = $producto['U_movimiento'];
-      $ruta = "../../img/$rif_comercio/productos/";
+      $ruta = "../../server/images/products/$rif_comercio/productos/";
       
 
       $mis_productos['productos'] .=
@@ -136,7 +137,7 @@ function mis_productos()
 
 function full_descripcion()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $id_usuario = $_POST['id_usuario_comercio'];
   $rif_comercio = ComercioRif($id_usuario);
   $id_comercio = ComercioID($rif_comercio);
@@ -165,7 +166,7 @@ function full_descripcion()
       "
       <div class='col-md-12'>
         <div id='div_foto_producto'>
-        <label class='card-img label-foto' for='foto_producto'><img id='foto' src='../../img/$rif_comercio/productos/$foto.jpg' class='card-img img-foto' alt='Subir Imagen'></label>
+        <label class='card-img label-foto' for='foto_producto'><img id='foto' src='../../images/products/$rif_comercio/productos/$foto.jpg' class='card-img img-foto' alt='Subir Imagen'></label>
       <div>
   
       <div>

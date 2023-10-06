@@ -2,7 +2,7 @@
 
 function anular_pedido()
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     if(isset($_POST['nro_pedido']))
     {

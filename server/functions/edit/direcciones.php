@@ -2,7 +2,7 @@
 
 function editar_direccion()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['id_direccion']) && isset($_POST['nombre']))
     {

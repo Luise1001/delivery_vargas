@@ -2,9 +2,10 @@
 
 function nuevo_conductor()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     $fecha = CurrentDate();
-    $usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $usuario = UserID($admin);
 
     $nombre = $_POST['nombre'];
     $apellido =$_POST['apellido'];

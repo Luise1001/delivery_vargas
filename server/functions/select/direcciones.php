@@ -2,8 +2,9 @@
 
 function mis_direcciones()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $lista_de_direcciones = MyStaticLocations($id_usuario);
   if($lista_de_direcciones)
   {
@@ -56,7 +57,7 @@ function mis_direcciones()
 
 function direccion_salida()
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     if(isset($_POST['id_comercio']))
     {
@@ -84,8 +85,9 @@ function direccion_salida()
 
 function direccion_envio()
 {
-    require 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    require '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
 
     $direcciones = '';
     $mi_ubicacion = MYCurrentLocation($id_usuario);
@@ -123,11 +125,12 @@ function direccion_envio()
 
 function nombre_direccion()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     
     if(isset($_POST['id_direccion']))
     {
-        $id_usuario = UserID($_SESSION['admin']);
+        $admin = $_SESSION['DLV']['admin'];
+        $id_usuario = UserID($admin);
         $id_direccion = $_POST['id_direccion'];
         $direccion = StaticLocationName($id_direccion, $id_usuario);
 

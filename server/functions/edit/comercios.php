@@ -2,10 +2,11 @@
 
 function editar_comercio()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   if(isset($_POST['tipo_id']) && isset($_POST['rif']) && isset($_POST['razon_social']) && isset($_POST['telefono']))
   {
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $tipo_id = $_POST['tipo_id'];
     $rif = $_POST['rif'];
     $razon_social = $_POST['razon_social'];

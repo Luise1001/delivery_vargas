@@ -2,7 +2,7 @@
 
  function lista_de_bancos()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     $bancos = BankList();
     $options = '';
@@ -23,8 +23,9 @@
 
 function mis_datos_bancarios()
 {
-    include_once 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif_comercio = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif_comercio);
     $comercioData = ComercioData($id_comercio);
@@ -246,7 +247,7 @@ function mis_datos_bancarios()
 
 function metodos_de_pago()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['nro_pedido']))
     {
       $nro_pedido = $_POST['nro_pedido'];
@@ -336,7 +337,7 @@ function metodos_de_pago()
 
 function datos_pago_pedido()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
 
   if(isset($_POST['nro_pedido']))
   {

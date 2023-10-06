@@ -2,8 +2,9 @@
 
 function nuevos_datos_bancarios()
 {
-    include_once 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif_comercio = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif_comercio);
 
@@ -39,7 +40,7 @@ function nuevos_datos_bancarios()
 
 function NuevoPagoMovil($id_comercio, $id_banco, $tipo_id, $rif, $telefono)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $fecha = CurrentDate();
     
     if($id_banco && $rif && $telefono)
@@ -52,7 +53,7 @@ function NuevoPagoMovil($id_comercio, $id_banco, $tipo_id, $rif, $telefono)
 
 function NuevoTransferencia($id_comercio, $id_banco, $tipo_id, $rif, $cuenta)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $fecha = CurrentDate();
     
     if($id_banco && $rif && $cuenta)
@@ -65,7 +66,7 @@ function NuevoTransferencia($id_comercio, $id_banco, $tipo_id, $rif, $cuenta)
 
 function NuevoZelle($id_comercio, $correo, $titular)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $fecha = CurrentDate();
     
     if($id_comercio && $correo && $titular)

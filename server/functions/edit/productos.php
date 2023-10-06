@@ -2,10 +2,11 @@
 
 function editar_producto()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   if(isset($_POST['peso']) && isset($_POST['descripcion']) && isset($_POST['precio_civa']) && isset($_POST['id_producto']) && isset($_POST['codigo']))
   {
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif_comercio = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif_comercio);
     $moneda = 'Dolar';
@@ -57,7 +58,7 @@ function editar_producto()
 
 function editStock($id_comercio, $id_producto, $cantidad)
 {
-   require 'conexion.php';
+   require '../conexion.php';
    $movimiento = CurrentTime();
 
    $editsql = 'UPDATE inventario SET Existencia=?, U_movimiento=?  WHERE Id_producto=? AND Id_comercio=?';

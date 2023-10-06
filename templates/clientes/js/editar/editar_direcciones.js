@@ -13,17 +13,17 @@ $(document).on('click', '#modificar_direccion', function()
 
 function editar_direccion()
 {
-    let page = 'editar_direccion';
+    let funcion = 'editar_direccion';
     let nombre = $('#edit_direction').val();
 
     $.ajax
     ({
-       url: '../../functions/editar.php',
+       url: '../../server/functions/editar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_direccion: id_direccion,
          nombre: nombre
       }

@@ -2,7 +2,7 @@
 
 function lista_de_comercios()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $lista_de_comercios = BusinessList();
 
   if($lista_de_comercios)
@@ -26,13 +26,13 @@ function lista_de_comercios()
 
       if($perfil === true)
       {
-        $foto = "../../img/profile/users/$id_usuario_comercio/photo/perfil.jpg";
+        $foto = "../../server/images/profile/users/$id_usuario_comercio/photo/perfil.jpg";
       }
       else
       {
         $letra = substr($comercio_user_name, 0,1);
 
-        $foto = "../../img/profile/letters/$letra.jpg";
+        $foto = "../../server/images/profile/letters/$letra.jpg";
       }
       
       $comercios =

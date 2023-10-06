@@ -2,8 +2,9 @@
 
 function switch_encendido_apagado()
 {
-    include_once 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $nivel = AdminLevel($id_usuario);
     $disponible = $_POST['estado'];
 

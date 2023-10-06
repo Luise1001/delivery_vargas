@@ -2,7 +2,7 @@
 
 function lista_de_tarifas()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     $lista_de_tarifas = ListaTarifas();
     $boton = 
     '

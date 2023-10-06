@@ -2,7 +2,7 @@
 
 function lista_de_clientes()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $lista_de_clientes = ClientList();
 
   if($lista_de_clientes)
@@ -27,13 +27,13 @@ function lista_de_clientes()
  
        if($perfil === true)
        {
-         $foto = "../../img/profile/users/$id_usuario_cliente/photo/perfil.jpg";
+         $foto = "../../server/images/profile/users/$id_usuario_cliente/photo/perfil.jpg";
        }
        else
        {
          $letra = substr($cliente_user_name, 0,1);
  
-         $foto = "../../img/profile/letters/$letra.jpg";
+         $foto = "../../server/images/profile/letters/$letra.jpg";
        }
        
        $clientes =

@@ -45,7 +45,7 @@ function push_notification($key, $tokens, $title, $message, $url_destino)
 
 function getTokenIndividual($usuario, $nivel)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
 
   $consulta_sql = "SELECT Token FROM firebase_users WHERE Id_usuario =? AND Nivel=?";
@@ -68,7 +68,7 @@ function getTokenIndividual($usuario, $nivel)
 
 function getTokens($nivel)
 {
-  require 'conexion.php';
+  require '../conexion.php';
 
   $consulta_sql = "SELECT Token FROM firebase_users WHERE Nivel=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
@@ -89,7 +89,7 @@ function getTokens($nivel)
 
 function requestKey()
 {
-  require 'conexion.php';
+  require '../conexion.php';
   $rif = '200168757';
  
   $consulta_sql = "SELECT * FROM datos_empresa WHERE Rif=?";

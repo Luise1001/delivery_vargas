@@ -2,7 +2,7 @@
 
 function editar_tarifa()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_tarifa']) && isset($_POST['precio']))
     {
         $id = $_POST['id_tarifa'];

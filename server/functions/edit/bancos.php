@@ -2,7 +2,7 @@
 
 function editar_datos_banco()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['option']))
     {
@@ -45,7 +45,7 @@ function editar_datos_banco()
 
 function EditarPagoMovil($id, $tipo_id, $documento, $id_banco, $telefono)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $movimiento = CurrentTime();
 
     $editsql = 'UPDATE pago_movil SET Tipo_id=?, Documento=?, Id_banco=?, Telefono=?, U_movimiento=?   WHERE Id=?';
@@ -56,7 +56,7 @@ function EditarPagoMovil($id, $tipo_id, $documento, $id_banco, $telefono)
 
 function EditarTransferencia($id, $tipo_id, $documento, $id_banco, $cuenta)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $movimiento = CurrentTime();
 
     $editsql = 'UPDATE transferencia SET Tipo_id=?, Documento=?, Id_banco=?, Cuenta=?, U_movimiento=?   WHERE Id=?';
@@ -66,7 +66,7 @@ function EditarTransferencia($id, $tipo_id, $documento, $id_banco, $cuenta)
 
 function EditarZelle($id, $correo, $titular)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $movimiento = CurrentTime();
 
     $editsql = 'UPDATE zelle SET Correo=?, Titular=?, U_movimiento=?   WHERE Id=?';

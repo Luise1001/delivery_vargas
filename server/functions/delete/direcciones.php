@@ -6,7 +6,8 @@ function eliminar_direccion()
 
     if(isset($_POST['id_direccion']))
     {
-        $id_usuario = UserID($_SESSION['admin']);
+        $admin = $_SESSION['DLV']['admin'];
+        $id_usuario = UserID($admin);
         $id_direccion = $_POST['id_direccion'];
 
 

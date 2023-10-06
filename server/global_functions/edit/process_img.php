@@ -3,7 +3,7 @@
 
 function ProductImg($rif_comercio, $foto, $files)
 {
-    $ruta = "../img/$rif_comercio/productos";
+    $ruta = "../images/products/$rif_comercio/productos";
     $calidad = 20;
 
     if(file_exists($ruta))
@@ -32,7 +32,7 @@ function ProductImg($rif_comercio, $foto, $files)
 
 function ProfilePhoto($letter)
 {
-    $ruta = '../img/profile/letters'; 
+    $ruta = '../images/profile/letters'; 
 
     if(file_exists($ruta))
     {
@@ -107,7 +107,7 @@ function ProfilePhoto($letter)
 function MyProfilePhoto($id, $foto, $files)
 {
   
-    $ruta = "../img/profile/users/$id/photo";
+    $ruta = "../images/profile/users/$id/photo";
     $calidad = 30;
 
     if(file_exists($ruta))
@@ -136,7 +136,7 @@ function MyProfilePhoto($id, $foto, $files)
 
 function SearchProfilePhoto($id, $foto)
 {
-    $ruta = "../img/profile/users/$id/photo/$foto.jpg";
+    $ruta = "../images/profile/users/$id/photo/$foto.jpg";
 
     if(file_exists($ruta))
     {

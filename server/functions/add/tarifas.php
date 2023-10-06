@@ -2,7 +2,7 @@
 
 function nueva_tarifa()
 {
-  include_once 'conexion.php';
+  include_once '../conexion.php';
   $fecha = CurrentDate();
 
   $km = $_POST['km'];

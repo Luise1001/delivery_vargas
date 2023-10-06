@@ -2,9 +2,10 @@
 
 function nueva_moto()
 {
-    include_once 'conexion.php'; 
+    include_once '../conexion.php'; 
     $fecha = CurrentDate();
-    $usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $usuario = UserID($admin);
 
     $marca = $_POST['marca'];
     $modelo =$_POST['modelo'];

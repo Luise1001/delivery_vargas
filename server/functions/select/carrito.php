@@ -2,9 +2,10 @@
 
 function cantidad_productos_carrito()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $cedula = ClientCedula($id_usuario);
     $id_cliente = ClientID($cedula);
     if(isset($_POST['id_categoria']) && isset($_POST['id_comercio']))
@@ -21,11 +22,12 @@ function cantidad_productos_carrito()
 
 function ver_mi_carrito()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['id_categoria']) && isset($_POST['id_comercio']))
     {
-        $id_usuario = UserID($_SESSION['admin']);
+        $admin = $_SESSION['DLV']['admin'];
+        $id_usuario = UserID($admin);
         $cedula = ClientCedula($id_usuario);
         $id_cliente = ClientID($cedula);
         $id_categoria = $_POST['id_categoria'];
@@ -33,7 +35,7 @@ function ver_mi_carrito()
         $comercio_data = ComercioData($id_comercio);
         $rif_comercio = $comercio_data[0]['Rif'];
     
-        $ruta = "../../img/$rif_comercio/productos/";
+        $ruta = "../../server/images/products/$rif_comercio/productos/";
     
         $mycar = InsideMyCar($id_cliente, $id_comercio);
     

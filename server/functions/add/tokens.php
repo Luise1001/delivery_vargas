@@ -6,7 +6,8 @@ function nuevo_token_firebase()
   $fecha = CurrentDate();
   $movimiento = CurrentTime();
 
-  $id_usuario = UserID($_SESSION['admin']);
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $token = $_POST['token'];
   $nivel = AdminLevel($id_usuario);
 

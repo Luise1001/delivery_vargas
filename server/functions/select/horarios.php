@@ -2,8 +2,9 @@
 
 function mi_horario()
 {
-    include_once 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif);
     $dias = Days();
@@ -89,7 +90,7 @@ function mi_horario()
 
 function ChequearHorario()
 {
-   include_once 'conexion.php';
+   include_once '../conexion.php';
 
    if(isset($_POST['id_comercio']))
    {

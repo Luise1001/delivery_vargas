@@ -2,8 +2,9 @@
 
 function mis_pedidos()
 {
-    include_once 'conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $nivel = AdminLevel($id_usuario);
 
     if(!$nivel)
@@ -53,13 +54,13 @@ function ClientOrders($id_usuario, $nivel)
       $perfil = SearchProfilePhoto($id_usuario_comercio, 'perfil');
       if($perfil === true)
       {
-        $foto = "../../img/profile/users/$id_usuario_comercio/photo/perfil.jpg";
+        $foto = "../../server/images/profile/users/$id_usuario_comercio/photo/perfil.jpg";
       }
       else
       {
         $letra = substr($comercio_user_name, 0,1);
 
-        $foto = "../../img/profile/letters/$letra.jpg";
+        $foto = "../../server/images/profile/letters/$letra.jpg";
       }
 
       $resultado = OrderStatus($nro_pedido);
@@ -340,13 +341,13 @@ function BusinessOrders($id_usuario, $nivel)
         $perfil = SearchProfilePhoto($id_usuario_cliente, 'perfil');
         if($perfil === true)
         {
-          $foto = "../../img/profile/users/$id_usuario_cliente/photo/perfil.jpg";
+          $foto = "../../server/images/profile/users/$id_usuario_cliente/photo/perfil.jpg";
         }
         else
         {
           $letra = substr($cliente_user_name, 0,1);
   
-          $foto = "../../img/profile/letters/$letra.jpg";
+          $foto = "../../server/images/profile/letters/$letra.jpg";
         }
   
         $resultado = OrderStatus($nro_pedido);

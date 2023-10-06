@@ -2,7 +2,7 @@
 
 function confirmar_pedido()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     $fecha = CurrentDate();
 
     if(isset($_POST['metodo_pago']) && isset($_POST['nro_pedido']) && isset($_POST['direccion']) && isset($_POST['ruta']))
@@ -53,7 +53,7 @@ function confirmar_pedido()
 
 function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $referencia, $metodo_pago)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $movimiento = CurrentTime();
     $comercioData = ComercioData($id_comercio);
     $id_usuario_comercio = $comercioData[0]['Id_usuario'];
@@ -90,7 +90,7 @@ function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $direccion, $r
 
 function nueva_referencia($id_cliente, $nro_pedido, $id_comercio, $referencia)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $fecha = CurrentDate();
 
     if($id_cliente && $nro_pedido && $id_comercio && $referencia)
@@ -105,7 +105,7 @@ function nueva_referencia($id_cliente, $nro_pedido, $id_comercio, $referencia)
 
 function DescontarInventario($nro_pedido)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $movimiento = CurrentTime();
 
     $orderDetail = OrderDetail($nro_pedido);
@@ -130,7 +130,7 @@ function DescontarInventario($nro_pedido)
 
 function retirar_pedido()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
     if(isset($_POST['nro_pedido']))
     {
@@ -165,7 +165,7 @@ function retirar_pedido()
 
 function NuevoEnvio($nro_pedido, $id_cliente, $id_comercio, $nivel)
 {
-    require 'conexion.php';
+    require '../conexion.php';
     $fecha = CurrentDate();
     $id_route = RouteID($nro_pedido);
 

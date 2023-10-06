@@ -1,7 +1,7 @@
 <?php
 function editar_conductor()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     if(isset($_POST['id_conductor']) && isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['tipo_id']) && isset($_POST['cedula']) && isset($_POST['telefono']) && isset($_POST['direccion']))
     {
         $id_conductor = $_POST['id_conductor'];

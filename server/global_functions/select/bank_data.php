@@ -2,7 +2,7 @@
 
 function BankList()
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM bancos";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -22,7 +22,7 @@ function BankList()
 
 function PaymentMethods()
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM metodos_pago";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -41,7 +41,7 @@ function PaymentMethods()
 
 function OptionsPaymentMethods($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM metodos_pago_comercios INNER JOIN metodos_pago ON metodos_pago_comercios.Id_metodo = metodos_pago.Id WHERE Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -60,7 +60,7 @@ function OptionsPaymentMethods($id_comercio)
 
 function PagoMovil($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM bancos INNER JOIN pago_movil ON pago_movil.Id_banco = bancos.Id WHERE Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -79,7 +79,7 @@ function PagoMovil($id_comercio)
 
 function Transferencia($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM bancos INNER JOIN transferencia ON transferencia.Id_banco = bancos.Id WHERE Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
@@ -98,7 +98,7 @@ function Transferencia($id_comercio)
 
 function Zelle($id_comercio)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $consulta_sql = "SELECT * FROM zelle WHERE Id_comercio=?";
     $preparar_sql = $pdo->prepare($consulta_sql);

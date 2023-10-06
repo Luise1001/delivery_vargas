@@ -61,7 +61,7 @@ function ProcessBadge($existencia)
 
 function MoveProduct($id_producto)
 {
-    require 'conexion.php';
+    require '../conexion.php';
 
     $movimiento = CurrentTime();
 

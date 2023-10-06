@@ -2,7 +2,7 @@
 
 function editar_cliente()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
     $fecha = CurrentDate();
 
     if(isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['tipo_id']) && isset($_POST['cedula']) && isset($_POST['telefono']))
@@ -23,7 +23,8 @@ function editar_cliente()
         $nombre = ucwords($nombre);
         $apellido = ucwords($apellido);
         
-        $id_usuario = UserID($_SESSION['admin']);
+        $admin = $_SESSION['DLV']['admin'];
+        $id_usuario = UserID($admin);
         $id_cliente = ClientExist($id_usuario);
       
         if($id_cliente)

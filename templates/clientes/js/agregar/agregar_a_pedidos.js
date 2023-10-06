@@ -8,16 +8,16 @@ $(document).on('click', '#agregar_pedido', function(data)
 
 function nuevo_pedido(id_cliente, id_comercio)
 {
-    let page = 'nuevo_pedido';
+    let funcion = 'nuevo_pedido';
 
     $.ajax
     ({
-       url: '../../functions/agregar.php',
+       url: '../../server/functions/agregar.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_cliente: id_cliente,
          id_comercio: id_comercio
       }

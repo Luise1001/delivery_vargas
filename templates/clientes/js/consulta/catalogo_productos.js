@@ -3,19 +3,19 @@ $(document).ready(catalogo_productos());
 
 function catalogo_productos()
 { 
-   page = 'catalogo_productos';
+   funcion = 'catalogo_productos';
    let id_categoria = $('#categoria').val();
    let id_comercio = $('#comercio').val();
 
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_categoria: id_categoria,
        id_comercio: id_comercio
     }
@@ -165,17 +165,17 @@ function SpanQuantity(codigo)
 
 async function CheckPersonalData()
 {
-  let page = 'check_personal_data';
+  let funcion = 'check_personal_data';
   let tabla = 'clientes';
   const resp = 
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        tabla: tabla
     }
 
@@ -195,17 +195,17 @@ async function CheckPersonalData()
 
 async function ChequearHorario(id_comercio)
 {
-  let page = 'ChequearHorario';
+  let funcion = 'ChequearHorario';
 
   const resp = 
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_comercio: id_comercio
     }
 

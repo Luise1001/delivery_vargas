@@ -1,15 +1,15 @@
 function AddToCar(id_comercio, id_producto, cantidad)
 {
-  let page = 'agregar_al_carrito';
+  let funcion = 'agregar_al_carrito';
 
   $.ajax
   ({
-     url: '../../functions/agregar.php',
+     url: '../../server/functions/agregar.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page,
+       funcion : funcion,
        id_comercio: id_comercio,
        id_producto: id_producto,
        cantidad: cantidad
@@ -28,18 +28,18 @@ function AddToCar(id_comercio, id_producto, cantidad)
 
 function cantidad_productos_carrito()
 {
-    let page = 'cantidad_productos_carrito';
+    let funcion = 'cantidad_productos_carrito';
     let id_categoria = $('#categoria').val();
     let id_comercio = $('#comercio').val();
 
     $.ajax
     ({
-       url: '../../functions/consultas.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
        dataType: 'html',
        data: 
        {
-         page : page,
+         funcion : funcion,
          id_categoria: id_categoria,
          id_comercio: id_comercio
       }

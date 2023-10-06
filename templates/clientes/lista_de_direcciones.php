@@ -1,5 +1,5 @@
 <?php 
- include_once 'verificar_sesion.php';
+ include_once 'redirect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,10 +9,10 @@
    <title>Delivery Vargas</title>
 </head>
 <body class='hide-content'>
-    <?php include_once 'loader.php';?>
+    <?php include_once '../loader.php';?>
 <div id="contenido" >
  
-<?php include_once 'sidebar.php';?>
+<?php include_once 'menu.php';?>
 
   <div id="resp" class=" lista-de-direcciones cuerpo">
 
@@ -26,7 +26,5 @@
 <script src="js/consulta/lista_de_direcciones.js"></script>
 
 <?php include_once 'scripts.php';?>
-
-<?php include_once 'footer.php';?>
 </body>
 </html>

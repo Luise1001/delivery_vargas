@@ -1,8 +1,9 @@
 <?php
 function opciones_de_pago()
 {
-  include_once 'conexion.php';
-  $id_usuario = UserID($_SESSION['admin']);
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $id_usuario = UserID($admin);
   $rif_comercio = ComercioRif($id_usuario);
   $id_comercio = ComercioID($rif_comercio);
   $mis_opciones = OptionsPaymentMethods($id_comercio);

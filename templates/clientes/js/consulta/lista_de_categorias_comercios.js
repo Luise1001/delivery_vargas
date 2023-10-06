@@ -2,16 +2,16 @@ $(document).ready(lista_de_categorias());
 
 function lista_de_categorias()
 { 
-   page = 'comercios_by_categoria';
+   funcion = 'comercios_by_categoria';
  
   $.ajax
   ({
-     url: '../../functions/consultas.php',
+     url: '../../server/functions/consultas.php',
      type: 'POST',
      dataType: 'html',
      data: 
      {
-       page : page
+       funcion : funcion
     }
 
   })

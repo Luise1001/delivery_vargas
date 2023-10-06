@@ -2,8 +2,9 @@
 
 function nuevo_horario()
 {
-     include_once 'conexion.php';
-     $id_usuario = UserID($_SESSION['admin']);
+     include_once '../conexion.php';
+     $admin = $_SESSION['DLV']['admin'];
+     $id_usuario = UserID($admin);
      $rif = ComercioRIf($id_usuario);
      $id_comercio = ComercioID($rif);
      $fecha = CurrentDate();

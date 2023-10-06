@@ -20,8 +20,9 @@ function mis_envios()
 
 function envios_pendientes()
 { 
-   include_once 'conexion.php';
-   $id_usuario = UserID($_SESSION['admin']);
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
    $nivel = AdminLevel($id_usuario);
    $resp = '';
   
@@ -198,8 +199,9 @@ function envios_pendientes()
 
 function envios_asignados()
 { 
-   include_once 'conexion.php';
-   $id_usuario = UserID($_SESSION['admin']);
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
    $nivel = AdminLevel($id_usuario);
    $resp = '';
 
@@ -302,8 +304,9 @@ function envios_asignados()
 
 function envios_en_curso()
 { 
-   include_once 'conexion.php';
-   $id_usuario = UserID($_SESSION['admin']);
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
    $nivel = AdminLevel($id_usuario);
    $resp = '';
 
@@ -495,8 +498,9 @@ function envios_en_curso()
 
 function envios_completados()
 { 
-   include_once 'conexion.php';
-   $id_usuario = UserID($_SESSION['admin']);
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $id_usuario = UserID($admin);
    $nivel = AdminLevel($id_usuario);
    $resp = '';
 

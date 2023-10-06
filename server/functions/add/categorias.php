@@ -2,9 +2,10 @@
 
 function elegir_categoria()
 {
-    include_once 'conexion.php';
+    include_once '../conexion.php';
 
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif_comercio = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif_comercio);
     $fecha = CurrentDate();

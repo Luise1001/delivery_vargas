@@ -3,7 +3,8 @@
 function eliminar_horario()
 {
     include_once '../conexion.php';
-    $id_usuario = UserID($_SESSION['admin']);
+    $admin = $_SESSION['DLV']['admin'];
+    $id_usuario = UserID($admin);
     $rif = ComercioRif($id_usuario);
     $id_comercio = ComercioID($rif);
 

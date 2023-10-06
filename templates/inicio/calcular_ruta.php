@@ -50,6 +50,6 @@
 </div>
 
 <?php include_once 'scripts.php';?>
-<script src="js/google_map.js"></script>
+<script src="js/mapas/google_map.js"></script>
 </body>
 </html>
