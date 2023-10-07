@@ -8,7 +8,7 @@ $funcion = $_POST['funcion'];
 
 if($funcion === 'login')
 {
-    login();
+    log_in();
 }
 if($funcion === 'menu')
 {

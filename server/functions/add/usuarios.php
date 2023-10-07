@@ -40,11 +40,17 @@ function nuevo_admin()
       {
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
-        $insert_sql = 'INSERT INTO usuarios (User_name, Correo, Pass, Nivel, Fecha) VALUES (?,?,?,?,?)';
-        $sent = $pdo->prepare($insert_sql);
-        $sent->execute(array($user_name, $correo, $pass, $nivel, $fecha));
+        $AddUser = AddUser($user_name, $correo, $pass, $nivel, $fecha);
 
-        $res = ['Usuario Agregado Con Exito'];
+        if($AddUser)
+        {
+          $res = ['Usuario Agregado Con Éxito'];
+        }
+        else
+        {
+          $res = ['No Se Pudo Procesar El Registro.'];
+        }
+        
         
         echo json_encode($res);
      
@@ -143,22 +149,38 @@ function nuevo_usuario()
       $nivel = 0;
       $fecha = date('Y-m-d');
       
-  
-      $insert_sql = 'INSERT INTO usuarios (User_name, Correo, Pass, Nivel, Fecha) VALUES (?,?,?,?,?)';
-      $sent = $pdo->prepare($insert_sql);
-      $sent->execute(array($user_name, $user, $pass, $nivel, $fecha));
-  
-      $letra = substr($user_name, 0, 1);
-      ProfilePhoto($letra);
-  
-      $resp = 
-      [
-         'titulo' => 'Operación Exitosa',
-         'cuerpo' => 'Ingrese Al Portal Clientes.',
-         'accion'=> 'success'
+      $AddUser = AddUser($user_name, $user, $pass, $nivel, $fecha);
+
+      if($AddUser)
+      {
+        $resp = 
+        [
+           'titulo' => 'Operación Exitosa',
+           'cuerpo' => 'Ingrese Al Portal Clientes.',
+           'accion'=> 'success'
+      
+        ];
+
+        $letra = substr($user_name, 0, 1);
+        ProfilePhoto($letra);
+        echo json_encode($resp);
+      }
+      else
+      {
+        $resp = 
+        [
+           'titulo' => 'Ups',
+           'cuerpo' => 'No se Pudo Procesar El Registro.',
+           'accion'=> 'error'
+      
+        ];
+
+        echo json_encode($resp);
+      }
     
-      ];
-      echo json_encode($resp);
+
+  
+
     }
     else
     {

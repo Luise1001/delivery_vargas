@@ -15,6 +15,8 @@
    <div class="categorias-de-comercios cuerpo">
 
 
+
+
    </div>
    </div>
 

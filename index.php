@@ -1,5 +1,16 @@
 <?php
  include_once 'server/conexion.php';
+ require_once 'vendor/autoload.php';
+ require_once 'server/functions/config.php';
+
+ $client = new Google_Client();
+ $client->setClientId($clientID);
+ $client->setClientSecret($clientSecret);
+ $client->setRedirectUri($redirectUri);
+ $client->addScope("email");
+ $client->addScope("profile");
+
+
  if(isset($_SESSION['DLV']))
  {
   echo"<script type='text/javascript'>
@@ -65,6 +76,16 @@
     </div>
 
     <div class="col-md-12 form-index-child">
+      <a  href=<?php echo $client->createAuthUrl(); ?> class="card-link form-label">
+       <i class="fa-brands fa-google"></i> Acceder Con Google
+      </a>
+    </div>
+
+    <div class="col-md-12 form-index-child">
+    <a id="sing_up_option"  class="card-link form-label">Registrarse</a>
+  </div>
+
+    <div class="col-md-12 form-index-child">
         <a class="sidebar-link reset-pass form-label" data-toggle="modal" data-target="#reset_password">Recuperar Contraseña</a>
     </div>
 
@@ -72,10 +93,6 @@
       <button id="installButton" hidden  class="card-btn">Instalar App</button>
     </div>
   </form>
-
-  <div class="col-md-12 form-index-child">
-    <a id="sing_up_option"  class="card-link form-label">Registrarse</a>
-  </div>
 </div>
 
 <div id="card_registrarse" class="card card-sesion">

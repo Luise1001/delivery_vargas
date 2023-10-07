@@ -92,38 +92,40 @@ function comercios_by_categoria()
 
      if($comercios)
      {
-      $lista = 
+      $lista =
       "
-      <ul>
-      <div class='opciones'>
-          <a  class='btn menu_opciones categorias-comercios' title='Categorías'>
-          <i class='fas fa-tag'></i> $titulo
-         </i> <i id='arrow_pd' class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>";
-    foreach($comercios as $comercio)
-    {
-      $id_categoria = $comercio['Id_categoria'];
-      $id_comercio = $comercio['Id_comercio'];
-      $stock = StockCommerce($id_comercio);
-
-      if($stock)
-      {
-        $nombre = $comercio['Razon_social'];
-         $lista .=
-         "
-         <p><a id='ver_catalogo' categoria='$id_categoria' comercio='$id_comercio' class='btn'>$nombre</a></p>
-         ";
-      }
-    }
+      <div class='accordion'>
+      <div class='accordion-item'>
+        <h2 class='accordion-header'>
+          <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#accordion_$titulo' aria-expanded='true' aria-controls='accordion_$titulo'>
+            $titulo
+          </button>
+        </h2>
+        <div id='accordion_$titulo' class='accordion-collapse collapse show' data-bs-parent='#accordionExample'>
+          <div class='accordion-body'>
+          ";
+          foreach($comercios as $comercio)
+          {
+            $id_categoria = $comercio['Id_categoria'];
+            $id_comercio = $comercio['Id_comercio'];
+            $stock = StockCommerce($id_comercio);
+      
+            if($stock)
+            {
+              $nombre = $comercio['Razon_social'];
+               $lista .=
+               "
+               <p><a id='ver_catalogo' categoria='$id_categoria' comercio='$id_comercio' class='btn'>$nombre</a></p>
+               ";
+            }
+          }
        
-      $lista .=
-      "  
-    </li>
-     </div>
-    </div>
-    </ul>";
+          $lista .=
+          "
+          </div>
+        </div>
+      </div>
+    ";
   
       echo $lista;
      }
