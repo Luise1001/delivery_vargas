@@ -24,7 +24,8 @@ body
 }
 .form-index-child
 {
-    padding: 5px;
+    width: 100%;
+    display: contents;
 }
 #card_registrarse
 {
@@ -40,34 +41,7 @@ body
 }
 /*index*/
 
-/*modals*/
-.swal-modal
-{
-  border-radius: 10px;
-}
-.swal-icon
-{
-  display: none;
-}
-.swal-title
-{
-  font-size: 20px;
-  color: rgb(14,39,165);
-}
-.swal-text
-{
-  color: rgb(14,39,165);
-}
-.swal-footer
-{
-  text-align: center;
-}
-.swal-button
-{
-  background: none !important;
-  color: rgb(14,39,165);
-}
-/*modals*/
+
 
 
 @media screen and (min-width: 500px)

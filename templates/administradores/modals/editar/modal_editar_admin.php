@@ -26,6 +26,7 @@
      <select class="input-opcion-4" name="edit_nivel" id="edit_nivel">
         <option value="1">Administrador</option>
         <option value="2">Conductor</option>
+        <option value="4">Administrador Grúas</option>
     </select>
      </div>
   </div>

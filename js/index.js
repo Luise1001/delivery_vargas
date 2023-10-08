@@ -49,7 +49,7 @@ function login(e)
 
         if(accion === 'success')
         {
-            window.location.href = "templates/inicio/inicio";
+            window.location.href = 'templates/inicio/inicio';
         }
         else
         {

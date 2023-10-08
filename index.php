@@ -60,57 +60,59 @@
   <div id="card_sesion" class="card card-sesion">
   <img  src="server/images/logos/deliveryvargas.png" class="brand-login"  alt="logo">
   <div>
-    <p class="form-label">Iniciar Sesión</p>
+    <p class="label-option-1">Iniciar Sesión</p>
   </div>
   <form method='POST' class='form-index'>
     <div class="col-md-12 form-index-child">
-        <input class="input-opcion-6" type="email" id="user" name="user" placeholder="E-mail"  required>
+        <input class="input-option-1" type="email" id="user" name="user" placeholder="E-mail"  required>
     </div>
 
     <div class="col-md-12 form-index-child">
-        <input class="input-opcion-6" type="password" id="password" name="password" placeholder="Contraseña"  required>
+        <input class="input-option-1" type="password" id="password" name="password" placeholder="Contraseña"  required>
     </div>
 
     <div class="col-md-12 form-index-child">
-        <button id="log_in" name="log_in"  class="card-btn m-2"><i class="fas fa-sign-in-alt fa-2x m-2"></i></button>
+        <button id="log_in" name="log_in"  class="button-option-1 m-2"><i class="fas fa-sign-in-alt fa-2x m-2"></i></button>
     </div>
 
+   </form>
+
     <div class="col-md-12 form-index-child">
-      <a  href=<?php echo $client->createAuthUrl(); ?> class="card-link form-label">
-       <i class="fa-brands fa-google"></i> Acceder Con Google
+      <a  href=<?php echo $client->createAuthUrl(); ?> class="button-google">
+       <i class="fa-brands fa-google"></i> Continuar Con Google
       </a>
     </div>
 
-    <div class="col-md-12 form-index-child">
-    <a id="sing_up_option"  class="card-link form-label">Registrarse</a>
+  <div class="col-md-12 form-index-child">
+      <button id="installButton" hidden  class="install-button">Instalar App</button>
+    </div>
+
+<div class="col-md-12 form-index-child">
+    <a id="sing_up_option"  class="anchor-option-1">Registrarse</a>
   </div>
 
     <div class="col-md-12 form-index-child">
-        <a class="sidebar-link reset-pass form-label" data-toggle="modal" data-target="#reset_password">Recuperar Contraseña</a>
+        <a class="reset-pass anchor-option-1" data-toggle="modal" data-target="#reset_password">Recuperar Contraseña</a>
     </div>
 
-    <div class="col-md-12 form-index-child">
-      <button id="installButton" hidden  class="card-btn">Instalar App</button>
-    </div>
-  </form>
 </div>
 
 <div id="card_registrarse" class="card card-sesion">
 <img src="server/images/logos/deliveryvargas.png" class="brand-login"  alt="logo">
   <div>
-    <p class="form-label">Registrarse</p>
+    <p class="label-option-1">Registrarse</p>
   </div>
 <form class='form-index'>
     <div class="col-md-12 form-index-child">
-        <input class="input-opcion-6" type="email" id="r_user_name" name="r_user_name" placeholder="E-mail"  required>
+        <input class="input-option-1" type="email" id="r_user_name" name="r_user_name" placeholder="E-mail"  required>
     </div>
 
     <div class="col-md-12 form-index-child">
-        <input class="input-opcion-6" type="password" id="r_password" name="r_password" placeholder="Contraseña"  required>
+        <input class="input-option-1" type="password" id="r_password" name="r_password" placeholder="Contraseña"  required>
     </div>
 
     <div class="col-md-12 form-index-child">
-        <input class="input-opcion-6" type="password" id="r_password_2" name="r_password_2" placeholder="Repetir Contraseña"  required>
+        <input class="input-option-1" type="password" id="r_password_2" name="r_password_2" placeholder="Repetir Contraseña"  required>
     </div>
 
     <div class="col-md-12 form-index-child">
@@ -118,7 +120,7 @@
     </div>
 
     <div class="col-md-12 form-index-child">
-        <button type="button" id="sent_code"  data-toggle="modal" data-target="#verify_email"  class="card-btn m-2">
+        <button type="button" id="sent_code"  data-toggle="modal" data-target="#verify_email"  class="button-option-1 m-2">
           <i class="fas fa-sign-in-alt fa-2x m-2"></i>
         </button>
     </div>
@@ -126,9 +128,24 @@
     <span class='span-option-1'>Al Continuar Acepta Nuestros <a href="#" data-toggle="modal" data-target="#politicas">Términos y Condiciones</a></span>
     </div>
 </form>
-  <div class="form-index-child">
-    <a id="log_in_option"  class="card-link form-label">Iniciar Sesión</a>
+
+  <div class="col-md-12 form-index-child">
+      <a  href=<?php echo $client->createAuthUrl(); ?> class="button-google">
+       <i class="fa-brands fa-google"></i> Continuar Con Google
+      </a>
+    </div>
+
+  <div class="col-md-12 form-index-child">
+      <button id="installButton" hidden  class="install-button">Instalar App</button>
+    </div>
+
+    <div class="form-index-child">
+    <a id="log_in_option"  class="anchor-option-1">Iniciar Sesión</a>
   </div>
+
+    <div class="col-md-12 form-index-child">
+        <a class="reset-pass anchor-option-1" data-toggle="modal" data-target="#reset_password">Recuperar Contraseña</a>
+    </div>
 </div>
 
 </div>
