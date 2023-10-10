@@ -12,51 +12,20 @@ include_once 'redirect.php';
     <?php include_once '../loader.php';?>
 <div id="contenido" >
  
-<?php include_once 'menu.php';?>
+<?php include_once '../inicio/menu.php';?>
 
-<div class="lista-de-envios cuerpo">
+<div class="lista-de-envios" >
+<div class="wrapper">
+  <div class="slider"><div id="pendientes"></div></div>
+  <div class="slider"><div id="asignados"></div></div>
+  <div class="slider"><div id="transito"></div></div>
+  <div class="slider"><div id="completados"></div></div>
+</div>
+</div>
 
-<ul class="nav nav-tabs cabecera">
-<div class="carousel-indicators">
-<li class="nav-item">
-  <a id="slide_0"  href="#" class="headerbar-link"  data-bs-target="#mis_envios" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1">Pendientes</a>
-</li>
-<li class="nav-item headerbar-link">
-  <a href="#" class="headerbar-link" data-bs-target="#mis_envios" data-bs-slide-to="1" aria-label="Slide 2">Asignados</a>
-</li>
-<li class="nav-item headerbar-link">
-  <a href="#" class="headerbar-link" data-bs-target="#mis_envios" data-bs-slide-to="2" aria-label="Slide 2">Tránsito</a>
-</li>
-<li class="nav-item headerbar-link">
-  <a href="#" class="headerbar-link" data-bs-target="#mis_envios" data-bs-slide-to="3" aria-label="Slide 2">Completados</a>
-</li>
-</div>
-</ul>
 
-<div id="mis_envios" class="carousel slide">
-<div class="carousel-inner">
-  <div class="carousel-item active">
-    <div id="pendientes"></div>
-  </div>
-  <div class="carousel-item">
-    <div id="asignados"></div>
-  </div>
-  <div class="carousel-item">
-    <div id="transito"></div>
-  </div>
-  <div class="carousel-item">
-    <div id="completados"></div>
-  </div>
-</div>
-<button class="carousel-control-prev visually-hidden" type="button" data-bs-target="#mis_envios" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next visually-hidden" type="button" data-bs-target="#mis_envios" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-</button>
-</div>
+
+
 
 </div> 
 

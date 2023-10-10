@@ -33,6 +33,15 @@
   }
 /*Fin Botón Amarillo Grande*/
 
+/*botones*/
+.button-option-2
+{
+    background: none;
+    border: none;
+    font-size: large;
+}
+/*botones*/
+
 /*inputs*/
 .input-opcion-1
 {

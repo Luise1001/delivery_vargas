@@ -5,7 +5,7 @@
 <script src="../../js/loader.js"></script>
 
 <!-- Consultas -->
-<script src="js/consulta/menu.js"></script>
+<script src="../inicio/js/consulta/menu.js"></script>
 <script src="js/consulta/conductores_disponibles.js"></script>
 <script src="js/consulta/perfil_setting.js"></script>
 

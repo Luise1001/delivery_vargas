@@ -18,6 +18,8 @@ function menu()
     .done(function(res)
     {
       $('.options-menu').html(res.header);
+      $('.user-title').html(res.user);
+      $('.user-photo').attr('src', res.foto);
       $('.titulo-app').html(res.titulo);
       $('.header-icons').html(res.icons);
       $('.footer-menu').html(res.footer);

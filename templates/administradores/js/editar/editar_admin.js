@@ -1,11 +1,11 @@
 let id_admin = 0;
 
-$(document).on('click', '#editar_admin_btn', function(data)
+$(document).on('click', '.editar_admin_btn', function(data)
 { 
-    id_admin = data.target.parentNode.attributes.admin.value;
-    $('#edit_admin_user_name').val(data.target.parentNode.attributes.user.value);
-    $('#edit_admin_correo').val(data.target.parentNode.attributes.correo.value);
-    $('#edit_nivel').val(data.target.parentNode.attributes.nivel.value)
+    id_admin = data.currentTarget.attributes.admin.value;
+    $('#edit_admin_user_name').val(data.currentTarget.attributes.user.value);
+    $('#edit_admin_correo').val(data.currentTarget.attributes.correo.value);
+    $('#edit_nivel').val(data.currentTarget.attributes.nivel.value);
 })
 
 $(document).on('click', '#editar_admin', function()

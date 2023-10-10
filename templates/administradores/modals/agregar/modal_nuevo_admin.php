@@ -31,6 +31,7 @@
      <select class="input-opcion-4" name="nivel" id="nivel">
         <option value="1">Administrador</option>
         <option value="2">Conductor</option>
+        <option value="4">Administrador de Grúas</option>
     </select>
      </div>
   </div>

@@ -9,7 +9,7 @@ include_once 'redirect.php';
 </head>
 <body class='hide-content'>
     <?php include_once '../loader.php';?>
-    <?php include_once 'menu.php';?>
+    <?php include_once '../inicio/menu.php';?>
 
     <div class="user-head text-center">
     

@@ -6,102 +6,132 @@ function menu()
     $admin = $_SESSION['DLV']['admin'];
     $UserID = UserID($admin);
     $AdminLevel = AdminLevel($UserID);
+    $UserData = UserData($UserID);
+    $UserName = $UserData[0]['User_name'];
     $respuesta = 
     [
-        'header'=> '',
+        'header'=> HeaderMenu($AdminLevel),
         'titulo'=> 'Delivery Vargas',
+        'foto'=> SearchProfilePhoto($UserID),
+        'user'=> $UserName,
         'icons'=>'',
-        'footer'=> ''
+        'footer'=> FooterMenu($AdminLevel)
     ];
 
-    if($AdminLevel === '1')
-    {
-        $respuesta['header'] =
-        "
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_comercios'><i class='fas fa-building'></i> Comercios</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_clientes'><i class='fas fa-users'></i> Clientes</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_usuarios'><i class='fas fa-users'></i> Usuarios</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_conductores'><i class='fas fa-user-tie'></i> Conductores</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_motos'><i class='fas fa-motorcycle'></i> Motos</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_tarifas'><i class='fas fa-money-bill-alt'></i> Tarifas</a></li>
-        <li><a class='dropdown-itemn header-item' href='../administradores/lista_de_administradores'><i class='fas fa-user-friends'></i> Administradores</a></li>
-        <li><hr class='dropdown-divider'></li>
-        <li><a class='dropdown-itemn header-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a></li>
-        <li><a class='dropdown-itemn header-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a></li>
-        <li><a id='reload' class='dropdown-itemn header-item'><i class='fas fa-sync-alt'></i> Actualizar </a></li>
-        <li><a id='cerrar_sesion' class='dropdown-itemn header-item' ><i class='fas fa-sign-out-alt'></i> Salir</a></li>
-        ";
+   echo json_encode($respuesta);
+}
 
-        $respuesta['footer'] =
-        "
-        <a href='../administradores/lista_de_envios'><i id='icon_motorcycle' class='fas fa-motorcycle fa-2x footer-icons'><span class='span-icon'>Envíos</span></i></a>
-        <a href='../inicio/calcular_ruta'><i id='icon_calculator' class='fas fa-calculator fa-2x footer-icons'><span class='span-icon'>Rutas</span></i></a>
-        <a href='../inicio/inicio'><i id='icon_home' class='fas fa-home fa-2x footer-icons'><span class='span-icon'>Inicio</span></i></a>
-        <a data-toggle='modal' data-target='#tasa_del_dia'><i id='icon_coins' class='fas fa-coins fa-2x footer-icons'><span class='span-icon'>Tasa</span></i></a>
-        <a href='../administradores/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x footer-icons'><span class='span-icon'>Perfil</span></i></a>
-        ";
-    }
-    if($AdminLevel === '2')
-    {
-        $respuesta['header'] = 
-        "
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a></li>
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a></li>
-        <li><hr class='dropdown-divider'></li>
-        <li><a id='reload' class='dropdown-item'><i class='fas fa-sync-alt'></i> Actualizar </a></li>
-        <li><a id='cerrar_sesion' class='dropdown-item' ><i class='fas fa-sign-out-alt'></i> Salir</a></li>";
+function HeaderMenu($AdminLevel)
+{
+  if($AdminLevel === '0')
+  {
+    $respuesta = 
+    "
+    <a class='sidebar-item' href='../clientes/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
+    <a class='sidebar-item mi-carrito' data-toggle='modal' data-target='#ver_carrito'><i class='fas fa-shopping-cart'></i> 
+              Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' id='reload' class=''><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
+    ";
+  }
+  else if($AdminLevel === '1')
+  {
+    $respuesta =
+    "
+    <a class='sidebar-item' href='../administradores/lista_de_comercios'><i class='fas fa-building'></i> Comercios</a>
+    <a class='sidebar-item' href='../administradores/lista_de_clientes'><i class='fas fa-users'></i> Clientes</a>
+    <a class='sidebar-item' href='../administradores/lista_de_usuarios'><i class='fas fa-users'></i> Usuarios</a>
+    <a class='sidebar-item' href='../administradores/lista_de_conductores'><i class='fas fa-user-tie'></i> Conductores</a>
+    <a class='sidebar-item' href='../administradores/lista_de_motos'><i class='fas fa-motorcycle'></i> Motos</a>
+    <a class='sidebar-item' href='../administradores/lista_de_tarifas'><i class='fas fa-money-bill-alt'></i> Tarifas</a>
+    <a class='sidebar-item' href='../administradores/lista_de_administradores'><i class='fas fa-user-friends'></i> Administradores</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
+    ";
+     
+  }
+  else if($AdminLevel === '2')
+  {
+    $respuesta = 
+    "
+    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
+    ";
+  }
+  else if($AdminLevel === '3')
+  {
+    $respuesta =
+    "
+    <a class='sidebar-item' href='../comercios/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
+    <a class='sidebar-item' href='../comercios/mis_datos_bancarios'><i class='fas fa-dollar-sign'></i> Datos Bancarios</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
+    ";
+  }
+  else if($AdminLevel === '4')
+  {
+     //administracion de gruas
+  }
+  else if($AdminLevel === '5')
+  {
+     //conductores de gruas
+  }
 
-        $respuesta['footer'] = 
-        "
-        <a href='../conductores/lista_de_envios'><i id='icon_motorcycle' class='fas fa-motorcycle fa-2x footer-icons'><span class='span-icon'>Envíos</span></i></a>
-        <a href='../inicio/calcular_ruta'><i id='icon_calculator' class='fas fa-calculator fa-2x footer-icons'><span class='span-icon'>Rutas</span></i></a>
-        <a href='../inicio/inicio'><i id='icon_home' class='fas fa-home fa-2x footer-icons'><span class='span-icon'>Inicio</span></i></a>
-        <a href='../inicio/inicio'><i id='icon_map' class='fas fa-map-marker-alt fa-2x footer-icons'><span class='span-icon'>Ubicación</span></i></a>
-        <a href='../conductores/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x footer-icons'><span class='span-icon'>Perfil</span></i></a>
-        ";
-    }
+  return $respuesta;
+}
+
+function FooterMenu($AdminLevel)
+{
+    $perfil = false;
+    
     if($AdminLevel === '0')
     {
-        $respuesta['header'] = 
-        "
-        <li><a class='dropdown-item' href='../clientes/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a></li>
-        <li><a class='dropdown-item mi-carrito' data-toggle='modal' data-target='#ver_carrito'><i class='fas fa-shopping-cart'></i> Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a></li>
-        <li><hr class='dropdown-divider'></li>
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a></li>
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a></li>
-        <li><a id='reload' class='dropdown-item'><i class='fas fa-sync-alt'></i> Actualizar </a></li>
-        <li><a id='cerrar_sesion' class='dropdown-item' ><i class='fas fa-sign-out-alt'></i> Salir</a></li>
-        ";
-
-        $respuesta['footer'] = 
-        "
-        <a href='../clientes/comercios_by_categoria'><i id='icon_shopping' class='fas fa-shopping-cart fa-2x footer-icons'><span class='span-icon'>Comprar</span></i></a>
-        <a href='../inicio/calcular_ruta'><i id='icon_calculator' class='fas fa-calculator fa-2x footer-icons'><span class='span-icon'>Rutas</span></i></a>
-        <a href='../inicio/inicio'><i id='icon_home' class='fas fa-home fa-2x footer-icons'><span class='span-icon'>Inicio</span></i></a>
-        <a href='../clientes/lista_de_pedidos'><i id='icon_file' class='fas fa-file-alt fa-2x footer-icons'><span class='span-icon'>Pedidos</span></i></a>
-        <a href='../clientes/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x footer-icons'><span class='span-icon'>Perfil</span></i></a>
-        ";
+         $perfil = 'clientes';
     }
-    if($AdminLevel === '3')
+    else if($AdminLevel === '1')
     {
-        $respuesta['header'] =
-        "
-        <li><a class='dropdown-item' href='../comercios/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a></li>
-        <li><a class='dropdown-item' href='../comercios/mis_datos_bancarios'><i class='fas fa-dollar-sign'></i> Datos Bancarios</a></li>
-        <li><hr class='dropdown-divider'></li>
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a></li>
-        <li><a class='dropdown-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a></li>
-        <li><a id='reload' class='dropdown-item'><i class='fas fa-sync-alt'></i> Actualizar </a></li>
-        <li><a id='cerrar_sesion' class='dropdown-item' ><i class='fas fa-sign-out-alt'></i> Salir</a></li>";
-        $respuesta['footer'] = 
-        "
-        <a href='../comercios/lista_de_productos'><i id='icon_shopping' class='fas fa-shopping-cart fa-2x footer-icons'><span class='span-icon'>Productos</span></i></a>
-        <a href='../inicio/calcular_ruta'><i id='icon_calculator' class='fas fa-calculator fa-2x footer-icons'><span class='span-icon'>Rutas</span></i></a>
-        <a href='../inicio/inicio'><i id='icon_home' class='fas fa-home fa-2x footer-icons'><span class='span-icon'>Inicio</span></i></a>
-        <a href='../comercios/lista_de_pedidos'><i id='icon_file' class='fas fa-file-alt fa-2x footer-icons'><span class='span-icon'>Pedidos</span></i></a>
-        <a href='../comercios/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x footer-icons'><span class='span-icon'>Perfil</span></i></a>
-        ";
+         $perfil = 'administradores';
+    }
+    else if($AdminLevel === '2')
+    {
+        $perfil = 'conductores';
+    }
+    else if($AdminLevel === '3')
+    {
+        $perfil = 'comercios';
+    }
+    else if($AdminLevel === '4')
+    {
+        //administradores de gruas
+    }
+    else if($AdminLevel === '5')
+    {
+         // conductores de gruas
     }
 
-    echo json_encode($respuesta);
+    if($perfil)
+    {
+        $respuesta = 
+        "
+        <a class='footer-icons' href='../$perfil/comprar'><i id='icon_shopping' class='fas fa-shopping-cart fa-2x'><span class='span-icon'>Comprar</span></i></a>
+        <a class='footer-icons' href='../inicio/calculadora'><i id='icon_calculator' class='fas fa-calculator fa-2x'><span class='span-icon'>Calculadora</span></i></a>
+        <a class='footer-icons' href='../$perfil/gruas'><i id='icon_home' class='fas fa-truck fa-2x'><span class='span-icon'>Grúas</span></i></a>
+        <a class='footer-icons' href='../$perfil/lista_de_pedidos'><i id='icon_file' class='fas fa-file-alt fa-2x'><span class='span-icon'>Pedidos</span></i></a>
+        <a class='footer-icons' href='../$perfil/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x'><span class='span-icon'>Perfil</span></i></a>
+        ";
+
+        return $respuesta;
+    }
+    else
+    {
+        return false;
+    }
 }

@@ -34,6 +34,7 @@ function envios_pendientes()
      foreach($lista_de_envios as $envio)
      {
         $id = $envio['Id'];
+        $id_comercio = $envio['Id_comercio'];
         $comercio = $envio['Razon_social'];
         $cliente = $envio['Nombre'].' '.$envio['Apellido'];
         $salida = $envio['Salida'];
@@ -49,6 +50,13 @@ function envios_pendientes()
         $orderStatus = OrderStatus($nro_pedido);
         $metodo_pago = $orderDetail[0]['Categoria'];
         $pago = $orderStatus[0]['Pagado'];
+        $ComercioData = ComercioData($id_comercio);
+        $foto = SearchProfilePhoto($ComercioData[0]['Id'], 'perfil');
+
+        if(!$foto)
+        {
+           $foto = "../../server/images/profile/letters/c.jpg";
+        }
 
         if($pago)
         {
@@ -62,36 +70,35 @@ function envios_pendientes()
        
       $resp .=
       "
-      <div class=' card-envios card'>
-      <div class='card-header'>
-      <i class='fas fa-motorcycle'></i> Pendiente
-      </div>
-      <div class='card-body bg-transparent'>
-        <h6 class='card-title'>$comercio</h6>
-        <p class='card-text'></p>
-        <ul class='list-group list-group-flush'>
-        <div id='detalle_$id' class='m-0 dropdown-container'>
-        <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
-        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-        <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-        <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-        <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-        <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-        </div>
-      </ul>
-      <a  id='$id' class='btn envio-detalle'>
-      <i class='fas fa-info-circle'></i> Ver Detalle</a>
-
-      <button id='$nro_pedido' data-toggle='modal' data-target='#asignar_conductor' class='card-btn asignar-conductor'>
-      <i class='fas fa-motorcycle'></i> Asignar</button>
-      </div>
-      <div class='card-footer text-body-secondary'>
-       Última Actividad $dia $fecha a las $hora
-      </div>
-    </div>
-      
-      ";
+      <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+      <div class='toast-header'>
+      <img src='$foto' class='img-option-2 me-2' alt='Foto de Perfil'>
+    <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+    $comercio
+     </strong>
+    <small></small>
+      <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+       <span><i class='fas fa-ellipsis-v'></i></span>
+      </button>
+      <ul class='dropdown-menu card-menu'>
+      <li class='dropdown-item card-menu-item'><a class='editar_admin_btn' 
+      admin='$id' user='' correo='' nivel='' data-toggle='modal' data-target='#editar_admin'>
+      <i class='fa-solid fa-edit'></i> Editar</a></li>
+      <li class='dropdown-item card-menu-item'><a class='eliminar_admin_btn' id='$id'>
+      <i class='fa-solid fa-trash'></i> Eliminar</a></li>
+     </ul>
+  </div>
+  <div class='toast-body toast_$id collapse'>
+  <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+  <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+  <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+  <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+  <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+  <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+  <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
+  </div>
+</div>
+ ";
    
      }
 
@@ -145,38 +152,25 @@ function envios_pendientes()
          
         $resp .=
         "
-        <div class=' card-envios card'>
-        <div class='card-header'>
-        <i class='fas fa-motorcycle'></i> Pendiente
+        <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+        <div class='toast-header'>
+          <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+          <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+          $comercio
+           </strong>
+          <small></small>
+            <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+             <span><i class='fas fa-ellipsis-v'></i></span>
+            </button>
         </div>
-        <div class='card-body bg-transparent'>
-          <h6 class='card-title'>$comercio</h6>
-          <p class='card-text'></p>
-          <ul class='list-group list-group-flush'>
-          
-          <div id='detalle_$id' class=' m-0 dropdown-container'>
-          <li class='list-group-item'><h6>Cliente:</h6> $cliente <button telefono='$telefono' class='btn ws-btn-envios'><i class='fab fa-whatsapp'></i></button>
-          </li>
-          <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-          <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-          <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-          <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-          <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-          <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-          </div>
-        </ul>
-
-        <button pedido='$nro_pedido' ruta='$ruta' class='card-btn aceptar-envio'>
-        <i class='fas fa-motorcycle'></i> Aceptar</button>
-
-        <button  ruta='$ruta' class='card-btn revisar-ruta'>
-        <i class='fas fa-motorcycle'></i> Ver Ruta</button>
-
-        <a  id='$id' class='btn envio-detalle'>
-        <i class='fas fa-info-circle'></i> Ver Detalle</a>
-        </div>
-        <div class='card-footer text-body-secondary'>
-          Última Actividad $dia $fecha a las $hora
+        <div class='toast-body toast_$id collapse'>
+        <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+        <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+        <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+        <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+        <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
         </div>
       </div>
         
@@ -249,36 +243,25 @@ function envios_asignados()
        
       $resp .=
       "
-      <div class=' card-envios card'>
-      <div class='card-header'>
-      <i class='fas fa-motorcycle'></i> Asignado
+      <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+      <div class='toast-header'>
+        <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+        <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+        $comercio
+         </strong>
+        <small></small>
+          <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+           <span><i class='fas fa-ellipsis-v'></i></span>
+          </button>
       </div>
-      <div class='card-body bg-transparent'>
-        <h6 class='card-title'>$comercio</h6>
-        <p class='card-text'></p>
-        <ul class='list-group list-group-flush'>
-        <li class='list-group-item'><h6>Conductor:</h6> $conductor </li>
-        <li class='list-group-item'><h6>Vehículo:</h6> $moto </li>
-        <li class='list-group-item'><h6>Placa:</h6> $placa </li>
-
-        <div id='detalle_$id' class='m-0 dropdown-container'>
-        <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
-        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-        <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-        <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-        <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-        <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-        </div>
-      </ul>
-      <a  id='$id' class='btn envio-detalle'>
-      <i class='fas fa-info-circle'></i> Ver Detalle</a>
-
-      <button id='$nro_pedido' data-toggle='modal' data-target='#asignar_conductor' class='card-btn asignar-conductor'>
-      <i class='fas fa-motorcycle'></i> Re-Asignar</button>
-      </div>
-      <div class='card-footer text-body-secondary'>
-        Última Actividad $dia $fecha a las $hora
+      <div class='toast-body toast_$id collapse'>
+      <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+      <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+      <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+      <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+      <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+      <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+      <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
       </div>
     </div>
       
@@ -354,36 +337,25 @@ function envios_en_curso()
        
       $resp .=
       "
-      <div class=' card-envios card'>
-      <div class='card-header'>
-      <i class='fas fa-motorcycle'></i> En Transito
+      <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+      <div class='toast-header'>
+        <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+        <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+        $comercio
+         </strong>
+        <small></small>
+          <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+           <span><i class='fas fa-ellipsis-v'></i></span>
+          </button>
       </div>
-      <div class='card-body bg-transparent'>
-        <h6 class='card-title'>$comercio</h6>
-        <p class='card-text'></p>
-        <ul class='list-group list-group-flush'>
-        <li class='list-group-item'><h6>Conductor:</h6> $conductor </li>
-        <li class='list-group-item'><h6>Vehículo:</h6> $moto </li>
-        <li class='list-group-item'><h6>Placa:</h6> $placa </li>
-
-        <div id='detalle_$id' class='m-0 dropdown-container'>
-        <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
-        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-        <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-        <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-        <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-        <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-        </div>
-      </ul>
-      <a  id='$id' class='btn envio-detalle'>
-      <i class='fas fa-info-circle'></i> Ver Detalle</a>
-
-      <button id='$nro_pedido' data-toggle='modal' data-target='#asignar_conductor' class='card-btn asignar-conductor'>
-      <i class='fas fa-motorcycle'></i> Re-Asignar</button>
-      </div>
-      <div class='card-footer text-body-secondary'>
-        Última Actividad $dia $fecha a las $hora
+      <div class='toast-body toast_$id collapse'>
+      <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+      <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+      <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+      <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+      <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+      <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+      <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
       </div>
     </div>
       
@@ -449,38 +421,27 @@ function envios_en_curso()
         
        $resp .=
        "
-       <div class=' card-envios card'>
-       <div class='card-header'>
-       <i class='fas fa-motorcycle'></i> En Tránsito
+       <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+       <div class='toast-header'>
+         <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+         <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+         $comercio
+          </strong>
+         <small></small>
+           <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+            <span><i class='fas fa-ellipsis-v'></i></span>
+           </button>
        </div>
-       <div class='card-body bg-transparent'>
-         <h6 class='card-title'>$comercio</h6>
-         <p class='card-text'></p>
-         <ul class='list-group list-group-flush'>
-         <div id='detalle_$id' class='m-0 dropdown-container''>
-         <li class='list-group-item'><h6>Cliente:</h6> $cliente <button telefono='$telefono' class='btn ws-btn-envios'><i class='fab fa-whatsapp'></i></button></li>
-         <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-         <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-         <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-         </div>
-       </ul> 
-       <button  pedido='$nro_pedido' class='card-btn ruta-completada'>
-       <i class='fas fa-motorcycle'></i> Completado</button>
-
-       <button  ruta='$ruta' class='card-btn revisar-ruta'>
-       <i class='fas fa-motorcycle'></i> Ver Ruta</button>
-
-       <a  id='$id' class='btn envio-detalle'>
-       <i class='fas fa-info-circle'></i> Ver Detalle</a>
-       </div>
-       <div class='card-footer text-body-secondary'>
-         Última Actividad $dia $fecha a las $hora
+       <div class='toast-body toast_$id collapse'>
+       <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+       <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+       <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+       <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+       <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+       <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+       <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
        </div>
      </div>
-       
        ";
     
       }
@@ -549,34 +510,25 @@ function envios_completados()
        
       $resp .=
       "
-      <div class=' card-envios card'>
-      <div class='card-header'>
-      <i class='fas fa-motorcycle'></i> Completado
+      <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+      <div class='toast-header'>
+        <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+        <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+        $comercio
+         </strong>
+        <small></small>
+          <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+           <span><i class='fas fa-ellipsis-v'></i></span>
+          </button>
       </div>
-      <div class='card-body bg-transparent'>
-        <h6 class='card-title'>$comercio</h6>
-        <p class='card-text'></p>
-        <ul class='list-group list-group-flush'>
-        <li class='list-group-item'><h6>Conductor:</h6> $conductor </li>
-        <li class='list-group-item'><h6>Vehículo:</h6> $moto </li>
-        <li class='list-group-item'><h6>Placa:</h6> $placa </li>
-
-        <div id='detalle_$id' class='m-0 dropdown-container'>
-        <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
-        <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-        <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-        <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-        <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-        <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-        <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-        </div>
-      </ul>
-      <a id='$id' class='btn envio-detalle'>
-      <i class='fas fa-info-circle'></i> Ver Detalle</a>
-
-      </div>
-      <div class='card-footer text-body-secondary'>
-        Última Actividad $dia $fecha a las $hora
+      <div class='toast-body toast_$id collapse'>
+      <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+      <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+      <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+      <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+      <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+      <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+      <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
       </div>
     </div>
       
@@ -641,30 +593,25 @@ function envios_completados()
         
        $resp .=
        "
-       <div class=' card-envios card'>
-       <div class='card-header'>
-       <i class='fas fa-motorcycle'></i> Completado
+       <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
+       <div class='toast-header'>
+         <img src='../../server/images/logos/deliveryvargas.png' class='img-option-2 me-2' alt='...'>
+         <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
+         $comercio
+          </strong>
+         <small></small>
+           <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+            <span><i class='fas fa-ellipsis-v'></i></span>
+           </button>
        </div>
-       <div class='card-body bg-transparent'>
-         <h6 class='card-title'>$comercio</h6>
-         <p class='card-text'></p>
-         <ul class='list-group list-group-flush'> 
-         <div id='detalle_$id' class='m-0 dropdown-container'>
-         <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
-         <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
-         <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
-         <li class='list-group-item'><h6>Salida:</h6> $salida</li>
-         <li class='list-group-item'><h6>Destino:</h6> $destino</li>
-         <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
-         <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
-         </div>
-       </ul>
-       <a  id='$id' class='btn envio-detalle'>
-       <i class='fas fa-info-circle'></i> Ver Detalle</a>
- 
-       </div>
-       <div class='card-footer text-body-secondary'>
-         Última Actividad $dia $fecha a las $hora
+       <div class='toast-body toast_$id collapse'>
+       <li class='list-group-item'><h6>Cliente:</h6> $cliente</li>
+       <li class='list-group-item'><h6>Método de Pago:</h6> $metodo_pago</li>
+       <li class='list-group-item'><h6>Estado del Pago:</h6> $pagado</li>
+       <li class='list-group-item'><h6>Salida:</h6> $salida</li>
+       <li class='list-group-item'><h6>Destino:</h6> $destino</li>
+       <li class='list-group-item'><h6>Distancia:</h6> $distancia KM.</li>
+       <li class='list-group-item'><h6>Tiempo Estimado:</h6> $tiempo </li>
        </div>
      </div>
        

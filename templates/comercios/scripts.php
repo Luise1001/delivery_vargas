@@ -7,7 +7,7 @@
   <script src="../inicio/js/mapas/autocomplete.js"></script>
 
   <!-- Consulta -->
-  <script src="js/consulta/menu.js"></script>
+  <script src="../inicio/js/consulta/menu.js"></script>
   <script src="js/consulta/categorias.js"></script>
   <script src="js/consulta/producto_individual.js"></script>
   <script src="js/consulta/opciones_de_pago.js"></script>

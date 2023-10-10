@@ -1,12 +1,12 @@
 <?php
 
-function AdminList()
+function AdminList($AdminLevel)
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel BETWEEN 1 AND 2 ORDER BY Nivel ASC";
+  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY U_movimiento DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute();
+  $preparar_sql->execute(array($AdminLevel));
   $resultado = $preparar_sql->fetchAll();
 
   if($resultado)

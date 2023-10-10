@@ -12,7 +12,7 @@
     <?php include_once '../loader.php';?>
 <div id="contenido" >
  
-<?php include_once 'menu.php';?>
+<?php include_once '../inicio/menu.php';?>
 
 <div class="lista-de-pedidos cuerpo">
 

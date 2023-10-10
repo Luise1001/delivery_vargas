@@ -37,7 +37,7 @@ function mi_perfil()
     $header = 
     "
     <div class='container-foto-perfil'>
-    <img id='foto_perfil' src='$foto' alt='Foto de Perfil'>
+    <img class='img-option-1' id='foto_perfil' src='$foto' alt='Foto de Perfil'>
     <input type='file' accept='image/*' id='input_fp' class='file-selector'>
     <label for='input_fp' class='file-selector-label'>
     <span class='file-selector-span-icon'><i class='fas fa-camera'></i></span>

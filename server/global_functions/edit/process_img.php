@@ -32,12 +32,12 @@ function ProductImg($rif_comercio, $foto, $files)
 
 function ProfilePhoto($letter)
 {
-    $ruta = '../images/profile/letters'; 
+    $ruta = "../images/profile/letters";
 
     if(file_exists($ruta))
     {
         $foto = $ruta.'/'.$letter.'.jpg';
-      if(!file_exists($foto))
+      if(file_exists($foto))
       {
         $ruta .= '/';
         $image = imagecreate(512, 512);
@@ -61,8 +61,11 @@ function ProfilePhoto($letter)
 
         $filename = $ruta."$letter.jpg";
         imagejpeg($image, $filename);
+      
+        $foto = "../../server/images/profile/letters/$letter.jpg";
 
         imagedestroy($image);
+
       }
 
     }
@@ -96,10 +99,15 @@ function ProfilePhoto($letter)
           $filename = $ruta."$letter.jpg";
           imagejpeg($image, $filename);
   
+          $foto = "../../server/images/profile/letters/$letter.jpg";
+
           imagedestroy($image);
+
         }
 
     }
+
+    return $foto;
 
 }
 
@@ -134,17 +142,23 @@ function MyProfilePhoto($id, $foto, $files)
 
 }
 
-function SearchProfilePhoto($id, $foto)
+function SearchProfilePhoto($UserID)
 {
-    $ruta = "../images/profile/users/$id/photo/$foto.jpg";
+    $ruta = "../images/profile/users/$UserID/photo/perfil.jpg";
 
     if(file_exists($ruta))
     {
-        return true;
+        $foto = "../../server/images/profile/users/$UserID/photo/perfil.jpg";
+        return $foto;
     }
     else
     {
-        return false;
+        require '../conexion.php';
+        $UserData = UserData($UserID);
+        $UserName = $UserData[0]['User_name'];
+        $inicial = substr($UserName, 0, 1);
+        $foto = ProfilePhoto($inicial);
+        return $foto;
     }
 }
 

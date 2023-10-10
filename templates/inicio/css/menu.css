@@ -5,6 +5,7 @@
   background: #fce944;
   position: absolute;
   top: 0px;
+  z-index: 3;
 }
 .titulo-app
 {
@@ -40,6 +41,7 @@
 }
 .footer-icons
 {
+  text-align: center;
 
 }
 .span-icon
@@ -50,7 +52,33 @@
   text-align: center;
   justify-content: space-evenly;
 }
+.offcanvas-header
+{
+   background: #fce944;
+   padding: 20px;
+}
+.user-photo
+{
+   width: 60px;
+   height: 60px;
+   border: solid 2px grey;
+   border-radius: 50%;
+}
+.user-title
+{
+    font-family: serif;
+    text-align: left;
+    color: rgb(14,39,165);
+    font-size: large;
+    font-weight: bold;
+}
 .options-menu
 {
-
+  display: inline-grid;
+}
+.sidebar-item
+{
+  text-decoration: none;
+  font-size: large;
+  font-family: 'Times New Roman', Times, serif;
 }

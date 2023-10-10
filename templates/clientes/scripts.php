@@ -12,7 +12,7 @@
 <script src="js/agregar/completar_pedido.js"></script>
 
 <!-- consulta -->
-<script src="js/consulta/menu.js"></script>
+<script src="../inicio/js/consulta/menu.js"></script>
 <script src="js/consulta/producto_individual.js"></script>
 <script src="js/consulta/ver_carrito.js"></script>
 <script src="js/consulta/perfil_setting.js"></script>

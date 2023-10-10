@@ -117,34 +117,37 @@ function ClientOrders($id_usuario, $nivel)
       
         if($estado != 'Entregado' && $estado != 'Anulado')
         {
+          
           $mis_pedidos['pendientes'] .= 
           "
-          <ul>
-          <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-            <a class=' orden-pedido-link btn menu_opciones'>
-            <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-             <div class='container'>
-              <p class='pedido-tag-p'>$razon_social</p>
-              <p class='pedido-tag-p'>$nombre $apellido</p>
-             
-              <div class='progress'>
-              <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-                style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
-               </div>
-             </div>
-            </a>
-               <div class='dropdown-container'>
-               <div class='pedido-info'>
-                $informacion
-               </div>
-               <div class='pedido-info'>
-               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-               <li><h6>Estatus:</h6> $pagado</li>
-               </div>
-               <div class='pedido-detalle'>
-               <li><h6>Detalle del Pedido</h6></li>
-               ";  
-
+          <div  role='alert' aria-live='assertive' aria-atomic='true'>
+              <div class='toast-header'>
+                 <img src='$foto' class='img-pedido-comercio' alt='foto-perfil'>
+                 <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$nro_pedido' data-bs-auto-close='true'>
+                  $razon_social
+                 </strong>
+                 <small></small>
+                 <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+                 <span><i class='fas fa-ellipsis-v'></i></span>
+               </button>
+            </div>
+                    <div class='progress'>
+                    <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+                      style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+                     </div>
+                   </div>
+        <div class='toast-body toast_$nro_pedido collapse'>
+                 <div class='dropdown-container'>
+                 <div class='pedido-info'>
+                  $informacion
+                 </div>
+                 <div class='pedido-info'>
+                 <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+                 <li><h6>Estatus:</h6> $pagado</li>
+                 </div>
+                 <div class='pedido-detalle'>
+                 <li><h6>Detalle del Pedido</h6></li>
+        "; 
             foreach($OrderDetail as $detail)
             {
               $cantidad = $detail['Cantidad'];
@@ -165,13 +168,13 @@ function ClientOrders($id_usuario, $nivel)
             <div class='pedido-footer'>
             Total: $.$total
             </div>
-
-            $botones
-             </div>
+            ";
         
+        $mis_pedidos['pendientes'] .=
+        "
         </div>
-       </ul>
-       ";
+      </div>
+         ";
 
       }
 
@@ -179,32 +182,32 @@ function ClientOrders($id_usuario, $nivel)
         {
           $mis_pedidos['completados'] .= 
           "
-          <ul>
-          <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-            <a class=' orden-pedido-link btn menu_opciones'>
-            <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-             <div class='container'>
-              <p class='pedido-tag-p'>$razon_social</p>
-              <p class='pedido-tag-p'>$nombre $apellido</p>
-             
-              <div class='progress'>
-              <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-                style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          <div  role='alert' aria-live='assertive' aria-atomic='true'>
+          <div class='toast-header'>
+             <img src='$foto' class='img-pedido-comercio' alt='foto-perfil'>
+             <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$nro_pedido' data-bs-auto-close='true'>
+             $razon_social</strong>
+             <small></small>
+             <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+             <span><i class='fas fa-ellipsis-v'></i></span>
+           </button>
+        </div>
+                <div class='progress'>
+                <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+                  style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+                 </div>
                </div>
+    <div class='toast-body toast_$nro_pedido collapse'>
+             <div class='pedido-info'>
+              $informacion
              </div>
-            </a>
-               <div class='dropdown-container'>
-               <div class='pedido-info'>
-                $informacion
-               </div>
-               <div class='pedido-info'>
-               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-               <li><h6>Estatus:</h6> $pagado</li>
-               </div>
-               <div class='pedido-detalle'>
-               <li><h6>Detalle del Pedido</h6></li>
-               ";  
-
+             <div class='pedido-info'>
+             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+             <li><h6>Estatus:</h6> $pagado</li>
+             </div>
+             <div class='pedido-detalle'>
+             <li><h6>Detalle del Pedido</h6></li>
+             ";
             foreach($OrderDetail as $detail)
             {
               $cantidad = $detail['Cantidad'];
@@ -218,7 +221,7 @@ function ClientOrders($id_usuario, $nivel)
               ";
 
             }
-              
+
             $mis_pedidos['completados'] .=
             "
             </div>
@@ -228,10 +231,15 @@ function ClientOrders($id_usuario, $nivel)
 
             $botones
              </div>
-        
-        </div>
-       </ul>
-       ";
+             ";
+     
+
+            $mis_pedidos['completados'] .=
+            "
+    </div>
+  </div>
+  ";
+ 
 
       }
 
@@ -239,32 +247,32 @@ function ClientOrders($id_usuario, $nivel)
         {
           $mis_pedidos['anulados'] .= 
           "
-          <ul>
-          <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-            <a class=' orden-pedido-link btn menu_opciones'>
-            <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-             <div class='container'>
-              <p class='pedido-tag-p'>$razon_social</p>
-              <p class='pedido-tag-p'>$nombre $apellido</p>
-             
-              <div class='progress'>
-              <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-                style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          <div  role='alert' aria-live='assertive' aria-atomic='true'>
+          <div class='toast-header'>
+             <img src='$foto' class='img-pedido-comercio' alt='foto-perfil'>
+             <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$nro_pedido' data-bs-auto-close='true'>
+             $razon_social</strong>
+             <small></small>
+             <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
+             <span><i class='fas fa-ellipsis-v'></i></span>
+           </button>
+        </div>
+                <div class='progress'>
+                <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+                  style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+                 </div>
                </div>
+              <div class='toast-body toast_$nro_pedido collapse'>
+             <div class='pedido-info'>
+              $informacion
              </div>
-            </a>
-               <div class='dropdown-container'>
-               <div class='pedido-info'>
-                $informacion
-               </div>
-               <div class='pedido-info'>
-               <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-               <li><h6>Estatus:</h6> $pagado</li>
-               </div>
-               <div class='pedido-detalle'>
-               <li><h6>Detalle del Pedido</h6></li>
-               ";  
-
+             <div class='pedido-info'>
+             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
+             <li><h6>Estatus:</h6> $pagado</li>
+             </div>
+             <div class='pedido-detalle'>
+             <li><h6>Detalle del Pedido</h6></li>
+             ";
             foreach($OrderDetail as $detail)
             {
               $cantidad = $detail['Cantidad'];
@@ -278,7 +286,7 @@ function ClientOrders($id_usuario, $nivel)
               ";
 
             }
-              
+
             $mis_pedidos['anulados'] .=
             "
             </div>
@@ -288,11 +296,14 @@ function ClientOrders($id_usuario, $nivel)
 
             $botones
              </div>
-        
-        </div>
-       </ul>
-       ";
+             ";
+     
 
+            $mis_pedidos['anulados'] .=
+            "
+    </div>
+  </div>
+  ";
       }
     
      }
@@ -407,11 +418,10 @@ function BusinessOrders($id_usuario, $nivel)
        {
         $mis_pedidos['pendientes'] .= 
         "
-        <ul>
         <div class='orden-pedido opciones dropdown img-fondo-blanco'>
           <a class=' orden-pedido-link btn menu_opciones'>
           <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container'>
+           <div class='container' data-bs-toggle='collapse' data-bs-target='.toast_$nro_pedido' data-bs-auto-close='true'>
             <p>$nombre $apellido <button telefono='$telefono_cliente' class='btn ws-btn-pedidos'><i class='fab fa-whatsapp fa-2x'></i></button></p>
             <div class='progress'>
             <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
@@ -419,7 +429,7 @@ function BusinessOrders($id_usuario, $nivel)
              </div>
            </div>
           </a>
-             <div class='dropdown-container'>
+             <div class='toast_$nro_pedido collapse'>
              <div class='pedido-info'>
               $informacion
              </div>
@@ -457,7 +467,6 @@ function BusinessOrders($id_usuario, $nivel)
               </div>
          
          </div>
-        </ul>
         ";
  
        }

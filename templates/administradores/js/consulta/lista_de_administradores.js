@@ -20,6 +20,7 @@ function lista_de_administradores()
       $('.header-icons').html(res.botones);
       $('#admins').html(res.administradores);
       $('#conductores').html(res.conductores);
+      $('#admin_grua').html(res.admin_grua);
 
   })
   .fail(function(err)

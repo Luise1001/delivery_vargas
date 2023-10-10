@@ -6,7 +6,7 @@
 <!-- Agregar -->
 
 <!-- Consulta -->
-<script src="js/consulta/menu.js"></script>
+<script src="../inicio/js/consulta/menu.js"></script>
 <script src="js/consulta/datos_moto.js"></script>
 <script src="js/consulta/perfil_setting.js"></script>
 
