@@ -9,9 +9,19 @@
       </div>
       <div id="nueva_tarifa_form" class="modal-body m-2">
       <form class="row g-3">
+   <div class="col-md-6">
+    <label class="form-label" for="tipo_servicio">Servicio</label>
+    <select class="input-opcion-4" id="tipo_servicio" name="tipo_servicio">
+    <option value="Delivery">Delivery</option>
+    <option value="Grúa">Grúa</option>
+    </select>
+   </div>     
+
   <div class="col-md-6">
-    <label for="de_km" class="form-label">Cantidad de KM.<span class="text-danger">*</span></label>
+    <label for="de_km" class="form-label">De KM.<span class="text-danger">*</span></label>
     <input type="text" class="input-opcion-4" id="de_km" name="de_km" placeholder="0" required>
+    <label for="hasta_km" class="form-label">Hasta KM.<span class="text-danger">*</span></label>
+    <input type="text" class="input-opcion-4" id="hasta_km" name="hasta_km" placeholder="0" required>
   </div>
 
   <div class="col-md-6">

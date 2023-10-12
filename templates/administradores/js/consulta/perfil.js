@@ -17,33 +17,14 @@ function mi_perfil()
    })
    .done(function(res)
    { 
-     $('.user-head').html(res.header);
-     $('.user-personal-data').html(res.data);
+     $('.titulo-app').html(res.titulo);
+     $('#profile_header').html(res.header);
+     $('#profile_information').html(res.information);
    })
    .fail(function(err)
    {
-      console.log(err.responseText);
+      console.log(err);
    })
 
 }
 
-$(document).on('click', '.personal-data-btn', function()
-{ 
-   ArrowChange();
-})
-
-function ArrowChange()
-{  
-   let arrow = document.getElementById('arrow_pd');
-
-   if(arrow.classList.contains('fa-angle-down'))
-   { 
-      $('#arrow_pd').removeClass('fa-angle-down');
-      $('#arrow_pd').addClass('fa-angle-up');
-   }
-   else
-   {
-      $('#arrow_pd').removeClass('fa-angle-up');
-      $('#arrow_pd').addClass('fa-angle-down');
-   }
-}

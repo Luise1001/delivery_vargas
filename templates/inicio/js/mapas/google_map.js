@@ -57,8 +57,9 @@ var autocomplete2 = autocomplete(input2, options);
 
 function calctarifa(distancia)
 { 
-    page = 'calcular_tarifa';
+    funcion = 'calcular_tarifa';
     let tarifa = 0;
+    let servicio = $('#tipo_servicio').val();
  
     $.ajax
     ({
@@ -68,8 +69,9 @@ function calctarifa(distancia)
        dataType: 'html',
        data: 
        {
-         page : page,
-         distancia: distancia
+         funcion : funcion,
+         distancia: distancia,
+         servicio: servicio
       }
   
     })

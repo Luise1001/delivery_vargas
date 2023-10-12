@@ -14,7 +14,7 @@ include_once 'redirect.php';
  
 <?php include_once '../inicio/menu.php';?>
 
-<div class="lista-de-tarifas cuerpo"></div>
+<div class="lista-de-tarifas principal-layout"></div>
 
 </div>
 

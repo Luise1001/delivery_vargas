@@ -2,6 +2,7 @@ $(document).ready(menu());
 
 function menu()
 {
+    let url = window.location.pathname;
     let funcion = 'menu';
   
     $.ajax
@@ -11,7 +12,8 @@ function menu()
        dataType: 'json',
        data: 
        {
-         funcion: funcion
+         funcion: funcion,
+         url: url
       }
   
     })
@@ -59,3 +61,4 @@ function cerrar_sesion()
       console.log(err);
     })
 }
+

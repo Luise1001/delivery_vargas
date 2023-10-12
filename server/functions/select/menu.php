@@ -8,17 +8,21 @@ function menu()
     $AdminLevel = AdminLevel($UserID);
     $UserData = UserData($UserID);
     $UserName = $UserData[0]['User_name'];
-    $respuesta = 
-    [
-        'header'=> HeaderMenu($AdminLevel),
-        'titulo'=> 'Delivery Vargas',
-        'foto'=> SearchProfilePhoto($UserID),
-        'user'=> $UserName,
-        'icons'=>'',
-        'footer'=> FooterMenu($AdminLevel)
-    ];
 
-   echo json_encode($respuesta);
+    if(isset($_POST['url']))
+    {
+       $url = $_POST['url'];
+       $respuesta = 
+       [
+           'header'=> HeaderMenu($AdminLevel),
+           'foto'=> SearchProfilePhoto($UserID),
+           'user'=> $UserName,
+           'footer'=> FooterMenu($AdminLevel, $url)
+       ];
+
+       echo json_encode($respuesta);
+    }
+
 }
 
 function HeaderMenu($AdminLevel)
@@ -88,7 +92,7 @@ function HeaderMenu($AdminLevel)
   return $respuesta;
 }
 
-function FooterMenu($AdminLevel)
+function FooterMenu($AdminLevel, $url)
 {
     $perfil = false;
     
@@ -119,13 +123,50 @@ function FooterMenu($AdminLevel)
 
     if($perfil)
     {
+      $icon_comprar = '../../server/images/icons/menu/Ico_Compra_OFF.png';
+      $icon_home = '../../server/images/icons/menu/Ico_Home_OFF.png';
+      $icon_calculator = '../../server/images/icons/menu/Ico_Calculator_OFF.png';
+      $icon_pedido = '../../server/images/icons/menu/Ico_Pedidos_OFF.png';
+      $icon_perfil = '../../server/images/icons/menu/Ico_Perfil_OFF.png';
+
+      if(strrpos($url, 'comprar'))
+      {
+        $icon_comprar = '../../server/images/icons/menu/Ico_Compra_ON.png';
+      }
+      if(strrpos($url, 'inicio'))
+      {
+        $icon_home = '../../server/images/icons/menu/Ico_Home_ON.png';
+      }
+      if(strrpos($url, 'calculadora'))
+      {
+        $icon_calculator = '../../server/images/icons/menu/Ico_Calculator_ON.png';
+      }
+      if(strrpos($url, 'pedido'))
+      {
+        $icon_pedido = '../../server/images/icons/menu/Ico_Pedidos_ON.png';
+      }
+      if(strrpos($url, 'perfil'))
+      {
+        $icon_perfil = '../../server/images/icons/menu/Ico_Perfil_ON.png';
+      }
+ 
         $respuesta = 
         "
-        <a class='footer-icons' href='../$perfil/comprar'><i id='icon_shopping' class='fas fa-shopping-cart fa-2x'><span class='span-icon'>Comprar</span></i></a>
-        <a class='footer-icons' href='../inicio/calculadora'><i id='icon_calculator' class='fas fa-calculator fa-2x'><span class='span-icon'>Calculadora</span></i></a>
-        <a class='footer-icons' href='../$perfil/gruas'><i id='icon_home' class='fas fa-truck fa-2x'><span class='span-icon'>Grúas</span></i></a>
-        <a class='footer-icons' href='../$perfil/lista_de_pedidos'><i id='icon_file' class='fas fa-file-alt fa-2x'><span class='span-icon'>Pedidos</span></i></a>
-        <a class='footer-icons' href='../$perfil/mi_perfil'><i id='icon_profile' class='fas fa-user fa-2x'><span class='span-icon'>Perfil</span></i></a>
+        <a class='footer-icons' href='../$perfil/comprar'>
+        <img id='icon_compra' class='footer-icons' src='$icon_comprar'>
+        </a>
+        <a class='footer-icons' href='../inicio/calculadora'>
+        <img id='icon_calculator' class='footer-icons' src='$icon_calculator'>
+        </a>
+        <a class='footer-icons' href='../inicio/inicio'>
+        <img id='icon_home' class='footer-icons' src='$icon_home'>
+        </a>
+        <a class='footer-icons' href='../$perfil/lista_de_pedidos'>
+        <img id='icon_pedido' class='footer-icons' src='$icon_pedido'>
+        </a>
+        <a class='footer-icons' href='../$perfil/mi_perfil'>
+        <img id='icon_perfil' class='footer-icons' src='$icon_perfil'>
+        </a>
         ";
 
         return $respuesta;

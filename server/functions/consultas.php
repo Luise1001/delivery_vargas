@@ -14,7 +14,18 @@ if($funcion === 'menu')
 {
      menu();
 }
-
+if($funcion === 'categorias')
+{
+    categorias();
+}
+if($funcion === "mis_categorias")
+{
+    mis_categorias();
+}
+if($funcion === 'productos_nuevos')
+{
+    productos_nuevos();
+}
 
 
 
@@ -62,8 +73,7 @@ if($funcion === 'lista_de_tarifas')
 }
 if($funcion === 'calcular_tarifa')
 {
-    $distancia = $_POST['distancia'];
-    calcular_tarifa($distancia);
+    calcular_tarifa();
 }
 if($funcion === 'lista_de_clientes')
 {
@@ -72,22 +82,6 @@ if($funcion === 'lista_de_clientes')
 if($funcion === 'lista_de_usuarios')
 {
     lista_de_usuarios();
-}
-if($funcion === 'conductores_cercanos')
-{
-    conductores_cercanos();
-}
-if($funcion === 'lista_de_usuarios_comercios')
-{
-    lista_de_usuarios_comercios();
-}
-if($funcion === 'datos_bancarios')
-{
-    datos_bancarios();
-}
-if($funcion === "categorias_comercios")
-{
-    categorias_comercios();
 }
 if($funcion === 'admin_level')
 {
@@ -130,10 +124,6 @@ if($funcion === 'full_descripcion')
 {
     full_descripcion();
 }
-if($funcion === 'comercios_by_categoria')
-{
-    comercios_by_categoria();
-}
 if($funcion === 'catalogo_productos')
 {
     catalogo_productos();
@@ -166,10 +156,6 @@ if($funcion === 'check_personal_data')
 if($funcion === 'datos_pago_pedido')
 {
     datos_pago_pedido();
-}
-if($funcion === 'consultar_datos')
-{
-  consultar_datos();
 }
 if($funcion === 'mi_moto')
 {

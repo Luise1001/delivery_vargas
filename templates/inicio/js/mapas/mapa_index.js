@@ -78,7 +78,7 @@ async function confirm_location()
 
 function SavePrincipalLocation(lat, lng, name)
 { 
-    let page = 'mi_ubicacion_actual';
+    let funcion = 'mi_ubicacion_actual';
 
         $.ajax
         ({
@@ -87,7 +87,7 @@ function SavePrincipalLocation(lat, lng, name)
            dataType: 'html',
            data: 
            {
-              page: page,
+              funcion: funcion,
               lat: lat,
               lng: lng,
               name: name

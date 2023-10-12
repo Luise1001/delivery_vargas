@@ -112,7 +112,9 @@ $tablas =
 ' CREATE TABLE IF NOT EXISTS tarifas
 (
   Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  KM double NOT NULL,
+  Desde double NOT NULL,
+  Hasta double NOT NULL,
+  Servicio VARCHAR(20) NOT NULL,
   Precio double NOT NULL,
   Fecha DATE  NOT NULL,
   U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
@@ -121,7 +123,8 @@ $tablas =
 (
   Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   Categoria VARCHAR(100) NOT NULL,
-  Precio_partida double NOT NULL,
+  Servicio VARCHAR(20) NOT NULL,
+  Precio_inicia double NOT NULL,
   Precio double NOT NULL,
   Fecha DATE  NOT NULL,
   U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)

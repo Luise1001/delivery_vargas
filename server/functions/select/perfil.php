@@ -4,84 +4,99 @@ function mi_perfil()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $adminLevel = AdminLevel($id_usuario);
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $respuesta =
+  [
+     'titulo'=> 'PERFIL',
+     'header'=> '',
+     'information'=>''
+  ];
 
-  if($id_usuario)
+  if($UserID)
   {  
-    $user_data = UserData($id_usuario);
+    $UserData = UserData($UserID);
 
-    foreach($user_data as $user)
+    foreach($UserData as $user)
     {
       $correo = $user['Correo'];
       $user_name = $user['User_name'];
-      $nivel = $user['Nivel'];
-      $foto = substr($user_name, 0, 1);
+      $nivel = WriteLevel($user['Nivel']);
+      $inicial = substr($user_name, 0, 1);
       $movimiento = $user['U_movimiento'];
     }
 
-    $nivel = WriteLevel($nivel);
-    $perfil = SearchProfilePhoto($id_usuario, 'perfil');
+    $foto = SearchProfilePhoto($UserID);
 
-    if($perfil === true)
+    if(!$foto)
     {
-      $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
+      $foto = ProfilePhoto($inicial);
     }
-    else
-    {
-      ProfilePhoto($foto);
-      $foto = "../../server/images/profile/letters/$foto.jpg";
-    }
-    
+ 
 
-    $header = 
+    $respuesta['header'] = 
     "
-    <div class='container-foto-perfil'>
-    <img class='img-option-1' id='foto_perfil' src='$foto' alt='Foto de Perfil'>
+    <div class='header-profile'>
+    <img id='foto_perfil' src='$foto' alt='Foto de Perfil'>
     <input type='file' accept='image/*' id='input_fp' class='file-selector'>
     <label for='input_fp' class='file-selector-label'>
-    <span class='file-selector-span-icon'><i class='fas fa-camera'></i></span>
+    <span class='file-selector-span'><i class='fas fa-camera'></i></span>
 
     </label>
     </div>
-    <h1>$user_name</h1>
-    <p>$correo</p>
-    <p>$nivel</p>
-    <a class='btn' id='edit_user_btn'
-    name='$id_usuario' user='$user_name'
-    title='Editar' data-toggle='modal' data-target='#editar_usuario'>
-    <i class='fas fa-user-edit'></i>
+    <h1 class='profile-user-name'>$user_name</h1>
+    <p>
+      <a class='btn' id='edit_user_btn' name='$UserID' user='$user_name'
+        title='Editar' data-toggle='modal' data-target='#editar_usuario'>
+        <i class='fas fa-user-edit'></i>
+      </a>
+    </p>
+    <h4 class='profile-text'>$correo</h4>
+    <h4 class='profile-text'>$nivel</h4>
 
-    </a>
     ";
-    $personal_data = '';
+
+    $ClientData = ClientData($UserID);
+
+    if($ClientData)
+    {
+      foreach($ClientData as $cliente)
+      {
+        $id_cliente = $cliente['Id'];
+         $nombre = $cliente['Nombre'];
+         $apellido = $cliente['Apellido'];
+         $tipo_id = $cliente['Tipo_id'];
+         $cedula = $cliente['Cedula'];
+         $telefono = $cliente['Telefono'];
+      }
+
+      $respuesta['information'] =
+      "
+      <div class='information-profile'>
+      <li>$nombre</li>
+      </div>
+      ";
+    }
+    else
+    {
+      $respuesta['information'] =
+      "
+      <div class='information-profile'>
+      <h5>Datos Personales</h5>
+      <li>Nombre:</li>
+      <li>Nombre:</li>
+      <li>Nombre:</li>
+      <li>Nombre:</li>
+      </div>
+      ";
+    }
     
   }
-  
-  if($adminLevel == 0)
-  { 
-    $personal_data = perfil_cliente($id_usuario);
-  }
-
-  if($adminLevel == 1)
+  else
   {
-
+     $respuesta['header'] = EmptyPage('Usuario No Existe');
   }
 
-  if($adminLevel == 2)
-  {
-     $personal_data = perfil_conductor($id_usuario);
-  }
-
-  if($adminLevel == 3)
-  {
-     $personal_data = perfil_comercio($id_usuario);
-  }
-  $respuesta = 
-  [
-    'header' => $header,
-    'data' => $personal_data
-  ];
 
   echo json_encode($respuesta);
 

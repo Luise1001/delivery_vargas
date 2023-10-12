@@ -1,5 +1,26 @@
 <?php
 
+function NewProducts()
+{
+   require '../conexion.php';
+   $consulta_sql = "SELECT p.Descripcion AS descripcion,  p.Codigo AS codigo, p.P_civa AS precio, p.U_movimiento AS actualizado,
+    p.Id_comercio AS comercio
+    FROM productos AS p ORDER BY actualizado DESC LIMIT 6";
+   $preparar_sql = $pdo->prepare($consulta_sql);
+   $preparar_sql->execute();
+   $resultado = $preparar_sql->fetchAll();
+
+   if($resultado)
+   {
+     return $resultado;
+   }
+   else
+   {
+     return false;
+   }
+}
+
+//revisar de aqui para abajo
 function AdminList($AdminLevel)
 {
   require '../conexion.php';
@@ -20,18 +41,44 @@ function AdminList($AdminLevel)
 
 }
 
-function PrecioTarifa()
+function PrecioTarifa($distancia, $servicio)
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM tarifas WHERE KM=1";
+  $consulta_sql = "SELECT * FROM tarifas WHERE $distancia > Desde AND $distancia <= Hasta AND Servicio=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute();
+  $preparar_sql->execute(array($servicio));
   $resultado = $preparar_sql->fetchAll();
 
   if($resultado)
   {
     $precio = $resultado[0]['Precio'];
+    return $precio;
+  }
+  else
+  {
+    return 'error';
+  }
+
+}
+
+function PrecioTarifaEspecial($categoria, $servicio)
+{
+  require '../conexion.php';
+
+  $consulta_sql = "SELECT * FROM tarifas_especiales WHERE Categoria LIKE ? AND Servicio=?";
+  $preparar_sql = $pdo->prepare($consulta_sql);
+  $preparar_sql->execute(array($categoria, $servicio));
+  $resultado = $preparar_sql->fetchAll();
+
+  if($resultado)
+  {
+    $precio =
+    [
+      'inicial'=> $resultado[0]['Precio_inicia'],
+      'precio'=> $resultado[0]['Precio']
+    ];
+
     return $precio;
   }
   else

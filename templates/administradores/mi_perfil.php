@@ -11,21 +11,11 @@ include_once 'redirect.php';
     <?php include_once '../loader.php';?>
     <?php include_once '../inicio/menu.php';?>
 
-    <div class="user-head text-center">
-    
-
-    </div>
-    <div id="contenido">
-      
-    <div id="my_profile" class="user-personal-data cuerpo">
-
-    </div>
-
-    <div class="user-setting cuerpo">
-
-
-
-     </div>
+    <div class="principal-layout">
+      <div id="profile_header"></div>
+      <div class="profile-information-parent">
+        <div id="profile_information"></div>
+      </div>
     </div>
 
   <script src="js/consulta/perfil.js"></script>

@@ -1,9 +1,9 @@
 <?php
 
 
-function ProductImg($rif_comercio, $foto, $files)
+function ProductImg($id_comercio, $foto, $files)
 {
-    $ruta = "../images/products/$rif_comercio/productos";
+    $ruta = "../images/products/comercios/$id_comercio/productos";
     $calidad = 20;
 
     if(file_exists($ruta))
@@ -12,7 +12,9 @@ function ProductImg($rif_comercio, $foto, $files)
         $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$foto.'.jpg'); 
         $new_img = imagejpeg($img, $ruta, $calidad);
       
-        return $new_img;
+        $foto = "../../server/images/products/comercios/$id_comercio/productos/$foto.jpg";
+        
+        return $foto;
     }
     else
     {
@@ -22,12 +24,11 @@ function ProductImg($rif_comercio, $foto, $files)
         $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$foto.'.jpg'); 
         $new_img = imagejpeg($img, $ruta, $calidad);
 
-        return $new_img;
+        $foto = "../../server/images/products/comercios/$id_comercio/productos/$foto.jpg";
+        
+        return $foto;
 
     }
-
-    return $ruta;
-
 }
 
 function ProfilePhoto($letter)
@@ -111,6 +112,8 @@ function ProfilePhoto($letter)
 
 }
 
+//revisar de aqui para abajo
+
 
 function MyProfilePhoto($id, $foto, $files)
 {
@@ -137,30 +140,8 @@ function MyProfilePhoto($id, $foto, $files)
         return $result;
 
     }
-
-    return $ruta;
-
 }
 
-function SearchProfilePhoto($UserID)
-{
-    $ruta = "../images/profile/users/$UserID/photo/perfil.jpg";
-
-    if(file_exists($ruta))
-    {
-        $foto = "../../server/images/profile/users/$UserID/photo/perfil.jpg";
-        return $foto;
-    }
-    else
-    {
-        require '../conexion.php';
-        $UserData = UserData($UserID);
-        $UserName = $UserData[0]['User_name'];
-        $inicial = substr($UserName, 0, 1);
-        $foto = ProfilePhoto($inicial);
-        return $foto;
-    }
-}
 
 function DeletePhoto($foto)
 {

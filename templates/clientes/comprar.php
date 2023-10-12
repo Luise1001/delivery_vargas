@@ -9,18 +9,16 @@
 </head>
 <body class='hide-content'>
     <?php include_once '../loader.php';?>
-   <div id="contenido">
    <?php include_once '../inicio/menu.php';?>
-
-   <div class="categorias-de-comercios cuerpo">
-
-
-
-
-   </div>
+   <div class="principal-layout">
+   <div class="container-search">
+     <input class="buscador" type="text" placeholder="Buscar Producto">
    </div>
 
-  <script src="js/consulta/lista_de_categorias_comercios.js"></script>
+   </div>
+
+
+  <script src="js/consulta/comprar.js"></script>
 
   <?php include_once 'scripts.php';?>
     

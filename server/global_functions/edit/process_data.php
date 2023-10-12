@@ -114,21 +114,9 @@ function EmptyPage($contenido)
 {
     $respuesta = 
     "
-    <div class=' address-card'>
-    <div class='card-header'>
-    </div>
-    <div class='card-body bg-transparent'>
-      <ul class='list-group list-group-flush'>
-      <li class='list-group-item'>
+    <div class='alert empty-page' role='alert'>
       $contenido
-      </li>
-    </ul>
- 
     </div>
-    <div class='card-footer text-body-secondary'>
-    </div>
-  </div>
-    
     ";
 
     return $respuesta;

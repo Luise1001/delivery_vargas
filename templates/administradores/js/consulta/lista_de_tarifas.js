@@ -21,8 +21,8 @@ function lista_de_tarifas()
     $('.lista-de-tarifas').html(res.tarifas);
 
   })
-  .fail(function()
+  .fail(function(err)
   {
-    console.log("error ejecutando Ajax");
+    console.log(err);
   })
 }

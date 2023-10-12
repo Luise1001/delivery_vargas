@@ -13,7 +13,7 @@ $(document).on('click', '#save_location', function()
 
 function checkLevel()
 {
-    let page = 'admin_level';
+    let funcion = 'admin_level';
 
     $.ajax
     ({
@@ -22,7 +22,7 @@ function checkLevel()
        dataType: 'html',
        data: 
        {
-          page: page
+          funcion: funcion
        }
   
     })
@@ -71,7 +71,7 @@ async function GetMyDirection()
 
 function SaveMyDirection(lat, lng, direction, name)
 {  console.log(name)
-    let page = 'nueva_direccion';
+    let funcion = 'nueva_direccion';
 
         $.ajax
         ({
@@ -80,7 +80,7 @@ function SaveMyDirection(lat, lng, direction, name)
            dataType: 'html',
            data: 
            {
-              page: page,
+              funcion: funcion,
               lat: lat,
               lng: lng,
               direction: direction,

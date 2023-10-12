@@ -21,7 +21,7 @@ fcm.getToken({vapidKey: "BI7RWT-PSl-0GtBNpRs6aUxBN6UPmejeZ8cRdhW_6e4HeJ83MoVhWDT
 {
   if(currentToken)
   {
-    let page = 'nuevo_token_firebase';
+    let funcion = 'nuevo_token_firebase';
     let token = currentToken;
     $.ajax
     ({
@@ -30,7 +30,7 @@ fcm.getToken({vapidKey: "BI7RWT-PSl-0GtBNpRs6aUxBN6UPmejeZ8cRdhW_6e4HeJ83MoVhWDT
        dataType: 'html',
        data: 
        {
-          page: page,
+          funcion: funcion,
           token: token
        }
   

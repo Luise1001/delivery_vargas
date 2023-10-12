@@ -22,7 +22,8 @@ function lista_de_tarifas()
         foreach($lista_de_tarifas as $tarifa)
         {
           $id = $tarifa['Id'];
-          $km = $tarifa['KM'];
+          $km = $tarifa['Desde'];
+          $hasta = $tarifa['Hasta'];
           $precio = $tarifa['Precio'];
     
           $resp['tarifas'] .=
@@ -49,22 +50,39 @@ function lista_de_tarifas()
           ";
         }
 
-        echo json_encode($resp);
     }
     else
     {
         $resp['tarifas'] = EmptyPage('Sin Datos Para Mostrar.');
-        echo json_encode($resp);
+      
     }
-        
+
+    echo json_encode($resp);     
 }
 
-function calcular_tarifa($distancia)
+function calcular_tarifa()
 {
    include_once '../conexion.php';
-   $precio = PrecioTarifa();
-   $tarifa = $distancia * $precio;
 
-   echo $tarifa;
+   if(isset($_POST['distancia']) && isset($_POST['servicio']))
+   {
+     $distancia = $_POST['distancia'];
+     $servicio = $_POST['servicio'];
+
+     if($distancia <= 3)
+     {
+        $precio = PrecioTarifa($distancia, $servicio);
+     }
+     else
+     {
+       $categoria = 'Kilometro Adicional';
+       $precio = PrecioTarifaEspecial($categoria, $servicio);
+       
+       //total de la distancia restale los kilometros permitidos y multiplica el resto por el precio
+     }
+
+   }
+  
+   echo $precio;
 
 }

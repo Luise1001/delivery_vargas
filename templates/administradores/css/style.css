@@ -7,14 +7,178 @@ body
 }
 .principal-layout
 {
-  position: relative;
-  margin-top: 5%;
+  position: fixed;
+  top: 5%;
+  bottom: 7%;
+  width: 100%;
+  overflow-y: scroll;
 }
 .slider-layout
 {
   height: 100vh;
   margin-top: 6%;
 }
+.empty-page
+{
+    width: 90%;
+    background: #fce944 !important;
+    border-radius: 20px !important;
+    margin: 5px !important;
+    text-align: center !important;
+    font-family: serif !important;
+    font-size: large !important;
+    color: grey !important;
+    border: solid 2px grey !important;
+    padding: 5px !important;
+}
+
+/*Comprar*/
+.container-search
+{
+  width: 100%;
+  padding: 10px;
+  position: relative;
+}
+.buscador
+{
+  width: 100%;
+  padding: 5px;
+  background: lightgrey;
+  border: none;
+  border-radius: 10px;
+  text-align: left;
+}
+.icon-search
+{
+  width: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.img-ads
+{
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.titulo-categorias
+{
+  font-family: serif;
+  font-weight: bold;
+  color: rgb(14,39,165);
+}
+.categories
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.category-item
+{
+  display: grid;
+  margin: 5px;
+}
+.category-icon
+{
+  width: 80px;
+  height: 80px;
+  background: #fce944;
+  padding: 10px;
+  border-radius: 50%;
+
+}
+.category-span
+{
+  font-size: small;
+  font-family: serif;
+  color: rgb(14,39,165);
+  text-align: center;
+}
+/*Comprar*/
+
+/*productos*/
+.new-products
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-grid
+{
+  width: 30%;
+  height: 40%;
+  margin: 5px;
+  border: solid 1px #fce944;
+  border-radius: 10px;
+  background: lightgrey;
+  color: rgb(14,39,165);
+}
+.item-grid-body
+{
+  display: grid;
+  place-items: center;
+}
+.img-product
+{
+  width: 100%;
+  padding: 5px;
+}
+.item-grid-title
+{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
+  font-weight: bold;
+  text-align: center;
+}
+.item-grid-text
+{
+
+}
+/*productos*/
+
+/*Perfil*/
+#profile_header, .header-profile
+{
+  display: grid;
+  place-items: center;
+}
+#foto_perfil
+{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  padding: 20px;
+}
+.file-selector
+{
+  display: none;
+}
+.file-selector-label
+{
+ position: relative;
+ bottom: 50px
+}
+.profile-user-name
+{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+.profile-text
+{
+  font-family: 'Times New Roman', Times, serif;
+}
+.profile-information-parent
+{
+  display: grid;
+  place-items: center;
+}
+#profile_information
+{
+    background: white;
+    width: 90%;
+    height: 300px;
+    border-radius: 10px;
+}
+/*Perfil*/
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -51,7 +215,8 @@ body {
   display: none;
 }
 
-.slider {
+.slider 
+{
   width: 100%;
   aspect-ratio: 1 / 1;
   justify-content: center;

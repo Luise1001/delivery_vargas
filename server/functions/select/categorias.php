@@ -1,6 +1,6 @@
 <?php
 
-function categorias_comercios()
+function mis_categorias()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
@@ -10,7 +10,7 @@ function categorias_comercios()
   $mis_categorias = OptionsCategories($id_comercio);
 
   $categorias =
-  "
+    "
   <ul>
   <div class='opciones'>
       <a  class='btn menu_opciones list-cat-btn' title='Mis Categorías'>
@@ -21,15 +21,13 @@ function categorias_comercios()
 
 ";
 
-if($mis_categorias)
-{
-  foreach($mis_categorias as $dato)
-{
-  $id = $dato['Id'];
-  $categoria_name = $dato['Categoria'];
+  if ($mis_categorias) {
+    foreach ($mis_categorias as $dato) {
+      $id = $dato['Id'];
+      $categoria_name = $dato['Categoria'];
 
-  $categorias .= 
-  "
+      $categorias .=
+        "
   <li class='form-check form-switch form-check-reverse'>
   <div class='text-switch'>
    $categoria_name
@@ -38,25 +36,21 @@ if($mis_categorias)
    <label class='form-check-label' for='$id'></label> 
    </li>
   ";
-
-}
-}
+    }
+  }
 
   $lista_de_categorias = BusinessCategories();
 
-   if($lista_de_categorias)
-   {
-    foreach($lista_de_categorias as $categoria)
-    {
+  if ($lista_de_categorias) {
+    foreach ($lista_de_categorias as $categoria) {
       $id = $categoria['Id'];
       $categoria_name = $categoria['Categoria'];
-  
+
       $checked = CheckCategory($id, $id_comercio);
-  
-      if(!$checked)
-      {
+
+      if (!$checked) {
         $categorias .=
-        "
+          "
         <li class='form-check form-switch form-check-reverse'>
         <div class='text-switch'>
         $categoria_name
@@ -67,70 +61,90 @@ if($mis_categorias)
         ";
       }
     }
-   }
+  }
 
   $categorias .=
-  "  
+    "  
   </div>
   </div>
   </ul>
   ";
 
   echo $categorias;
-   
 }
 
-function comercios_by_categoria()
+function categorias()
 {
-    $categorias = BusinessCategories();
+  include_once '../conexion.php';
 
-    foreach($categorias as $categoria)
-    {
-      $id_categoria = $categoria['Id'];
-      $titulo = $categoria['Categoria'];
-      $comercios = BusinessByCategories($id_categoria);
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $respuesta =
+    [
+      'titulo' => 'COMPRAR',
+      'categorias' => '',
+    ];
+  $BusinessCategories = BusinessCategories();
 
-     if($comercios)
-     {
-      $lista =
-      "
-      <div class='accordion'>
-      <div class='accordion-item'>
-        <h2 class='accordion-header'>
-          <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#accordion_$titulo' aria-expanded='true' aria-controls='accordion_$titulo'>
-            $titulo
-          </button>
-        </h2>
-        <div id='accordion_$titulo' class='accordion-collapse collapse show' data-bs-parent='#accordionExample'>
-          <div class='accordion-body'>
-          ";
-          foreach($comercios as $comercio)
-          {
-            $id_categoria = $comercio['Id_categoria'];
-            $id_comercio = $comercio['Id_comercio'];
-            $stock = StockCommerce($id_comercio);
-      
-            if($stock)
-            {
-              $nombre = $comercio['Razon_social'];
-               $lista .=
-               "
-               <p><a id='ver_catalogo' categoria='$id_categoria' comercio='$id_comercio' class='btn'>$nombre</a></p>
-               ";
-            }
-          }
-       
-          $lista .=
-          "
-          </div>
-        </div>
-      </div>
-    ";
-  
-      echo $lista;
-     }
-      
+  if ($BusinessCategories) {
+    foreach ($BusinessCategories as $category) {
+      $id = $category['Id'];
+      $categoria = $category['Categoria'];
+
+      $respuesta['categorias'] .=
+        "
+       <div class='category-item'>
+         <a href='#'><img class='category-icon' src='../../server/images/icons/menu/Ico_Grua_ON.png' alt='$categoria'></a>
+         <span class='category-span'>$categoria</span>
+       </div>
+       ";
     }
+  } else {
+    $respuesta['categorias'] = EmptyPage('Sin Categorías');
+  }
 
+  echo json_encode($respuesta);
 }
 
+function productos_nuevos()
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $respuesta = 
+  [
+    'productos'=>'',
+  ];
+  $NewProducts = NewProducts();
+
+  if($NewProducts)
+  {
+    foreach($NewProducts as $product)
+    {
+      $id_comercio = $product['comercio'];
+      $descripcion = $product['descripcion'];
+      $codigo = $product['codigo'];
+      $precio = $product['precio'];
+      $foto = SearchProductPhoto($id_comercio, $codigo);
+
+      $respuesta['productos'] .=
+      "
+      <div class='item-grid'>
+      <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+      <div class='item-grid-body'>
+        <h5 class='item-grid-title'>$descripcion</h5>
+        <p class='item-grid-text'>$$precio</p>
+      </div>
+    </div>
+      ";
+    }
+  }
+  else
+  {
+     $respuesta['productos'] = EmptyPage('Sin Productos Disponibles');
+  }
+ 
+  echo json_encode($respuesta);
+}

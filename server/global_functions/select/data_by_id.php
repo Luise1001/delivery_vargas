@@ -39,13 +39,13 @@ function UserPassword($id_usuario, $nivel)
     }
 }
 
-function ClientData($id_cliente)
+function ClientData($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM clientes WHERE Id=?";
+    $consulta_sql = "SELECT * FROM clientes WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_cliente));
+    $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
     if($resultado)

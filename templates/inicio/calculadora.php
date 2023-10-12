@@ -15,6 +15,14 @@
   <div class="container-form">
   <h4  class="form-solicitud-title"><i class="fa fa-calculator" aria-hidden="true"></i> Calculadora de Ruta</h4>
       <form class="form-calculadora">
+
+      <div class="form-grup">
+        <label class="form-label" for="tipo_servicio">Servicio</label>
+        <select class="input-opcion-4" name="tipo_servicio" id="tipo_servicio">
+          <option value="Delivery">Delivery</option>
+          <option value="Grúa">Grúa</option>
+        </select>
+      </div>
         
         <div class="form-group">
           <label for="from" class="col-xs-2 form-label"><i class="fas fa-map-marker-alt"></i> Mi Ubicación: <span class="text-danger">*</span> </label>

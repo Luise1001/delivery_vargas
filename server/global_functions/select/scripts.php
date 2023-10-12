@@ -1,5 +1,6 @@
 <?php
 
+include_once 'images.php';
 include_once 'admin_level.php';
 include_once 'bank_data.php';
 include_once 'checkboxes.php';

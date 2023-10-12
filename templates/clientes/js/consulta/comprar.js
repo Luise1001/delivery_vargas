@@ -8,7 +8,7 @@ function lista_de_categorias()
   ({
      url: '../../server/functions/consultas.php',
      type: 'POST',
-     dataType: 'html',
+     dataType: 'json',
      data: 
      {
        funcion : funcion
@@ -17,7 +17,8 @@ function lista_de_categorias()
   })
   .done(function(res)
   {
-    $('.categorias-de-comercios').html(res);
+    $('.titulo-app').html(res.titulo);
+    
 
   })
   .fail(function(err)
