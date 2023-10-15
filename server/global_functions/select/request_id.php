@@ -4,7 +4,7 @@ function UserID($correo)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM usuarios WHERE Correo=?";
+    $consulta_sql = "SELECT Id FROM usuarios WHERE Correo=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($correo));
     $resultado = $preparar_sql->fetchAll();
@@ -12,14 +12,37 @@ function UserID($correo)
     if($resultado)
     {
       $id_usuario = $resultado[0]['Id'];
+
+      return $id_usuario;
     }
     else
     {
-      return;
+      return false;
     }
-
-    return $id_usuario;
 }
+
+function UserTableID($table, $id)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT Id_usuario FROM $table WHERE Id=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id));
+    $resultado = $preparar_sql->fetchAll();
+    
+    if($resultado)
+    {
+      $id_usuario = $resultado[0]['Id_usuario'];
+
+      return $id_usuario;
+    }
+    else
+    {
+      return false;
+    }
+}
+
+//revisar de aqui para abajo
 
 function UserName($id)
 {
@@ -65,47 +88,7 @@ function DriverID($cedula)
     return $id_conductor;
 }
 
-function ClientID($cedula)
-{
-    require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM clientes WHERE Cedula=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($cedula));
-    $resultado = $preparar_sql->fetchAll();
-    
-    if($resultado)
-    {
-      $id_cliente = $resultado[0]['Id'];
-    }
-    else 
-    {
-      return;
-    }
-    
-    return $id_cliente;
-}
-
-function ComercioID($rif)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM comercios WHERE Rif=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($rif));
-    $resultado = $preparar_sql->fetchAll();
-    
-    if($resultado)
-    {
-      $id_comercio = $resultado[0]['Id'];
-    }
-    else 
-    {
-      return;
-    }
-    
-    return $id_comercio;
-}
 
 function FirebaseID($id)
 {

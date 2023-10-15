@@ -16,16 +16,16 @@ function mi_perfil()
   if($UserID)
   {  
     $UserData = UserData($UserID);
+    $ClientData = ClientData($UserID);
 
     foreach($UserData as $user)
     {
       $correo = $user['Correo'];
       $user_name = $user['User_name'];
-      $nivel = WriteLevel($user['Nivel']);
+      $nivel = WriteLevel($AdminLevel);
       $inicial = substr($user_name, 0, 1);
-      $movimiento = $user['U_movimiento'];
+      $actualizado = $user['Actualizado'];
     }
-
     $foto = SearchProfilePhoto($UserID);
 
     if(!$foto)
@@ -41,55 +41,134 @@ function mi_perfil()
     <input type='file' accept='image/*' id='input_fp' class='file-selector'>
     <label for='input_fp' class='file-selector-label'>
     <span class='file-selector-span'><i class='fas fa-camera'></i></span>
-
     </label>
     </div>
-    <h1 class='profile-user-name'>$user_name</h1>
-    <p>
-      <a class='btn' id='edit_user_btn' name='$UserID' user='$user_name'
-        title='Editar' data-toggle='modal' data-target='#editar_usuario'>
-        <i class='fas fa-user-edit'></i>
-      </a>
-    </p>
-    <h4 class='profile-text'>$correo</h4>
-    <h4 class='profile-text'>$nivel</h4>
-
     ";
-
-    $ClientData = ClientData($UserID);
 
     if($ClientData)
     {
-      foreach($ClientData as $cliente)
-      {
-        $id_cliente = $cliente['Id'];
-         $nombre = $cliente['Nombre'];
-         $apellido = $cliente['Apellido'];
-         $tipo_id = $cliente['Tipo_id'];
-         $cedula = $cliente['Cedula'];
-         $telefono = $cliente['Telefono'];
+       foreach($ClientData as $client)
+       {
+          $nombre = $client['Nombre'];
+          $apellido = $client['Apellido'];
+          $tipo_id = $client['Tipo_id'];
+          $cedula = $client['Cedula'];
+          $telefono = $client['Telefono'];
+          $genero = $client['Genero'];
+       }
+       $v = '';
+       $e = '';
+       $p = '';
+       $f = '';
+       $m = '';
+
+       switch ($tipo_id) {
+        case "V":
+          $v = 'selected';
+          break;
+        case "E":
+          $e = 'selected';
+          break;
+        case "P":
+         $p = 'selected';
+          break;
+        default:
+          $v = '';
+          $e = '';
+          $p = '';
       }
 
-      $respuesta['information'] =
-      "
-      <div class='information-profile'>
-      <li>$nombre</li>
-      </div>
-      ";
+       switch ($genero) {
+        case "F":
+          $f = 'checked';
+          break;
+        case "M":
+          $m = 'checked';
+          break;
+        default:
+          $f = '';
+          $m = '';
+      }
+
+       $respuesta['information'] = 
+       "
+       <div class='personal-data'>
+       <label class='form-label' for='nombre'>Nombres</label>
+       <input class='form-control perfil-input' type='text' id='nombre' name='nombre' value='$nombre'>
+       <label class='form-label' for='apellido'>Apellidos</label>
+       <input class='form-control perfil-input' type='text' id='apellido' name='apellido' value='$apellido'>
+       <label class='form-label' for='correo'>Correo Electrónico</label>
+       <input class='form-control perfil-input' type='text' id='correo' name='correo' value='$correo' disabled>
+       <label class='form-label' for='cedula'>Cédula de Identidad</label>
+       <div class='input-group'>
+         <select class='form-select perfil-select' id='tipo_id' name='tipo_id'>
+           <option $v value='V'>V</option>
+           <option $e value='E'>E</option>
+           <option $p value='P'>P</option>
+         </select>
+         <input class='form-control perfil-input' type='number' id='cedula' name='cedula' value='$cedula'>
+       </div>
+       <label class='form-label' for='telefono'>Celular</label>
+       <input class='form-control perfil-input' type='number' id='telefono' name='telefono' value='$telefono'>
+       <label class='form-label' for='genero'>Genero</label>
+       <div class='form-check'>
+         <input class='form-check-input' type='radio' value='F' id='femenino' name='genero' $f>
+         <label class='form-check-label' for='femenino'>
+           Femenino
+         </label>
+       </div>
+       <div class='form-check'>
+         <input class='form-check-input' type='radio' value='M' id='masculino' name='genero' $m>
+         <label class='form-check-label' for='masculino'>
+           Masculino
+         </label>
+       </div>
+       <div class='container'>
+         <button id='guardar_perfil' class='perfil-button'>Guardar</button>
+       </div>
+     </div>";
     }
     else
     {
-      $respuesta['information'] =
+      $respuesta['information'] = 
       "
-      <div class='information-profile'>
-      <h5>Datos Personales</h5>
-      <li>Nombre:</li>
-      <li>Nombre:</li>
-      <li>Nombre:</li>
-      <li>Nombre:</li>
+      <div class='personal-data'>
+      <label class='form-label' for='nombre'>Nombres</label>
+      <input class='form-control perfil-input' type='text' id='nombre' name='nombre'>
+      <label class='form-label' for='apellido'>Apellidos</label>
+      <input class='form-control perfil-input' type='text' id='apellido' name='apellido'>
+      <label class='form-label' for='correo'>Correo Electrónico</label>
+      <input class='form-control perfil-input' type='text' id='correo' name='correo' value='$correo' disabled>
+      <label class='form-label' for='cedula'>Cédula de Identidad</label>
+      <div class='input-group'>
+        <select class='form-select perfil-select' id='tipo_id' name='tipo_id'>
+          <option value='V'>V</option>
+          <option value='E'>E</option>
+          <option value='P'>P</option>
+        </select>
+        <input class='form-control perfil-input' type='number' id='cedula' name='cedula'>
       </div>
-      ";
+      <label class='form-label' for='telefono'>Celular</label>
+      <input class='form-control perfil-input' type='number' id='telefono' name='telefono'>
+      <label class='form-label' for='genero'>Genero</label>
+      <div class='form-check'>
+        <input class='form-check-input' value='F' type='radio' id='femenino' name='genero' checked>
+        <label class='form-check-label' for='femenino'>
+          Femenino
+        </label>
+      </div>
+      <div class='form-check'>
+        <input class='form-check-input' value='M' type='radio' id='masculino' name='genero'>
+        <label class='form-check-label' for='masculino'>
+          Masculino
+        </label>
+      </div>
+      <div class='container'>
+        <button id='guardar_perfil' class='perfil-button'>Guardar</button>
+      </div>
+    </div>";
     }
+
     
   }
   else
@@ -102,316 +181,3 @@ function mi_perfil()
 
 }
 
-function check_personal_data()
-{
-  include_once '../conexion.php';
-  if(isset($_POST['tabla']))
-  {      
-      $table = $_POST['tabla'];
-      $admin = $_SESSION['DLV']['admin'];
-      $id_usuario = UserID($admin);
-      $perfil = CheckPersonalData($table, $id_usuario);
-
-      echo $perfil;
-  }
-}
-
-function perfil_cliente($id_usuario)
-{
-   require '../conexion.php';
-
-    $cedula = ClientCedula($id_usuario);
-    $id_cliente = ClientID($cedula);
-    $resultado = '';
-    if($id_cliente)
-    { 
-       $datos_cliente = ClientData($id_cliente);
-  
-      foreach($datos_cliente as $cliente)
-      {
-        $nombre = $cliente['Nombre'];
-        $apellido = $cliente['Apellido'];
-        $tipo_id = $cliente['Tipo_id'];
-        $cedula = $cliente['Cedula'];
-        $telefono = $cliente['Telefono'];
-      }
-  
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a  class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd' class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Nombre: $nombre $apellido</p>
-      <p>Cédula: $tipo_id-$cedula</p>
-      <p>Teléfono: $telefono</p>
-      <div class='text-center'>
-       
-      <a class='btn' id='edit_data_btn'
-      name='$id_cliente' nombre='$nombre' Apellido='$apellido' tipo='$tipo_id' cedula='$cedula' telefono='$telefono'
-      title='Editar' data-toggle='modal' data-target='#editar_cliente'>
-      <i class='fas fa-user-edit'></i>
-      </a>
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-  
-    }
-    else
-    {
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a  class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd'  class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Nombre: </p>
-      <p>Cédula: </p>
-      <p>Teléfono: </p>
-      <div class='text-center'>
-       
-      <a class='btn' id='edit_data_btn'
-      name='' nombre='' Apellido='' tipo='' cedula='' telefono=''
-      title='Editar' data-toggle='modal' data-target='#editar_cliente'>
-      <i class='fas fa-user-plus'></i>
-      </a>
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-    }
-
-    return $resultado;
-  
-}
-
-function perfil_comercio($id_usuario)
-{
-    require '../conexion.php';
-
-    $rif = ComercioRif($id_usuario);
-    $id_comercio = ComercioID($rif);
-    $resultado = '';
-
-    if($id_comercio)
-    { 
-       $datos_comercio = ComercioData($id_comercio);
-  
-      foreach($datos_comercio as $comercio)
-      {
-        $razon_social = $comercio['Razon_social'];
-        $tipo_id = $comercio['Tipo_id'];
-        $rif = $comercio['Rif'];
-        $telefono = $comercio['Telefono'];
-      }
-  
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd' class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Razón Social: $razon_social</p>
-      <p>Rif: $tipo_id-$rif</p>
-      <p>Teléfono: $telefono</p>
-      <div class='text-center'>
-       
-      <a class='btn' id='edit_data_btn'
-      name='$id_comercio' nombre='$razon_social'  tipo='$tipo_id' rif='$rif' telefono='$telefono'
-      title='Editar' data-toggle='modal' data-target='#editar_comercio'>
-      <i class='fas fa-user-edit'></i>
-      </a>
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-  
-    }
-    else
-    {
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd'  class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Razón Social: </p>
-      <p>Rif: </p>
-      <p>Teléfono: </p>
-      <div class='text-center'>
-      <a class='btn' id='edit_data_btn'
-      name='' nombre=''  tipo='' rif='' telefono=''
-      title='Editar' data-toggle='modal' data-target='#editar_comercio'>
-      <i class='fas fa-user-plus'></i>
-      </a>
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-    }
-
-    return $resultado;
-}
-
-function perfil_conductor($id_usuario)
-{
-    require '../conexion.php';
-
-    $cedula = DriverCedula($id_usuario);
-    $id_conductor = DriverID($cedula);
-    $resultado = '';
-    if($id_conductor)
-    { 
-       $datos_conductor = DriverData($id_conductor);
-  
-      foreach($datos_conductor as $driver)
-      {
-        $nombre = $driver['Nombre'];
-        $apellido = $driver['Apellido'];
-        $tipo_id = $driver['Tipo_id'];
-        $cedula = $driver['Cedula'];
-        $telefono = $driver['Telefono'];
-      }
-  
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a  class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd' class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Nombre: $nombre $apellido</p>
-      <p>Cédula: $tipo_id-$cedula</p>
-      <p>Teléfono: $telefono</p>
-      <div class='text-center'>
-       
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-  
-    }
-    else
-    {
-      $resultado = 
-      "
-      <ul>
-      <div class='opciones'>
-          <a  class='btn menu_opciones personal-data-btn' title='Información Personal'>
-          <i class='fas fa-user'></i> Información Personal
-         </i> <i id='arrow_pd'  class='fas fa-angle-down'></i>
-          </a>
-    <div class='dropdown-container'>
-    <li>
-      <p>Nombre: </p>
-      <p>Cédula: </p>
-      <p>Teléfono: </p>
-      <div class='text-center'>
-       
-      </div>
-      
-      </li>
-     </div>
-    </div>
-    </ul>
-      
-      ";
-    }
-
-    return $resultado;
-
-}
-
-function menu_configuracion()
-{
-  $resultado = 
-  "
-  <ul>
-  <div class='opciones'>
-      <a  class='btn menu_opciones configuracion-btn' title='Configuración'>
-      <i class='fas fa-user-cog'></i> Configuración
-     </i> <i id='arrow_setting'  class='fas fa-angle-down'></i>
-      </a>
-<div class='dropdown-container'>
-<li> 
-<a data-toggle='modal' data-target='#editar_clave' class='sidebar-link'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
-</li>
- </div>
-</div>
-</ul>
-  
-  ";
-
-  echo $resultado;
-}
-
-function mi_switch()
-{
-  include_once '../conexion.php';
-  $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $nivel = AdminLevel($id_usuario);
-  $checked = UserStatus($id_usuario, $nivel);
-  $titulo = "<i class='fas fa-user-slash'></i> No Disponible";
-
-  if($checked == false)
-  {
-     $titulo = "<i class='fas fa-user'></i> Disponible" ;
-  }
-
-  $switch = 
-  "
-  <ul class='my-switch-mobile'>
-  <li class='form-check form-switch form-check-reverse'>
-  <div class='text-switch'>
-  $titulo 
-  </div>
-   <input class='form-check-input' $checked type='checkbox' id='estatus' name='estatus'>
-   <label class='form-check-label' for='estatus'></label> 
-   </li>
-   </ul>
-  ";
-
-  echo $switch;
-
-}

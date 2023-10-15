@@ -26,7 +26,38 @@ if($funcion === 'productos_nuevos')
 {
     productos_nuevos();
 }
-
+if($funcion === 'comercios')
+{
+    comercios();
+}
+if($funcion === 'CheckClient')
+{
+    CheckClient();
+}
+if($funcion === 'ItemsInCar')
+{
+    ItemsInCar();
+}
+if($funcion === 'mis_carritos')
+{
+   mis_carritos();
+}
+if($funcion === 'mi_carrito')
+{
+   mi_carrito();
+}
+if($funcion === 'mis_pedidos')
+{
+    mis_pedidos();
+}
+if($funcion === 'detalle_pedido')
+{
+    detalle_pedido();
+}
+if($funcion === 'finalizar_compra')
+{
+    finalizar_compra();
+}
 
 
 
@@ -79,6 +110,10 @@ if($funcion === 'lista_de_clientes')
 {
     lista_de_clientes();
 }
+if($funcion === 'ChequearHorario')
+{
+    ChequearHorario();
+}
 if($funcion === 'lista_de_usuarios')
 {
     lista_de_usuarios();
@@ -128,18 +163,7 @@ if($funcion === 'catalogo_productos')
 {
     catalogo_productos();
 }
-if($funcion === 'cantidad_productos_carrito')
-{
-    cantidad_productos_carrito();
-}
-if($funcion === 'ver_mi_carrito')
-{
-   ver_mi_carrito();
-}
-if($funcion === 'mis_pedidos')
-{
-    mis_pedidos();
-}
+
 if($funcion === 'valida_email')
 {
     if(isset($_POST['email']))
@@ -148,10 +172,6 @@ if($funcion === 'valida_email')
 
        echo $result;
     }
-}
-if($funcion === 'check_personal_data')
-{
-   check_personal_data();
 }
 if($funcion === 'datos_pago_pedido')
 {
@@ -164,14 +184,6 @@ if($funcion === 'mi_moto')
 if($funcion === 'mi_horario')
 {
     mi_horario();
-}
-if($funcion === 'ChequearHorario')
-{
-   ChequearHorario();
-}
-if($funcion === 'menu_configuracion')
-{
-    menu_configuracion();
 }
 if($funcion === 'mi_switch')
 {

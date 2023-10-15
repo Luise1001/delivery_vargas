@@ -7,33 +7,44 @@ let tiempo = '';
 let tarifa = '';
 let url_ruta = '';
 
+$(document).ready(Trazar_ruta());
 
-$(document).on('click', '#buscar', async function()
+$(document).on('change', '#from', async function()
 {
-    let origen = $('#from').val();
-    let destino = $('#to').val();
+   Trazar_ruta();
+})
 
-    if(origen != '' && destino != '')
-    {
-      const resp = await  calcRoute(origen, destino, mapOptions);
-      
-        salida = resp.salida;
-        destino = resp.destino;
-        distancia = resp.distancia;
-        tiempo = resp.tiempo;
-        tarifa = calctarifa(distancia);
-        url_ruta = "https://www.google.com/maps/dir/?api=1&origin=" + salida + "&destination=" + destino +"&travelmode=DRIVING";
+$(document).on('change', '#to', async function()
+{
+   Trazar_ruta();
+})
 
-        const output = document.querySelector("#output");
-        output.innerHTML = "<div>Punto de Partida: " + salida + ".<br/> Destino: " + destino + ".<br/> Distancia <i class='fas fa-road'></i>: " + distancia + " km" + ".<br/> Tiempo Estimado: <i class='fas fa-hourglass-half'></i>: " + tiempo + ".<br/> Total a pagar <i class='fas fa-dollar-sign'></i>: " + tarifa + "</div>"  
+async function Trazar_ruta()
+{
+  let origen = $('#from').val();
+  let destino = $('#to').val();
+
+  if(origen != '' && destino != '')
+  {
+    const resp = await  calcRoute(origen, destino, mapOptions);
+    
+      salida = resp.salida;
+      destino = resp.destino;
+      distancia = resp.distancia;
+      tiempo = resp.tiempo;
+      tarifa = calctarifa(distancia);
+      url_ruta = "https://www.google.com/maps/dir/?api=1&origin=" + salida + "&destination=" + destino +"&travelmode=DRIVING";
+
+      const output = document.querySelector("#output");
+      output.innerHTML = "<div>Punto de Partida: " + salida + ".<br/> Destino: " + destino + ".<br/> Distancia <i class='fas fa-road'></i>: " + distancia + " km" + ".<br/> Tiempo Estimado: <i class='fas fa-hourglass-half'></i>: " + tiempo + ".<br/> Total a pagar <i class='fas fa-dollar-sign'></i>: " + tarifa + "</div>"  
 
 
-    }
-    else
-    {
-      swal('Alerta!','Debe Ingresar Datos Validos.', 'warning');
-    }
-});
+  }
+  else
+  {
+    swal('Alerta!','Debe Ingresar Datos Validos.', 'warning');
+  }
+}
 
 
 function showMap()

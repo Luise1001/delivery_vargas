@@ -1,5 +1,61 @@
 <?php
 
+function comercios()
+{
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel($UserID);
+   $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+   $respuesta = 
+   [
+     'titulo'=> $back_btn,
+     'comercios'=> ''
+   ];
+ 
+   if(isset($_POST['id_categoria']) && isset($_POST['categoria']))
+   {
+     $id_categoria = $_POST['id_categoria'];
+     $categoria = $_POST['categoria'];
+     $id_categoria = filter_var($id_categoria, FILTER_SANITIZE_URL);
+     $categoria = filter_var($categoria, FILTER_SANITIZE_URL);
+     
+     $BusinessBYCategory = BusinessByCategory($id_categoria);
+     $respuesta['titulo'] .= $categoria;
+
+     if($BusinessBYCategory)
+     {
+       foreach($BusinessBYCategory as $business)
+       {
+         $id_usuario = $business['Id_usuario'];
+         $id_comercio = $business['Id_comercio'];
+         $razon_social = $business['razon_social'];
+         $foto = SearchProfilePhoto($id_usuario);
+
+        $respuesta['comercios'] .= 
+        "
+        <a href='catalogo_productos?comercio=$id_comercio' class='item-grid'>
+        <div>
+        <img class='img-product' src='$foto' class='card-img-top' alt='Comercio Afiliado'>
+        <div class='item-grid-body'>
+          <h5 class='item-grid-title'>$razon_social</h5>
+          <p class='item-grid-text'></p>
+        </div>
+      </div>
+      </a>
+      ";
+       }
+     }
+     else
+     {
+       $respuesta['comercios'] = EmptyPage('Sin Comercios Disponibles');
+     }
+   }
+   
+   
+   echo json_encode($respuesta);
+}
+
 function lista_de_comercios()
 {
   include_once '../conexion.php';

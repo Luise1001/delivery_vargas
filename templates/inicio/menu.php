@@ -1,5 +1,5 @@
 <div class="header-menu">
-  <div class="titulo-app">Delivery Vargas</div>
+  <div class="titulo-app">DELIVERY VARGAS</div>
   <div class="header-icons"></div>
   <button class="btn-setting" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar_menu" 
   aria-controls="sidebar_menu">

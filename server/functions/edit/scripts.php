@@ -1,7 +1,6 @@
 <?php
 
 include_once 'bancos.php';
-include_once 'clientes.php';
 include_once 'comercios.php';
 include_once 'conductores.php';
 include_once 'direcciones.php';

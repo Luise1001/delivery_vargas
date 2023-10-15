@@ -14,6 +14,10 @@ if($funcion === 'generar_codigo')
 {
     generar_codigo();
 }
+if($funcion === 'nuevo_cliente')
+{
+    nuevo_cliente();
+}
 
 
 

@@ -38,7 +38,7 @@ function ProfilePhoto($letter)
     if(file_exists($ruta))
     {
         $foto = $ruta.'/'.$letter.'.jpg';
-      if(file_exists($foto))
+      if(!file_exists($foto))
       {
         $ruta .= '/';
         $image = imagecreate(512, 512);
@@ -63,7 +63,6 @@ function ProfilePhoto($letter)
         $filename = $ruta."$letter.jpg";
         imagejpeg($image, $filename);
       
-        $foto = "../../server/images/profile/letters/$letter.jpg";
 
         imagedestroy($image);
 
@@ -100,13 +99,13 @@ function ProfilePhoto($letter)
           $filename = $ruta."$letter.jpg";
           imagejpeg($image, $filename);
   
-          $foto = "../../server/images/profile/letters/$letter.jpg";
-
           imagedestroy($image);
 
         }
 
     }
+
+    $foto = "../../server/images/profile/letters/$letter.jpg";
 
     return $foto;
 

@@ -1,5 +1,23 @@
 <?php
 
+function CheckClient()
+{
+   include_once '../conexion.php';
+   $admin =  $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel($UserID);
+   $ClientData = ClientData($UserID);
+
+   if($ClientData)
+   {
+      echo true;
+   }
+   else
+   {
+      echo false;
+   }
+}
+
 function lista_de_clientes()
 {
   include_once '../conexion.php';

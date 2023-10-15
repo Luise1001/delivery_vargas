@@ -1,5 +1,28 @@
 <?php
 
+function OptionsPaymentMethods($id_comercio)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT * FROM metodos_pago_comercios AS mc
+    INNER JOIN metodos_pago AS mp ON mc.Id_metodo = mp.Id
+    WHERE Id_comercio=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_comercio));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//revisar de aqui para abajo
+
 function BankList()
 {
     require '../conexion.php';
@@ -39,24 +62,7 @@ function PaymentMethods()
     }
 }
 
-function OptionsPaymentMethods($id_comercio)
-{
-    require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM metodos_pago_comercios INNER JOIN metodos_pago ON metodos_pago_comercios.Id_metodo = metodos_pago.Id WHERE Id_comercio=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_comercio));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 function PagoMovil($id_comercio)
 {

@@ -36,6 +36,7 @@ function HeaderMenu($AdminLevel)
               Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
     <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='reload' class=''><i class='fas fa-sync-alt'></i> Actualizar </a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -44,6 +45,8 @@ function HeaderMenu($AdminLevel)
   {
     $respuesta =
     "
+    <a class='sidebar-item mi-carrito' href='../administradores/mi_carrito'><i class='fas fa-shopping-cart'></i> 
+    Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
     <a class='sidebar-item' href='../administradores/lista_de_comercios'><i class='fas fa-building'></i> Comercios</a>
     <a class='sidebar-item' href='../administradores/lista_de_clientes'><i class='fas fa-users'></i> Clientes</a>
     <a class='sidebar-item' href='../administradores/lista_de_usuarios'><i class='fas fa-users'></i> Usuarios</a>
@@ -53,6 +56,7 @@ function HeaderMenu($AdminLevel)
     <a class='sidebar-item' href='../administradores/lista_de_administradores'><i class='fas fa-user-friends'></i> Administradores</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -64,6 +68,7 @@ function HeaderMenu($AdminLevel)
     "
     <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -76,6 +81,7 @@ function HeaderMenu($AdminLevel)
     <a class='sidebar-item' href='../comercios/mis_datos_bancarios'><i class='fas fa-dollar-sign'></i> Datos Bancarios</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -161,7 +167,7 @@ function FooterMenu($AdminLevel, $url)
         <a class='footer-icons' href='../inicio/inicio'>
         <img id='icon_home' class='footer-icons' src='$icon_home'>
         </a>
-        <a class='footer-icons' href='../$perfil/lista_de_pedidos'>
+        <a class='footer-icons' href='../$perfil/mis_pedidos'>
         <img id='icon_pedido' class='footer-icons' src='$icon_pedido'>
         </a>
         <a class='footer-icons' href='../$perfil/mi_perfil'>

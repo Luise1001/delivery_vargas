@@ -3,7 +3,7 @@
 function NewProducts()
 {
    require '../conexion.php';
-   $consulta_sql = "SELECT p.Descripcion AS descripcion,  p.Codigo AS codigo, p.P_civa AS precio, p.U_movimiento AS actualizado,
+   $consulta_sql = "SELECT p.Descripcion AS descripcion,  p.Codigo AS codigo, p.P_civa AS precio, p.Actualizado AS actualizado,
     p.Id_comercio AS comercio
     FROM productos AS p ORDER BY actualizado DESC LIMIT 6";
    $preparar_sql = $pdo->prepare($consulta_sql);

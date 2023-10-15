@@ -2,6 +2,8 @@
 
 <!-- Externos -->
 <?php include_once '../inicio/api_google_map.php'; ?>
+<script src="../inicio/js/mapas/geocoding.js"></script>
+<script src="../inicio/js/mapas/routes.js"></script>
 <script src="../../js/loader.js"></script>
 
 <!-- Consultas -->
@@ -10,6 +12,8 @@
 <script src="js/consulta/perfil_setting.js"></script>
 
 <!-- Agregar -->
+<script src="js/agregar/perfil.js"></script>
+<script src="js/agregar/agregar_a_pedidos.js"></script>
 <script src="js/agregar/agregar_conductor.js"></script>
 <script src="js/agregar/agregar_moto.js"></script>
 <script src="js/agregar/agregar_admin.js"></script>
@@ -28,6 +32,7 @@
 <script src="js/editar/editar_clave.js"></script>
 
 <!-- Eliminar -->
+<script src="js/eliminar/pedidos.js"></script>
 <script src="js/eliminar/eliminar_conductor.js"></script>
 <script src="js/eliminar/eliminar_cliente.js"></script>
 <script src="js/eliminar/eliminar_moto.js"></script>

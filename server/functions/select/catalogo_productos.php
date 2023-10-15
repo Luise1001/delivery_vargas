@@ -1,59 +1,62 @@
 <?php
 
 function catalogo_productos()
-{ 
-    $id_categoria = $_POST['id_categoria'];
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $respuesta =
+    [
+      'titulo' => $back_btn . 'DELIVERY VARGAS',
+      'productos' => ''
+    ];
+
+  if (isset($_POST['id_comercio'])) {
     $id_comercio = $_POST['id_comercio'];
-    $comercioData = ComercioData($id_comercio);
-    $id_user_comercio = $comercioData[0]['Id_usuario'];
-    $rif_comercio = ComercioRif($id_user_comercio);
-    $ruta = "../../server/images/products/$rif_comercio/productos/";
+    $id_comercio = filter_var($id_comercio, FILTER_SANITIZE_URL);
+    $ListProducts = ListProducts($id_comercio);
 
-    $productos = ShowProducts($id_comercio);
+    if ($ListProducts) {
+      foreach ($ListProducts as $product) {
+        $id_producto = $product['Id_producto'];
+        $codigo = $product['Codigo'];
+        $descripcion = $product['Descripcion'];
+        $precio = $product['P_civa'];
+        $existencia = $product['Existencia'];
+        $foto = SearchProductPhoto($id_comercio, $product['Codigo']);
+        $respuesta['productos'] .=
+          "
+          <div class='item-grid'>
+          <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+          <div class='item-grid-body'>
+            <h5 class='item-grid-title'>$descripcion</h5>
+            <p class='item-grid-text'>$$precio</p>
+          </div>
+          <button id='add_to_car_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' 
+          class='add-to-car-button'>
+          <i class='fa-solid fa-circle-plus'></i>
+          </button>
 
-    if($productos)
-    {
-        foreach($productos as $producto)
-        {
-            $id_producto = $producto['Id_producto'];
-            $descripcion = $producto['Descripcion'];
-            $movimiento = $producto['U_movimiento'];
-            $foto = $producto['Foto'];
-            $codigo = $producto['Codigo'];
-            $existencia = $producto['Existencia'];
-            $precio = $producto['P_civa'];
-            $bg_color = ProcessBadge($existencia);
-            $producto_enjson = json_encode($producto);
-
-            echo 
-            "
-            <div class='card card-producto col-6 col-md-2'>
-               <div>
-               <img src='$ruta$foto.jpg' class='card-img-top foto-producto-catalogo ver_producto' alt='$foto' producto='$id_producto' 
-               usuariocomercio='$id_user_comercio' data-toggle='modal' data-target='#full_descripcion'>
-               </div>
-               <div class='card-body cuerpo-producto'>
-               <h7 class='card-title titulo-producto'>$descripcion</h7>
-              <p class='card-text'>Stock: $existencia</p>
-              <p class='card-text'>Precio: $.$precio</p>
-
-              <button id='add_to_car_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='btn btn-primary add-to-car-button'>Agregar</button>
-
-              <div id='plus_less_$codigo' codigo='$codigo' hidden class='text-center mt-2'>
-              <button id='less_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='btn btn-primary less-button'>-</button>
-              <span id='span_quantity_$codigo' class='btn btn-primary span-quantity'>1</span>
-              <button id='plus_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='btn btn-primary plus-button'>+</button>
-              </div>
-
-              </div>
-             </div>
-            ";
-        }
+            <div id='plus_less_$codigo' codigo='$codigo' hidden class='product-buttons'>
+            <button id='less_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='less-button'>
+            <i class='fa-solid fa-circle-minus'></i>
+            </button>
+           <span id='span_quantity_$codigo' class='span-quantity'>1</span>
+           <button id='plus_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='plus-button'>
+           <i class='fa-solid fa-circle-plus'></i>
+           </button>
+           </div>
+        </div>
+          ";
+      }
+    } else {
+      $respuesta['productos'] = EmptyPage('Sin Productos Disponibles');
     }
-    else
-    {
-        echo EmptyPage('Sin Productos Disponibles.');
-    }
+
+    echo json_encode($respuesta);
+  }
 }
 
 function mis_productos()
@@ -63,25 +66,23 @@ function mis_productos()
   $id_usuario = UserID($admin);
   $rif_comercio = ComercioRif($id_usuario);
   $id_comercio = ComercioID($rif_comercio);
-  $boton = 
-  '
+  $boton =
+    '
     <a class="nav-link" data-toggle="modal" data-target="#nuevo_producto" title="Agregar un Nuevo Producto">
      <i class="fas fa-plus-circle"></i> 
     </a>
   ';
   $mis_productos =
-  [
-    'botones'=> $boton,
-    'productos'=> ''
-  ];
+    [
+      'botones' => $boton,
+      'productos' => ''
+    ];
 
   $lista_de_productos = MyProductsCommerce($id_comercio);
 
-  if($lista_de_productos)
-  {
-    foreach($lista_de_productos as $producto)
-    {
-      $product= json_encode($producto);
+  if ($lista_de_productos) {
+    foreach ($lista_de_productos as $producto) {
+      $product = json_encode($producto);
       $id_producto = $producto['Id'];
       $existencia = StockProducts($id_producto);
       $calificacion = Rating($id_producto);
@@ -92,10 +93,10 @@ function mis_productos()
       $codigo = $producto['Codigo'];
       $movimiento = $producto['U_movimiento'];
       $ruta = "../../server/images/products/$rif_comercio/productos/";
-      
+
 
       $mis_productos['productos'] .=
-      "
+        "
       <div class='card card-producto col-6 col-md-2'>
          <div>
          <img src='$ruta$foto.jpg' class='card-img-top foto-producto-catalogo ver_producto' alt='$foto' producto='$id_producto' 
@@ -125,14 +126,10 @@ function mis_productos()
     }
 
     echo json_encode($mis_productos);
-  }
-  else
-  {
+  } else {
     $mis_productos['productos'] = EmptyPage('Sin Productos Por El Momento.');
     echo json_encode($mis_productos);
   }
-
-
 }
 
 function full_descripcion()
@@ -143,13 +140,11 @@ function full_descripcion()
   $id_comercio = ComercioID($rif_comercio);
   $id_producto = $_POST['id_producto'];
   $existencia = StockProducts($id_producto);
-  
+
   $producto = ShowProduct($id_producto);
 
-  if($producto)
-  {
-    foreach($producto as $dato)
-    {
+  if ($producto) {
+    foreach ($producto as $dato) {
       $codigo = $dato['Codigo'];
       $descripcion = $dato['Descripcion'];
       $foto = $dato['Foto'];
@@ -161,8 +156,8 @@ function full_descripcion()
       $fecha = DateFormat($fecha);
       $unit = ProcessWeight($peso);
       $movimiento = $dato['U_movimiento'];
-  
-      echo 
+
+      echo
       "
       <div class='col-md-12'>
         <div id='div_foto_producto'>
@@ -184,9 +179,7 @@ function full_descripcion()
      </div>  
       ";
     }
-  }
-  else
-  {
-     echo EmptyPage('Hubo Un Problema con el Producto Seleccionado.');
+  } else {
+    echo EmptyPage('Hubo Un Problema con el Producto Seleccionado.');
   }
 }

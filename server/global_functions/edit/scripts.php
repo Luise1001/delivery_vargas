@@ -1,5 +1,5 @@
 <?php
-
+include_once 'data.php';
 include_once 'clean.php';
 include_once 'process_data.php';
 include_once 'process_img.php';

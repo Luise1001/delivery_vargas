@@ -10,6 +10,10 @@ if($funcion === 'reset_password')
 {
     reset_password();
 }
+if($funcion === 'anular_pedido')
+{
+    anular_pedido();
+}
 
 
 
@@ -42,10 +46,6 @@ if($funcion === 'switch_encendido_apagado')
 {
     switch_encendido_apagado();
 }
-if($funcion === 'editar_cliente')
-{
-    editar_cliente();
-}
 if($funcion === 'editar_comercio')
 {
     editar_comercio();
@@ -66,10 +66,7 @@ if($funcion === 'editar_producto')
 {
     editar_producto();
 }
-if($funcion === 'anular_pedido')
-{
-    anular_pedido();
-}
+
 if($funcion === 'editar_datos_banco')
 {
     editar_datos_banco();

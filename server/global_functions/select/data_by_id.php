@@ -1,12 +1,56 @@
 <?php
 
-function UserData($id_usuario)
+function BusinessByCategory($id_categoria)
+{
+  require '../conexion.php';
+
+  $consulta_sql = "SELECT cat.Id_categoria AS Id_categoria, cat.Id_comercio AS Id_comercio, cat.Actualizado AS actualizado,
+    com.Razon_social AS razon_social, com.Id, com.Id_usuario AS Id_usuario
+   FROM categoria_comercios AS cat
+   INNER JOIN comercios AS com ON Id_comercio = com.Id WHERE Id_categoria=? ORDER BY actualizado DESC ";
+  $preparar_sql = $pdo->prepare($consulta_sql);
+  $preparar_sql->execute(array($id_categoria));
+  $resultado = $preparar_sql->fetchAll();
+
+  if($resultado)
+  {
+    return $resultado;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+function ListProducts($id_comercio)
+{
+  require '../conexion.php';
+
+  $consulta_sql = "SELECT i.Id_comercio, i.Id_producto, i.Existencia, i.Actualizado,
+  p.Codigo, p.Descripcion, p.P_civa
+  FROM inventario AS i INNER JOIN productos AS p ON i.Id_producto = p.Id 
+  WHERE p.Id_comercio =?";
+  $preparar_sql = $pdo->prepare($consulta_sql);
+  $preparar_sql->execute(array($id_comercio));
+  $resultado = $preparar_sql->fetchAll();
+   
+  if($resultado)
+  {
+    return $resultado;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+function UserData($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM usuarios WHERE Id=?";
+    $consulta_sql = "SELECT u.User_name, u.Correo, u.Actualizado FROM usuarios AS u WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_usuario));
+    $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
     if($resultado)
@@ -19,13 +63,13 @@ function UserData($id_usuario)
     }
 }
 
-function UserPassword($id_usuario, $nivel)
+function UserPassword($UserID, $AdminLevel)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM usuarios WHERE Id=? AND Nivel=?";
+    $consulta_sql = "SELECT u.Pass AS Pass FROM usuarios AS u WHERE Id=? AND Nivel=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_usuario, $nivel));
+    $preparar_sql->execute(array($UserID, $AdminLevel));
     $resultado = $preparar_sql->fetchAll();
 
     if($resultado)
@@ -43,7 +87,8 @@ function ClientData($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM clientes WHERE Id_usuario=?";
+    $consulta_sql = "SELECT c.Id, c.Tipo_id, c.Cedula, c.Nombre, c.Apellido, c.Telefono, c.Genero, c.Actualizado FROM clientes AS c 
+    WHERE Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
@@ -57,6 +102,185 @@ function ClientData($UserID)
         return false;
     }
 }
+
+function MyCars($id_cliente)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT c.Id_comercio AS Id_comercio,
+     com.Id, com.Razon_social AS Razon_social, com.Id_usuario AS Id_usuario, SUM(c.Cantidad) FROM carrito AS c 
+     INNER JOIN comercios as com ON Id_comercio = com.Id  WHERE c.Id_cliente=?
+     GROUP BY Id_comercio, com.Id, Id_cliente, Razon_social";
+     $preparar_sql = $pdo->prepare($consulta_sql);
+     $preparar_sql->execute(array($id_cliente));
+     $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+ 
+        return $resultado;
+    }
+    else
+    {
+    
+        return false;
+    }
+}
+
+function InsideMyCar($id_cliente, $id_comercio)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT c.Id_cliente AS Id_cliente, c.Id_producto AS Id_producto, c.Id_comercio AS Id_comercio,
+     c.Cantidad AS Cantidad, c.Actualizado AS Actualizado,
+     p.Codigo AS Codigo, p.Descripcion AS Descripcion, p.P_siva AS Psiva, p.p_civa AS Pciva, p.Alicuota AS Iva, p.Peso AS Peso,
+     p.Id_comercio AS Id_comercio,
+     com.Id AS Id_comercio, com. Razon_social AS Razon_social FROM carrito AS c INNER JOIN productos AS p ON c.Id_producto = p.Id 
+     INNER JOIN comercios as com ON c.Id_comercio = com.Id  WHERE Id_cliente=? AND c.Id_comercio =? ORDER BY Actualizado DESC";
+     $preparar_sql = $pdo->prepare($consulta_sql);
+     $preparar_sql->execute(array($id_cliente, $id_comercio));
+     $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+ 
+        return $resultado;
+    }
+    else
+    {
+    
+        return false;
+    }
+}
+
+function MyGlobalCar($id_cliente)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT Cantidad FROM carrito WHERE Id_cliente=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_cliente));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        $cantidad = 0;
+        foreach($resultado as $dato)
+        {
+            $cantidad += $dato['Cantidad'];
+        }
+
+        return $cantidad;
+    }
+    else
+    {
+    
+        return false;
+    }
+}
+
+function MyOrders($column, $id)
+{
+    require '../conexion.php';
+
+      $consulta_sql = "SELECT 
+      pm.Nro_pedido AS Nro_pedido, pm.Subtotal AS Subtotal, pm.Iva AS Iva, pm.Total AS Total, pm.Id_comercio AS Id_comercio, 
+      pm.Fecha AS Fecha, pm.Id_cliente AS Id_cliente, pm.Metodo_pago AS Metodo_pago,
+      cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Telefono AS Telefono_cliente, cl.Id_usuario AS Usuario_cliente,
+      com.Razon_social AS Razon_social, com.Telefono AS Telefono_comercio, com.Id_usuario AS Usuario_comercio,
+      es.Creado AS Creado, es.Recibido AS Recibido, es.Pagado AS Pagado, es.Retirar AS Retirar, es.Asignado AS Asignado, 
+      es.Aceptado AS Aceptado, es.Enviado AS Enviado, es.Entregado AS Entregado, es.Anulado AS Anulado, es.Actualizado
+      FROM pedidos_monto AS pm
+      INNER JOIN clientes AS cl ON pm.Id_cliente = cl.Id
+      INNER JOIN comercios AS com ON pm.Id_comercio = com.Id
+      INNER JOIN estatus_pedidos AS es ON pm.Nro_pedido = es.Nro_pedido   
+      WHERE pm.$column =? ORDER BY es.Actualizado DESC";
+      $preparar_sql = $pdo->prepare($consulta_sql);
+      $preparar_sql->execute(array($id));
+      $resultado = $preparar_sql->fetchAll();
+   
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function OrderDetail($nro_pedido)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT 
+    pm.*,
+    pd.*,
+    pr.*,
+    com.Razon_social AS Razon_social, com.Telefono AS Telefono_comercio, com.Id_usuario AS Usuario_comercio,
+    cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Telefono AS Telefono_cliente, cl.Id_usuario AS Usuario_cliente
+    FROM pedidos_monto AS pm
+    INNER JOIN pedidos AS pd ON pm.Nro_pedido = pd.Nro_pedido
+    INNER JOIN comercios AS com ON pm.Id_comercio = com.Id
+    INNER JOIN productos AS pr ON pd.Id_producto = pr.Id
+    INNER JOIN clientes AS cl ON pm.Id_cliente = cl.Id
+    WHERE pm.Nro_pedido=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($nro_pedido));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function MyStaticLocations($UserID)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function MyCurrentLocation($UserID)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT * FROM locations WHERE Id_usuario=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+//revisar de aqui para abajo
+
+
+
 
 function ClientExist($id_usuario)
 {
@@ -307,52 +531,7 @@ function ProductName($id_producto)
     }
 }
 
-function MyGlobalCar($id_cliente, $id_comercio)
-{
-    require '../conexion.php';
 
-    $consulta_sql = "SELECT Cantidad FROM carrito WHERE Id_cliente=? AND Id_comercio=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_cliente, $id_comercio));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        $cantidad = 0;
-        foreach($resultado as $dato)
-        {
-            $cantidad += $dato['Cantidad'];
-        }
-
-        return $cantidad;
-    }
-    else
-    {
-    
-        return false;
-    }
-}
-
-function InsideMyCar($id_cliente, $id_comercio)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM carrito INNER JOIN productos ON carrito.Id_producto = productos.Id WHERE carrito.Id_cliente=? AND carrito.Id_comercio=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_cliente, $id_comercio));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
- 
-        return $resultado;
-    }
-    else
-    {
-    
-        return false;
-    }
-}
 
 function SubtotalCar($id_cliente, $id_comercio)
 {
@@ -442,72 +621,9 @@ function TotalCar($id_cliente, $id_comercio)
     }
 }
 
-function MyOrders($id, $nivel)
-{
-    require '../conexion.php';
-    $resultado = '';
 
-   if(!$nivel)
-   {
-      $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
-      INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id INNER JOIN estatus_pedidos ON pedidos_monto.Nro_pedido = estatus_pedidos.Nro_pedido
-      WHERE pedidos_monto.Id_cliente =? ORDER BY pedidos_monto.U_movimiento DESC";
-      $preparar_sql = $pdo->prepare($consulta_sql);
-      $preparar_sql->execute(array($id));
-      $resultado = $preparar_sql->fetchAll();
-   }
 
-   if($nivel == '1')
-   {
-      $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
-      INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id INNER JOIN estatus_pedidos ON pedidos_monto.Nro_pedido = estatus_pedidos.Nro_pedido
-      ORDER BY pedidos_monto.U_movimiento ASC";
-      $preparar_sql = $pdo->prepare($consulta_sql);
-      $preparar_sql->execute();
-      $resultado = $preparar_sql->fetchAll();
-   }
 
-   if($nivel == '3')
-   {
-     $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
-     INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id INNER JOIN estatus_pedidos ON pedidos_monto.Nro_pedido = estatus_pedidos.Nro_pedido
-     WHERE pedidos_monto.Id_comercio=? ORDER BY pedidos_monto.U_movimiento DESC";
-     $preparar_sql = $pdo->prepare($consulta_sql);
-     $preparar_sql->execute(array($id));
-     $resultado = $preparar_sql->fetchAll();
-   }
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-function OrderDetail($nro_pedido)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM pedidos_monto INNER JOIN comercios ON pedidos_monto.Id_comercio = comercios.Id
-    INNER JOIN pedidos ON pedidos_monto.Nro_pedido = pedidos.Nro_pedido INNER JOIN productos ON pedidos.Id_producto = productos.Id
-    INNER JOIN clientes ON pedidos_monto.Id_cliente = clientes.Id
-    LEFT JOIN metodos_pago ON pedidos.Metodo_pago = metodos_pago.Id WHERE pedidos_monto.Nro_pedido=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($nro_pedido));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 function OrderClientName($nro_pedido)
 {
@@ -553,43 +669,6 @@ function OrderStatus($nro_pedido)
 
 }
 
-function MyStaticLocations($id_usuario)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_usuario));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-function MyCurrentLocation($id_usuario)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM locations WHERE Id_usuario=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_usuario));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 function StaticLocationName($id_location, $id_usuario)
 {
@@ -646,25 +725,6 @@ function CheckPersonalData($table, $id_usuario)
   }
 }
 
-function BusinessByCategories($id_categoria)
-{
-  require '../conexion.php';
-
-  $consulta_sql = "SELECT * FROM categoria_comercios INNER JOIN comercios ON categoria_comercios.Id_comercio = comercios.Id WHERE Id_categoria=?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_categoria));
-  $resultado = $preparar_sql->fetchAll();
-
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
-}
-
 function OptionsCategories($id_comercio)
 {
   require '../conexion.php';
@@ -684,25 +744,7 @@ function OptionsCategories($id_comercio)
   }
 }
 
-function ShowProducts($id_comercio)
-{
-  require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM inventario INNER JOIN productos ON inventario.Id_producto = productos.Id 
-  WHERE inventario.Id_comercio=? AND inventario.Existencia > 0";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_comercio));
-  $resultado = $preparar_sql->fetchAll();
-
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
-}
 
 function ListDelivery($asignado, $aceptado, $completado)
 {

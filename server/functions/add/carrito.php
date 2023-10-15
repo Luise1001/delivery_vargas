@@ -28,7 +28,7 @@ function agregar_al_carrito()
     {
        if($cantidad != 0)
        {
-         $editsql = 'UPDATE carrito SET Cantidad=?, U_movimiento=?  WHERE Id_cliente=? AND Id_producto=? AND Id_comercio=?';
+         $editsql = 'UPDATE carrito SET Cantidad=?, Actualizado=?  WHERE Id_cliente=? AND Id_producto=? AND Id_comercio=?';
          $editar_sentence = $pdo->prepare($editsql);
          $editar_sentence->execute(array($cantidad, $movimiento, $id_cliente, $id_producto, $id_comercio));
 

@@ -9,10 +9,11 @@
 }
 .titulo-app
 {
-  font-size: x-large;
+  font-size: large;
   font-family: serif;
   font-weight: bold;
   color: rgb(14,39,165);
+  padding: 10px;
 }
 .header-icons
 {

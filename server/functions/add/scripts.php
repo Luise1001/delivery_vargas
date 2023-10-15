@@ -1,4 +1,6 @@
 <?php
+include_once 'clientes.php';
+
 
 include_once 'carrito.php';
 include_once 'pedidos.php';

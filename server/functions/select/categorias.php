@@ -95,7 +95,7 @@ function categorias()
       $respuesta['categorias'] .=
         "
        <div class='category-item'>
-         <a href='#'><img class='category-icon' src='../../server/images/icons/menu/Ico_Grua_ON.png' alt='$categoria'></a>
+         <a href='categoria?id=$id&categoria=$categoria'><img class='category-icon' src='../../server/images/icons/menu/Ico_Grua_ON.png' alt='$categoria'></a>
          <span class='category-span'>$categoria</span>
        </div>
        ";

@@ -22,10 +22,7 @@ $tablas =
   Nivel INT UNSIGNED NOT NULL,
   Categoria VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  Administrador INT UNSIGNED NOT NULL,
-  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
-
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
   ' CREATE TABLE IF NOT EXISTS usuarios 
 (
@@ -35,8 +32,7 @@ $tablas =
   Pass VARCHAR(100)  NOT NULL,
   Nivel INT UNSIGNED NOT NULL DEFAULT(0),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  FOREIGN KEY (Nivel) REFERENCES niveles_administrativos (Nivel)
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
   ' CREATE TABLE IF NOT EXISTS clientes
   (
@@ -47,8 +43,9 @@ $tablas =
     Nombre VARCHAR(40) NOT NULL,
     Apellido VARCHAR(40) NOT NULL,
     Telefono VARCHAR(20) NOT NULL,
+    Genero VARCHAR(5) NOT NULL,
     Fecha DATE  NOT NULL,
-    U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+    Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
   )',
 ' CREATE TABLE IF NOT EXISTS conductores 
@@ -65,7 +62,7 @@ $tablas =
   Disponible tinyint(1) NOT NULL DEFAULT(1),
   Administrador INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id),
   FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
 )',
@@ -79,24 +76,10 @@ $tablas =
     Id_conductor INT UNSIGNED NOT NULL,
     Administrador INT UNSIGNED NOT NULL,
     Fecha DATE  NOT NULL,
-    U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+    Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
     FOREIGN KEY (Id_conductor) REFERENCES conductores (Id),
     FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
-)',
-' CREATE TABLE IF NOT EXISTS routes
-(
-  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  Nro_pedido INT UNSIGNED NOT NULL,
-  Salida VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  Destino VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  Paradas INT NULL DEFAULT(NULL),
-  Url_ruta TEXT NOT NULL,
-  Tiempo VARCHAR(10) NOT NULL,
-  Distancia DOUBLE NOT NULL,
-  Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido)
 )',
 ' CREATE TABLE IF NOT EXISTS locations
 (
@@ -106,7 +89,7 @@ $tablas =
   Ubicacion VARCHAR(255) COLLATE utf8_bin NOT NULL,
   Id_usuario INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (id_usuario) REFERENCES usuarios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS tarifas
@@ -117,7 +100,7 @@ $tablas =
   Servicio VARCHAR(20) NOT NULL,
   Precio double NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS tarifas_especiales
 (
@@ -127,7 +110,7 @@ $tablas =
   Precio_inicia double NOT NULL,
   Precio double NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS metodos_pago
 (
@@ -135,7 +118,7 @@ $tablas =
   Categoria VARCHAR(40) NOT NULL,
   Estatus tinyint(1) NOT NULL DEFAULT(1),
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS firebase_users
 (
@@ -144,7 +127,7 @@ $tablas =
   Token VARCHAR(255) NOT NULL,
   Nivel INT NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS categorias
@@ -152,7 +135,7 @@ $tablas =
   Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   Categoria VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS comercios
 (
@@ -164,7 +147,7 @@ $tablas =
  Telefono VARCHAR(20) NOT NULL,
  Disponible tinyint(1) NOT NULL DEFAULT(1),
  Fecha DATE  NOT NULL,
- U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+ Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
  FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS categoria_comercios
@@ -173,7 +156,7 @@ $tablas =
   Id_categoria INT UNSIGNED NOT NULL,
   Id_comercio INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_categoria) REFERENCES categorias (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
 )',
@@ -186,7 +169,7 @@ $tablas =
   Ubicacion VARCHAR(255) COLLATE utf8_bin NOT NULL,
   Id_usuario INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS bancos
@@ -194,7 +177,7 @@ $tablas =
   Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   Banco VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS pago_movil
 (
@@ -205,7 +188,7 @@ $tablas =
   Id_banco INT UNSIGNED NOT NULL,
   Telefono VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_banco) REFERENCES bancos (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
 )',
@@ -218,7 +201,7 @@ $tablas =
   Id_banco INT UNSIGNED NOT NULL,
   Cuenta VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_banco) REFERENCES bancos (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
 )',
@@ -229,7 +212,7 @@ $tablas =
   Correo VARCHAR(50) NOT NULL,
   Titular VARCHAR(60) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS tasas
@@ -238,7 +221,7 @@ $tablas =
   Tasa DOUBLE NOT NULL,
   Administrador INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 )',
 ' CREATE TABLE IF NOT EXISTS monedas
@@ -247,7 +230,7 @@ $tablas =
   Moneda VARCHAR(50) NOT NULL,
   Alicuota INT NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
+  Actualizado DATETIME NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS referencias_pagos
 (
@@ -258,9 +241,8 @@ $tablas =
   Referencia VARCHAR(20) NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
-  FOREIGN KEY (Nro_pedido) REFERENCES  pedidos (Nro_pedido),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
@@ -271,7 +253,7 @@ $tablas =
   Categoria VARCHAR(50) NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
 )',
@@ -281,7 +263,7 @@ $tablas =
   Marca VARCHAR(50) NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
 )',
@@ -298,7 +280,7 @@ $tablas =
   Id_comercio INT UNSIGNED NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_comercio) REFERENCES  comercios (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
@@ -311,7 +293,7 @@ $tablas =
   Existencia INT NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_comercio) REFERENCES  comercios (Id),
   FOREIGN KEY (Id_producto) REFERENCES  productos (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
@@ -324,7 +306,7 @@ $tablas =
   Id_producto INT UNSIGNED NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_categoria) REFERENCES  categoria_de_productos (Id),
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
@@ -337,7 +319,7 @@ $tablas =
   Votos INT NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
@@ -349,7 +331,7 @@ $tablas =
   Id_producto INT UNSIGNED NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Id_usuario) REFERENCES usuarios (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
@@ -364,7 +346,7 @@ $tablas =
   Cantidad  INT NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
@@ -378,17 +360,28 @@ $tablas =
   Id_cliente INT UNSIGNED NOT NULL,
   Id_producto INT UNSIGNED NOT NULL,
   Id_comercio INT UNSIGNED NOT NULL,
-  Metodo_pago INT UNSIGNED NULL DEFAULT(NULL),
   Cantidad  INT NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_producto) REFERENCES productos (Id),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
-  FOREIGN KEY (Metodo_pago) REFERENCES metodos_pago (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
+)',
+' CREATE TABLE IF NOT EXISTS routes
+(
+  Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  Nro_pedido INT UNSIGNED NOT NULL,
+  Salida VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Destino VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  Paradas INT NULL DEFAULT(NULL),
+  Url_ruta TEXT NOT NULL,
+  Tiempo VARCHAR(10) NOT NULL,
+  Distancia DOUBLE NOT NULL,
+  Fecha DATE  NOT NULL,
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ' CREATE TABLE IF NOT EXISTS pedidos_monto
 (
@@ -398,13 +391,14 @@ $tablas =
   Subtotal DOUBLE NOT NULL,
   Iva DOUBLE NOT NULL,
   Total DOUBLE NOT NULL,
+  Metodo_pago INT UNSIGNED NULL DEFAULT(NULL),
   Id_comercio INT UNSIGNED NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
+  FOREIGN KEY (Metodo_pago) REFERENCES metodos_pago (Id),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 
 )',
@@ -426,8 +420,7 @@ $tablas =
   Id_comercio INT UNSIGNED NOT NULL,
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_conductor) REFERENCES conductores (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
@@ -440,7 +433,7 @@ $tablas =
   Id_metodo INT UNSIGNED  NOT NULL,
   Id_comercio INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   FOREIGN KEY (Id_metodo) REFERENCES metodos_pago (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id)
 
@@ -454,12 +447,11 @@ $tablas =
   Id_route INT UNSIGNED NOT NULL,
   Id_conductor INT UNSIGNED DEFAULT(NULL),
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   Asignado tinyint(1) NOT NULL DEFAULT(0),
   Aceptado tinyint(1) NOT NULL DEFAULT(0),
   Completado tinyint(1) NOT NULL DEFAULT(0),
-  FOREIGN KEY (Nro_pedido) REFERENCES pedidos (Nro_pedido),
   FOREIGN KEY (Id_cliente) REFERENCES clientes (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
   FOREIGN KEY (Id_route) REFERENCES routes (Id),
@@ -473,7 +465,7 @@ $tablas =
   Id_comercio INT UNSIGNED NOT NULL,
   Monto DOUBLE NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   FOREIGN KEY (Id_envio) REFERENCES envios (Id),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
@@ -484,7 +476,7 @@ $tablas =
   Id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   Dia VARCHAR(20) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
 )',
@@ -497,7 +489,7 @@ $tablas =
   Turno VARCHAR(10) NOT NULL,
   Id_comercio INT UNSIGNED NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
   Administrador INT UNSIGNED NULL DEFAULT(NULL),
   FOREIGN KEY (Id_comercio) REFERENCES comercios (Id),
   FOREIGN KEY (Id_dia) REFERENCES dias (Id),
@@ -509,9 +501,7 @@ $tablas =
   Codigo VARCHAR(15) NOT NULL,
   Correo VARCHAR(50) NOT NULL,
   Fecha DATE  NOT NULL,
-  U_movimiento TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP),
-  Administrador INT UNSIGNED NULL DEFAULT(NULL),
-  FOREIGN KEY (Administrador) REFERENCES usuarios (Id)
+  Actualizado TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP)
 )',
 ];
 
