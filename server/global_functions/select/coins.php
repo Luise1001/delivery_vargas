@@ -17,7 +17,7 @@ function Alicuota($id_moneda)
   }
   else
   {
-    return;
+    return false;
   }
 }
 
@@ -26,7 +26,7 @@ function TasaDD()
   require '../conexion.php';
 
 
-  $consulta_sql = "SELECT * FROM tasas  ORDER BY U_movimiento DESC LIMIT 1";
+  $consulta_sql = "SELECT * FROM tasas  ORDER BY Actualizado DESC LIMIT 1";
   $preparar_sql = $pdo->prepare($consulta_sql);
   $preparar_sql->execute();
   $resultado = $preparar_sql->fetchAll();

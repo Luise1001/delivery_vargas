@@ -1,6 +1,6 @@
-$(document).ready(lista_de_pedidos());
+$(document).ready(mis_pedidos());
 
-function lista_de_pedidos()
+function mis_pedidos()
 { 
    funcion = 'mis_pedidos';
  
@@ -17,6 +17,7 @@ function lista_de_pedidos()
   })
   .done(function(res)
   {
+    $('.titulo-app').html(res.titulo);
     $('#pendientes').html(res.pendientes);
     $('#completados').html(res.completados);
     $('#anulados').html(res.anulados);
@@ -24,7 +25,7 @@ function lista_de_pedidos()
   })
   .fail(function(err)
   {
-    console.log(err);
+    console.log(err.responseText);
   })
 }
 

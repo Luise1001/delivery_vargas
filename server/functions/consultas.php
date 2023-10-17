@@ -58,6 +58,10 @@ if($funcion === 'finalizar_compra')
 {
     finalizar_compra();
 }
+if($funcion === 'datos_bancarios')
+{
+    datos_bancarios();
+}
 
 
 

@@ -1,8 +1,8 @@
-$(document).ready(lista_de_categorias());
+$(document).ready(categorias());
 
-function lista_de_categorias()
+function categorias()
 { 
-   funcion = 'comercios_by_categoria';
+   funcion = 'categorias';
  
   $.ajax
   ({
@@ -18,8 +18,7 @@ function lista_de_categorias()
   .done(function(res)
   {
     $('.titulo-app').html(res.titulo);
-    
-
+    $('.categories').html(res.categorias);
   })
   .fail(function(err)
   {
@@ -27,13 +26,30 @@ function lista_de_categorias()
   })
 }
 
-$(document).on('click', '#ver_catalogo', function(data)
+$(document).ready(productos_nuevos);
+
+function productos_nuevos()
 {
-  let id_categoria = data.currentTarget.attributes.categoria.value;
-  let id_comercio = data.currentTarget.attributes.comercio.value;
+  funcion = 'productos_nuevos';
+ 
+  $.ajax
+  ({
+     url: '../../server/functions/consultas.php',
+     type: 'POST',
+     dataType: 'json',
+     data: 
+     {
+       funcion : funcion
+    }
 
-  window.location.href = "catalogo_productos.php?categoria=" + id_categoria + "&comercio=" + id_comercio;
-})
-
-
+  })
+  .done(function(res)
+  {
+    $('.new-products').html(res.productos);
+  })
+  .fail(function(err)
+  {
+    console.log(err);
+  })
+}
 

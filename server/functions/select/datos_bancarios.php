@@ -1,5 +1,31 @@
 <?php
 
+function datos_bancarios()
+{
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel(($UserID));
+   $respuesta =
+   [
+     'datos'=> ''
+   ];
+
+   if(isset($_POST['id_comercio']) && isset($_POST['metodo']))
+   {
+     $id_comercio = $_POST['id_comercio'];
+     $metodo = $_POST['metodo'];
+     $IdentifyMethod = IdentifyMethod($metodo, $id_comercio);
+
+     if($IdentifyMethod)
+     {
+       $respuesta['datos'] = $IdentifyMethod;
+     }
+
+      echo json_encode($respuesta);
+   }
+}
+
  function lista_de_bancos()
 {
     include_once '../conexion.php';

@@ -18,6 +18,10 @@ if($funcion === 'nuevo_cliente')
 {
     nuevo_cliente();
 }
+if($funcion === 'confirmar_pedido')
+{
+    confirmar_pedido();
+}
 
 
 
@@ -73,10 +77,6 @@ if($funcion === 'nuevo_pedido')
 if($funcion === 'nuevos_datos_bancarios')
 {
     nuevos_datos_bancarios();
-}
-if($funcion === 'confirmar_pedido')
-{
-    confirmar_pedido();
 }
 if($funcion === 'retirar_pedido')
 {

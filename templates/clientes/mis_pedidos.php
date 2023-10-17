@@ -13,14 +13,22 @@ include_once 'redirect.php';
 <body class='hide-content'>
   <?php include_once '../loader.php'; ?>
   <?php include_once '../inicio/menu.php'; ?>
-
-    <div class="principal-layout">
-      <div id='resp' class="lista-de-direcciones"></div>
-
-
+  <div class="principal-laypout">
+    <div class="wrapper">
+      <div class="slider">
+        <div id="pendientes"></div>
+      </div>
+      <div class="slider">
+        <div id="completados"></div>
+      </div>
+      <div class="slider">
+        <div id="anulados"></div>
+      </div>
     </div>
+  </div>
 
-  <script src="js/consulta/lista_de_direcciones.js"></script>
+
+  <script src="js/consulta/pedidos.js"></script>
 
   <?php include_once 'scripts.php'; ?>
 </body>

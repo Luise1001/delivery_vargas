@@ -25,7 +25,7 @@ function nuevo_pedido(id_cliente, id_comercio)
     })
     .done(function(res)
     {
-      window.location.href = '../clientes/lista_de_pedidos';
+      window.location.href = 'mis_pedidos';
     })
     .fail(function(err)
     {

@@ -32,7 +32,7 @@ function HeaderMenu($AdminLevel)
     $respuesta = 
     "
     <a class='sidebar-item' href='../clientes/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
-    <a class='sidebar-item mi-carrito' data-toggle='modal' data-target='#ver_carrito'><i class='fas fa-shopping-cart'></i> 
+    <a class='sidebar-item mi-carrito' href='../clientes/mi_carrito'><i class='fas fa-shopping-cart'></i> 
               Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
     <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>

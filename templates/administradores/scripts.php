@@ -1,9 +1,6 @@
 <?php include_once 'modals.php';?>
 
 <!-- Externos -->
-<?php include_once '../inicio/api_google_map.php'; ?>
-<script src="../inicio/js/mapas/geocoding.js"></script>
-<script src="../inicio/js/mapas/routes.js"></script>
 <script src="../../js/loader.js"></script>
 
 <!-- Consultas -->
@@ -27,7 +24,6 @@
 <script src="js/editar/editar_tarifa.js"></script>
 <script src="js/editar/editar_admin.js"></script>
 <script src="js/editar/editar_usuario_cliente.js"></script>
-<script src="js/editar/editar_mi_perfil.js"></script>
 <script src="js/editar/editar_tasa.js"></script>
 <script src="js/editar/editar_clave.js"></script>
 

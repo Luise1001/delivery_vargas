@@ -20,9 +20,9 @@ function mis_datos_bancarios()
       $('.mis-datos-bancarios').html(res.datos);
 
     })
-    .fail(function()
+    .fail(function(err)
     {
-       console.log('error ejecutando Ajax');
+       console.log(err);
     })
 }
 

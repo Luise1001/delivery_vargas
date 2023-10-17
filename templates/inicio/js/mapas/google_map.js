@@ -1,4 +1,4 @@
-$(document).ready(showMap(mapOptions));
+$(document).ready(showMap());
 
 let salida = '';
 let destino = '';
@@ -6,8 +6,6 @@ let distancia = '';
 let tiempo = '';
 let tarifa = '';
 let url_ruta = '';
-
-$(document).ready(Trazar_ruta());
 
 $(document).on('change', '#from', async function()
 {

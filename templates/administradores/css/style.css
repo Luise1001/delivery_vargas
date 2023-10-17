@@ -377,6 +377,7 @@ body {
   font-weight: bold;
   font-family: serif;
   color: rgb(14, 39, 165);
+  text-decoration: none;
 }
 
 .order-text {
@@ -437,6 +438,13 @@ body {
   left: 90px;
 }
 
+/*Detalle Pedido*/
+
+/*Finalizar Compra*/
+.finalizar-compra {
+  padding: 10px;
+}
+
 .finalizar-compra-button {
   background: #fce944;
   width: 50%;
@@ -450,7 +458,39 @@ body {
   margin: 10px;
 }
 
-/*Detalle Pedido*/
+.card-db {
+  width: 100%;
+  background: white;
+  border: solid 1px lightgray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.card-db-items {
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
+.card-db-item {
+  border: solid 1px lightgray;
+  padding: 5px;
+  width: 100%;
+  font-family: serif;
+  font-weight: bold;
+
+}
+.referencia
+{
+  width: 100%;
+    background: white;
+    border: solid 1px lightgray;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/*Finalizar Compra*/
 
 
 /*Perfil*/

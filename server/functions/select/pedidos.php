@@ -64,7 +64,7 @@ function ClientOrders($id_cliente)
              <img class='img-order' src='$foto' alt='Foto de Perfil'>
             </div>
             <div class='order-data'>
-            <div class='order-title'>$razon_social <a href='https://wa.me/$telefono' target='_blank'><i class='fa-brands fa-whatsapp'></i></a></div>
+            <div class='order-title'><a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$razon_social</a> <a href='https://wa.me/$telefono' target='_blank'><i class='fa-brands fa-whatsapp'></i></a></div>
             <div class='order-text'>$nombre_cliente $apellido_cliente</div>
             <div $links class='order-links'>
             <a class='order-link' href='detalle_pedido?pedido=$nro_pedido'>Confirmar</a>
@@ -97,7 +97,7 @@ function ClientOrders($id_cliente)
            <img class='img-order' src='$foto' alt='Foto de Perfil'>
           </div>
           <div class='order-data'>
-          <div class='order-title'>$razon_social</div>
+          <div class='order-title'> <a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$razon_social</a></div>
           <div class='order-text'>$nombre_cliente $apellido_cliente</div>
           <div $links class='order-links'>
           <a class='order-link' href='#'>Confirmar</a>
@@ -130,7 +130,7 @@ function ClientOrders($id_cliente)
            <img class='img-order' src='$foto' alt='Foto de Perfil'>
           </div>
           <div class='order-data'>
-          <div class='order-title'>$razon_social</div>
+          <div class='order-title'> <a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$razon_social</a></div>
           <div class='order-text'>$nombre_cliente $apellido_cliente</div>
           <div $links class='order-links'>
           <a class='order-link' href='#'>Confirmar</a>
@@ -189,7 +189,7 @@ function detalle_pedido()
       $foto_cliente = SearchProfilePhoto($Usuario_cliente);
 
       $mi_pedido['contenido'] =
-      "
+        "
       <div class='detalle-pedido-header'>
         <div class='container-img-header'>
          <img class='detalle-img-header' src='$foto_cliente' alt='Foto de Perfil'>
@@ -214,8 +214,8 @@ function detalle_pedido()
         $total = $order['Total'];
         $foto = SearchProductPhoto($id_comercio, $id_producto);
 
-        $mi_pedido['contenido'] .= 
-        "
+        $mi_pedido['contenido'] .=
+          "
         <div class='card-product'>
          <div class='product-img-car'>
            <img class='product-img' src='$foto' alt='$descripcion'><span class='badge detail-badge bg-primary'>$cantidad</span>
@@ -232,8 +232,39 @@ function detalle_pedido()
         ";
       }
 
+      $ProcessOrderStatus = ProcessOrderStatus($nro_pedido);
+      $progreso = $ProcessOrderStatus['progreso'];
+      $estado = $ProcessOrderStatus['estado'];
+
+      if($estado === 'Creado')
+      {
+        $boton_confirmar = "<a href='finalizar_compra?cliente=$id_cliente&comercio=$id_comercio&pedido=$nro_pedido' class='finalizar-compra-button' id='finalizar_compra'>Finalizar Compra</a>";
+      }
+      else
+      {
+        if($estado != 'Anulado')
+        { 
+          $background = 'bg-primary';
+        }
+        else
+        {
+           $background = 'bg-danger';
+        }
+
+        $boton_confirmar = 
+        "
+        <div class='order-progess w-100'>
+        <div class='progress'>
+          <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+            style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          </div>
+        </div>
+        ";
+
+      }
+
       $mi_pedido['contenido'] .=
-      "
+        "
               <div class='container-amount'>
               <div class='amount-item'>
                   <p class='amount'>Subtotal:</p> <p class='amount'>$.$subtotal</p>
@@ -245,7 +276,7 @@ function detalle_pedido()
                 <p class='amount'>Total:</p> <p class='amount'>$.$total</p>
               </div>
               <div class='amount-footer'>
-                <a href='finalizar_compra?cliente=$id_cliente&comercio=$id_comercio&pedido=$nro_pedido' class='finalizar-compra-button' id='finalizar_compra'>Finalizar Compra</a>
+                $boton_confirmar
               </div>
               </div>";
     } else {
@@ -267,117 +298,97 @@ function finalizar_compra()
     [
       'titulo' => $back_btn . 'FINALIZAR COMPRA',
       'metodos' => '',
-      'datos'=> '',
-      'salida'=> '',
-      'destino'=> ''
+      'montos' => '',
+      'salida' => '',
+      'destino' => ''
     ];
 
-    if(isset($_POST['id_cliente']) && isset($_POST['id_comercio']) && isset($_POST['nro_pedido']))
-    {
+  if (isset($_POST['id_cliente']) && isset($_POST['id_comercio']) && isset($_POST['nro_pedido'])) {
 
-      $id_cliente = $_POST['id_cliente'];
-      $id_comercio = $_POST['id_comercio'];
-      $nro_pedido = $_POST['nro_pedido'];
+    $id_cliente = $_POST['id_cliente'];
+    $id_comercio = $_POST['id_comercio'];
+    $nro_pedido = $_POST['nro_pedido'];
 
-      $id_cliente = filter_var($id_cliente, FILTER_SANITIZE_NUMBER_INT);
-      $id_comercio = filter_var($id_comercio, FILTER_SANITIZE_NUMBER_INT);
-      $nro_pedido = filter_var($nro_pedido, FILTER_SANITIZE_NUMBER_INT);
+    $id_cliente = filter_var($id_cliente, FILTER_SANITIZE_NUMBER_INT);
+    $id_comercio = filter_var($id_comercio, FILTER_SANITIZE_NUMBER_INT);
+    $nro_pedido = filter_var($nro_pedido, FILTER_SANITIZE_NUMBER_INT);
 
-      if($id_cliente && $id_comercio && $nro_pedido)
-      {
-        $Usuario_comercio = UserTableID('comercios', $id_comercio);
-        $Usuario_cliente = UserTableID('clientes', $id_cliente);
+    if ($id_cliente && $id_comercio && $nro_pedido) {
+      $Usuario_comercio = UserTableID('comercios', $id_comercio);
+      $Usuario_cliente = UserTableID('clientes', $id_cliente);
 
-        $OptionsPaymentMethods = OptionsPaymentMethods($id_comercio);
-        $direcciones_comercio = MyStaticLocations($Usuario_comercio);
-        $direcciones_cliente = MyStaticLocations($Usuario_cliente);
-        $MyCurrentLocation = MyCurrentLocation($Usuario_cliente);
+      $OptionsPaymentMethods = OptionsPaymentMethods($id_comercio);
+      $direcciones_comercio = MyStaticLocations($Usuario_comercio);
+      $direcciones_cliente = MyStaticLocations($Usuario_cliente);
+      $MyCurrentLocation = MyCurrentLocation($Usuario_cliente);
+      $OrderDetail = OrderDetail($nro_pedido);
 
-        if($OptionsPaymentMethods && $direcciones_comercio && $MyCurrentLocation)
-        {
-          $compra['metodos'] =
-          "
-          <label class='form-label' for='metodos'>Métodos de Pago</label>
-          <select class='form-select perfil-select' id='metodos' name='metodos'>";
-          foreach($OptionsPaymentMethods as $method)
-          {
-             $id_metodo = $method['Id_metodo'];
-             $nombre = $method['Categoria'];
-
-             $compra['metodos'] .= 
-             "
-                 <option value='$id_metodo'>$nombre</option>
-             ";
-          }
+      if ($OptionsPaymentMethods && $direcciones_comercio && $MyCurrentLocation && $OrderDetail) {
+        foreach ($OptionsPaymentMethods as $method) {
+          $id_metodo = $method['Id_metodo'];
+          $nombre = $method['Categoria'];
 
           $compra['metodos'] .=
-          "
-          </select>
-          ";
+            "
+                 <option value='$id_metodo'>$nombre</option>
+             ";
+        }
 
-          $compra['salida'] =
-          "
-          <label class='form-label' for='from'>Dirección</label>
-          <select class='form-select perfil-select' id='from' name='from'>";
-          foreach($direcciones_comercio as $comdir)
-          {
-             $id_comdir = $comdir['Id'];
-             $nombre_comdir = $comdir['Nombre'];
-             $ubicacion_comdir = $comdir['Ubicacion'];
+        foreach ($direcciones_comercio as $comdir) {
+          $id_comdir = $comdir['Id'];
+          $nombre_comdir = $comdir['Nombre'];
+          $ubicacion_comdir = $comdir['Ubicacion'];
 
-             $compra['salida'] .=
-             "
+          $compra['salida'] .=
+            "
              <option value='$ubicacion_comdir'>$nombre_comdir</option>
              ";
+        }
 
-          }          
-          $compra['salida'] .=
-          "    
-          </select>
-          ";
-          
-          $compra['destino'] =
-          "
-          <label class='form-label' for='to'>Mis Direcciones</label>
-          <select class='form-select perfil-select' id='to' name='to'>";
-          foreach($MyCurrentLocation as $location)
-          {
-            $id_location = $location['Id'];
-            $location_name = $location['Ubicacion'];
+        foreach ($MyCurrentLocation as $location) {
+          $id_location = $location['Id'];
+          $location_name = $location['Ubicacion'];
 
-             $compra['destino'] .=
-             "
+          $compra['destino'] .=
+            "
              <option value='$location_name'>$location_name</option>
              ";
+        }
+        foreach ($direcciones_cliente as $clientdir) {
+          $id_clientdir = $clientdir['Id'];
+          $nombre_clientdir = $clientdir['Nombre'];
+          $ubicacion_clientdir = $clientdir['Ubicacion'];
 
-          }          
-          foreach($direcciones_cliente as $clientdir)
-          {
-             $id_clientdir = $clientdir['Id'];
-             $nombre_clientdir = $clientdir['Nombre'];
-             $ubicacion_clientdir = $clientdir['Ubicacion'];
-
-             $compra['destino'] .=
-             "
+          $compra['destino'] .=
+            "
              <option value='$ubicacion_clientdir'>$nombre_clientdir</option>
              ";
+        }
 
-          }          
-          $compra['destino'] .=
-          "    
-          </select>
-          ";
+        foreach($OrderDetail as $order)
+        {
+           $usd = $order['Total'];
+           $tasa = TasaDD();
+           $bs = $usd * $tasa;
+           
+
+           $compra['montos'] =
+           "
+           <div class='card-db'>
+           <ul class='card-db-items'>
+           <li class='card-db-item'>Total Divisas: $usd</li>
+           <li class='card-db-item'>Total BS: $bs</li>
+           </ul>
+           </div>
+           ";
         }
       }
-      else
-      {
-         $compra['metodos'] = EmptyPage('Sin Datos Para Mostrar');
-      }
-
-      echo json_encode($compra);
+    } else {
+      $compra['metodos'] = EmptyPage('Sin Datos Para Mostrar');
     }
 
-    
+    echo json_encode($compra);
+  }
 }
 
 

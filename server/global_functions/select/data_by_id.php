@@ -83,6 +83,26 @@ function UserPassword($UserID, $AdminLevel)
     }
 }
 
+function UserName($UserID)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT User_name FROM usuarios WHERE Id=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        $User_name = $resultado[0]['User_name'];
+        return $User_name;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 function ClientData($UserID)
 {
     require '../conexion.php';

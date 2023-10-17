@@ -58,7 +58,7 @@ if($funcion === 'editar_nombre_usuario')
 {
     editar_nombre_usuario();
 }
-if($funcion === 'editar_foto_perfil')
+if($funcion === 'nueva_foto_perfil')
 {
     editar_foto_perfil();
 }

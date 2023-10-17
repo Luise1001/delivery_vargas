@@ -15,4 +15,3 @@ include_once 'tarifas.php';
 include_once 'direcciones.php';
 include_once 'tokens.php';
 include_once 'horarios.php';
-include_once 'completar_pedido.php';

@@ -1,13 +1,12 @@
-$(document).ready(catalogo_productos());
+$(document).ready(detalle_pedido());
 
-function catalogo_productos()
+function detalle_pedido()
 { 
   const parametros = window.location.search;
   const variables = new URLSearchParams(parametros);
-  let id_comercio = variables.get('comercio');
-  let funcion = 'catalogo_productos';
-
-
+  let nro_pedido = variables.get('pedido');
+   funcion = 'detalle_pedido';
+ 
   $.ajax
   ({
      url: '../../server/functions/consultas.php',
@@ -16,21 +15,19 @@ function catalogo_productos()
      data: 
      {
        funcion : funcion,
-       id_comercio: id_comercio
+       nro_pedido: nro_pedido
     }
 
   })
   .done(function(res)
-  {
+  {console.log(res)
     $('.titulo-app').html(res.titulo);
-    $('.productos').html(res.productos);
+    $('.detalle-pedido').html(res.contenido);
 
   })
   .fail(function(err)
   {
-    console.log(err);
+    console.log(err.responseText);
   })
 }
-
-
 

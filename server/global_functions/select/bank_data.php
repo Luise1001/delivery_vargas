@@ -21,8 +21,6 @@ function OptionsPaymentMethods($id_comercio)
     }
 }
 
-//revisar de aqui para abajo
-
 function BankList()
 {
     require '../conexion.php';
@@ -62,7 +60,92 @@ function PaymentMethods()
     }
 }
 
+function IdentifyMethod($id_metodo, $id_comercio)
+{
+     $respuesta = '';
 
+    if($id_metodo == 3)
+    {
+       $PagoMovil = PagoMovil($id_comercio);
+
+       if($PagoMovil)
+       {
+          foreach($PagoMovil as $datos)
+          {
+            $banco = $datos['Banco'];
+            $identidad = $datos['Tipo_id'].'-'.$datos['Documento'];
+            $telefono = $datos['Telefono'];
+
+            $respuesta .=
+            "
+            <div class='card-db'>
+            <ul class='card-db-items'>
+            <li class='card-db-item'>Banco: $banco</li>
+            <li class='card-db-item'>Rif: $identidad</li>
+            <li class='card-db-item'>Telefono: $telefono</li>
+            </ul>
+            </div>
+            ";
+          }
+
+          return $respuesta;
+       }
+    }
+    if($id_metodo == 4)
+    {
+        $Transferencia =  Transferencia($id_comercio);
+
+        if($Transferencia)
+        {
+             foreach($Transferencia as $datos)
+             {
+               $banco = $datos['Banco'];
+               $identidad = $datos['Tipo_id'].'-'.$datos['Documento'];
+               $cuenta = $datos['Cuenta'];
+   
+               $respuesta .=
+               "
+               <div class='card-db'>
+               <ul class='card-db-items'>
+               <li class='card-db-item'>Banco: $banco</li>
+               <li class='card-db-item'>Rif: $identidad</li>
+               <li class='card-db-item'>Cuenta: $cuenta</li>
+               </ul>
+               </div>
+               ";
+             }
+
+             return $respuesta;
+        }
+    }
+    if($id_metodo == 5)
+    {
+        $Zelle =  Zelle($id_comercio);
+
+        if($Zelle)
+        {
+            foreach($Zelle as $datos)
+            {
+              $titular = $datos['Titular'];
+              $correo = $datos['Correo'];
+  
+              $respuesta .=
+              "
+              <div class='card-db'>
+              <ul class='card-db-items'>
+              <li class='card-db-item'>Titular: $titular</li>
+              <li class='card-db-item'>Correo: $correo</li>
+              </ul>
+              </div>
+              ";
+            }
+
+            return $respuesta;
+        }
+    }
+
+    return false;
+}
 
 function PagoMovil($id_comercio)
 {
