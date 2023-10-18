@@ -62,7 +62,14 @@ if($funcion === 'datos_bancarios')
 {
     datos_bancarios();
 }
-
+if($funcion === 'mis_direcciones')
+{  
+    mis_direcciones();
+}
+if($funcion === 'calcular_tarifa')
+{
+    calcular_tarifa();
+}
 
 
 
@@ -106,10 +113,6 @@ if($funcion === 'lista_de_tarifas')
 {
     lista_de_tarifas();
 }
-if($funcion === 'calcular_tarifa')
-{
-    calcular_tarifa();
-}
 if($funcion === 'lista_de_clientes')
 {
     lista_de_clientes();
@@ -135,22 +138,7 @@ if($funcion === 'lista_de_comercios')
 {
     lista_de_comercios();
 }
-if($funcion === 'mis_direcciones')
-{  
-    mis_direcciones();
-}
-if($funcion === 'direccion_envio')
-{
-    direccion_envio();
-}
-if($funcion === 'direccion_salida')
-{
-    direccion_salida();
-}
-if($funcion === 'nombre_direccion')
-{
-    nombre_direccion();
-}
+
 if($funcion === 'mis_productos')
 {
     mis_productos();
@@ -168,15 +156,6 @@ if($funcion === 'catalogo_productos')
     catalogo_productos();
 }
 
-if($funcion === 'valida_email')
-{
-    if(isset($_POST['email']))
-    {
-       $result = ValidateEmail($_POST['email']);
-
-       echo $result;
-    }
-}
 if($funcion === 'datos_pago_pedido')
 {
     datos_pago_pedido();

@@ -11,6 +11,12 @@ if($funcion === 'cerrar_sesion')
 {
     cerrar_sesion();
 }
+if($funcion === 'eliminar_direccion')
+{
+    eliminar_direccion();
+}
+
+
 
 if($funcion === 'eliminar_conductor')
 {
@@ -35,10 +41,6 @@ if($funcion === 'eliminar_cliente')
 if($funcion === 'eliminar_producto')
 {
     eliminar_producto();
-}
-if($funcion === 'eliminar_direccion')
-{
-    eliminar_direccion();
 }
 if($funcion === 'eliminar_horario')
 {

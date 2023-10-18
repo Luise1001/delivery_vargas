@@ -29,11 +29,14 @@ function catalogo_productos()
         $respuesta['productos'] .=
           "
           <div class='item-grid'>
+          <div class='img-grid'>
           <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+          </div>
           <div class='item-grid-body'>
             <h5 class='item-grid-title'>$descripcion</h5>
             <p class='item-grid-text'>$$precio</p>
           </div>
+          <div>
           <button id='add_to_car_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' 
           class='add-to-car-button'>
           <i class='fa-solid fa-circle-plus'></i>
@@ -47,6 +50,7 @@ function catalogo_productos()
            <button id='plus_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='plus-button'>
            <i class='fa-solid fa-circle-plus'></i>
            </button>
+           </div>
            </div>
         </div>
           ";

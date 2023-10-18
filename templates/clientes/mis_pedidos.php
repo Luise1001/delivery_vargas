@@ -16,12 +16,15 @@ include_once 'redirect.php';
   <div class="principal-laypout">
     <div class="wrapper">
       <div class="slider">
+        <div class="type-order-title">Activos</div>
         <div id="pendientes"></div>
       </div>
       <div class="slider">
+      <div class="type-order-title">Completados</div>
         <div id="completados"></div>
       </div>
       <div class="slider">
+      <div class="type-order-title">Anulados</div>
         <div id="anulados"></div>
       </div>
     </div>

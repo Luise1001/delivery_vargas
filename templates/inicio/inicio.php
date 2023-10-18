@@ -13,31 +13,31 @@
     <div class="container-map">
     <div class="index-map">
     <div class="container-fluid">
-      <form class="form-horizontal">
+      <form class="form-mi-ubicacion">
 
         <div class="form-group col-md-12 text-center">
           <label id="label-my-location" for="from" class="form-label"> Mi Ubicación: </label>
           <div>
           <i class="fas fa-map-marker-alt marker-my-location"></i>
-            <input id="from" type="text" placeholder="Mi Ubicación " class="input-opcion-7" >
+            <input class='input-from' id="from" type="text" placeholder="Mi Ubicación ">
             <br>
           </div>
 
             <div id="d_name" class="d-none">
             <i class="fas fa-map-marker-alt marker-my-location"></i>
-            <input id="direccion_nombre" name="direccion_nombre" type="text" placeholder="Ej. Casa" class="input-opcion-7" >
+            <input id="direccion_nombre" name="direccion_nombre" type="text" placeholder="Ej. Casa">
 
             </div>
         
-            <div class=" form-group col-md-12 text-center m-2">
-            <button id="confirm_location" class="card-btn  text-center">
-              <i class="fas fa-directions"></i> Guardar
+            <div class="form-group col-md-12 text-center m-2">
+            <button id="confirm_location" class="confirmar-location">
+              <i class="fas fa-directions"></i> Confirmar
              </button>
            </div>
 
            <input  class='form-check-input' type='checkbox'  value='' id='save_location' name='save_location'>
-           <label id="save_location_label" class='form-check-label' for='save_location'>
-            Agregar a Mis Direcciones
+           <label id="save_location_label" class='form-label' for='save_location'>
+            Guardar Dirección
             </label> 
           </div>
          </div>
@@ -49,7 +49,7 @@
         <div id="googleMap">
 
         </div>
-        <div id="output">
+        <div hidden id="output">
 
         </div>
       </div>

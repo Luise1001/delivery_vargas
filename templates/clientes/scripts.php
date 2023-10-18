@@ -12,7 +12,7 @@
 
 <!-- editar -->
 <script src="js/editar/reader_img.js"></script>
-<script src="js/editar/editar_direcciones.js"></script>
+<script src="js/editar/editar_direccion.js"></script>
 <script src="js/editar/editar_clave.js"></script>
 
 <!-- eliminar -->

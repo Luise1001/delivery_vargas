@@ -14,6 +14,10 @@ if($funcion === 'anular_pedido')
 {
     anular_pedido();
 }
+if($funcion === 'editar_direccion')
+{
+    editar_direccion();
+}
 
 
 
@@ -82,10 +86,6 @@ if($funcion === 'editar_tasa')
 if($funcion === 'elegir_conductor')
 {
     elegir_conductor();
-}
-if($funcion === 'editar_direccion')
-{
-    editar_direccion();
 }
 if($funcion === 'editar_horario')
 {

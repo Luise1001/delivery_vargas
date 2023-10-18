@@ -57,7 +57,7 @@ function PrecioTarifa($distancia, $servicio)
   }
   else
   {
-    return 'error';
+    return false;
   }
 
 }
@@ -73,12 +73,7 @@ function PrecioTarifaEspecial($categoria, $servicio)
 
   if($resultado)
   {
-    $precio =
-    [
-      'inicial'=> $resultado[0]['Precio_inicia'],
-      'precio'=> $resultado[0]['Precio']
-    ];
-
+     $precio = $resultado[0]['Precio'];
     return $precio;
   }
   else

@@ -11,6 +11,7 @@ function nueva_direccion()
   $lng = $_POST['lng'];
   $ubicacion = $_POST['direction'];
   $nombre = $_POST['name'];
+  $nombre = ucwords($nombre);
 
   $location_id = LocationID($id_usuario);
 

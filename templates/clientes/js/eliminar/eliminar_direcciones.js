@@ -1,4 +1,4 @@
-$(document).on('click', '.eliminar-direccion', function(data)
+$(document).on('click', '#eliminar_direccion', function(data)
 {
      let id_direccion = data.currentTarget.attributes.direccion.value;
 
@@ -29,7 +29,7 @@ function eliminar_direccion(id_direccion)
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
          funcion : funcion,
@@ -39,8 +39,18 @@ function eliminar_direccion(id_direccion)
     })
     .done(function(res)
     {
-     lista_de_direcciones();
-  
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+         mis_direcciones();
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      }  
     })
     .fail(function(err)
     {

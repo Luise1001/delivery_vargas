@@ -79,10 +79,15 @@
 .options-menu
 {
   display: inline-grid;
+  padding: 0px !important;
 }
 .sidebar-item
 {
   text-decoration: none;
   font-size: large;
   font-family: 'Times New Roman', Times, serif;
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px lightgray;
+  color: rgb(14,39,165);
 }

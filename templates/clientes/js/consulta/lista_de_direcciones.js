@@ -1,6 +1,6 @@
-$(document).ready(lista_de_direcciones());
+$(document).ready(mis_direcciones());
 
-function lista_de_direcciones()
+function mis_direcciones()
 { 
    funcion = 'mis_direcciones';
  
@@ -8,7 +8,7 @@ function lista_de_direcciones()
   ({
      url: '../../server/functions/consultas.php',
      type: 'POST',
-     dataType: 'html',
+     dataType: 'json',
      data: 
      {
        funcion : funcion
@@ -17,30 +17,14 @@ function lista_de_direcciones()
   })
   .done(function(res)
   {
-    $('#resp').html(res);
+    $('.titulo-app').html(res.titulo);
+    $('.my-directions').html(res.direcciones);
 
   })
-  .fail(function()
+  .fail(function(err)
   {
-    console.log("error ejecutando Ajax");
+    console.log(err);
   })
 }
 
 
-$(document).on('click', '.direccion-detalle', function(data)
-{ 
-  let id = data.target.id;
-  let id_name = 'detalle_'+id;
-  let detalle = document.getElementById(id_name);
-
-  detalle.classList.toggle("active");
-  if(detalle.style.display === 'block')
-  {
-    detalle.style.display = 'none';
-  }
-  else
-  {
-    detalle.style.display = 'block';
-  }
-
-})

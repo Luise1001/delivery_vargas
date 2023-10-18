@@ -263,7 +263,7 @@ function MyStaticLocations($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=?";
+    $consulta_sql = "SELECT * FROM static_locations WHERE Id_usuario=? ORDER BY Actualizado DESC";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();

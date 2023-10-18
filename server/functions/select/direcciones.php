@@ -4,136 +4,54 @@ function mis_direcciones()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $lista_de_direcciones = MyStaticLocations($id_usuario);
-  if($lista_de_direcciones)
-  {
-    $lista_de_direcciones = array_reverse($lista_de_direcciones);
-    foreach($lista_de_direcciones as $direccion)
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $MyStaticLocations = MyStaticLocations($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $respuesta =
+    [
+      'titulo' => $back_btn . 'MIS DIRECCIONES',
+      'direcciones' => ''
+    ];
+
+    if($MyStaticLocations)
     {
-      $id = $direccion['Id'];
-      $nombre = $direccion['Nombre'];
-      $ubicacion = $direccion['Ubicacion'];
-      $fecha = DateFormat($direccion['Fecha']);
-  
-      echo 
-      "
-      <div class=' address-card'>
-      <div class='card-header'>
-      </div>
-      <div class='card-body bg-transparent'>
-        <ul class='list-group list-group-flush'>
-        <li class='list-group-item'><h6><i class='fas fa-map-marker-alt'></i> $nombre</h6></li>
-      </ul>
+      foreach($MyStaticLocations as $location)
+      {
+        $id = $location['Id'];
+        $nombre = $location['Nombre'];
+        $ubicacion = $location['Ubicacion'];
+        $actualizado = $location['Actualizado'];
+        $fecha_actual = CurrentTime();
+        $actualizado = TimeDifference($actualizado, $fecha_actual);
 
-      <div id='detalle_$id' class='dropdown-container'>
-      <li class='list-group-item'>$ubicacion </li>
-      <a direccion='$id' class='btn eliminar-direccion'>
-      <i class='fas fa-trash-alt text-danger'></i>
-      </a>
-
-      <a id='$id' nombre='$nombre' class='btn editar-direccion' id='edit_direction'
-      data-toggle='modal' data-target='#editar_direccion'>
-      <i class='fas fa-edit'></i>
-      </a>
+        $respuesta['direcciones'] .=
+        "
+        <div class='card-direction' >
+        <div class='card-direction-header'>
+          <div class='card-direction-title'>
+          <i class='fa-solid fa-map-marker-alt'>
+          </i><input class='input-direccion' readonly id='direccion_$id' type='text' value='$nombre'/>
+          </div>
+          <div class='card-time'>$actualizado</div>
+        </div>
+        <div class='card-direction-body'>
+          $ubicacion
+        </div>
+        <div class='card-direction-links'>
+        <a id='editar_direccion' direccion='$id' class='card-direction-link'>Editar</a>
+        <a hidden id='edit_dir_$id' direccion='$id' class='card-direction-link save-direction'>Guardar</a>
+        <a id='eliminar_direccion' direccion='$id' class='card-direction-link'>Eliminar</a>
+        </div>
       </div>
-   
-      </div>
-      <div class='card-footer text-body-secondary'>
-      <a  id='$id' class='btn direccion-detalle'>
-      <i class='fas fa-info-circle'></i> Ver Detalle</a>
-      </div>
-    </div>
-      
       ";
+      }
     }
-  }
-  else
-  {
-     echo EmptyPage('Sin Direcciones Para Mostrar.');
-  }
+    else
+    {
+       $respuesta['direcciones'] = EmptyPage('Sin Direcciones Guardadas');
+    }
 
+    echo json_encode($respuesta);
 }
 
-function direccion_salida()
-{
-    require '../conexion.php';
-
-    if(isset($_POST['id_comercio']))
-    {
-        $id_comercio = $_POST['id_comercio'];
-        $comercioData = ComercioData($id_comercio);
-        $id_usuario = $comercioData[0]['Id_usuario'];
-        $direcciones = MyStaticLocations($id_usuario);
-       if($direcciones)
-       {
-          $id_direccion = $direcciones[0]['Id'];
-          $direccion = $direcciones[0]['Ubicacion'];
-
-          echo $direccion;
-
-       }
-       else
-       {
-          echo 'No Se Encontró Dirección de Salida.';
-       }
-
-
-    }
-
-}
-
-function direccion_envio()
-{
-    require '../conexion.php';
-    $admin = $_SESSION['DLV']['admin'];
-    $id_usuario = UserID($admin);
-
-    $direcciones = '';
-    $mi_ubicacion = MYCurrentLocation($id_usuario);
-    $mis_direcciones = MyStaticLocations($id_usuario);
-
-    if($mi_ubicacion)
-    {
-        foreach($mi_ubicacion as $ubicacion)
-        {
-            $id_direccion  = $ubicacion['Id'];
-            $nombre_direccion = $ubicacion['Ubicacion'];
-            $direcciones .= 
-            "
-            <option  value='$id_direccion'>$nombre_direccion</option> 
-            ";
-        }
-    }
-
-
-    if($mis_direcciones)
-    {
-        foreach($mis_direcciones as $direccion)
-        {
-            $id_direccion = $direccion['Id'];
-            $nombre_direccion = $direccion['Nombre'];
-            $direcciones .= 
-            "
-            <option  value='$id_direccion'>$nombre_direccion</option> 
-            ";
-        }
-    }
-
-    echo $direcciones;
-}
-
-function nombre_direccion()
-{
-    include_once '../conexion.php';
-    
-    if(isset($_POST['id_direccion']))
-    {
-        $admin = $_SESSION['DLV']['admin'];
-        $id_usuario = UserID($admin);
-        $id_direccion = $_POST['id_direccion'];
-        $direccion = StaticLocationName($id_direccion, $id_usuario);
-
-        echo $direccion;
-    }
-}

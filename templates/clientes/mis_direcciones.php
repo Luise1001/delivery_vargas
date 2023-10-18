@@ -14,11 +14,10 @@ include_once 'redirect.php';
   <?php include_once '../loader.php'; ?>
   <?php include_once '../inicio/menu.php'; ?>
 
-    <div class="principal-layout">
-      <div id='resp' class="lista-de-direcciones"></div>
+  <div class="principal-layout">
+    <div class="my-directions"></div>
 
-
-    </div>
+  </div>
 
   <script src="js/consulta/lista_de_direcciones.js"></script>
 

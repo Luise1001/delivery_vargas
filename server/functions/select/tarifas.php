@@ -69,16 +69,23 @@ function calcular_tarifa()
      $distancia = $_POST['distancia'];
      $servicio = $_POST['servicio'];
 
-     if($distancia <= 3)
+     if($distancia <= 6)
      {
         $precio = PrecioTarifa($distancia, $servicio);
      }
      else
      {
-       $categoria = 'Kilometro Adicional';
-       $precio = PrecioTarifaEspecial($categoria, $servicio);
-       
-       //total de la distancia restale los kilometros permitidos y multiplica el resto por el precio
+      if($servicio == '1')
+      {
+        $categoria = 'Kilometro Adicional';
+        $precio = PrecioTarifaEspecial($categoria, $servicio);
+        $kilometros = $distancia - 6;
+        $precio = $precio * $kilometros + 2;
+      }
+      else
+      { 
+        $precio = 0;
+      }
      }
 
    }

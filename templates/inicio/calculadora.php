@@ -1,63 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
- <?php include_once 'head_html.php';?>
-   <title>Delivery Vargas</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <?php include_once 'head_html.php'; ?>
+  <title>Delivery Vargas</title>
 </head>
+
 <body class='hide-content'>
-    <?php include_once '../loader.php';?>
-<div id="contenido">
- <?php include_once 'menu.php';?>
-<div  class="container col-md-6">
-  <div class="col-md-12">
+  <?php include_once '../loader.php'; ?>
+  <?php include_once 'menu.php'; ?>
 
-  <div class="container-form">
-  <h4  class="form-solicitud-title"><i class="fa fa-calculator" aria-hidden="true"></i> Calculadora de Ruta</h4>
-      <form class="form-calculadora">
-
-      <div class="form-grup">
-        <label class="form-label" for="tipo_servicio">Servicio</label>
-        <select class="input-opcion-4" name="tipo_servicio" id="tipo_servicio">
-          <option value="Delivery">Delivery</option>
-          <option value="Grúa">Grúa</option>
+  <div class="principal-layout">
+    <div class="calculadora-form">
+      <label class='form-label' for="tipo_servicio">Tipo de Servicio</label>
+      <div class='input-group'>
+        <select class='form-select calculator-select' id='tipo_servicio' name='tipo_servicio'>
+          <option value='1'>Delivery</option>
         </select>
       </div>
-        
-        <div class="form-group">
-          <label for="from" class="col-xs-2 form-label"><i class="fas fa-map-marker-alt"></i> Mi Ubicación: <span class="text-danger">*</span> </label>
-          <div class="col-xs-4">
-            <input id="from" type="text" placeholder="Punto de Partida" class="input-opcion-3" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="to" class="col-xs-2 form-label"><i class="fas fa-map-marker-alt"></i> Destino: <span class="text-danger">*</span></label>
-          <div class="col-xs-4">
-            <input id="to" type="text" placeholder="Destino" class="input-opcion-3" required>
-          </div>
-        </div>
-        <a id="buscar" tittle="Trazar Ruta" class="btn nav-link"><i class="fas fa-directions fa-2x m-2"></i></a>
-        <div class="container-map-form">
-        <div id="googleMap">
+      <label class='form-label' for='from'>Punto de Partida</label>
+      <input class='form-control calculator-input' type='text' id='from' name='from'>
+      <label class='form-label' for='to'>Destino</label>
+      <input class='form-control calculator-input' type='text' id='to' name='to'>
 
-        </div>
+      <div class="calcular-buttons">
+        <button id='calcular' class='calcular'>Calcular</button>
+      </div>
+
+
+      <div class="calculator-map">
+        <div id="googleMap"></div>
+      </div>
+
+      <div id="output">
+        <label class='form-label' for="salida">Punto de Partida:</label>
+        <div class='output' id="salida"></div>
+        <label class='form-label' for="destino">Destino:</label>
+        <div class='output' id="destino"></div>
+        <label class='form-label' for="distancia">Distancia:</label>
+        <div class='output' id="distancia"></div>
+        <label class='form-label' for="tiempo">Tiempo:</label>
+        <div class='output' id="tiempo"></div>
+        <label class='form-label' for="tarifa">Total a Pagar:</label>
+        <div class='output' id="tarifa"></div>
+      </div>
+
     </div>
-    <div id="output">
-
-        </div>
-
-      </form>
 
 
-        
-  </div>
-  </div>
-  
 
-</div>
-</div>
 
-<?php include_once 'scripts.php';?>
-<script src="js/mapas/google_map.js"></script>
+
+    <?php include_once 'scripts.php'; ?>
+    <script src="js/mapas/calculadora.js"></script>
 </body>
+
 </html>
