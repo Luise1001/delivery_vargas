@@ -73,7 +73,7 @@ function nueva_foto()
 
   $.ajax
   ({
-     url: '../../server/functions/editar.php',
+     url: '../../server/functions/agregar.php',
      type: 'POST',
      dataType: 'html',
      async: true,

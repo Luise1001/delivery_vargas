@@ -5,56 +5,75 @@ function nuevo_producto()
   include_once '../conexion.php';
 
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $rif_comercio = ComercioRif($id_usuario);
-  $id_comercio = ComercioID($rif_comercio);
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $ComercioData = ComercioData($UserID);
+  $id_comercio = $ComercioData[0]['Id'];
   $fecha = CurrentDate();
-  $moneda = 'Dolar';
-  $id_moneda = MonedaID($moneda);
-  $alicuota = Alicuota($id_moneda);
+  $respuesta = 
+  [
+    'titulo'=> 'Ups',
+    'cuerpo'=> 'No Pudimos Procesar Su Solicitud',
+    'accion'=> 'warning'
+  ];
 
-  $codigo = $_POST['codigo'];
-  $peso = $_POST['peso'];
-  $descripcion = $_POST['descripcion'];
-  $precio_civa = $_POST['precio_civa'];
-  $exento = $_POST['exento'];
-  $cantidad = $_POST['cantidad'];
-
-  $cantidad = filter_var($cantidad, FILTER_SANITIZE_STRING);
-  $codigo = filter_var($codigo, FILTER_SANITIZE_STRING);
-  $peso = filter_var($peso, FILTER_SANITIZE_STRING);
-  $descripcion = filter_var($descripcion, FILTER_SANITIZE_STRING);
-  $precio_civa = filter_var($precio_civa, FILTER_SANITIZE_STRING);
-  $exento = filter_var($exento, FILTER_SANITIZE_STRING);
-
-  $descripcion = ucwords($descripcion);
-  
-  if($exento == 1)
-  { 
-    $precio_siva = number_format($precio_civa, 2);
-    $alicuota = 0;
-  }
-  else
+  if (isset($_POST['codigo']) && isset($_POST['descripcion']) && isset($_POST['precio']) && isset($_POST['peso']))
   {
-   
-    $precio_siva = ($precio_civa) - ($precio_civa * ($alicuota/100));
-    $precio_siva = number_format($precio_siva, 2);
-  }
-   
+    $codigo = $_POST['codigo'];
+    $descripcion = $_POST['descripcion'];
+    $pciva = $_POST['precio'];
+    $peso = $_POST['peso'];
+    $exento = $_POST['exento'];
+    $cantidad = $_POST['cantidad'];
 
-  if($codigo && $peso && $descripcion && $precio_siva && $precio_civa)
-  {
-    $insert_sql = 'INSERT INTO productos (Codigo, Descripcion, Foto, P_siva, P_civa, Alicuota, Peso, Id_comercio, Fecha) VALUES (?,?,?,?,?,?,?,?,?)';
-    $sent = $pdo->prepare($insert_sql);
-    $sent->execute(array($codigo, $descripcion, $codigo, $precio_siva, $precio_civa, $alicuota, $peso, $id_comercio, $fecha));
-   
+    $codigo = filter_var($codigo, FILTER_UNSAFE_RAW);
+    $descripcion = filter_var($descripcion, FILTER_UNSAFE_RAW);
+    $pciva = filter_var($pciva, FILTER_UNSAFE_RAW);
+    $peso = filter_var($peso, FILTER_UNSAFE_RAW);
+    $exento = filter_var($exento, FILTER_UNSAFE_RAW);
+    $cantidad = filter_var($cantidad, FILTER_UNSAFE_RAW);
+
+    $codigo = ucfirst($codigo);
+    $descripcion = ucwords($descripcion);
+
+    if($exento)
+    {
+       $psiva = round($pciva / 1.16, 2);
+    }
+    else
+    {
+       $psiva = $pciva;
+    }
+
+    if($codigo && $descripcion && $pciva && $psiva && $peso)
+    {
+      
+
+        $ProductImg = ProductImg($id_comercio, $codigo, $_FILES);
+        $foto = SearchProductPhoto($id_comercio, $codigo);
   
-    $id_producto = LastProductAdded($id_comercio);
-    $stock = addStock($id_comercio, $id_producto, $cantidad);
+        $insert_sql = 'INSERT INTO productos (Codigo, Descripcion, Foto, P_siva, P_civa, Alicuota, Peso, Id_comercio, Fecha) VALUES (?,?,?,?,?,?,?,?,?)';
+        $sent = $pdo->prepare($insert_sql);
+        if($sent->execute(array($codigo, $descripcion, $foto, $psiva, $pciva, $exento, $peso, $id_comercio, $fecha)))
+        {
+          $ProductID = ProductID($id_comercio, $codigo);
+          $stock = addStock($id_comercio, $ProductID, $cantidad);
+  
+          if($stock)
+          {
+            $respuesta = 
+            [
+              'titulo'=> 'Excelente',
+              'cuerpo'=> 'Continua Publicando Tus Productos',
+              'accion'=> 'success'
+            ];
+          }
+        }
 
-    $ruta = ProductImg($rif_comercio, $codigo, $_FILES);
+    }
+
+    echo json_encode($respuesta);
   }
-
 }
 
 function addStock($id_comercio, $id_producto, $cantidad)
@@ -64,7 +83,12 @@ function addStock($id_comercio, $id_producto, $cantidad)
 
   $insert_sql = 'INSERT INTO inventario (Id_comercio, Id_producto, Existencia, Fecha) VALUES (?,?,?,?)';
   $sent = $pdo->prepare($insert_sql);
-  $sent->execute(array($id_comercio, $id_producto, $cantidad, $fecha));
-
-  return;
+  if($sent->execute(array($id_comercio, $id_producto, $cantidad, $fecha)))
+  {
+     return true;
+  }
+  else
+  {
+     return false;
+  }
 }

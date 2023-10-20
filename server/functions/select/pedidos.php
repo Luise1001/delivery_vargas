@@ -6,15 +6,51 @@ function mis_pedidos()
   $admin = $_SESSION['DLV']['admin'];
   $UserID = UserID($admin);
   $AdminLevel = AdminLevel($UserID);
-
-  if ($AdminLevel != '3') {
+  
+  if($AdminLevel != '3')
+  {
     $ClientData = ClientData($UserID);
+
     if ($ClientData) {
       $id_cliente = $ClientData[0]['Id'];
       ClientOrders($id_cliente);
     }
-  } else {
-    BusinessOrders($UserID, $AdminLevel);
+    else
+    {
+      $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+      $mis_pedidos =
+      [
+        'titulo' => $back_btn . 'MIS PEDIDOS',
+        'pendientes' => EmptyPage('Cliente No Registrado'),
+        'completados' => EmptyPage('Cliente No Registrado'),
+        'anulados' => EmptyPage('Cliente No Registrado')
+      ];
+  
+      echo json_encode($mis_pedidos);
+    }
+  }
+  else
+  {
+     $ComercioData = ComercioData($UserID);
+
+     if($ComercioData)
+     {
+       $id_comercio = $ComercioData[0]['Id'];
+       BusinessOrders($id_comercio);
+     }
+     else
+     {
+      $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+      $mis_pedidos =
+      [
+        'titulo' => $back_btn . 'MIS PEDIDOS',
+        'pendientes' => EmptyPage('Comercio No Registrado'),
+        'completados' => EmptyPage('Comercio  No Registrado'),
+        'anulados' => EmptyPage('Comercio  No Registrado')
+      ];
+  
+      echo json_encode($mis_pedidos);
+     }
   }
 }
 
@@ -236,32 +272,80 @@ function detalle_pedido()
       $progreso = $ProcessOrderStatus['progreso'];
       $estado = $ProcessOrderStatus['estado'];
 
-      if($estado === 'Creado')
+      if($AdminLevel != '3')
       {
-        $boton_confirmar = "<a href='finalizar_compra?cliente=$id_cliente&comercio=$id_comercio&pedido=$nro_pedido' class='finalizar-compra-button' id='finalizar_compra'>Finalizar Compra</a>";
-      }
-      else
-      {
-        if($estado != 'Anulado')
-        { 
-          $background = 'bg-primary';
+        if($estado === 'Creado')
+        {
+          $boton_confirmar = "<a href='finalizar_compra?cliente=$id_cliente&comercio=$id_comercio&pedido=$nro_pedido' class='finalizar-compra-button' id='finalizar_compra'>Finalizar Compra</a>";
         }
         else
         {
-           $background = 'bg-danger';
-        }
-
-        $boton_confirmar = 
-        "
-        <div class='order-progess w-100'>
-        <div class='progress'>
-          <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-            style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          if($estado != 'Anulado')
+          { 
+            $background = 'bg-primary';
+          }
+          else
+          {
+             $background = 'bg-danger';
+          }
+  
+          $boton_confirmar = 
+          "
+          <div class='order-progess w-100'>
+          <div class='progress'>
+            <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+            </div>
           </div>
-        </div>
-        ";
-
+          ";
+  
+        }
       }
+      else
+      {
+        if($estado === 'Recibido')
+        {
+          $boton_confirmar =
+           "
+           <div class='order-links'>
+           <a class='order-link retirar-pedido' pedido='$nro_pedido'>Pedido Listo</a>
+           <a class='order-link anular-pedido' pedido='$nro_pedido'>Anular</a>
+           </div>
+           ";
+        }
+        else
+        {
+          if($estado != 'Anulado')
+          { 
+            $background = 'bg-primary';
+          }
+          else
+          {
+             $background = 'bg-danger';
+          }
+  
+          $boton_confirmar = 
+          "
+          <div class='order-progess w-100'>
+          <div class='progress'>
+            <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
+              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+            </div>
+          </div>
+          ";
+  
+        }
+      } 
+      
+      if($AdminLevel != '3')
+      {
+         $class = 'amount-footer';
+      }
+      else
+      {
+         $class = '';
+      }
+
 
       $mi_pedido['contenido'] .=
         "
@@ -275,7 +359,7 @@ function detalle_pedido()
               <div class='amount-item'>
                 <p class='amount'>Total:</p> <p class='amount'>$.$total</p>
               </div>
-              <div class='amount-footer'>
+              <div class='$class'>
                 $boton_confirmar
               </div>
               </div>";
@@ -391,258 +475,145 @@ function finalizar_compra()
   }
 }
 
-
-function BusinessOrders($id_usuario, $nivel)
+function BusinessOrders($id_comercio)
 {
-  $rif_comercio = ComercioRif($id_usuario);
-  $id_comercio = ComercioID($rif_comercio);
-  $MyOrders = MyOrders($id_comercio, $nivel);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
   $mis_pedidos =
     [
+      'titulo' => $back_btn . 'MIS PEDIDOS',
       'pendientes' => '',
       'completados' => '',
       'anulados' => ''
     ];
 
+  $MyOrders = MyOrders('Id_comercio', $id_comercio);
+
   if ($MyOrders) {
 
     foreach ($MyOrders as $order) {
-      $OrderStatus = $order['Recibido'];
-      if ($OrderStatus) {
-        $id_cliente = $order['Id_cliente'];
-        $clienteData = ClientData($id_cliente);
-        $id_usuario_cliente = $clienteData[0]['Id_usuario'];
-        $cliente_user_data = UserData($id_usuario_cliente);
-        $cliente_user_name = $cliente_user_data[0]['User_name'];
-        $email_cliente = UserEmail($id_usuario_cliente);
-        $razon_social = $order['Razon_social'];
-        $nombre = $clienteData[0]['Nombre'];
-        $apellido = $clienteData[0]['Apellido'];
-        $telefono_cliente = $clienteData[0]['Telefono'];
-        $nro_pedido = $order['Nro_pedido'];
-        $total = $order['Total'];
-        $OrderDetail = OrderDetail($nro_pedido);
-        $metodo_pago = $OrderDetail[0]['Categoria'];
+      $nro_pedido = $order['Nro_pedido'];
+      $ProcessOrderStatus = ProcessOrderStatus($nro_pedido);
+      $progreso = $ProcessOrderStatus['progreso'];
+      $estado = $ProcessOrderStatus['estado'];
+      $links = $ProcessOrderStatus['enlaces'];
+      $fecha = DateFormat($order['Fecha']);
+      $actualizado = $order['Actualizado'];
+      $fecha_actual = CurrentTime();
+      $id_usuario = $order['Usuario_cliente'];
+      $razon_social = $order['Razon_social'];
+      $telefono = $order['Telefono_cliente'];
+      $nombre_cliente = $order['Nombre_cliente'];
+      $apellido_cliente = $order['Apellido_cliente'];
+      $metodo_pago = $order['Metodo_pago'];
+      $actualizado = TimeDifference($actualizado, $fecha_actual);
+      $foto = SearchProfilePhoto($id_usuario);
 
-        $perfil = SearchProfilePhoto($id_usuario_cliente, 'perfil');
-        if ($perfil === true) {
-          $foto = "../../server/images/profile/users/$id_usuario_cliente/photo/perfil.jpg";
-        } else {
-          $letra = substr($cliente_user_name, 0, 1);
+      if($estado === 'Recibido')
+      {
+         $links = '';
+      }
 
-          $foto = "../../server/images/profile/letters/$letra.jpg";
-        }
-
-        $resultado = OrderStatus($nro_pedido);
-        $estatus = ProcessOrderStatus($resultado);
-        $estado = $estatus['estado'];
-        $conductor = $estatus['conductor'];
-        $movimiento = $estatus['movimiento'];
-        $background = $estatus['background'];
-        $progreso = $estatus['progreso'];
-        $display_botones = $estatus['botones'];
-        $pagado = $estatus['pagado'];
-
-        if ($conductor) {
-          foreach ($conductor as $dato) {
-            $nombre_conductor = $dato['Nombre'];
-            $apellido_conductor = $dato['Apellido'];
-            $marca = $dato['Marca'];
-            $modelo = $dato['Modelo'];
-            $placa = $dato['Placa'];
-          }
-
-          $informacion =
-            "
-          <li><h6>Detalles del Conductor</h6></li>
-          <li><h6>Nombre:</h6> $nombre_conductor $apellido_conductor</li>
-          <li><h6>Detalles del Vehículo</h6></li>
-          <li><h6>Marca:</h6> $marca</li>
-          <li><h6>Modelo:</h6> $modelo</li>
-          <li><h6>Placa:</h6> $placa</li>
-          ";
-        } else {
-          $informacion = '';
-        }
-
-        if ($estado === 'Creado' || $estado === 'Recibido' || $estado === 'Pagado') {
-          $botones =
-            "
-          <div class='container pedido-botones'>
-          <button  pedido='$nro_pedido'  class='btn btn-primary retirar-pedido'>Delivery</button>
-          <button  pedido='$nro_pedido' class='btn btn-primary anular-pedido'>Anular</button>
+      if ($estado != 'Creado' && $estado != 'Entregado' && $estado != 'Anulado') {
+        $mis_pedidos['pendientes'] .=
+          "
+          <div class='card-order'>
+          <div class='order-header'>
+            <strong class='me-auto'>$fecha</strong>
+            <small>$actualizado</small>
           </div>
+          <div class='card-order-body'>
+            <div class='order-img'>
+             <img class='img-order' src='$foto' alt='Foto de Perfil'>
+            </div>
+            <div class='order-data'>
+            <div class='order-title'><a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$nombre_cliente $apellido_cliente</a> <a href='https://wa.me/$telefono' target='_blank'><i class='fa-brands fa-whatsapp'></i></a></div>
+            <div class='order-text'>$razon_social</div>
+            <div $links class='order-links'>
+            <a class='order-link retirar-pedido' pedido='$nro_pedido'>Pedido Listo</a>
+            <a class='order-link anular-pedido' pedido='$nro_pedido'>Anular</a>
+            </div>
+            </div>
+          </div>
+          <div class='order-progess'>
+          <div class='progress'>
+            <div class='progress-bar bg-primary' role='progressbar' aria-label='Example with label'
+              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
           ";
-        }
+      }
 
-        if ($estado === 'Asignado' || $estado === 'Aceptado' || $estado === 'Enviado' || $estado === 'Entregado' || $estado === 'Por Retirar' || $estado === 'Anulado') {
-          $botones = '';
-        }
-
-        if ($estado != 'Entregado' && $estado != 'Anulado') {
-          $mis_pedidos['pendientes'] .=
-            "
-        <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-          <a class=' orden-pedido-link btn menu_opciones'>
-          <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container' data-bs-toggle='collapse' data-bs-target='.toast_$nro_pedido' data-bs-auto-close='true'>
-            <p>$nombre $apellido <button telefono='$telefono_cliente' class='btn ws-btn-pedidos'><i class='fab fa-whatsapp fa-2x'></i></button></p>
-            <div class='progress'>
-            <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
-             </div>
-           </div>
-          </a>
-             <div class='toast_$nro_pedido collapse'>
-             <div class='pedido-info'>
-              $informacion
-             </div>
-             <div class='pedido-info'>
-             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-             <li><h6>Estatus:</h6> $pagado</li>
-             </div>
-             <div class='pedido-detalle'>
-             <li><h6>Contenido del Pedido</h6></li>
-             ";
-
-
-          foreach ($OrderDetail as $detail) {
-            $cantidad = $detail['Cantidad'];
-            $producto = $detail['Descripcion'];
-
-            $mis_pedidos['pendientes'] .=
-              "
-               <li>
-               $cantidad - $producto
-               </li>
-               ";
-          }
-
-          $mis_pedidos['pendientes'] .=
-            "
-             </div>
-             <div class='pedido-footer'>
-             Total: $.$total
-             </div>
- 
-             $botones
-              </div>
-         
-         </div>
+      if ($estado === 'Entregado') {
+        $mis_pedidos['completados'] .=
+          "
+        <div class='card-order'>
+        <div class='order-header'>
+          <strong class='me-auto'>$fecha</strong>
+          <small>$actualizado</small>
+        </div>
+        <div class='card-order-body'>
+          <div class='order-img'>
+           <img class='img-order' src='$foto' alt='Foto de Perfil'>
+          </div>
+          <div class='order-data'>
+          <div class='order-title'> <a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$nombre_cliente $apellido_cliente</a></div>
+          <div class='order-text'>$razon_social</div>
+          </div>
+        </div>
+        <div class='order-progess'>
+        <div class='progress'>
+          <div class='progress-bar bg-primary' role='progressbar' aria-label='Example with label'
+            style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
         ";
-        }
+      }
 
-        if ($estado === 'Entregado') {
-          $mis_pedidos['completados'] .=
-            "
-        <ul>
-        <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-          <a class=' orden-pedido-link btn menu_opciones'>
-          <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container'>
-            <p>$nombre $apellido <button telefono='$telefono_cliente' class='btn ws-btn-pedidos'><i class='fab fa-whatsapp fa-2x'></i></button></p>
-            <div class='progress'>
-            <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
-             </div>
-           </div>
-          </a>
-             <div class='dropdown-container'>
-             <div class='pedido-info'>
-              $informacion
-             </div>
-             <div class='pedido-info'>
-             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-             <li><h6>Estatus:</h6> $pagado</li>
-             </div>
-             <div class='pedido-detalle'>
-             <li><h6>Detalle del Pedido</h6></li>
-             ";
-
-
-          foreach ($OrderDetail as $detail) {
-            $cantidad = $detail['Cantidad'];
-            $producto = $detail['Descripcion'];
-
-            $mis_pedidos['completados'] .=
-              "
-               <li>
-               $cantidad - $producto
-               </li>
-               ";
-          }
-
-          $mis_pedidos['completados'] .=
-            "
-             </div>
-             <div class='pedido-footer'>
-             Total: $.$total
-             </div>
- 
-             $botones
-              </div>
-         
-         </div>
-        </ul>
+      if ($estado === 'Anulado') {
+        $mis_pedidos['anulados'] .=
+          "
+        <div class='card-order'>
+        <div class='order-header'>
+          <strong class='me-auto'>$fecha</strong>
+          <small>$actualizado</small>
+        </div>
+        <div class='card-order-body'>
+          <div class='order-img'>
+           <img class='img-order' src='$foto' alt='Foto de Perfil'>
+          </div>
+          <div class='order-data'>
+          <div class='order-title'> <a href='detalle_pedido?pedido=$nro_pedido' class='order-title'>$nombre_cliente $apellido_cliente</a></div>
+          <div class='order-text'>$razon_social</div>
+          </div>
+        </div>
+        <div class='order-progess'>
+        <div class='progress'>
+          <div class='progress-bar bg-danger' role='progressbar' aria-label='Example with label'
+            style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
         ";
-        }
-
-        if ($estado === 'Anulado') {
-          $mis_pedidos['anulados'] .=
-            "
-        <ul>
-        <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-          <a class=' orden-pedido-link btn menu_opciones'>
-          <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container'>
-            <p>$nombre $apellido <button telefono='$telefono_cliente' class='btn ws-btn-pedidos'><i class='fab fa-whatsapp fa-2x'></i></button></p>
-            <div class='progress'>
-            <div class='progress-bar $background' role='progressbar' aria-label='Example with label'
-              style='width:$progreso%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>$estado</div>
-             </div>
-           </div>
-          </a>
-             <div class='dropdown-container'>
-             <div class='pedido-info'>
-              $informacion
-             </div>
-             <div class='pedido-info'>
-             <li><h6>Detalles del Pago:</h6> $metodo_pago</li>
-             <li><h6>Estatus:</h6> $pagado</li>
-             </div>
-             <div class='pedido-detalle'>
-             <li><h6>Detalle del Pedido</h6></li>
-             ";
-
-
-          foreach ($OrderDetail as $detail) {
-            $cantidad = $detail['Cantidad'];
-            $producto = $detail['Descripcion'];
-
-            $mis_pedidos['anulados'] .=
-              "
-               <li>
-               $cantidad - $producto
-               </li>
-               ";
-          }
-
-          $mis_pedidos['anulados'] .=
-            "
-             </div>
-             <div class='pedido-footer'>
-             Total: $.$total
-             </div>
- 
-             $botones
-              </div>
-         
-         </div>
-        </ul>
-        ";
-        }
       }
     }
-    echo json_encode($mis_pedidos);
+  } else {
+    $mis_pedidos =
+      [
+        'titulo' => $back_btn . 'MIS PEDIDOS',
+        'pendientes' => EmptyPage('Sin Pedidos Para Mostrar'),
+        'completados' => EmptyPage('Sin Pedidos Para Mostrar'),
+        'anulados' => EmptyPage('Sin Pedidos Para Mostrar')
+      ];
   }
+
+
+  echo json_encode($mis_pedidos);
 }

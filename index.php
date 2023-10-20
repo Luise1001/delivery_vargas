@@ -150,7 +150,6 @@
 
 </div>
 
-<?php include_once 'templates/modals.php';?>
 <div class="div-water-mark">
   <img class='water-mark' src="server/images/logos/suarezresuelve.png" alt="water-mark">
 </div>

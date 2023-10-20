@@ -24,7 +24,7 @@
 {
   width: 100%;
   text-align: center;
-  background: green;
+  background: rgb(14,39,165);
   border-radius: 20px;
   color: #fce944;
   padding: 5px;
@@ -36,7 +36,7 @@
 .install-button
 {
   width: 100%;
-  background: rgb(14,39,165);
+  background: green;
   border-radius: 20px;
   padding: 5px;
   color: #fce944;

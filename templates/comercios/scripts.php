@@ -1,4 +1,3 @@
-  <?php include_once 'modals.php';?>
 
   <!-- Externos -->
   <script src="../../js/loader.js"></script>
@@ -9,25 +8,14 @@
   <!-- Consulta -->
   <script src="../inicio/js/consulta/menu.js"></script>
   <script src="js/consulta/categorias.js"></script>
-  <script src="js/consulta/producto_individual.js"></script>
-  <script src="js/consulta/opciones_de_pago.js"></script>
-  <script src="js/consulta/mi_horario.js"></script>
-  <script src="js/consulta/perfil_setting.js"></script>
 
   <!-- Agregar -->
-  <script src="js/agregar/nuevo_producto.js"></script>
-  <script src="js/agregar/nuevos_datos_banco.js"></script>
-  <script src="js/agregar/completar_pedido.js"></script>
+  <script src="js/agregar/perfil.js"></script>
   <script src="js/agregar/agregar_horario.js"></script>
 
   <!-- Editar -->
   <script src="js/editar/reader_img.js"></script>
-  <script src="js/editar/editar_mi_perfil.js"></script>
-  <script src="js/editar/editar_producto.js"></script>
-  <script src="js/editar/editar_datos_banco.js"></script>
   <script src="js/editar/editar_direcciones.js"></script>
-  <script src="js/editar/editar_horario.js"></script>
-  <script src="js/editar/editar_clave.js"></script>
 
   <!-- Eliminar -->
   <script src="js/eliminar/eliminar_productos.js"></script>

@@ -1,8 +1,7 @@
-$(document).on('click', '.eliminar-datos-bancarios', function(data)
+$(document).on('click', '.eliminar-db', function(e)
 {
-    let id = data.currentTarget.attributes.id.value;
-    let id_comercio = data.currentTarget.attributes.comercio.value;
-    let tabla = data.currentTarget.attributes.tabla.value;
+    let id = e.currentTarget.attributes.dato.value;
+    let tabla = e.currentTarget.attributes.tabla.value;
 
     swal('Seguro que desea eliminar','', 'warning',
     {
@@ -16,7 +15,7 @@ $(document).on('click', '.eliminar-datos-bancarios', function(data)
       switch (value) {
      
         case "Confirmar":
-          eliminar_datos_bancarios(id, id_comercio, tabla);
+          eliminar_datos_bancarios(id, tabla);
           break;
           
         default: false;
@@ -25,7 +24,7 @@ $(document).on('click', '.eliminar-datos-bancarios', function(data)
 
     
 })
-function eliminar_datos_bancarios(id, id_comercio, tabla)
+function eliminar_datos_bancarios(id, tabla)
 {
     let funcion = 'eliminar_datos_bancarios';
 
@@ -34,19 +33,29 @@ function eliminar_datos_bancarios(id, id_comercio, tabla)
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
          funcion : funcion,
          id: id,
-         id_comercio: id_comercio,
          tabla: tabla
       }
   
     })
     .done(function(res)
     {
-      mis_datos_bancarios();
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+        mis_datos_bancarios();
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      }
   
     })
     .fail(function(err)

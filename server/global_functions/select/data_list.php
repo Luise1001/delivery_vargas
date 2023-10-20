@@ -20,27 +20,6 @@ function NewProducts()
    }
 }
 
-//revisar de aqui para abajo
-function AdminList($AdminLevel)
-{
-  require '../conexion.php';
-
-  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY U_movimiento DESC";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($AdminLevel));
-  $resultado = $preparar_sql->fetchAll();
-
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
-
-}
-
 function PrecioTarifa($distancia, $servicio)
 {
   require '../conexion.php';
@@ -82,6 +61,92 @@ function PrecioTarifaEspecial($categoria, $servicio)
   }
 
 }
+
+function SearchProduct($id_producto)
+{
+   require '../conexion.php';
+
+   $consulta_sql = "SELECT i.Id_producto, i.Existencia, p.Codigo, p.Descripcion, p.P_siva AS Psiva, p.P_civa AS Pciva, p.Foto,
+   p.Alicuota, p.Peso, p.Id_comercio, i.Actualizado
+    FROM productos AS p INNER JOIN inventario AS i ON p.Id = i.Id_producto
+   WHERE p.Id = ?";
+   $preparar_sql = $pdo->prepare($consulta_sql);
+   $preparar_sql->execute(array($id_producto));
+   $resultado = $preparar_sql->fetchAll();
+ 
+   if($resultado)
+   {
+     return $resultado;
+   }
+   else
+   {
+     return false;
+   }
+
+}
+
+function SearchProducts($buscar)
+{
+   require '../conexion.php';
+
+   $consulta_sql = "SELECT * FROM productos  WHERE Descripcion LIKE '%".$buscar."%' OR Codigo LIKE '%".$buscar."%' ";
+   $preparar_sql = $pdo->prepare($consulta_sql);
+   $preparar_sql->execute();
+   $resultado = $preparar_sql->fetchAll();
+ 
+   if($resultado)
+   {
+     return $resultado;
+   }
+   else
+   {
+     return false;
+   }
+
+}
+
+function SearchProductsByBusiness($buscar, $id_comercio)
+{
+   require '../conexion.php';
+
+   $consulta_sql = "SELECT * FROM productos  WHERE Id_comercio =? AND Descripcion LIKE '%".$buscar."%'";
+   $preparar_sql = $pdo->prepare($consulta_sql);
+   $preparar_sql->execute(array($id_comercio));
+   $resultado = $preparar_sql->fetchAll();
+ 
+   if($resultado)
+   {
+     return $resultado;
+   }
+   else
+   {
+     return false;
+   }
+
+}
+
+//revisar de aqui para abajo
+function AdminList($AdminLevel)
+{
+  require '../conexion.php';
+
+  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY U_movimiento DESC";
+  $preparar_sql = $pdo->prepare($consulta_sql);
+  $preparar_sql->execute(array($AdminLevel));
+  $resultado = $preparar_sql->fetchAll();
+
+  if($resultado)
+  {
+    return $resultado;
+  }
+  else
+  {
+    return false;
+  }
+
+}
+
+
 
 function ClientList()
 {

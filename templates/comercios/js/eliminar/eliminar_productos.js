@@ -1,8 +1,8 @@
-$(document).on('click', '.eliminar-producto', function(data)
+$(document).on('click', '.delete-product-button', function(e)
 {
-    let id_producto = data.currentTarget.attributes.producto.value;
-    let codigo = data.currentTarget.attributes.codigo.value;
-    let rif = data.currentTarget.attributes.comercio.value;
+    let id_producto = e.currentTarget.attributes.producto.value;
+    let codigo = e.currentTarget.attributes.codigo.value;
+    let id_comercio = e.currentTarget.attributes.comercio.value;
 
     swal('Seguro que desea eliminar','', 'warning',
     {
@@ -16,7 +16,7 @@ $(document).on('click', '.eliminar-producto', function(data)
       switch (value) {
      
         case "Confirmar":
-            eliminar_producto(id_producto, codigo, rif);
+            eliminar_producto(id_producto, codigo, id_comercio);
           break;
           
         default: false;
@@ -25,7 +25,7 @@ $(document).on('click', '.eliminar-producto', function(data)
 
     
 })
-function eliminar_producto(id_producto, codigo, rif)
+function eliminar_producto(id_producto, codigo, id_comercio)
 {
     let funcion = 'eliminar_producto';
 
@@ -34,19 +34,30 @@ function eliminar_producto(id_producto, codigo, rif)
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
          funcion : funcion,
          id_producto: id_producto,
          codigo: codigo,
-         rif: rif
+         id_comercio: id_comercio
       }
   
     })
     .done(function(res)
     {
-     lista_de_productos();
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+        mis_productos()
+      }
+      else
+      {
+        swal(titulo, cuerpo, accion);
+      }
   
     })
     .fail(function(err)

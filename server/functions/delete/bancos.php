@@ -3,31 +3,35 @@
 function eliminar_datos_bancarios()
 {
     include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $UserID = UserID($admin);
+    $AdminLevel = AdminLevel($UserID);
+    $ComercioData = ComercioData($UserID);
+    $id_comercio = $ComercioData[0]['Id'];
+    $respuesta = 
+    [
+        'titulo'=> 'Ups',
+         'cuerpo'=> 'No Pudimos Procesar Su Solicitud',
+         'accion'=> 'warning'
+    ];
 
-    if(isset($_POST['id']) && isset($_POST['id_comercio']) && isset($_POST['tabla']))
+    if(isset($_POST['id']) && isset($_POST['tabla']))
     {
         $id = $_POST['id'];
-        $id_comercio = $_POST['id_comercio'];
         $tabla = $_POST['tabla'];
 
-        if($tabla === 'pm')
+        $deletesql = "DELETE FROM $tabla WHERE Id=? AND Id_comercio=?";
+        $sentenceDelete = $pdo->prepare($deletesql);
+        if($sentenceDelete-> execute(array($id, $id_comercio)))
         {
-            $deletesql = 'DELETE FROM pago_movil WHERE Id=? AND Id_comercio=?';
-            $sentenceDelete = $pdo->prepare($deletesql);
-            $sentenceDelete-> execute(array($id, $id_comercio)); 
+            $respuesta = 
+            [
+                'titulo'=> 'Operación Exitosa',
+                 'cuerpo'=> '',
+                 'accion'=> 'success'
+            ];
         }
 
-        if($tabla === 'tr')
-        {
-            $deletesql = 'DELETE FROM transferencia WHERE Id=? AND Id_comercio=?';
-            $sentenceDelete = $pdo->prepare($deletesql);
-            $sentenceDelete-> execute(array($id, $id_comercio)); 
-        }
-        if($tabla === 'zelle')
-        {
-            $deletesql = 'DELETE FROM zelle WHERE Id=? AND Id_comercio=?';
-            $sentenceDelete = $pdo->prepare($deletesql);
-            $sentenceDelete-> execute(array($id, $id_comercio)); 
-        }
+        echo json_encode($respuesta);
     }
 }

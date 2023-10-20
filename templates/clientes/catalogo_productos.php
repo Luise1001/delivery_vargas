@@ -15,7 +15,7 @@ include_once 'redirect.php';
 
    <div class="principal-layout">
    <div class="container-search">
-      <input class="buscador" type="text" placeholder="Buscar Producto">
+      <input id='buscador' class="buscador" type="text" placeholder="Buscar Producto">
       <img class="icon-search" src="../../server/images/icons/lupa.png">
     </div>
     <div class="productos"></div>

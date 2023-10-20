@@ -18,11 +18,13 @@ function categorias()
     foreach ($BusinessCategories as $category) {
       $id = $category['Id'];
       $categoria = $category['Categoria'];
+      $icon = $categoria.'_On.png';
 
       $respuesta['categorias'] .=
         "
        <div class='category-item'>
-         <a href='categoria?id=$id&categoria=$categoria'><img class='category-icon' src='../../server/images/icons/menu/Ico_Grua_ON.png' alt='$categoria'></a>
+         <a href='categoria?id=$id&categoria=$categoria'><img class='category-icon' 
+         src='../../server/images/icons/categorias/$icon' alt='$categoria'></a>
          <span class='category-span'>$categoria</span>
        </div>
        ";

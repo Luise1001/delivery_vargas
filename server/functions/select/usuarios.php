@@ -1,5 +1,20 @@
 <?php
 
+function cambio_clave()
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $respuesta =
+  [
+    'titulo' => $back_btn . 'CAMBIAR CLAVE'
+  ];
+
+      echo json_encode($respuesta);
+}
+
 function lista_de_administradores()
 {
   include_once '../conexion.php';

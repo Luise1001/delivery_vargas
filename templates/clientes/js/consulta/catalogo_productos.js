@@ -32,5 +32,50 @@ function catalogo_productos()
   })
 }
 
+$(document).on('keyup','#buscador', function()
+{
+  let buscar = $('#buscador').val();
+
+  if(buscar != '')
+  {
+    buscar_producto(buscar);
+  }
+  else
+  {
+     catalogo_productos();
+  }
+})
+
+function buscar_producto(buscar)
+{
+  const parametros = window.location.search;
+  const variables = new URLSearchParams(parametros);
+  let id_comercio = variables.get('comercio');
+
+  let funcion = 'buscar_producto';
+ 
+  $.ajax
+  ({
+     url: '../../server/functions/consultas.php',
+     type: 'POST',
+     dataType: 'json',
+     data: 
+     {
+       funcion : funcion,
+       buscar: buscar,
+       id_comercio: id_comercio
+    }
+
+  })
+  .done(function(res)
+  {
+    $('.productos').html(res.productos);
+  })
+  .fail(function(err)
+  {
+    console.log(err);
+  })
+}
+
 
 

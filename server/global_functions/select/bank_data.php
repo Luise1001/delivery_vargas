@@ -147,6 +147,35 @@ function IdentifyMethod($id_metodo, $id_comercio)
     return false;
 }
 
+function MethodForEdit($table, $id_datos)
+{
+    require '../conexion.php';
+
+    if($table != 'zelle')
+    {
+        $consulta_sql = "SELECT * FROM bancos INNER JOIN $table ON $table.Id_banco = bancos.Id WHERE $table.Id=?";
+        $preparar_sql = $pdo->prepare($consulta_sql);
+        $preparar_sql->execute(array($id_datos));
+        $resultado = $preparar_sql->fetchAll();
+    }
+    else
+    {
+        $consulta_sql = "SELECT * FROM $table WHERE Id=?";
+        $preparar_sql = $pdo->prepare($consulta_sql);
+        $preparar_sql->execute(array($id_datos));
+        $resultado = $preparar_sql->fetchAll();
+    }
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 function PagoMovil($id_comercio)
 {
     require '../conexion.php';
@@ -162,7 +191,7 @@ function PagoMovil($id_comercio)
     }
     else
     {
-        return;
+        return false;
     }
 }
 
@@ -181,7 +210,7 @@ function Transferencia($id_comercio)
     }
     else
     {
-        return;
+        return false;
     }
 }
 
@@ -200,6 +229,6 @@ function Zelle($id_comercio)
     }
     else
     {
-        return;
+        return false;
     } 
 }

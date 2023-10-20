@@ -10,6 +10,10 @@ if($funcion === 'nuevo_usuario')
 {
     nuevo_usuario();
 }
+if($funcion === 'nueva_foto_perfil')
+{
+    nueva_foto_perfil();
+}
 if($funcion === 'generar_codigo')
 {
     generar_codigo();
@@ -18,9 +22,25 @@ if($funcion === 'nuevo_cliente')
 {
     nuevo_cliente();
 }
+if($funcion === 'nuevo_comercio')
+{
+    nuevo_comercio();
+}
 if($funcion === 'confirmar_pedido')
 {
     confirmar_pedido();
+}
+if($funcion === 'retirar_pedido')
+{
+    retirar_pedido();
+}
+if($funcion === 'nuevo_producto')
+{
+    nuevo_producto();
+}
+if($funcion === 'nuevos_datos_bancarios')
+{
+    nuevos_datos_bancarios();
 }
 
 
@@ -62,10 +82,7 @@ if($funcion === 'elegir_metodo_pago')
 {
     elegir_metodo_pago();
 }
-if($funcion === 'nuevo_producto')
-{
-    nuevo_producto();
-}
+
 if($funcion === 'agregar_al_carrito')
 {
     agregar_al_carrito();
@@ -73,14 +90,6 @@ if($funcion === 'agregar_al_carrito')
 if($funcion === 'nuevo_pedido')
 {
     nuevo_pedido();
-}
-if($funcion === 'nuevos_datos_bancarios')
-{
-    nuevos_datos_bancarios();
-}
-if($funcion === 'retirar_pedido')
-{
-    retirar_pedido();
 }
 if($funcion === 'nuevo_horario')
 {

@@ -1,8 +1,8 @@
-$(document).ready(lista_de_productos());
+$(document).ready(mis_direcciones());
 
-function lista_de_productos()
+function mis_direcciones()
 { 
-   funcion = 'mis_productos';
+   funcion = 'mis_direcciones';
  
   $.ajax
   ({
@@ -17,8 +17,8 @@ function lista_de_productos()
   })
   .done(function(res)
   {
-    $('.header-icons').html(res.botones);
-    $('.catalogo-productos').html(res.productos);
+    $('.titulo-app').html(res.titulo);
+    $('.my-directions').html(res.direcciones);
 
   })
   .fail(function(err)
@@ -26,6 +26,5 @@ function lista_de_productos()
     console.log(err);
   })
 }
-
 
 

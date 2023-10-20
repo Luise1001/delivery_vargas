@@ -73,18 +73,33 @@ async function confirm_location()
   let lng = resp.lng;
   let direction = resp.direction;
   
-  SavePrincipalLocation(lat, lng, direction);
+ let SaveLocation = await SavePrincipalLocation(lat, lng, direction);
+
+ let titulo = SaveLocation.titulo;
+ let cuerpo = SaveLocation.cuerpo;
+ let accion = SaveLocation.accion;
+ let folder = SaveLocation.folder;
+
+   if(accion === 'success')
+   {
+       window.location.href = `../${folder}/comprar`;
+   }
+   else
+   {
+      swal(titulo, cuerpo, accion);
+   }
+
 }
 
-function SavePrincipalLocation(lat, lng, name)
+async function SavePrincipalLocation(lat, lng, name)
 { 
     let funcion = 'mi_ubicacion_actual';
 
-        $.ajax
+       const resp =  await $.ajax
         ({
            url: '../../server/functions/agregar.php',
            type: 'POST',
-           dataType: 'html',
+           dataType: 'json',
            data: 
            {
               funcion: funcion,
@@ -94,14 +109,16 @@ function SavePrincipalLocation(lat, lng, name)
            }
       
         })
-        .done(function(res)
+        .done( async function(res)
         {
-        
+           return await res;
         })
-        .fail(function()
+        .fail(function(err)
         {
-          console.log("error ejecutando Ajax");
+          console.log(err);
         })
+
+        return resp;
     
 }
 

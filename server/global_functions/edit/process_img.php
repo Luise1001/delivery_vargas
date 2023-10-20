@@ -1,33 +1,39 @@
 <?php
 
 
-function ProductImg($id_comercio, $foto, $files)
+function ProductImg($id_comercio, $codigo, $files)
 {
     $ruta = "../images/products/comercios/$id_comercio/productos";
     $calidad = 20;
 
-    if(file_exists($ruta))
+    if($files)
     {
-        $ruta .= '/';
-        $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$foto.'.jpg'); 
-        $new_img = imagejpeg($img, $ruta, $calidad);
-      
-        $foto = "../../server/images/products/comercios/$id_comercio/productos/$foto.jpg";
-        
-        return $foto;
+        if(file_exists($ruta))
+        {
+            $ruta .= '/';
+            $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$codigo.'.jpg'); 
+            //$new_img = imagejpeg($img, $ruta, $calidad);
+          
+         
+            
+            return true;
+        }
+        else
+        {
+            $result = mkdir($ruta, 0777, true);
+    
+            $ruta .= '/';
+            $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$codigo.'.jpg'); 
+            //$new_img = imagejpeg($img, $ruta, $calidad);
+ 
+            
+            return true;
+    
+        }
     }
     else
     {
-        $result = mkdir($ruta, 0777, true);
-
-        $ruta .= '/';
-        $img = imagejpeg(imagecreatefromstring(file_get_contents($files['file']["tmp_name"])), $ruta.$foto.'.jpg'); 
-        $new_img = imagejpeg($img, $ruta, $calidad);
-
-        $foto = "../../server/images/products/comercios/$id_comercio/productos/$foto.jpg";
-        
-        return $foto;
-
+         return false;
     }
 }
 
@@ -111,9 +117,6 @@ function ProfilePhoto($letter)
 
 }
 
-//revisar de aqui para abajo
-
-
 function MyProfilePhoto($id, $foto, $files)
 {
   
@@ -138,20 +141,5 @@ function MyProfilePhoto($id, $foto, $files)
 
         return $result;
 
-    }
-}
-
-
-function DeletePhoto($foto)
-{
-    if(file_exists($foto))
-    {
-        unlink($foto);
-
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }

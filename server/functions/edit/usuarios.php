@@ -59,22 +59,6 @@ function editar_nombre_usuario()
     }
 }
 
-function editar_foto_perfil()
-{
-  include_once '../conexion.php';
-  $admin = $_SESSION['DLV']['admin'];
-  $correo = $admin;
-  $id_usuario = UserID($correo);
-  $movimiento = CurrentTime();
-  $foto = 'perfil';
-
-  $editsql = 'UPDATE usuarios SET U_movimiento=?  WHERE Id=?';
-  $editar_sentence = $pdo->prepare($editsql);
-  $editar_sentence->execute(array($movimiento, $id_usuario));
-
-  $resultado = MyProfilePhoto($id_usuario, $foto, $_FILES);
-}
-
 
 function reset_password()
 {

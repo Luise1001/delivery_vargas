@@ -1,176 +1,97 @@
-$("#foto_producto").change(function () 
-{
-   let container = '#foto';
-  readImage(container, this);
-});
+$(document).ready(titulo())
 
-$(document).on('click', '#agregar_producto', async function(e)
+function titulo()
 {
-   let datos = await CheckPersonalData();
-   
-   if(datos == true)
-   { 
-    nuevo_producto();
-   }
-   else
-   {
-    swal('Alerta','Primero Debe Registrar Sus Datos Personales.', 'warning',
-    {
-      buttons: {
-        cancel: 'Cancelar',
-        Redirigir: true,
-      },
-    })
-    .then((value) => 
-    {
-      switch (value) {
-     
-        case "Redirigir":
-          window.location.href = 'mi_perfil';
-          break;
-          
-        default: false;
-      }
-    });
-      
-   }
-    
+   $('.titulo-app').html("<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button> NUEVO PRODUCTO")
+}
+
+$(document).on('change', '#foto_producto', function()
+{
+  let container = '#img_producto';
+   readImage(container, this);
 })
 
-$(document).on('keyup', '#codigo_producto', function()
+$(document).on('click', '#nuevo_producto', function()
 {
-    verificar_codigo()
+   nuevo_producto();
 })
 
-function CheckExento(tag)
-{
-    let exento = document.getElementById(tag);
+function nuevo_producto() {
 
-    if(exento.checked)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
+  let peso = $('#peso').val();
+  let codigo = $('#codigo').val();
+  let descripcion = $('#descripcion').val();
+  let precio = $('#precio').val();
+  let cantidad = $('#stock').val();
+  let exento = document.querySelector('input[name="exento"]:checked').value;
 
-async function nuevo_producto()
-{
-    let funcion = 'nuevo_producto';
-    let codigo = $('#codigo_producto').val();
-    let peso = $('#peso').val();
-    let descripcion = $('#descripcion_producto').val();
-    let precio_civa = $('#p_civa').val();
-    let cantidad = $('#cantidad').val();
-    let exento = CheckExento('exento');
+  let funcion = 'nuevo_producto';
 
-    var formData = new FormData();
-    var foto = $('#foto_producto')[0].files[0];
+  var formData = new FormData();
+  var foto = $('#foto_producto')[0].files[0];
 
-    formData.append('file', foto);
-    formData.append('funcion', funcion);
-    formData.append('codigo', codigo);
-    formData.append('descripcion', descripcion);
-    formData.append('peso', peso);
-    formData.append('precio_civa', precio_civa);
-    formData.append('cantidad', cantidad);
-    formData.append('exento', exento);
+  formData.append('file', foto);
+  formData.append('funcion', funcion);
+  formData.append('codigo', codigo);
+  formData.append('descripcion', descripcion);
+  formData.append('peso', peso);
+  formData.append('precio', precio);
+  formData.append('exento', exento);
+  formData.append('cantidad', cantidad);
 
-   if(codigo && peso && descripcion && precio_civa && cantidad && foto)
-   {
     $.ajax
-    ({
-       url: '../../server/functions/agregar.php',
-       type: 'POST',
-       dataType: 'html',
-       async: true,
-       data: formData,
-       contentType: false,
-       processData: false
-  
-    })
-    .done(function(res)
-    { 
-      lista_de_productos();
-    })
-    .fail(function(err)
-    {
-      console.log(err)
-    })
-   }
-   else
-   {
-     swal('Cuidado', 'No se Pueden Enviar Campos Vacíos', 'warning');
-   }
+      ({
+        url: '../../server/functions/agregar.php',
+        type: 'POST',
+        dataType: 'json',
+        async: true,
+        data: formData,
+        contentType: false,
+        processData: false
+
+      })
+      .done(function (res) {
+        let titulo = res.titulo;
+        let cuerpo = res.cuerpo;
+        let accion = res.accion;
+
+        swal(titulo, cuerpo, accion);
+
+      })
+      .fail(function (err) {
+        console.log(err)
+      })
 
 }
 
-
-function verificar_codigo()
+$(document).on('keyup', '#codigo', function()
 {
-    let codigo = $('#codigo_producto').val();
-    let funcion = 'verificar_codigo';
-    $.ajax
-    ({
-       url: '../../server/functions/verificar.php',
-       type: 'POST',
-       dataType: 'html',
-       async: true,
-       data: 
-       {
-         funcion: funcion,
-         codigo: codigo
-       }
-  
-    })
-    .done(function(res)
-    {
-        if(res != 0)
-        {
-            $('#alert_codigo_producto').html(res);
-            $('.card-btn').addClass('d-none');
-        }
-        else
-        {
-            $('#alert_codigo_producto').html('');
-            $('.card-btn').removeClass('d-none');
-        }
-      
-    })
-    .fail(function(err)
-    {
-      console.log(err)
-    })
-}
+   CheckCode();
+})
 
-async function CheckPersonalData()
+
+function CheckCode()
 {
-  let funcion = 'check_personal_data';
-  let tabla = 'comercios';
-  const resp = 
+  let codigo = $('#codigo').val();
+  let funcion = 'CheckCode';
+
   $.ajax
   ({
-     url: '../../server/functions/consultas.php',
-     type: 'POST',
-     dataType: 'html',
-     data: 
-     {
-       funcion : funcion,
-       tabla: tabla
+    url: '../../server/functions/consultas.php',
+    type: 'POST',
+    dataType: 'json',
+    async: true,
+    data: 
+    {
+      funcion: funcion,
+      codigo: codigo
     }
 
   })
-  .done(async function(res)
-  {
-    return await res;
-
+  .done(function (res) {
+    $('#alert_code').html(res.codigo);
   })
-  .fail(function(err)
-  {
-    console.log(err);
+  .fail(function (err) {
+    console.log(err)
   })
-
-  return await resp;
 }

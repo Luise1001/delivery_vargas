@@ -18,6 +18,14 @@ if($funcion === 'editar_direccion')
 {
     editar_direccion();
 }
+if($funcion === 'editar_producto')
+{
+    editar_producto();
+}
+if($funcion === 'editar_datos_banco')
+{
+    editar_datos_banco();
+}
 
 
 
@@ -62,19 +70,7 @@ if($funcion === 'editar_nombre_usuario')
 {
     editar_nombre_usuario();
 }
-if($funcion === 'nueva_foto_perfil')
-{
-    editar_foto_perfil();
-}
-if($funcion === 'editar_producto')
-{
-    editar_producto();
-}
 
-if($funcion === 'editar_datos_banco')
-{
-    editar_datos_banco();
-}
 if($funcion === 'tasa_del_dia')
 {
     tasa_del_dia();

@@ -1,26 +1,35 @@
-let id_direccion = '';
-$(document).on('click', '.editar-direccion', function(data)
+$(document).on('click', '#editar_direccion', function(e)
 {
-    id_direccion = data.currentTarget.attributes.id.value;
-    let nombre = data.currentTarget.attributes.nombre.value;
-    $('#edit_direction').val(nombre);
+  pre_editar_direccion(e);
 })
 
-$(document).on('click', '#modificar_direccion', function()
+function pre_editar_direccion(e)
 {
-    editar_direccion();
+  let id_direccion = e.currentTarget.attributes.direccion.value;
+   
+  $('#direccion_'+id_direccion).attr('readonly', false);
+  $('#direccion_'+id_direccion).focus();
+  $('#edit_dir_'+id_direccion).attr('hidden', false);
+}
+
+$(document).on('click', '.save-direction', function(e)
+{
+  let id_direccion = e.currentTarget.attributes.direccion.value;
+   editar_direccion(id_direccion);
 })
 
-function editar_direccion()
+
+function editar_direccion(id_direccion)
 {
+    let nombre = $('#direccion_'+id_direccion).val();
     let funcion = 'editar_direccion';
-    let nombre = $('#edit_direction').val();
+
 
     $.ajax
     ({
        url: '../../server/functions/editar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
          funcion : funcion,
@@ -31,7 +40,17 @@ function editar_direccion()
     })
     .done(function(res)
     {
-     lista_de_direcciones();
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+      if(accion === 'success')
+      {
+        mis_direcciones();
+      }
+      else
+      {
+        swal(titulo, cuerpo, accion);
+      }
   
     })
     .fail(function(err)

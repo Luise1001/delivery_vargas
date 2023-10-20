@@ -1,16 +1,20 @@
-<div>
-<div class='modal fade' id='politicas' tabindex='-1' role='dialog'   aria-labelledby='politicas_Label' aria-hidden='true'>
-  <div class='modal-dialog'>
-    <div class='modal-content'>
+<?php include_once 'redirect.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class='modal-header d-flex justify-content-center ml-2 mt-2 mr-2 mb-0'>
-    <button  class="btn back-btn" data-dismiss="modal"><i class="fas fa-arrow-left"></i></button>
-    <h5 class="modal-title"> Términos y Condiciones</h5> 
-      </div>
+<head>
+    <?php include_once 'head_html.php'; ?>
+    <title>Delivery Vargas</title>
+</head>
 
-      <div class="terminos-generales p-2">
+<body class='hide-content'>
+    <?php include_once '../loader.php'; ?>
+    <?php include_once 'menu.php'; ?>
 
-      Հայերեն Shqip ‫العربية Български Català 中文简体 Hrvatski Česky Dansk Nederlands English Eesti Filipino Suomi Français ქართული Deutsch Ελληνικά ‫עברית हिन्दी Magyar Indonesia Italiano Latviski Lietuviškai македонски Melayu Norsk Polski Português Româna Pyccкий Српски Slovenčina Slovenščina Español Svenska ไทย Türkçe Українська Tiếng Việt
+    <div class="principal-layout">
+    <div class="terminos-generales p-2">
+
+Հայերեն Shqip ‫العربية Български Català 中文简体 Hrvatski Česky Dansk Nederlands English Eesti Filipino Suomi Français ქართული Deutsch Ελληνικά ‫עברית हिन्दी Magyar Indonesia Italiano Latviski Lietuviškai македонски Melayu Norsk Polski Português Româna Pyccкий Српски Slovenčina Slovenščina Español Svenska ไทย Türkçe Українська Tiếng Việt
 Lorem Ipsum
 "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
 "No hay nadie que ame el dolor mismo, que lo busque, lo encuentre y lo quiera, simplemente porque es el dolor."
@@ -30,29 +34,20 @@ El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproduci
 Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar un pasaje de Lorem Ipsum, necesitás estar seguro de que no hay nada avergonzante escondido en el medio del texto. Todos los generadores de Lorem Ipsum que se encuentran en Internet tienden a repetir trozos predefinidos cuando sea necesario, haciendo a este el único generador verdadero (válido) en la Internet. Usa un diccionario de mas de 200 palabras provenientes del latín, combinadas con estructuras muy útiles de sentencias, para generar texto de Lorem Ipsum que parezca razonable. Este Lorem Ipsum generado siempre estará libre de repeticiones, humor agregado o palabras no características del lenguaje, etc.
 
 5
-	párrafos
-	palabras
-	bytes
-	listas
-	Comenzar con 'Lorem
+párrafos
+palabras
+bytes
+listas
+Comenzar con 'Lorem
 ipsum dolor sit amet...'
 
 
-        </div>
-
-        <div class="terminos-app">
-  
-        </div>
-
-        <div class="politicas-privacidad">
-    
-
-        </div>
-
-
-
-      </div>
-
   </div>
-</div>
-</div>
+    </div>
+
+    <script src="../../js/loader.js"></script>
+    <script src="js/consulta/menu.js"></script>
+
+</body>
+
+</html>

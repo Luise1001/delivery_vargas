@@ -14,6 +14,14 @@ if($funcion === 'menu')
 {
      menu();
 }
+if($funcion === 'mi_perfil')
+{
+    mi_perfil();
+}
+if($funcion === 'mi_perfil_juridico')
+{
+    mi_perfil_juridico();
+}
 if($funcion === 'categorias')
 {
     categorias();
@@ -70,6 +78,30 @@ if($funcion === 'calcular_tarifa')
 {
     calcular_tarifa();
 }
+if($funcion === 'cambio_clave')
+{
+    cambio_clave();
+}
+if($funcion === 'mis_productos')
+{
+    mis_productos();
+}
+if($funcion === 'buscar_producto')
+{
+    buscar_producto();
+}
+if($funcion === 'ver_producto')
+{
+     ver_producto();
+}
+if($funcion === 'mis_datos_bancarios')
+{
+    mis_datos_bancarios();
+}
+if($funcion === 'CheckCode')
+{
+    CheckCode();
+}
 
 
 
@@ -93,10 +125,7 @@ if($funcion === 'opciones_de_pago')
 {
     opciones_de_pago();
 }
-if($funcion === 'mis_datos_bancarios')
-{
-    mis_datos_bancarios();
-}
+
 if($funcion === 'lista_de_bancos')
 {
     lista_de_bancos();
@@ -139,18 +168,6 @@ if($funcion === 'lista_de_comercios')
     lista_de_comercios();
 }
 
-if($funcion === 'mis_productos')
-{
-    mis_productos();
-}
-if($funcion === 'mi_perfil')
-{
-    mi_perfil();
-}
-if($funcion === 'full_descripcion')
-{
-    full_descripcion();
-}
 if($funcion === 'catalogo_productos')
 {
     catalogo_productos();

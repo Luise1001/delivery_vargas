@@ -210,38 +210,23 @@ function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $id_ruta, $ref
 }
 
 
-function DescontarInventario($nro_pedido)
-{
-    require '../conexion.php';
-    $movimiento = CurrentTime();
-
-    $orderDetail = OrderDetail($nro_pedido);
-    if($orderDetail)
-    {
-        foreach($orderDetail as $order)
-        {
-            $id_comercio = $order['Id_comercio'];
-            $id_producto = $order['Id_producto'];
-            $cantidad = $order['Cantidad'];
-            $existencia = StockProducts($id_producto);
-            $cantidad = $existencia - $cantidad;
-
-            $editsql = 'UPDATE inventario SET Existencia =?, U_movimiento=? WHERE Id_comercio=? AND Id_producto=?';
-            $editar_sentence = $pdo->prepare($editsql);
-            $editar_sentence->execute(array($cantidad, $movimiento, $id_comercio, $id_producto));
-        }
-    }
-
-    return;
-}
-
 function retirar_pedido()
 {
     include_once '../conexion.php';
 
+    $admin = $_SESSION['DLV']['admin'];
+    $UserID = UserID($admin);
+    $AdminLevel = AdminLevel($UserID);
+    $respuesta = 
+    [
+        'titulo'=> 'Ups',
+        'cuerpo'=> '',
+        'accion'=> 'warning'
+    ];
+
     if(isset($_POST['nro_pedido']))
     {
-        $movimiento = CurrentTime();
+        $actualizado = CurrentTime();
         $nro_pedido = $_POST['nro_pedido'];
         $retirar = 1;
         $nivel = 1;
@@ -257,50 +242,63 @@ function retirar_pedido()
 
         }
 
-        $editsql = 'UPDATE estatus_pedidos SET Retirar=?, U_movimiento=? WHERE Nro_pedido=?';
+        $editsql = 'UPDATE estatus_pedidos SET Retirar=?, Actualizado=? WHERE Nro_pedido=?';
         $editar_sentence = $pdo->prepare($editsql);
-        $editar_sentence->execute(array($retirar, $movimiento, $nro_pedido));
+        if($editar_sentence->execute(array($retirar, $actualizado, $nro_pedido)))
+        {
+            $inventario = DescontarInventario($nro_pedido);
 
-        $inventario = DescontarInventario($nro_pedido);
+            $envio = NuevoEnvio($nro_pedido, $id_cliente, $id_comercio, $nivel);
 
-        $envio = NuevoEnvio($nro_pedido, $id_cliente, $id_comercio, $nivel);
+            if($envio)
+            {
+                $respuesta = 
+                [
+                    'titulo'=> 'Operación Exitosa',
+                    'cuerpo'=> '',
+                    'accion'=> 'success'
+                ];
+            }
+            else
+            {
+                $respuesta['cuerpo'] = $envio;
+            }
+
+
+        }
+        else
+        {
+            $respuesta['cuerpo'] = 'No Pudimos Procesar Su Solicitud';
+        }
+
+
+
+        echo json_encode($respuesta);
 
     }
-
-
 }
 
-function NuevoEnvio($nro_pedido, $id_cliente, $id_comercio, $nivel)
+function DescontarInventario($nro_pedido)
 {
     require '../conexion.php';
-    $fecha = CurrentDate();
-    $id_route = RouteID($nro_pedido);
+    $actualizado = CurrentTime();
 
-    $comercioData = ComercioData($id_comercio);
-
-    if($comercioData)
+    $orderDetail = OrderDetail($nro_pedido);
+    if($orderDetail)
     {
-        foreach($comercioData as $datos)
+        foreach($orderDetail as $order)
         {
-           $id_usuario = $datos['Id_usuario'];
-           $razon_social = $datos['Razon_social'];
-           $rif = $datos['Tipo_id'].'-'.$datos['Rif'];
-           $telefono = $datos['Telefono'];
+            $id_comercio = $order['Id_comercio'];
+            $id_producto = $order['Id_producto'];
+            $cantidad = $order['Cantidad'];
+            $existencia = StockProducts($id_producto);
+            $cantidad = $existencia - $cantidad;
+
+            $editsql = 'UPDATE inventario SET Existencia =?, Actualizado=? WHERE Id_comercio=? AND Id_producto=?';
+            $editar_sentence = $pdo->prepare($editsql);
+            $editar_sentence->execute(array($cantidad, $actualizado, $id_comercio, $id_producto));
         }
     }
 
-
-    $insert_sql = 'INSERT INTO envios (Nro_pedido, Id_cliente, Id_comercio, Id_route, Fecha) VALUES (?,?,?,?,?)';
-    $sent = $pdo->prepare($insert_sql);
-    $sent->execute(array($nro_pedido, $id_cliente, $id_comercio, $id_route, $fecha));
-
-    $key = requestKey();
-    $tokens = getTokens($nivel);
-    $title = 'Nuevo Envió Generado';
-    $message = "Cliente: $razon_social";
-    $url = 'templates/administradores/lista_de_envios';
-    $push = push_notification($key, $tokens, $title, $message, $url);
-
     return;
-
 }

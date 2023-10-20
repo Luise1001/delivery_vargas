@@ -67,123 +67,301 @@ function mis_productos()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $rif_comercio = ComercioRif($id_usuario);
-  $id_comercio = ComercioID($rif_comercio);
-  $boton =
-    '
-    <a class="nav-link" data-toggle="modal" data-target="#nuevo_producto" title="Agregar un Nuevo Producto">
-     <i class="fas fa-plus-circle"></i> 
-    </a>
-  ';
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
   $mis_productos =
     [
-      'botones' => $boton,
+      'titulo' => $back_btn . ' MIS PRODUCTOS',
       'productos' => ''
     ];
 
-  $lista_de_productos = MyProductsCommerce($id_comercio);
+  $ComercioData = ComercioData($UserID);
+  $id_comercio = $ComercioData[0]['Id'];
+  $MyProductsCommerce = MyProductsCommerce($id_comercio);
 
-  if ($lista_de_productos) {
-    foreach ($lista_de_productos as $producto) {
-      $product = json_encode($producto);
-      $id_producto = $producto['Id'];
-      $existencia = StockProducts($id_producto);
-      $calificacion = Rating($id_producto);
+  if ($MyProductsCommerce) {
+    foreach ($MyProductsCommerce as $producto) {
+
+      $id_producto = $producto['Id_producto'];
+      $existencia = $producto['Existencia'];
       $bg_color = ProcessBadge($existencia);
       $descripcion = $producto['Descripcion'];
-      $foto = $producto['Foto'];
-      $precio = $producto['P_civa'];
+      $pciva = $producto['Pciva'];
+      $psiva = $producto['Psiva'];
       $codigo = $producto['Codigo'];
-      $movimiento = $producto['U_movimiento'];
-      $ruta = "../../server/images/products/$rif_comercio/productos/";
+      $actualizado = $producto['Actualizado'];
+      $foto = SearchProductPhoto($id_comercio, $codigo);
 
 
       $mis_productos['productos'] .=
-        "
-      <div class='card card-producto col-6 col-md-2'>
-         <div>
-         <img src='$ruta$foto.jpg' class='card-img-top foto-producto-catalogo ver_producto' alt='$foto' producto='$id_producto' 
-         usuariocomercio='$id_usuario' data-toggle='modal' data-target='#full_descripcion'>
-         </div>
-         <div class='card-body cuerpo-producto'>
-         <h7 class='card-title titulo-producto'>$descripcion</h7>
-        <p class='card-text'>Stock: <span class='badge $bg_color'>$existencia</span></p>
-        <p class='card-text'>Precio: $.$precio</p>
+      "
+      <div class='item-grid'>
+      <div class='img-grid'>
+      <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+      </div>
+      <div class='item-grid-body'>
+        <h5 class='item-grid-title'>$descripcion <span class='badge my-product-badge $bg_color'>$existencia</span></h5>
+        <p class='item-grid-text'>$$pciva</p>
+      </div>
+      <div class='button-grid'>
+      <a href='ver_producto?producto=$id_producto' class='edit-product-button'>Editar</a href='editar_producto?producto=$id_producto'>
+      <button comercio='$id_comercio' codigo='$codigo' producto='$id_producto' class='delete-product-button'>Eliminar</button>
+      </div>
+    </div>
 
-        <div class='container col-12'>
-        <a producto='$id_producto' comercio='$rif_comercio' codigo='$codigo' class='btn eliminar-producto' id='delete_$id_producto'>
-        <i class='fas fa-trash-alt text-danger'></i>
-        </a>
-
-        <a class='btn' id='edit_producto_btn'
-        producto='$product' existencia='$existencia' comercio='$rif_comercio'  data-toggle='modal' data-target='#editar_producto'>
-        <i class='fas fa-edit'></i>
-        </a>
-        </div>
-
-
-
-        </div>
-       </div>
       ";
     }
-
-    echo json_encode($mis_productos);
   } else {
     $mis_productos['productos'] = EmptyPage('Sin Productos Por El Momento.');
-    echo json_encode($mis_productos);
+  }
+
+  echo json_encode($mis_productos);
+}
+
+function buscar_producto()
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $respuesta = 
+  [
+    'productos'=> ''
+  ];
+  
+  if(isset($_POST['buscar']))
+  {
+    $buscar = $_POST['buscar'];
+
+    if($buscar)
+    {
+      if(isset($_POST['id_comercio']))
+      {
+        $id_comercio = $_POST['id_comercio'];
+
+        $SearchProductsByBusiness = SearchProductsByBusiness($buscar, $id_comercio);
+
+        if($SearchProductsByBusiness)
+        {
+          foreach($SearchProductsByBusiness as $product)
+          {
+             $id_comercio = $product['Id_comercio'];
+             $id_producto = $product['Id'];
+             $codigo = $product['Codigo'];
+             $descripcion = $product['Descripcion'];
+             $precio = $product['P_civa'];
+             $foto = SearchProductPhoto($id_comercio, $codigo);
+             
+             $respuesta['productos'] .=
+             "
+             <div class='item-grid'>
+             <div class='img-grid'>
+             <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+             </div>
+             <div class='item-grid-body'>
+               <h5 class='item-grid-title'>$descripcion</h5>
+               <p class='item-grid-text'>$$precio</p>
+             </div>
+             <div>
+             <button id='add_to_car_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' 
+             class='add-to-car-button'>
+             <i class='fa-solid fa-circle-plus'></i>
+             </button>
+   
+               <div id='plus_less_$codigo' codigo='$codigo' hidden class='product-buttons'>
+               <button id='less_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='less-button'>
+               <i class='fa-solid fa-circle-minus'></i>
+               </button>
+              <span id='span_quantity_$codigo' class='span-quantity'>1</span>
+              <button id='plus_$codigo' codigo='$codigo' producto='$id_producto' comercio='$id_comercio' class='plus-button'>
+              <i class='fa-solid fa-circle-plus'></i>
+              </button>
+              </div>
+              </div>
+           </div>
+           ";
+          }
+        }
+      }
+      else
+      {
+        $SearchProducts = SearchProducts($buscar);
+
+        if($SearchProducts)
+        {
+            foreach($SearchProducts as $product)
+            {
+               $id_comercio = $product['Id_comercio'];
+               $codigo = $product['Codigo'];
+               $descripcion = $product['Descripcion'];
+               $foto = SearchProductPhoto($id_comercio, $codigo);
+               
+               $respuesta['productos'] .=
+               "
+               <div class='item-grid'>
+               <div class='img-grid'>
+               <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
+               </div>
+               <div class='item-grid-body'>
+                 <h5 class='item-grid-title'>$descripcion</h5>
+                 <p class='item-grid-text'>$$</p>
+               </div>
+               <div class='button-grid'>
+               <a href='catalogo_productos?comercio=$id_comercio' class='show-more-products'>Ver Más</a>
+               </div>
+             </div>
+             ";
+            }
+        }
+        else
+        {
+           $respuesta['productos'] = EmptyPage('Sin Resultados');
+        }
+      }
+    }
+   echo json_encode($respuesta);
+
   }
 }
 
-function full_descripcion()
+function ver_producto()
 {
-  include_once '../conexion.php';
-  $id_usuario = $_POST['id_usuario_comercio'];
-  $rif_comercio = ComercioRif($id_usuario);
-  $id_comercio = ComercioID($rif_comercio);
-  $id_producto = $_POST['id_producto'];
-  $existencia = StockProducts($id_producto);
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel($UserID);
 
-  $producto = ShowProduct($id_producto);
+   if($AdminLevel != '3')
+   {
+    $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+    $respuesta = 
+    [
+      'titulo'=> $back_btn.'VER PRODUCTO',
+      'producto' => ''
+    ];
+   }
+   else
+   {
+    $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+    $respuesta = 
+    [
+      'titulo'=> $back_btn.'EDITAR PRODUCTO',
+      'producto' => ''
+    ];
 
-  if ($producto) {
-    foreach ($producto as $dato) {
-      $codigo = $dato['Codigo'];
-      $descripcion = $dato['Descripcion'];
-      $foto = $dato['Foto'];
-      $p_siva = $dato['P_siva'];
-      $p_civa = $dato['P_civa'];
-      $alicuota = $dato['Alicuota'];
-      $peso = $dato['Peso'];
-      $fecha = $dato['U_movimiento'];
-      $fecha = DateFormat($fecha);
-      $unit = ProcessWeight($peso);
-      $movimiento = $dato['U_movimiento'];
+    if(isset($_POST['id_producto']))
+    {
+       $id_producto = $_POST['id_producto'];
+       $SearchProduct = SearchProduct($id_producto);
 
-      echo
-      "
-      <div class='col-md-12'>
-        <div id='div_foto_producto'>
-        <label class='card-img label-foto' for='foto_producto'><img id='foto' src='../../images/products/$rif_comercio/productos/$foto.jpg' class='card-img img-foto' alt='Subir Imagen'></label>
-      <div>
-  
-      <div>
-      <li class='list-group-item descripcion-ampliada'>Descripción: $descripcion</li>
-      <li class='list-group-item'>Precio sin iva: $.$p_siva</li>
-      <li class='list-group-item'>Precio con iva: $.$p_civa</li>
-      <li class='list-group-item'>Peso: $peso$unit</li>
-      <li class='list-group-item'>Stock: $existencia</li>
-      <li class='list-group-item'>Ultimo Movimiento: $fecha</li>
-     
-      </div>
-  
-   
-     <div class='d-flex justify-content-center m-2 modal-body'>
-     </div>  
-      ";
+       if($SearchProduct)
+       {
+         foreach ($SearchProduct as $product) 
+         {
+           $id_producto = $product['Id_producto'];
+           $id_comercio = $product['Id_comercio'];
+           $codigo = $product['Codigo'];
+           $descripcion = $product['Descripcion'];
+           $alicuota = $product['Alicuota'];
+           $peso = $product['Peso'];
+           $psiva = $product['Psiva'];
+           $pciva = $product['Pciva'];
+           $existencia = $product['Existencia'];
+           $foto = SearchProductPhoto($id_comercio, $codigo);
+    
+           if($alicuota)
+           {
+            $yes = '';
+            $no = 'checked';
+           }
+           else
+           {
+            $yes = 'checked';
+            $no = '';
+           }
+
+            $respuesta['producto']  =
+            "
+            <div class='header-producto'>
+            <img id='img_producto' src='$foto' alt='$codigo'>
+            <input  type='file' accept='image/*' id='foto_producto' class='file-selector'>
+            <label for='foto_producto' class='file-selector-label'>
+            <span class='file-selector-span'><i class='fas fa-camera'></i></span>
+            </label>
+            </div>
+            <div class='product-detail'>
+            <label class='form-label' for='codigo'>Codigo<span class='text-danger'>*</span></label>
+            <input readonly class='form-control ' type='text' id='codigo' name='codigo' value='$codigo'>
+            <label class='form-label' for='descripcion'>Descripcion<span class='text-danger'>*</span></label>
+            <input class='form-control ' type='text' id='descripcion' name='descripcion' value='$descripcion'>
+            <label class='form-label' for='precio'>Precio<span class='text-danger'>*</span></label>
+            <input class='form-control ' type='text' id='precio' name='precio' value='$pciva'>
+            <label class='form-label' for='exento'>Exento<span class='text-danger'>*</span></label>
+            <div class='exento'>
+            <div class='form-check'>
+            <input $yes class='form-check-input' value='0' type='radio' id='ex_yes' name='exento'>
+            <label class='form-check-label' for='ex_yes'>
+              Si
+            </label>
+          </div>
+          <div class='form-check'>
+          <input $no class='form-check-input' value='$alicuota' type='radio' id='ex_no' name='exento'>
+          <label class='form-check-label' for='ex_no'>
+            No
+          </label>
+        </div>
+            </div>
+            <label class='form-label' for='peso'>Peso Kg.<span class='text-danger'>*</span></label>
+            <input class='form-control ' type='text' id='peso' name='peso' value='$peso'>
+            <label class='form-label' for='stock'>Existencia<span class='text-danger'>*</span></label>
+            <input class='form-control ' type='number' id='stock' name='stock' value='$existencia'>
+            <div class='container'>
+              <button id='guardar_producto' class='perfil-button'>Guardar</button>
+            </div>
+          </div>
+          ";
+         }
+       }
+       else
+       {
+         $respuesta['producto'] = EmptyPage('Producto No Encontrado');
+       }
     }
-  } else {
-    echo EmptyPage('Hubo Un Problema con el Producto Seleccionado.');
-  }
+   }
+
+   echo json_encode($respuesta);
+}
+
+function CheckCode()
+{
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel($UserID);
+   $respuesta = 
+   [
+     'codigo' => ''
+   ];
+
+   if($AdminLevel === '3')
+   {
+     $ComercioData = ComercioData($UserID);
+     $id_comercio = $ComercioData[0]['Id'];
+
+     if(isset($_POST['codigo']))
+     {
+       $codigo = $_POST['codigo'];
+
+       $CodeID = CodeID($codigo, $id_comercio);
+
+       if($CodeID)
+       {
+         $respuesta['codigo'] = 'Este Codigo ya se Encuentra en Uso.';
+       }
+
+       echo json_encode($respuesta);
+
+     }
+   }
 }

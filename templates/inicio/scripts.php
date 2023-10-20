@@ -1,4 +1,3 @@
-    <?php include_once 'modals.php';?>
     <script src="../../js/loader.js"></script>
     
     <!-- Consulta -->
@@ -14,6 +13,7 @@
     <script src="../administradores/js/editar/editar_tasa.js"></script>
 
     <!-- Editar -->
+    <script src="js/editar/editar_clave.js"></script>
 
     <!-- Eliminar -->
 

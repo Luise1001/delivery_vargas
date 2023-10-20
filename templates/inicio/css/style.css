@@ -33,14 +33,17 @@ body {
 }
 
 .form-mi-ubicacion {
+    background: #fce944;
     position: absolute;
+    bottom: 0px;
     z-index: 2;
-    width: 90%;
-    background: url('../../../server/images/arts/arts/light_mobile.jpg');
+    width: 100%;
+    left: 0px;
     border: solid 1px;
-    border-radius: 10px;
-    top: 10%;
-    padding: 5%;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px;
+    font-family: serif;
+    border-bottom: none;
 }
 
 .input-from,
@@ -64,13 +67,15 @@ body {
 }
 
 .confirmar-location {
-    background: none;
-    color: rgb(14, 39, 165);
+    background: rgb(14, 39, 165);
+    color: #fce944;
     font-family: serif;
     font-weight: bold;
     border: solid 2px gray;
     border-radius: 10px;
     padding: 5px;
+    width: 100%;
+    font-size: large;
 }
 
 .form-check-label {
@@ -84,8 +89,8 @@ body {
     padding: 10px;
 }
 
-.calculator-input, .calculator-select
-{
+.calculator-input,
+.calculator-select {
     color: rgb(14, 39, 165) !important;
     font-family: 'Times New Roman', Times, serif !important;
 }
@@ -120,3 +125,31 @@ body {
 }
 
 /*calculadora*/
+
+/*Cambiar Clave*/
+.back-button {
+    background: none;
+    border: none;
+    color: rgb(14, 39, 165);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.password-form {
+    padding: 10px;
+}
+
+.modificar-clave {
+    width: 100%;
+    border: none;
+    background: rgb(14, 39, 165);
+    color: #fce944;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: large;
+    font-family: serif;
+    font-weight: bold;
+}
+
+/*Cambiar Clave*/

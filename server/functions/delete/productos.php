@@ -3,26 +3,52 @@
 function eliminar_producto()
 {
     include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $UserID = UserID($admin);
+    $AdminLevel = AdminLevel($UserID);
+    $respuesta =
+    [
+        'titulo' => 'Ups',
+        'cuerpo'=> '',
+        'accion'=> 'warning'
+    ];
 
-    if(isset($_POST['id_producto']) && isset($_POST['codigo']) && isset($_POST['rif']))
+    if(isset($_POST['id_producto']) && isset($_POST['codigo']) && isset($_POST['id_comercio']))
     {
-        $rif = $_POST['rif'];
+        $id_comercio = $_POST['id_comercio'];
         $id_producto = $_POST['id_producto'];
         $codigo = $_POST['codigo'];
-        $foto = "../img/$rif/productos/$codigo.jpg";
 
-        $deletesql = 'DELETE FROM inventario WHERE Id_producto=?';
+        $foto = SearchProductPhoto($id_comercio, $codigo);
+
+        $deletesql = 'DELETE FROM productos WHERE Id_producto=?';
         $sentenceDelete = $pdo->prepare($deletesql);
-        $sentenceDelete-> execute(array($id_producto));
+        if($sentenceDelete-> execute(array($id_producto)))
+        {
+            $deletesql = 'DELETE FROM inventario WHERE Id=?';
+            $sentenceDelete = $pdo->prepare($deletesql);
+           if( $sentenceDelete-> execute(array($id_producto)))
+           {
+              DeletePhoto($foto);
+           }
+           else
+           {
+              $respuesta['cuerpo'] = 'No Se Pudo Eliminar El Producto';
+           }
 
-       $deletesql = 'DELETE FROM productos WHERE Id=?';
-       $sentenceDelete = $pdo->prepare($deletesql);
-       $sentenceDelete-> execute(array($id_producto));
+           $respuesta =
+           [
+               'titulo' => 'Operación Exitosa',
+               'cuerpo'=> '',
+               'accion'=> 'success'
+           ];
 
-
-      
-      DeletePhoto($foto);
+        }
+        else
+        {
+           $respuesta['cuerpo'] = 'No Se Puede Eliminar El Producto, Porque Tiene Datos Relacionados';
+        }
     
+        echo json_encode($respuesta);
     }
-
 }

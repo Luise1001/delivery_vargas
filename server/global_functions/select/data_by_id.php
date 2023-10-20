@@ -123,6 +123,26 @@ function ClientData($UserID)
     }
 }
 
+function ComercioData($UserID)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT c.Id, c.Tipo_id, c.Razon_social, c.Rif, c.Telefono, c.Actualizado FROM comercios AS c 
+    WHERE Id_usuario=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 function MyCars($id_cliente)
 {
     require '../conexion.php';
@@ -297,6 +317,29 @@ function MyCurrentLocation($UserID)
     }
 }
 
+function MyProductsCommerce($id_comercio)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT i.Existencia, i.Id_producto, p.Codigo, p.Descripcion, p.Foto, p.p_siva AS Psiva, p.P_civa AS Pciva,
+    p.Peso, p.Id_comercio, p.Actualizado FROM inventario AS i 
+    INNER JOIN productos AS p ON i.Id_producto = p.Id
+    WHERE i.Id_comercio=?  ORDER BY Existencia DESC";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_comercio));
+    $resultado = $preparar_sql->fetchAll();
+
+    if($resultado)
+    {
+        return $resultado;
+    }
+    else
+    {
+      return false;
+    }
+
+}
+
 //revisar de aqui para abajo
 
 
@@ -361,25 +404,6 @@ function DriverStatus($id_usuario)
     }
 }
 
-
-function ComercioData($id_comercio)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM comercios WHERE Id=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_comercio));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 function UserEmail($id_usuario)
 {
@@ -466,27 +490,7 @@ function Rating($id_producto)
 
 }
 
-function MyProductsCommerce($id_comercio)
-{
-    require '../conexion.php';
 
-    $consulta_sql = "SELECT * FROM inventario INNER JOIN productos ON inventario.Id_producto = productos.Id
-     WHERE inventario.Id_comercio=? ORDER BY Existencia DESC";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_comercio));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        $resultado = 0;
-        return $resultado;
-    }
-
-}
 
 function ShowProduct($id_producto)
 {

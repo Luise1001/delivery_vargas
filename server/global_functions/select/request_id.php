@@ -209,13 +209,13 @@ function CodeID($codigo, $id_comercio)
   }
 }
 
-function LastProductAdded($id_comercio)
+function ProductID($id_comercio, $codigo)
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT Id FROM productos WHERE Id_comercio=? ORDER BY Id DESC LIMIT 1";
+  $consulta_sql = "SELECT p.Id, p.Codigo, p.Id_comercio  FROM productos AS p WHERE Codigo=? AND Id_comercio=?";
   $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_comercio));
+  $preparar_sql->execute(array($codigo, $id_comercio));
   $resultado = $preparar_sql->fetchAll();
 
   if($resultado)

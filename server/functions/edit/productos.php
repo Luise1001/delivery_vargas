@@ -3,67 +3,79 @@
 function editar_producto()
 {
   include_once '../conexion.php';
-  if(isset($_POST['peso']) && isset($_POST['descripcion']) && isset($_POST['precio_civa']) && isset($_POST['id_producto']) && isset($_POST['codigo']))
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $respuesta = 
+  [
+    'titulo'=> 'Ups',
+    'cuerpo'=> '',
+    'accion'=> 'warning'
+  ];
+
+  if(isset($_POST['id_producto']) && isset($_POST['descripcion']) && isset($_POST['peso']) && isset($_POST['precio']) 
+  && isset($_POST['cantidad']) && isset($_POST['exento']) && isset($_POST['codigo']))
   {
-    $admin = $_SESSION['DLV']['admin'];
-    $id_usuario = UserID($admin);
-    $rif_comercio = ComercioRif($id_usuario);
-    $id_comercio = ComercioID($rif_comercio);
-    $moneda = 'Dolar';
-    $id_moneda = MonedaID($moneda);
-    $alicuota = Alicuota($id_moneda);
-    $movimiento = CurrentTime();
-  
-    $peso = $_POST['peso'];
-    $descripcion = $_POST['descripcion'];
-    $precio_civa = $_POST['precio_civa'];
-    $exento = $_POST['exento'];
-    $cantidad = $_POST['cantidad'];
+    $ComercioData = ComercioData($UserID);
+    $id_comercio = $ComercioData[0]['Id'];
     $id_producto = $_POST['id_producto'];
+    $descripcion = $_POST['descripcion'];
+    $peso = $_POST['peso'];
+    $pciva = $_POST['precio'];
+    $cantidad = $_POST['cantidad'];
+    $exento = $_POST['exento'];
     $codigo = $_POST['codigo'];
-  
-    $id_producto = filter_var($id_producto, FILTER_SANITIZE_STRING);
-    $codigo = filter_var($codigo, FILTER_SANITIZE_STRING);
-    $cantidad = filter_var($cantidad, FILTER_SANITIZE_STRING);
-    $peso = filter_var($peso, FILTER_SANITIZE_STRING);
-    $descripcion = filter_var($descripcion, FILTER_SANITIZE_STRING);
-    $precio_civa = filter_var($precio_civa, FILTER_SANITIZE_STRING);
-    $exento = filter_var($exento, FILTER_SANITIZE_STRING);
-    
-    if($exento == 1)
-    { 
-      $precio_siva = number_format($precio_civa, 2);
-      $alicuota = 0;
+    $actualizado = CurrentTime();
+
+    if($exento)
+    {
+      $psiva = round($pciva / 1.16, 2);
     }
     else
     {
-      $precio_siva = ($precio_civa) - ($precio_civa * ($alicuota/100));
-      $precio_siva = number_format($precio_siva, 2);
+       $psiva = $pciva;
     }
+    
   
-    $editsql = 'UPDATE productos SET Peso=?, Descripcion=?, P_siva=?, P_civa=?, Alicuota=?, U_movimiento=? WHERE Id=?';
+    $id_producto = filter_var($id_producto, FILTER_SANITIZE_NUMBER_INT);
+    $codigo = filter_var($codigo, FILTER_UNSAFE_RAW);
+    $cantidad = filter_var($cantidad, FILTER_UNSAFE_RAW);
+    $peso = filter_var($peso, FILTER_SANITIZE_NUMBER_FLOAT);
+    $descripcion = filter_var($descripcion, FILTER_UNSAFE_RAW);
+    $pciva = filter_var($pciva, FILTER_UNSAFE_RAW);
+    $psiva = filter_var($psiva, FILTER_UNSAFE_RAW);
+    $exento = filter_var($exento, FILTER_UNSAFE_RAW);
+    
+  
+    $editsql = 'UPDATE productos SET Peso=?, Descripcion=?, P_siva=?, P_civa=?, Alicuota=?, Actualizado=? WHERE Id=?';
     $editar_sentence = $pdo->prepare($editsql);
-    $editar_sentence->execute(array($peso, $descripcion, $precio_siva, $precio_civa, $alicuota, $movimiento, $id_producto));
-  
-    $stock = editStock($id_comercio, $id_producto, $cantidad);
-  
-    if($_FILES)
-    {
-      $ruta = ProductImg($rif_comercio, $codigo, $_FILES);
+    if($editar_sentence->execute(array($peso, $descripcion, $psiva, $pciva, $exento, $actualizado, $id_producto)))
+    { 
+      $stock = editStock($id_comercio, $id_producto, $cantidad);
+
+
+        if(isset($_FILES['file']))
+        {
+          $ProductImg = ProductImg($id_comercio, $codigo, $_FILES);
+        }
+        
+
+        $respuesta = 
+        [
+          'titulo'=> 'Operación Exitosa',
+          'cuerpo'=> '',
+          'accion'=> 'success'
+        ];
     }
+    else
+    {
+       $respuesta['cuerpo'] = 'Ocurrió Un Error Editando El Producto';
+    }
+  
+    
+    echo json_encode($respuesta);
   
   }
 
 }
 
-function editStock($id_comercio, $id_producto, $cantidad)
-{
-   require '../conexion.php';
-   $movimiento = CurrentTime();
-
-   $editsql = 'UPDATE inventario SET Existencia=?, U_movimiento=?  WHERE Id_producto=? AND Id_comercio=?';
-   $editar_sentence = $pdo->prepare($editsql);
-   $editar_sentence->execute(array($cantidad, $movimiento, $id_producto, $id_comercio));
-
-   return;
-}

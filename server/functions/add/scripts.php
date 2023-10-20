@@ -1,5 +1,7 @@
 <?php
 include_once 'clientes.php';
+include_once 'comercios.php';
+include_once 'envios.php';
 
 
 include_once 'carrito.php';

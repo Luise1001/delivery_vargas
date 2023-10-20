@@ -35,7 +35,7 @@ function HeaderMenu($AdminLevel)
     <a class='sidebar-item mi-carrito' href='../clientes/mi_carrito'><i class='fas fa-shopping-cart'></i> 
               Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
     <a class='sidebar-item' href='../inicio/informacion'><i class='fas fa-info'></i> Información</a>
-    <a class='sidebar-item' href='../inicio/politicias'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' href='../inicio/terminos'><i class='fas fa-info-circle'></i> Políticas</i></a>
     <a class='sidebar-item' href='../inicio/cambiar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -76,12 +76,13 @@ function HeaderMenu($AdminLevel)
   {
     $respuesta =
     "
-    <a class='sidebar-item' href='../comercios/lista_de_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
+    <a class='sidebar-item' href='../comercios/mis_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
     <a class='sidebar-item' href='../comercios/mis_datos_bancarios'><i class='fas fa-dollar-sign'></i> Datos Bancarios</a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
-    <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' href='../comercios/agregar_db'><i class='fa-solid fa-comments-dollar'></i> Agregar Datos Bancarios</a>
+    <a class='sidebar-item' href='../comercios/agregar_producto'><i class='fa-solid fa-cart-plus'></i> Agregar Producto</a>
+    <a class='sidebar-item' href='../inicio/informacion' ><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' href='../inicio/terminos' ><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' href='../inicio/cambiar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
   }
@@ -138,7 +139,7 @@ function FooterMenu($AdminLevel, $url)
       {
         $icon_comprar = '../../server/images/icons/menu/Ico_Compra_ON.png';
       }
-      if(strrpos($url, 'inicio'))
+      if(strrpos($url, 'inicio/inicio'))
       {
         $icon_home = '../../server/images/icons/menu/Ico_Home_ON.png';
       }
@@ -155,6 +156,29 @@ function FooterMenu($AdminLevel, $url)
         $icon_perfil = '../../server/images/icons/menu/Ico_Perfil_ON.png';
       }
  
+       if($perfil === 'comercios')
+       {
+        $respuesta = 
+        "
+        <a class='footer-icons' href='../$perfil/productos'>
+        <img id='icon_compra' class='footer-icons' src='$icon_comprar'>
+        </a>
+        <a class='footer-icons' href='../inicio/calculadora'>
+        <img id='icon_calculator' class='footer-icons' src='$icon_calculator'>
+        </a>
+        <a class='footer-icons' href='../inicio/inicio'>
+        <img id='icon_home' class='footer-icons' src='$icon_home'>
+        </a>
+        <a class='footer-icons' href='../$perfil/mis_pedidos'>
+        <img id='icon_pedido' class='footer-icons' src='$icon_pedido'>
+        </a>
+        <a class='footer-icons' href='../$perfil/mi_perfil'>
+        <img id='icon_perfil' class='footer-icons' src='$icon_perfil'>
+        </a>
+        ";
+       }
+       else
+       {
         $respuesta = 
         "
         <a class='footer-icons' href='../$perfil/comprar'>
@@ -173,6 +197,7 @@ function FooterMenu($AdminLevel, $url)
         <img id='icon_perfil' class='footer-icons' src='$icon_perfil'>
         </a>
         ";
+       }
 
         return $respuesta;
     }

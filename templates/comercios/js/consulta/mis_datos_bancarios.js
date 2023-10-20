@@ -16,8 +16,10 @@ function mis_datos_bancarios()
     })
     .done(function(res)
     {
-      $('.header-icons').html(res.botones);
-      $('.mis-datos-bancarios').html(res.datos);
+      $('.titulo-app').html(res.titulo);
+      $('.pm').html(res.pm);
+      $('.tr').html(res.tr);
+      $('.zl').html(res.zl);
 
     })
     .fail(function(err)
@@ -26,31 +28,3 @@ function mis_datos_bancarios()
     })
 }
 
-async function lista_de_bancos()
-{
-   let funcion = 'lista_de_bancos';
-   const bancos = await
-   $.ajax
-   ({
-      url: '../../server/functions/consultas.php',
-      type: 'POST',
-      dataType: 'html',
-      data: 
-      {
-         funcion: funcion
-      }
- 
-   })
-   .done(async function(res)
-   {
-       return await res;
-
-   })
-   .fail(function()
-   {
-      console.log('error ejecutando Ajax');
-   })
-
-   return bancos;
-
-}

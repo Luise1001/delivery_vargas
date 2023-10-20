@@ -1,78 +1,115 @@
 <?php
 
+use function GuzzleHttp\json_encode;
+
 function nuevos_datos_bancarios()
 {
     include_once '../conexion.php';
     $admin = $_SESSION['DLV']['admin'];
-    $id_usuario = UserID($admin);
-    $rif_comercio = ComercioRif($id_usuario);
-    $id_comercio = ComercioID($rif_comercio);
+    $UserID = UserID($admin);
+    $AdminLevel = AdminLevel($UserID);
+    $ComercioData = ComercioData($UserID);
+    $id_comercio = $ComercioData[0]['Id'];
+    $respuesta = 
+    [
+        'titulo' => 'Ups',
+        'cuerpo' => 'No Pudimos Procesar Su Solicitud',
+        'accion'=> 'warning' 
+    ];
 
-    if(isset($_POST['banco']) && isset($_POST['letra']) && isset($_POST['rif']) && isset($_POST['telefono']))
+    if(isset($_POST['tipo_db']))
     {
-       $id_banco = $_POST['banco'];
-       $tipo_id = $_POST['letra'];
-       $rif =  $_POST['rif'];
-       $telefono = $_POST['telefono'];
+         $tabla = $_POST['tipo_db'];
+         $titular = '';
+         $tipo_cuenta = '';
 
-       $pago_movil = NuevoPagoMovil($id_comercio, $id_banco, $tipo_id, $rif, $telefono);
-    }
+         if($tabla === 'pago_movil')
+         {
+          if(isset($_POST['id_banco']) && isset($_POST['tipo_id']) 
+          && isset($_POST['documento']) && isset($_POST['telefono']))
+          {
+              $id_banco = $_POST['id_banco'];
+              $tipo_id = $_POST['tipo_id'];
+              $documento = $_POST['documento'];
+              $tipo_cuenta = 'Telefono';
+              $cuenta = $_POST['telefono'];
 
-    if(isset($_POST['banco']) && isset($_POST['letra']) && isset($_POST['rif']) && isset($_POST['cuenta']))
-    {
-        $id_banco = $_POST['banco'];
-        $tipo_id = $_POST['letra'];
-        $rif = $_POST['rif'];
-        $cuenta = $_POST['cuenta'];
- 
-        $transferencia = NuevoTransferencia($id_comercio, $id_banco, $tipo_id, $rif, $cuenta);
-    }
-
-    if(isset($_POST['correo']) && isset($_POST['titular']))
-    {
-        $correo = $_POST['correo'];
-        $titular = $_POST['titular'];
- 
-        $zelle = NuevoZelle($id_comercio, $correo, $titular);
-
-    }
-}
-
-function NuevoPagoMovil($id_comercio, $id_banco, $tipo_id, $rif, $telefono)
-{
-    require '../conexion.php';
-    $fecha = CurrentDate();
+              if($id_banco && $tipo_id && $documento && $cuenta)
+              {
+                $AddDataBank = AddDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_comercio);
+              }
+              else
+              {
+                  $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                  $AddDataBank = false;
+              }
+  
+              
+  
+          }
+         }
     
-    if($id_banco && $rif && $telefono)
-    {
-        $insert_sql = 'INSERT INTO pago_movil (Id_comercio, Tipo_id, Documento, Id_banco, Telefono, Fecha) VALUES (?,?,?,?,?,?)';
-        $sent = $pdo->prepare($insert_sql);
-        $sent->execute(array($id_comercio, $tipo_id, $rif, $id_banco, $telefono, $fecha));
-    }
-}
+         
+  
+         if($tabla === 'transferencia')
+         {
+          if(isset($_POST['id_banco']) && isset($_POST['tipo_id']) 
+          && isset($_POST['documento']) && isset($_POST['cuenta']))
+          {
+              $id_banco = $_POST['id_banco'];
+              $tipo_id = $_POST['tipo_id'];
+              $documento = $_POST['documento'];
+              $tipo_cuenta = 'Cuenta';
+              $cuenta = $_POST['cuenta'];
 
-function NuevoTransferencia($id_comercio, $id_banco, $tipo_id, $rif, $cuenta)
-{
-    require '../conexion.php';
-    $fecha = CurrentDate();
-    
-    if($id_banco && $rif && $cuenta)
-    {
-        $insert_sql = 'INSERT INTO transferencia (Id_comercio, Tipo_id, Documento, Id_banco, Cuenta, Fecha) VALUES (?,?,?,?,?,?)';
-        $sent = $pdo->prepare($insert_sql);
-        $sent->execute(array($id_comercio, $tipo_id, $rif, $id_banco, $cuenta, $fecha));
-    }
-}
+              if($id_banco && $tipo_id && $documento && $cuenta)
+              {
+                $AddDataBank = AddDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_comercio);
+              }
+              else
+              {
+                  $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                  $AddDataBank = false;
+              }
+          }
+         }
+  
+         if($tabla === 'zelle')
+         {
+          if(isset($_POST['titular']) && isset($_POST['correo']))
+          {
+              $titular = $_POST['titular'];
+              $cuenta = $_POST['correo'];
+              $id_banco = '';
+              $tipo_id = '';
+              $documento = '';
+              $tipo_cuenta = 'Correo';
 
-function NuevoZelle($id_comercio, $correo, $titular)
-{
-    require '../conexion.php';
-    $fecha = CurrentDate();
-    
-    if($id_comercio && $correo && $titular)
-    {
-        $insert_sql = 'INSERT INTO Zelle (Id_comercio, Correo, Titular, Fecha) VALUES (?,?,?,?)';
-        $sent = $pdo->prepare($insert_sql);
-        $sent->execute(array($id_comercio, $correo, $titular, $fecha));
+              if($titular && $cuenta)
+              {
+                $AddDataBank = AddDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_comercio);
+              }
+              else
+              {
+                $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                $AddDataBank = false;
+              }
+  
+             
+          }
+         }
+
+         if($AddDataBank)
+         {
+            $respuesta = 
+            [
+                'titulo' => 'Operación Exitosa',
+                'cuerpo' => '',
+                'accion'=> 'success' 
+            ];
+         }
     }
+
+    echo json_encode($respuesta);
+
 }

@@ -17,26 +17,28 @@ function mi_perfil()
    })
    .done(function(res)
    { 
-     $('.user-head').html(res.header);
-     $('.user-personal-data').html(res.data);
+     $('.titulo-app').html(res.titulo);
+     $('.profile_header').html(res.header);
+     $('.profile_information').html(res.information);
    })
    .fail(function(err)
    {
-      console.log(err.responseText);
+      console.log(err);
    })
+
 }
 
-$(document).ready(mi_switch());
+$(document).ready(mi_perfil_juridico());
 
-function mi_switch()
+function mi_perfil_juridico()
 {
-   let funcion = 'mi_switch';
+   let funcion = 'mi_perfil_juridico';
 
    $.ajax
    ({
       url: '../../server/functions/consultas.php',
       type: 'POST',
-      dataType: 'html',
+      dataType: 'json',
       data: 
       {
          funcion: funcion
@@ -45,52 +47,11 @@ function mi_switch()
    })
    .done(function(res)
    { 
-     $('.mi-switch').html(res);
+     $('.business_information').html(res.information);
    })
    .fail(function(err)
    {
-      console.log(err.responseText);
+      console.log(err);
    })
-}
 
-$(document).on('click', '.personal-data-btn', function()
-{ 
-   ArrowPD();
-})
-
-function ArrowPD()
-{  
-   let arrow = document.getElementById('arrow_pd');
-
-   if(arrow.classList.contains('fa-angle-down'))
-   { 
-      $('#arrow_pd').removeClass('fa-angle-down');
-      $('#arrow_pd').addClass('fa-angle-up');
-   }
-   else
-   {
-      $('#arrow_pd').removeClass('fa-angle-up');
-      $('#arrow_pd').addClass('fa-angle-down');
-   }
-}
-
-$(document).on('click', '.list-cat-btn', function()
-{ 
-   ArrowCAT();
-})
-
-function ArrowCAT()
-{  
-   let arrow = document.getElementById('arrow_cat');
-
-   if(arrow.classList.contains('fa-angle-down'))
-   { 
-      $('#arrow_cat').removeClass('fa-angle-down');
-      $('#arrow_cat').addClass('fa-angle-up');
-   }
-   else
-   {
-      $('#arrow_cat').removeClass('fa-angle-up');
-      $('#arrow_cat').addClass('fa-angle-down');
-   }
 }

@@ -15,6 +15,14 @@ if($funcion === 'eliminar_direccion')
 {
     eliminar_direccion();
 }
+if($funcion === 'eliminar_producto')
+{
+    eliminar_producto();
+}
+if($funcion === 'eliminar_datos_bancarios')
+{
+    eliminar_datos_bancarios();
+}
 
 
 
@@ -38,15 +46,7 @@ if($funcion === 'eliminar_cliente')
 {
     eliminar_cliente();
 }
-if($funcion === 'eliminar_producto')
-{
-    eliminar_producto();
-}
 if($funcion === 'eliminar_horario')
 {
     eliminar_horario();
-}
-if($funcion === 'eliminar_datos_bancarios')
-{
-    eliminar_datos_bancarios();
 }

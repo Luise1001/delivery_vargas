@@ -1,5 +1,20 @@
 <?php
 
+function nueva_foto_perfil()
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $actualizado = CurrentTime();
+  $foto = 'perfil';
+
+  $editsql = 'UPDATE usuarios SET Actualizado=?  WHERE Id=?';
+  $editar_sentence = $pdo->prepare($editsql);
+  $editar_sentence->execute(array($actualizado, $UserID));
+
+  $MyProfilePhoto = MyProfilePhoto($UserID, $foto, $_FILES);
+}
+
 function nuevo_admin()
 {
   include_once '../conexion.php';

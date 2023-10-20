@@ -29,6 +29,33 @@ function getDistance($addressFrom, $addressTo)
     return ($miles * 1.609344);
 }
 
+function ProcessLevel($AdminLevel)
+{
+   switch ($AdminLevel) {
+    case '0':
+        $folder = 'clientes';
+        return $folder;
+        break;
+    case '1':
+        $folder = 'administradores';
+        return $folder;
+        break;
+    case '2':
+        $folder = 'conductores';
+        return $folder;
+        break;
+    case '3':
+        $folder = 'comercios';
+        return $folder;
+        break;
+    
+    default:
+        $folder = 'inicio';
+        return $folder;
+        break;
+   }
+}
+
 function ProcessOrderStatus($nro_pedido)
 {
     require '../conexion.php';

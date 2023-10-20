@@ -3,73 +3,113 @@
 function editar_datos_banco()
 {
     include_once '../conexion.php';
+    $admin = $_SESSION['DLV']['admin'];
+    $UserID = UserID($admin);
+    $AdminLevel = AdminLevel($UserID);
+    $respuesta = 
+    [
+        'titulo' => 'Ups',
+        'cuerpo' => 'No Pudimos Procesar Su Solicitud',
+        'accion'=> 'warning' 
+    ];
 
-    if(isset($_POST['option']))
+    if(isset($_POST['tabla']))
     {
-       $option = $_POST['option'];
+       $tabla = $_POST['tabla'];
+       $titular = '';
+       $tipo_cuenta = '';
 
-       if($option === 'pm')
+       if($tabla === 'pago_movil')
        {
-         $id = $_POST['id'];
-         $tipo_id = $_POST['tipo_id'];
-         $documento = $_POST['documento'];
-         $id_banco = $_POST['id_banco'];
-         $telefono = $_POST['telefono'];
+        if(isset($_POST['id_pago']) && isset($_POST['id_banco']) && isset($_POST['tipo_id']) 
+        && isset($_POST['documento']) && isset($_POST['telefono']))
+        {
+            $id_pago = $_POST['id_pago'];
+            $id_banco = $_POST['id_banco'];
+            $tipo_id = $_POST['tipo_id'];
+            $documento = $_POST['documento'];
+            $tipo_cuenta = 'Telefono';
+            $cuenta = $_POST['telefono'];
 
-          EditarPagoMovil($id, $tipo_id, $documento, $id_banco, $telefono);
+            if($id_banco && $tipo_id && $documento && $cuenta)
+            {
+                $EditDataBank = EditDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_pago);
+            }
+            else
+            {
+            
+                $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                $EditDataBank = false;
+            }
+        }
+       }
+  
+       
+
+       if($tabla === 'transferencia')
+       {
+        if(isset($_POST['id_pago']) && isset($_POST['id_banco']) && isset($_POST['tipo_id']) 
+        && isset($_POST['documento']) && isset($_POST['cuenta']))
+        {
+            $id_pago = $_POST['id_pago'];
+            $id_banco = $_POST['id_banco'];
+            $tipo_id = $_POST['tipo_id'];
+            $documento = $_POST['documento'];
+            $tipo_cuenta = 'Cuenta';
+            $cuenta = $_POST['cuenta'];
+
+            if($id_banco && $tipo_id && $documento && $cuenta)
+            {
+                $EditDataBank = EditDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_pago);
+            }
+            else
+            {
+            
+                $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                $EditDataBank = false;
+            }
+
+            $EditDataBank = EditDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_pago);
+        }
        }
 
-       if($option === 'tr')
+       if($tabla === 'zelle')
        {
-         $id = $_POST['id'];
-         $tipo_id = $_POST['tipo_id'];
-         $documento = $_POST['documento'];
-         $id_banco = $_POST['id_banco'];
-         $cuenta = $_POST['cuenta'];
+        if(isset($_POST['id_pago']) && isset($_POST['titular']) && isset($_POST['correo']))
+        {
+            $id_pago = $_POST['id_pago'];
+            $titular = $_POST['titular'];
+            $cuenta = $_POST['correo'];
+            $id_banco = '';
+            $tipo_id = '';
+            $documento = '';
+            $tipo_cuenta = 'Correo';
 
-          EditarTransferencia($id, $tipo_id, $documento, $id_banco, $cuenta);
+            if($titular && $correo)
+            {
+                $EditDataBank = EditDataBank($tabla, $titular, $tipo_id, $documento, $id_banco, $tipo_cuenta, $cuenta, $id_pago);
+            }
+            else
+            {
+                $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
+                $EditDataBank = false; 
+            }
+
+            
+        }
        }
 
-       if($option === 'zl')
+       if($EditDataBank)
        {
-        $id = $_POST['id'];
-        $correo = $_POST['correo'];
-        $titular = $_POST['titular'];
-
-         EditarZelle($id, $correo, $titular);
+           $respuesta = 
+           [
+               'titulo' => 'Operación Exitosa',
+               'cuerpo' => '',
+               'accion'=> 'success' 
+           ];
+        
        }
     }
 
-
-}
-
-function EditarPagoMovil($id, $tipo_id, $documento, $id_banco, $telefono)
-{
-    require '../conexion.php';
-    $movimiento = CurrentTime();
-
-    $editsql = 'UPDATE pago_movil SET Tipo_id=?, Documento=?, Id_banco=?, Telefono=?, U_movimiento=?   WHERE Id=?';
-    $editar_sentence = $pdo->prepare($editsql);
-    $editar_sentence->execute(array($tipo_id, $documento, $id_banco, $telefono, $movimiento, $id));
-
-}
-
-function EditarTransferencia($id, $tipo_id, $documento, $id_banco, $cuenta)
-{
-    require '../conexion.php';
-    $movimiento = CurrentTime();
-
-    $editsql = 'UPDATE transferencia SET Tipo_id=?, Documento=?, Id_banco=?, Cuenta=?, U_movimiento=?   WHERE Id=?';
-    $editar_sentence = $pdo->prepare($editsql);
-    $editar_sentence->execute(array($tipo_id, $documento, $id_banco, $cuenta, $movimiento, $id));
-}
-
-function EditarZelle($id, $correo, $titular)
-{
-    require '../conexion.php';
-    $movimiento = CurrentTime();
-
-    $editsql = 'UPDATE zelle SET Correo=?, Titular=?, U_movimiento=?   WHERE Id=?';
-    $editar_sentence = $pdo->prepare($editsql);
-    $editar_sentence->execute(array($correo, $titular, $movimiento, $id));
+    echo json_encode($respuesta);
 }

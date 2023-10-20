@@ -20,13 +20,13 @@ function SearchProfilePhoto($UserID)
     }
 } 
 
-function SearchProductPhoto($id_comercio, $producto)
+function SearchProductPhoto($id_comercio, $codigo)
 {
-    $ruta = "../images/products/comercios/$id_comercio/productos/$producto.jpg";
+    $ruta = "../images/products/comercios/$id_comercio/productos/$codigo.jpg";
 
     if(file_exists($ruta))
     {
-        $foto = "../../server/images/products/comercios/$id_comercio/productos/$producto.jpg";
+        $foto = "../../server/images/products/comercios/$id_comercio/productos/$codigo.jpg";
         return $foto;
     }
     else
