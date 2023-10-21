@@ -7,11 +7,9 @@
 
   <!-- Consulta -->
   <script src="../inicio/js/consulta/menu.js"></script>
-  <script src="js/consulta/categorias.js"></script>
 
   <!-- Agregar -->
   <script src="js/agregar/perfil.js"></script>
-  <script src="js/agregar/agregar_horario.js"></script>
 
   <!-- Editar -->
   <script src="js/editar/reader_img.js"></script>

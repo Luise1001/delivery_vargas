@@ -1,32 +1,65 @@
-let id_conductor = '';
-$(document).on('click', '#editar_conductor_btn', function(data)
-{ 
-    $('#editar_nombre').val(data.target.parentNode.attributes.nombre.value);
-    $('#editar_apellido').val(data.target.parentNode.attributes.apellido.value);
-    $('#editar_tipo_id').val(data.target.parentNode.attributes.letra.value);
-    $('#editar_cedula_conductor').val(data.target.parentNode.attributes.cedula.value);
-    $('#editar_telefono').val(data.target.parentNode.attributes.telefono.value);
-    $('#editar_direccion').val(data.target.parentNode.attributes.direccion.value);
-    $('#editar_usuario_conductor').val(data.target.parentNode.attributes.usuario.value)
-    id_conductor = data.target.parentNode.attributes.conductor.value;
+$(document).ready(detalle_conductor());
+
+function detalle_conductor()
+{
+   const parametros = window.location.search;
+   const variables = new URLSearchParams(parametros);
+   let id_conductor = variables.get('conductor');
+   let id_usuario = variables.get('usuario');
+   let funcion = 'detalle_conductor';
+
+   $.ajax
+   ({
+      url: '../../server/functions/consultas.php',
+      type: 'POST',
+      dataType: 'json',
+      data: 
+      {
+         funcion: funcion,
+         id_conductor: id_conductor,
+         id_usuario: id_usuario
+      }
+ 
+   })
+   .done(function(res)
+   {
+      console.log(res)
+
+      $('.titulo-app').html(res.titulo);
+      $('.detalle-conductor').html(res.conductor);
+   })
+   .fail(function(err)
+   {
+     console.log(err);
+   })
+}
+
+$(document).on('click', '#guardar_conductor', function()
+{
+    editar_conductor();
 })
 
-$(document).on('click', '#modificar_conductor', function()
+function editar_conductor()
 {
-   let nombre = $('#editar_nombre').val();
-   let apellido =  $('#editar_apellido').val();
-   let tipo_id = $('#editar_tipo_id').val();
-   let cedula = $('#editar_cedula_conductor').val();
-   let telefono =  $('#editar_telefono').val();
-   let direccion = $('#editar_direccion').val();
-   let usuario = $('#editar_usuario_conductor').val();
+   const parametros = window.location.search;
+   const variables = new URLSearchParams(parametros);
+
+   let id_conductor = variables.get('conductor');
+   let nombre = $('#nombre').val();
+   let apellido =  $('#apellido').val();
+   let tipo_id = $('#tipo_id').val();
+   let cedula = $('#cedula').val();
+   let telefono =  $('#telefono').val();
+   let direccion = $('#direccion').val();
+
+
    let funcion = 'editar_conductor';
     
     $.ajax
     ({
        url: '../../server/functions/editar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           funcion: funcion,
@@ -36,23 +69,27 @@ $(document).on('click', '#modificar_conductor', function()
           tipo_id: tipo_id,
           cedula: cedula,
           telefono: telefono,
-          direccion: direccion,
-          usuario: usuario
+          direccion: direccion
        }
   
     })
     .done(function(res)
     {
-       lista_de_conductores();
-    })
-    .fail(function()
-    {
-      console.log("error ejecutando Ajax");
-    })
-})
+       let titulo = res.titulo;
+       let cuerpo = res.cuerpo;
+       let accion = res.accion;
 
-$(document).on('keyup', '#editar_usuario_conductor', function()
-{
-   let correo = $('#editar_usuario_conductor').val();
-   verificar_usuario(correo);
-})
+       if(accion === 'success')
+       {
+          window.location.href="lista_de_conductores";
+       }
+       else
+       {
+          swal(titulo, cuerpo, accion);
+       }
+    })
+    .fail(function(err)
+    {
+      console.log(err);
+    })
+}

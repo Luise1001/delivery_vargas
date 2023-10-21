@@ -125,12 +125,11 @@ function SearchProductsByBusiness($buscar, $id_comercio)
 
 }
 
-//revisar de aqui para abajo
 function AdminList($AdminLevel)
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY U_movimiento DESC";
+  $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY Actualizado DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
   $preparar_sql->execute(array($AdminLevel));
   $resultado = $preparar_sql->fetchAll();
@@ -146,13 +145,11 @@ function AdminList($AdminLevel)
 
 }
 
-
-
-function ClientList()
+function BusinessList()
 {
    require '../conexion.php';
 
-   $consulta_sql = "SELECT * FROM clientes ORDER BY Fecha DESC";
+   $consulta_sql = "SELECT * FROM comercios ORDER BY Actualizado DESC";
    $preparar_sql = $pdo->prepare($consulta_sql);
    $preparar_sql->execute();
    $resultado = $preparar_sql->fetchAll();
@@ -167,11 +164,11 @@ function ClientList()
    }
 }
 
-function BusinessList()
+function ClientList()
 {
    require '../conexion.php';
 
-   $consulta_sql = "SELECT * FROM comercios ORDER BY Fecha DESC";
+   $consulta_sql = "SELECT * FROM clientes ORDER BY Actualizado DESC";
    $preparar_sql = $pdo->prepare($consulta_sql);
    $preparar_sql->execute();
    $resultado = $preparar_sql->fetchAll();
@@ -184,13 +181,29 @@ function BusinessList()
    {
      return false;
    }
+}
+
+function UserList($nivel)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY Actualizado DESC";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($nivel));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
 }
 
 function DriverList()
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM usuarios INNER JOIN conductores ON conductores.Id_usuario = usuarios.Id ORDER BY conductores.Id DESC";
+  $consulta_sql = "SELECT * FROM conductores  ORDER BY Actualizado DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
   $preparar_sql->execute();
   $resultado = $preparar_sql->fetchAll();
@@ -210,7 +223,8 @@ function MotorcycleList()
 {
   require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM conductores INNER JOIN motos ON motos.Id_conductor = conductores.Id ORDER BY motos.Id DESC";
+  $consulta_sql = "SELECT m.*, c.Nombre, c.Apellido, c.Id_usuario, c.Disponible FROM motos AS m
+  INNER JOIN conductores AS c  ON m.Id_conductor = c.Id ORDER BY m. Actualizado DESC";
   $preparar_sql = $pdo->prepare($consulta_sql);
   $preparar_sql->execute();
   $resultado = $preparar_sql->fetchAll();
@@ -225,6 +239,10 @@ function MotorcycleList()
   }
 
 }
+
+//revisar de aqui para abajo
+
+
 
 function BusinessCategories()
 {

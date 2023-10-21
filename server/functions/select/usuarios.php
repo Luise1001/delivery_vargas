@@ -18,17 +18,14 @@ function cambio_clave()
 function lista_de_administradores()
 {
   include_once '../conexion.php';
-  $boton = 
-  '
-    <a class="nav-link" data-toggle="modal" data-target="#nuevo_admin" title="Nuevo Administrador">
-      <i class="fas fa-plus-circle"></i>
-     </a>
-  ';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
   $mis_administradores = 
   [
-     'botones'=> $boton,
+     'titulo'=> $back_btn.'ADMINISTRADORES',
      'administradores' => AdminUsers(),
-     'admin_grua'=> AdminGruas(),
      'conductores'=> DriverUsers()
      
   ];
@@ -36,91 +33,6 @@ function lista_de_administradores()
   echo json_encode($mis_administradores);
 }
 
-function AdminGruas()
-{
-  require '../conexion.php';
-  $administradores = AdminList(4);
-  $respuesta = '';
-
-  if($administradores)
-  {
-    $respuesta = 
-    "
-    <div class='accordion'>
-    <div class='accordion-item'>
-      <h2 class='accordion-header'>
-        <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collaps_admin_grua' aria-expanded='true' aria-controls='collaps_admin_grua'>
-          Administradores de Grúas
-        </button>
-      </h2>
-      <div id='collaps_admin_grua' class='accordion-collapse collapse show'>
-        <div class='accordion-body'>
-        ";
-
-        foreach($administradores as $admin)
-        {
-           $id = $admin['Id'];
-           $nivel = $admin['Nivel'];
-           $user_name = $admin['User_name'];
-           $email = $admin['Correo'];
-           $fecha = $admin['Fecha'];
-           $u_movimiento = $admin['U_movimiento'];
-           $fecha_actual = CurrentTime();
-           $actualizado = TimeDifference($u_movimiento, $fecha_actual);
-           $foto = searchProfilePhoto($id, 'perfil');
-
-           if(!$foto)
-           {
-              $inicial = substr($user_name, 0, 1);
-              ProfilePhoto($inicial);
-              $foto = "../../server/images/profile/letters/$inicial.jpg";
-              
-           }
-
-          $respuesta .=
-          "
-          <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
-          <div class='toast-header'>
-            <img src='$foto' class='img-pedido-comercio' alt='Foto de Perfil'>
-            <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
-             $user_name
-            </strong>
-            <small>$actualizado</small>
-              <button class=' button-option-2' data-bs-toggle='dropdown' data-bs-auto-close='true' aria-expanded='false'>
-               <span><i class='fas fa-ellipsis-v'></i></span>
-              </button>
-              <ul class='dropdown-menu card-menu'>
-              <li class='dropdown-item card-menu-item'><a class='editar_admin_btn' 
-              admin='$id' user='$user_name' correo='$email' nivel='$nivel' data-toggle='modal' data-target='#editar_admin'>
-              <i class='fa-solid fa-edit'></i> Editar</a></li>
-              <li class='dropdown-item card-menu-item'><a class='eliminar_admin_btn' id='$id'>
-              <i class='fa-solid fa-trash'></i> Eliminar</a></li>
-             </ul>
-          </div>
-          <div class='toast-body toast_$id collapse'>
-           $email
-          </div>
-        </div>
-        ";
-        }
-     
-     $respuesta .=
-     "   
-     </div>
-      </div>
-    </div>
-  
-  </div>
-    ";
-
-  }
-  else
-  {
-      $respuesta = EmptyPage('Sin Administradores de Grúas');
-  }
-  
-  return $respuesta;
-}
 
 function AdminUsers()
 {
@@ -150,7 +62,7 @@ function AdminUsers()
            $user_name = $admin['User_name'];
            $email = $admin['Correo'];
            $fecha = $admin['Fecha'];
-           $u_movimiento = $admin['U_movimiento'];
+           $u_movimiento = $admin['Actualizado'];
            $fecha_actual = CurrentTime();
            $actualizado = TimeDifference($u_movimiento, $fecha_actual);
            $foto = searchProfilePhoto($id, 'perfil');
@@ -167,7 +79,7 @@ function AdminUsers()
           "
           <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
           <div class='toast-header'>
-            <img src='$foto' class='img-pedido-comercio' alt='Foto de Perfil'>
+            <img width='100px' src='$foto' class='img-pedido-comercio' alt='Foto de Perfil'>
             <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
              $user_name
             </strong>
@@ -212,10 +124,10 @@ function AdminUsers()
 function DriverUsers()
 {
   require '../conexion.php';
-  $administradores = AdminList(2);
+  $AdminList = AdminList(2);
   $respuesta = '';
 
-  if($administradores)
+  if($AdminList)
   {
     $respuesta = 
     "
@@ -237,7 +149,7 @@ function DriverUsers()
            $user_name = $admin['User_name'];
            $email = $admin['Correo'];
            $fecha = $admin['Fecha'];
-           $u_movimiento = $admin['U_movimiento'];
+           $u_movimiento = $admin['Actualizado'];
            $fecha_actual = CurrentTime();
            $actualizado = TimeDifference($u_movimiento, $fecha_actual);
            $foto = searchProfilePhoto($id, 'perfil');
@@ -254,7 +166,7 @@ function DriverUsers()
           "
           <div class='' role='alert' aria-live='assertive' aria-atomic='true'>
           <div class='toast-header'>
-            <img src='$foto' class='img-pedido-comercio' alt='Foto de Perfil'>
+            <img width='100px' src='$foto' class='img-pedido-comercio' alt='Foto de Perfil'>
             <strong class='me-auto' data-bs-toggle='collapse' data-bs-target='.toast_$id' data-bs-auto-close='true'>
              $user_name
             </strong>
@@ -290,7 +202,7 @@ function DriverUsers()
   }
   else
   {
-      $respuesta = EmptyPage('Sin Administradores de Grúas');
+      $respuesta = EmptyPage('Sin Conductores En La Base de Datos');
   }
 
   return $respuesta;
@@ -300,186 +212,139 @@ function lista_de_usuarios()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $nivel = AdminLevel($id_usuario);
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
   $mis_usuarios = 
   [
+     'titulo'=> $back_btn.'USUARIOS',
      'comercios'=> '',
      'clientes'=> ''
   ];
 
-   if($nivel === '1')
+   if($AdminLevel === '1')
    {
      $mis_usuarios['comercios'] = usuarios_comercios();
      $mis_usuarios['clientes'] = usuarios_clientes();
-
-     echo json_encode($mis_usuarios);
    }
    else
    {
     $mis_usuarios['comercios'] = EmptyPage('Usuario No Autorizado.');
     $mis_usuarios['clientes'] = EmptyPage('Usuario No Autorizado.');
 
-    echo json_encode($mis_usuarios);
    }  
+
+   echo json_encode($mis_usuarios);
 }
 
 function usuarios_clientes()
 {
   require '../conexion.php';
-  $resp = '';
-  $lista_de_usuarios = UserList(0);
+  $respuesta = '';
+  $UserList = UserList(0);
 
-  if($lista_de_usuarios)
+  if($UserList)
   {  
-      $i = count($lista_de_usuarios);
 
-     foreach($lista_de_usuarios as $usuario)
+     foreach($UserList as $user)
      {
-        $id_usuario = $usuario['Id'];
-        $user_name = $usuario['User_name'];
-        $correo = $usuario['Correo'];
-        $fecha = DateFormat($usuario['Fecha']);
-        $perfil = SearchProfilePhoto($id_usuario, 'perfil');    
+        $id_usuario = $user['Id'];
+        $user_name = $user['User_name'];
+        $correo = $user['Correo'];
+        $fecha = DateFormat($user['Fecha']);
+        $actualizado = $user['Actualizado'];
+        $fecha_actual = CurrentTime();
+        $actualizado = TimeDifference($actualizado, $fecha_actual);
+        $foto = SearchProfilePhoto($id_usuario);    
   
-        if($perfil === true)
-        {
-          $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
-        }
-        else
-        {
-          $letra = substr($user_name, 0,1);
-  
-          $foto = "../../server/images/profile/letters/$letra.jpg";
-        }
-        
-        $resp .=
+        $respuesta .= 
         "
-        <ul>
-        <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-          <a class=' orden-pedido-link btn menu_opciones'>
-          <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container'>
-            <p class='pedido-tag-p'>$user_name</p>
-            <p class='pedido-tag-p'>Cliente</p>
-  
-            <div class='progress d-none'>
-            <div class='progress-bar bg-transparent text-dark' role='progressbar' aria-label='Example with label'
-              style='width:100%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>Comercio Afiliado</div>
-             </div>
-           </div>
-          </a>
-             <div class='dropdown-container'>
-             <div class='pedido-info p-2'>
-             <li><h6>Correo:</h6> $correo</li>
-             <li><h6>Registrado:</h6> $fecha</li>
-
-             <li class='list-group-item text-center'>
-             <a class='btn' id='editar_usuario_btn'
-             usuario='$id_usuario'
-             title='Editar Usuario' data-toggle='modal' data-target='#editar_usuario_a_comercio'>
-             <i class='fas fa-user-edit'></i>
-             </a>
-         
-            </li>
-              
-             </div>
-            
-              </div>
-         
-         </div>
-        </ul>
-        ";
- 
-         $i--;
+        <div class='card-list'>
+        <div class='card-list-header'>
+          <strong class='me-auto'>$fecha</strong>
+          <small>$actualizado</small>
+        </div>
+        <div class='card-list-body'>
+          <div class='list-img'>
+           <img class='img-list' src='$foto' alt='Foto de Perfil'>
+          </div>
+          <div class='list-data'>
+          <div class='card-list-title'>$user_name</div>
+          <div class='list-text'>
+          <div>$correo  <a class='list-link' href='mailto:$correo' target='_blank'><i class='fa-solid fa-envelope'></i></a></div>
+          <div> <a class='list-link convertir-usuario' usuario='$id_usuario'
+            data-toggle='modal' data-target='#user_convert'>
+             Editar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      ";
    
      }
 
-     return $resp;
+     return $respuesta;
     }
     else
     {
-       $resp = EmptyPage('Sin Usuarios Para Mostrar.');
-       return $resp;
+       $respuesta = EmptyPage('Sin Usuarios Para Mostrar.');
+       return $respuesta;
     }
 }
 
 function usuarios_comercios()
 {
   require '../conexion.php';
-  $resp = '';
-  $lista_de_usuarios = UserList(3);
+  $respuesta = '';
+  $UserList = UserList(3);
 
-  if($lista_de_usuarios)
+  if($UserList)
   {  
-      $i = count($lista_de_usuarios);
 
-     foreach($lista_de_usuarios as $usuario)
+     foreach($UserList as $user)
      {
-        $id_usuario = $usuario['Id'];
-        $user_name = $usuario['User_name'];
-        $correo = $usuario['Correo'];
-        $fecha = DateFormat($usuario['Fecha']);
-        $perfil = SearchProfilePhoto($id_usuario, 'perfil');    
+        $id_usuario = $user['Id'];
+        $user_name = $user['User_name'];
+        $correo = $user['Correo'];
+        $fecha = DateFormat($user['Fecha']);
+        $actualizado = $user['Actualizado'];
+        $fecha_actual = CurrentTime();
+        $actualizado = TimeDifference($actualizado, $fecha_actual);
+        $foto = SearchProfilePhoto($id_usuario);    
   
-        if($perfil === true)
-        {
-          $foto = "../../server/images/profile/users/$id_usuario/photo/perfil.jpg";
-        }
-        else
-        {
-          $letra = substr($user_name, 0,1);
-  
-          $foto = "../../server/images/profile/letters/$letra.jpg";
-        }
-        
-        $resp .=
+        $respuesta .= 
         "
-        <ul>
-        <div class='orden-pedido opciones dropdown img-fondo-blanco'>
-          <a class=' orden-pedido-link btn menu_opciones'>
-          <img class='img-pedido-comercio' align='left' src='$foto' alt='logo'>
-           <div class='container'>
-            <p class='pedido-tag-p'>$user_name</p>
-            <p class='pedido-tag-p'>Comercio Afiliado</p>
-  
-            <div class='progress d-none'>
-            <div class='progress-bar bg-transparent text-dark' role='progressbar' aria-label='Example with label'
-              style='width:100%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'>Comercio Afiliado</div>
-             </div>
-           </div>
-          </a>
-             <div class='dropdown-container'>
-             <div class='pedido-info p-2'>
-             <li><h6>Correo:</h6> $correo</li>
-             <li><h6>Registrado:</h6> $fecha</li>
-
-             <li class='list-group-item text-center'>
-             <a class='btn' id='editar_usuario_btn'
-             usuario='$id_usuario'
-             title='Editar Usuario' data-toggle='modal' data-target='#editar_usuario_a_comercio'>
-             <i class='fas fa-user-edit'></i>
-             </a>
-         
-            </li>
-              
-             </div>
-            
-              </div>
-         
-         </div>
-        </ul>
-        ";
- 
-         $i--;
+        <div class='card-list'>
+        <div class='card-list-header'>
+          <strong class='me-auto'>$fecha</strong>
+          <small>$actualizado</small>
+        </div>
+        <div class='card-list-body'>
+          <div class='list-img'>
+           <img class='img-list' src='$foto' alt='Foto de Perfil'>
+          </div>
+          <div class='list-data'>
+          <div class='card-list-title'>$user_name</div>
+          <div class='list-text'>
+          <div>$correo  <a class='list-link' href='mailto:$correo' target='_blank'><i class='fa-solid fa-envelope'></i></a></div>
+          <div> <a class='list-link convertir-usuario' usuario='$id_usuario'
+            data-toggle='modal' data-target='#user_convert'>
+             Editar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      ";
    
      }
 
-     return $resp;
+     return $respuesta;
     }
     else
     {
-       $resp = EmptyPage('Sin Usuarios Para Mostrar.');
-       return $resp;
+       $respuesta = EmptyPage('Sin Usuarios Para Mostrar.');
+       return $respuesta;
     }
 }

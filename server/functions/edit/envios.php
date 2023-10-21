@@ -16,11 +16,11 @@ function elegir_conductor()
         $movimiento = CurrentTime();
         $cliente = OrderClientName($nro_pedido);
 
-        $editsql = 'UPDATE envios SET Id_conductor=?, Administrador=?, U_movimiento=?, Asignado = 1  WHERE Nro_pedido=?';
+        $editsql = 'UPDATE envios SET Id_conductor=?, Administrador=?, Actualizado=?, Asignado = 1  WHERE Nro_pedido=?';
         $editar_sentence = $pdo->prepare($editsql);
         $editar_sentence->execute(array($id_conductor, $id_admin, $movimiento, $nro_pedido));
 
-        $editsql = 'UPDATE estatus_pedidos SET Id_conductor=?, Administrador=?, U_movimiento=?, Asignado = 1  WHERE Nro_pedido=?';
+        $editsql = 'UPDATE estatus_pedidos SET Id_conductor=?, Administrador=?, Actualizado=?, Asignado = 1  WHERE Nro_pedido=?';
         $editar_sentence = $pdo->prepare($editsql);
         $editar_sentence->execute(array($id_conductor, $id_admin, $movimiento, $nro_pedido));
 
@@ -46,11 +46,11 @@ function aceptar_envio()
     $nro_pedido = $_POST['nro_pedido'];
     $movimiento = CurrentTime();
 
-    $editsql = 'UPDATE envios SET Aceptado = 1, U_movimiento=? WHERE nro_pedido=?';
+    $editsql = 'UPDATE envios SET Aceptado = 1, Actualizado=? WHERE nro_pedido=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($movimiento, $nro_pedido));
 
-    $editsql = 'UPDATE estatus_pedidos SET U_movimiento=?, Aceptado = 1  WHERE Nro_pedido=?';
+    $editsql = 'UPDATE estatus_pedidos SET Actualizado=?, Aceptado = 1  WHERE Nro_pedido=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($movimiento, $nro_pedido));
     }
@@ -68,15 +68,15 @@ function ruta_completada()
     $id_conductor = DriverID($cedula);
     $movimiento = CurrentTime();
 
-    $editsql = 'UPDATE envios SET Completado = 1, U_movimiento=? WHERE Nro_pedido=?';
+    $editsql = 'UPDATE envios SET Completado = 1, Actualizado=? WHERE Nro_pedido=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($movimiento, $nro_pedido));
 
-    $editsql = 'UPDATE estatus_pedidos SET U_movimiento=?, Enviado = 1, Entregado = 1  WHERE Nro_pedido=?';
+    $editsql = 'UPDATE estatus_pedidos SET Actualizado=?, Pagado=1, Enviado = 1, Entregado = 1  WHERE Nro_pedido=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($movimiento, $nro_pedido));
 
-    $editsql = 'UPDATE conductores SET Disponible = 1, U_movimiento=? WHERE Id=?';
+    $editsql = 'UPDATE conductores SET Disponible = 1, Actualizado=? WHERE Id=?';
     $editar_sentence = $pdo->prepare($editsql);
     $editar_sentence->execute(array($movimiento, $id_conductor));
    }

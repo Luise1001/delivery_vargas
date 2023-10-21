@@ -23,13 +23,15 @@ if($funcion === 'eliminar_datos_bancarios')
 {
     eliminar_datos_bancarios();
 }
-
-
-
 if($funcion === 'eliminar_conductor')
 {
     eliminar_conductor();
 }
+
+
+
+
+
 if($funcion === 'eliminar_moto')
 {
     eliminar_moto();

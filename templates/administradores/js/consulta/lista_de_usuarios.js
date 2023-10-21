@@ -16,9 +16,9 @@ function lista_de_usuarios()
   })
   .done(function(res)
   {
+    $('.titulo-app').html(res.titulo);
     $('#comercios').html(res.comercios);
     $('#clientes').html(res.clientes);
-
   })
   .fail(function(err)
   {

@@ -14,9 +14,11 @@ include_once 'redirect.php';
   <?php include_once '../inicio/menu.php'; ?>
   <div class="principal-layout">
     <div class="container-search">
-      <input class="buscador" type="text" placeholder="Buscar Producto">
+      <input id='buscador' class="buscador" type="text" placeholder="Buscar Producto">
       <img class="icon-search" src="../../server/images/icons/lupa.png">
     </div>
+
+    <div class="search-result"></div>
 
     <div class="advertisements">
       <div id="publicidad" class="carousel slide" data-bs-ride="carousel">
@@ -27,13 +29,13 @@ include_once 'redirect.php';
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="img-ads" src="../../server/images/ads/option_1.png" alt="promotion">
+            <img class="img-ads" src="../../server/images/ads/option_1.jpg" alt="promotion">
           </div>
           <div class="carousel-item">
-            <img class="img-ads" src="../../server/images/ads/option_2.png" alt="promotion">
+            <img class="img-ads" src="../../server/images/ads/option_2.jpg" alt="promotion">
           </div>
           <div class="carousel-item">
-            <img class="img-ads" src="../../server/images/ads/option_3.png" alt="promotion">
+            <img class="img-ads" src="../../server/images/ads/option_3.jpg" alt="promotion">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#publicidad" data-bs-slide="prev">

@@ -17,6 +17,7 @@ function lista_de_envios()
   })
   .done(function(res)
   {
+    $('.titulo-app').html(res.titulo);
     $('#pendientes').html(res.pendientes);
     $('#asignados').html(res.asignados);
     $('#transito').html(res.transito);

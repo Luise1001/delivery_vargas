@@ -2,7 +2,7 @@ $(document).ready(mi_perfil());
 
 function mi_perfil()
 {
-   let funcion = 'mi_perfil';
+   let funcion = 'mi_perfil_conductor';
 
    $.ajax
    ({
@@ -16,14 +16,55 @@ function mi_perfil()
  
    })
    .done(function(res)
-   { 
-     $('.user-head').html(res.header);
-     $('.user-personal-data').html(res.data);
+   { console.log(res)
+     $('.titulo-app').html(res.titulo);
+     $('#profile_header').html(res.header);
+     $('#profile_information').html(res.information);
    })
    .fail(function(err)
    {
-      console.log(err.responseText);
+      console.log(err);
    })
+
+}
+
+$(document).on('change', '#input_fp', function()
+{
+
+  let container = '#foto_perfil';
+ readImage(container, this);
+ nueva_foto();
+});
+
+function nueva_foto()
+{
+  let funcion = 'nueva_foto_perfil';
+  var formData = new FormData();
+  var foto = $('#input_fp')[0].files[0];
+  let confirmar = false;
+
+  formData.append('file', foto);
+  formData.append('funcion', funcion);
+
+  $.ajax
+  ({
+     url: '../../server/functions/agregar.php',
+     type: 'POST',
+     dataType: 'html',
+     async: true,
+     data: formData,
+     contentType: false,
+     processData: false
+
+  })
+  .done(function(res)
+  { 
+    mi_perfil();
+  })
+  .fail(function(err)
+  {
+    console.log(err)
+  })
 
 }
 
@@ -54,23 +95,3 @@ function mi_switch()
    })
 }
 
-$(document).on('click', '.personal-data-btn', function()
-{ 
-   ArrowChange();
-})
-
-function ArrowChange()
-{  
-   let arrow = document.getElementById('arrow_pd');
-
-   if(arrow.classList.contains('fa-angle-down'))
-   { 
-      $('#arrow_pd').removeClass('fa-angle-down');
-      $('#arrow_pd').addClass('fa-angle-up');
-   }
-   else
-   {
-      $('#arrow_pd').removeClass('fa-angle-up');
-      $('#arrow_pd').addClass('fa-angle-down');
-   }
-}

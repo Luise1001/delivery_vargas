@@ -87,10 +87,10 @@ function TransformDay($day)
 }
 }
 
-function TimeDifference($fecha_ini, $fecha_final)
+function TimeDifference($actualizado, $fecha_actual)
 {
-   $inicial = date_create($fecha_ini);
-   $final = date_create($fecha_final);
+   $inicial = date_create($actualizado);
+   $final = date_create($fecha_actual);
 
    $intervalo = date_diff($inicial, $final);
    $horas = $intervalo->h;
@@ -141,6 +141,11 @@ function TimeDifference($fecha_ini, $fecha_final)
      else
      {
          $respuesta = "Hace $dias Dias";
+     }
+
+     if($dias === 7)
+     {
+       $respuesta = "Hace Una Semana";
      }
    }
 

@@ -2,7 +2,7 @@ $(document).ready(mis_categorias());
 
 function mis_categorias()
 {
-    let funcion = 'categorias_comercios';
+    let funcion = 'mis_categorias';
     $.ajax
     ({
        url: '../../server/functions/consultas.php',

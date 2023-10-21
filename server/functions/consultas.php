@@ -22,6 +22,10 @@ if($funcion === 'mi_perfil_juridico')
 {
     mi_perfil_juridico();
 }
+if($funcion === 'mi_perfil_conductor')
+{
+    mi_perfil_conductor();
+}
 if($funcion === 'categorias')
 {
     categorias();
@@ -102,6 +106,18 @@ if($funcion === 'CheckCode')
 {
     CheckCode();
 }
+if($funcion === 'mi_horario')
+{
+    mi_horario();
+}
+if($funcion === 'detalle_envio')
+{
+    detalle_envio();
+}
+if($funcion === 'detalle_conductor')
+{
+    detalle_conductor();
+}
 
 
 
@@ -181,10 +197,7 @@ if($funcion === 'mi_moto')
 {
     mi_moto();
 }
-if($funcion === 'mi_horario')
-{
-    mi_horario();
-}
+
 if($funcion === 'mi_switch')
 {
     mi_switch();

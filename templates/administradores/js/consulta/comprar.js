@@ -53,3 +53,35 @@ function productos_nuevos()
   })
 }
 
+$(document).on('keyup','#buscador', function()
+{
+  let buscar = $('#buscador').val();
+  
+  buscar_producto(buscar);
+})
+
+function buscar_producto(buscar)
+{
+  let funcion = 'buscar_producto';
+ 
+  $.ajax
+  ({
+     url: '../../server/functions/consultas.php',
+     type: 'POST',
+     dataType: 'json',
+     data: 
+     {
+       funcion : funcion,
+       buscar: buscar
+    }
+
+  })
+  .done(function(res)
+  {
+    $('.search-result').html(res.productos);
+  })
+  .fail(function(err)
+  {
+    console.log(err);
+  })
+}

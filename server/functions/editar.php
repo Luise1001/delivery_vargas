@@ -26,14 +26,19 @@ if($funcion === 'editar_datos_banco')
 {
     editar_datos_banco();
 }
-
-
-
-
+if($funcion === 'convertir_usuario')
+{
+    convertir_usuario();
+}
 if($funcion === 'editar_conductor')
 {
     editar_conductor();
 }
+
+
+
+
+
 if($funcion === 'editar_moto')
 {
     editar_moto();
@@ -58,19 +63,10 @@ if($funcion === 'switch_encendido_apagado')
 {
     switch_encendido_apagado();
 }
-if($funcion === 'editar_comercio')
-{
-    editar_comercio();
-}
-if($funcion === 'editar_usuario_cliente')
-{
-    editar_usuario_cliente();
-}
 if($funcion === 'editar_nombre_usuario')
 {
     editar_nombre_usuario();
 }
-
 if($funcion === 'tasa_del_dia')
 {
     tasa_del_dia();

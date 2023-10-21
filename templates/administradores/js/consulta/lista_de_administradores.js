@@ -18,10 +18,9 @@ function lista_de_administradores()
   .done(function(res)
   {
       $('.header-icons').html(res.botones);
+      $('.titulo-app').html(res.titulo);
       $('#admins').html(res.administradores);
       $('#conductores').html(res.conductores);
-      $('#admin_grua').html(res.admin_grua);
-
   })
   .fail(function(err)
   {

@@ -75,7 +75,7 @@ function confirmar_pedido()
         $metodo_pago = filter_var($metodo_pago, FILTER_UNSAFE_RAW);
         $salida = filter_var($salida, FILTER_UNSAFE_RAW);
         $destino = filter_var($destino, FILTER_UNSAFE_RAW);
-        $ruta = filter_var($metodo_pago, FILTER_SANITIZE_URL);
+        $ruta = filter_var($ruta, FILTER_SANITIZE_URL);
         $referencia = filter_var($referencia, FILTER_UNSAFE_RAW);
         $tiempo = filter_var($tiempo, FILTER_UNSAFE_RAW);
         $distancia = filter_var($distancia, FILTER_UNSAFE_RAW);
@@ -163,6 +163,7 @@ function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $id_ruta, $ref
     $admin = $_SESSION['DLV']['admin'];
     $UserID = UserID($admin);
     $Usuario_comercio = UserTableID('comercios', $id_comercio);
+    $Usuario_cliente = UserTableID('clientes', $id_cliente);
     $Nivel_Comercio = AdminLevel($Usuario_comercio);
     $ClientData = ClientData($UserID);
     $nombre_cliente = $ClientData[0]['Nombre'];
@@ -184,6 +185,8 @@ function Recepcion_pedido($id_cliente, $id_comercio, $nro_pedido, $id_ruta, $ref
     $editar_sentence = $pdo->prepare($editsql);
     if($editar_sentence->execute(array($recibido, $pagado, $id_ruta, $actualizado, $nro_pedido)))
     {
+        UpdateActualizado('comercios', $Usuario_comercio, $actualizado);
+        UpdateActualizado('clientes', $Usuario_cliente, $actualizado);
        
        $editsql = 'UPDATE pedidos_monto SET Metodo_pago=?, Actualizado=? WHERE Nro_pedido=?';
        $editar_sentence = $pdo->prepare($editsql);

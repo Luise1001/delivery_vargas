@@ -640,3 +640,30 @@ body {
    padding: 10px;
 }
 /*Datos Bancarios*/
+
+/*Horario*/
+.schedule
+{
+  background: white;
+  padding: 10px;
+}
+.form-switch
+{
+    display: flex !important;
+    padding: 0px !important;
+    justify-content: space-between;
+    font-weight: bold;
+    font-family: serif !important;
+    font-size: large;
+    color: rgb(14,39,165);
+}
+.form-check-input
+{
+  width: 50px !important;
+  height: 25px !important;
+}
+.input-hora
+{
+  
+}
+/*Horario*/

@@ -2,46 +2,40 @@
 
 function BusinessByCategory($id_categoria)
 {
-  require '../conexion.php';
+    require '../conexion.php';
 
-  $consulta_sql = "SELECT cat.Id_categoria AS Id_categoria, cat.Id_comercio AS Id_comercio, cat.Actualizado AS actualizado,
+    $consulta_sql = "SELECT cat.Id_categoria AS Id_categoria, cat.Id_comercio AS Id_comercio, cat.Actualizado AS actualizado,
     com.Razon_social AS razon_social, com.Id, com.Id_usuario AS Id_usuario
    FROM categoria_comercios AS cat
    INNER JOIN comercios AS com ON Id_comercio = com.Id WHERE Id_categoria=? ORDER BY actualizado DESC ";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_categoria));
-  $resultado = $preparar_sql->fetchAll();
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_categoria));
+    $resultado = $preparar_sql->fetchAll();
 
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
 }
 
 function ListProducts($id_comercio)
 {
-  require '../conexion.php';
+    require '../conexion.php';
 
-  $consulta_sql = "SELECT i.Id_comercio, i.Id_producto, i.Existencia, i.Actualizado,
+    $consulta_sql = "SELECT i.Id_comercio, i.Id_producto, i.Existencia, i.Actualizado,
   p.Codigo, p.Descripcion, p.P_civa
   FROM inventario AS i INNER JOIN productos AS p ON i.Id_producto = p.Id 
   WHERE p.Id_comercio =?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_comercio));
-  $resultado = $preparar_sql->fetchAll();
-   
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_comercio));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
 }
 
 function UserData($UserID)
@@ -53,12 +47,9 @@ function UserData($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -72,13 +63,10 @@ function UserPassword($UserID, $AdminLevel)
     $preparar_sql->execute(array($UserID, $AdminLevel));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $pass = $resultado[0]['Pass'];
         return $pass;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -92,13 +80,10 @@ function UserName($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $User_name = $resultado[0]['User_name'];
         return $User_name;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -113,12 +98,9 @@ function ClientData($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -133,12 +115,28 @@ function ComercioData($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
+    } else {
+        return false;
     }
-    else
-    {
+}
+
+function DriverData($UserID)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT c.*, m.*, u.Correo FROM conductores AS c
+    INNER JOIN motos AS m ON m.Id_conductor = c.Id 
+    INNER JOIN usuarios AS u ON u.Id = c.Id_usuario
+    WHERE c.Id_usuario=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
         return false;
     }
 }
@@ -151,18 +149,15 @@ function MyCars($id_cliente)
      com.Id, com.Razon_social AS Razon_social, com.Id_usuario AS Id_usuario, SUM(c.Cantidad) FROM carrito AS c 
      INNER JOIN comercios as com ON Id_comercio = com.Id  WHERE c.Id_cliente=?
      GROUP BY Id_comercio, com.Id, Id_cliente, Razon_social";
-     $preparar_sql = $pdo->prepare($consulta_sql);
-     $preparar_sql->execute(array($id_cliente));
-     $resultado = $preparar_sql->fetchAll();
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_cliente));
+    $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
- 
+    if ($resultado) {
+
         return $resultado;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -177,18 +172,15 @@ function InsideMyCar($id_cliente, $id_comercio)
      p.Id_comercio AS Id_comercio,
      com.Id AS Id_comercio, com. Razon_social AS Razon_social FROM carrito AS c INNER JOIN productos AS p ON c.Id_producto = p.Id 
      INNER JOIN comercios as com ON c.Id_comercio = com.Id  WHERE Id_cliente=? AND c.Id_comercio =? ORDER BY Actualizado DESC";
-     $preparar_sql = $pdo->prepare($consulta_sql);
-     $preparar_sql->execute(array($id_cliente, $id_comercio));
-     $resultado = $preparar_sql->fetchAll();
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_cliente, $id_comercio));
+    $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
- 
+    if ($resultado) {
+
         return $resultado;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -202,19 +194,15 @@ function MyGlobalCar($id_cliente)
     $preparar_sql->execute(array($id_cliente));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $cantidad = 0;
-        foreach($resultado as $dato)
-        {
+        foreach ($resultado as $dato) {
             $cantidad += $dato['Cantidad'];
         }
 
         return $cantidad;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -223,7 +211,7 @@ function MyOrders($column, $id)
 {
     require '../conexion.php';
 
-      $consulta_sql = "SELECT 
+    $consulta_sql = "SELECT 
       pm.Nro_pedido AS Nro_pedido, pm.Subtotal AS Subtotal, pm.Iva AS Iva, pm.Total AS Total, pm.Id_comercio AS Id_comercio, 
       pm.Fecha AS Fecha, pm.Id_cliente AS Id_cliente, pm.Metodo_pago AS Metodo_pago,
       cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Telefono AS Telefono_cliente, cl.Id_usuario AS Usuario_cliente,
@@ -235,16 +223,13 @@ function MyOrders($column, $id)
       INNER JOIN comercios AS com ON pm.Id_comercio = com.Id
       INNER JOIN estatus_pedidos AS es ON pm.Nro_pedido = es.Nro_pedido   
       WHERE pm.$column =? ORDER BY es.Actualizado DESC";
-      $preparar_sql = $pdo->prepare($consulta_sql);
-      $preparar_sql->execute(array($id));
-      $resultado = $preparar_sql->fetchAll();
-   
-    if($resultado)
-    {
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -269,12 +254,49 @@ function OrderDetail($nro_pedido)
     $preparar_sql->execute(array($nro_pedido));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
+    } else {
+        return false;
     }
-    else
-    {
+}
+
+function OrderPayment($nro_pedido)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT pm.Metodo_pago, pm.Nro_pedido, mp.* FROM pedidos_monto AS pm 
+    INNER JOIN metodos_pago AS mp
+    WHERE pm.Nro_pedido=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($nro_pedido));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
+}
+
+function OrderPaymentStatus($nro_pedido)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT es.Pagado FROM estatus_pedidos AS es WHERE Nro_pedido=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($nro_pedido));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        $pagado =  $resultado[0]['Pagado'];
+
+        if ($pagado) {
+            return 'Pagado';
+        } else {
+            return 'Por Pagar';
+        }
+    } else {
         return false;
     }
 }
@@ -288,12 +310,9 @@ function MyStaticLocations($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -307,12 +326,9 @@ function MyCurrentLocation($UserID)
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -329,15 +345,106 @@ function MyProductsCommerce($id_comercio)
     $preparar_sql->execute(array($id_comercio));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
+    } else {
+        return false;
     }
-    else
-    {
-      return false;
-    }
+}
 
+function ListDelivery($asignado, $aceptado, $completado)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT e.Id AS Id_envio, e.Nro_pedido, e.Id_cliente, e.Id_comercio, e.Id_route, e.Fecha, e.Actualizado,
+  e.Asignado, e.Aceptado, e.Completado, 
+  com.Razon_social, com.Id_usuario AS Usuario_comercio, com.Telefono AS Telefono_comercio,
+  cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Id_usuario AS Usuario_cliente, cl.Telefono AS Telefono_cliente
+  FROM envios AS e 
+  INNER JOIN comercios AS com ON e.Id_comercio = com.Id
+  INNER JOIN clientes AS cl ON e.Id_cliente = cl.Id
+  WHERE e.Asignado=? AND e.Aceptado=? AND e.Completado=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($asignado, $aceptado, $completado));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
+}
+
+function DeliveryDetail($id_envio)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT e.Id AS Id_envio, e.Nro_pedido, e.Id_cliente, e.Id_comercio, e.Id_route, e.Fecha, e.Actualizado,
+  e.Asignado, e.Aceptado, e.Completado, 
+  com.Razon_social, com.Id_usuario AS Usuario_comercio, com.Telefono AS Telefono_comercio,
+  cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Id_usuario AS Usuario_cliente, cl.Telefono AS Telefono_cliente,
+  r.Salida, r.Destino, r.Url_ruta, r.Tiempo, r.Distancia
+  FROM envios AS e 
+  INNER JOIN comercios AS com ON e.Id_comercio = com.Id
+  INNER JOIN clientes AS cl ON e.Id_cliente = cl.Id
+  INNER JOIN routes AS r ON e.Id_route = r.Id
+  WHERE e.Id";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_envio));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
+}
+
+function DeliveryDriver($id_envio)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT e.Id AS Id_envio, e.Id_conductor,
+  c.Nombre AS Nombre_conductor, c.Apellido AS Apellido_conductor, c.Telefono AS Telefono_conductor, c.Id_usuario AS Usuario_conductor,
+  m.Marca, m.Placa, m.Modelo
+  FROM envios AS e 
+  INNER JOIN conductores AS c ON e.Id_conductor = c.Id
+  INNER JOIN motos AS m ON e.Id_conductor = c.Id
+  WHERE e.Id";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_envio));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
+}
+
+function ListDeliveryBYDriver($asignado, $aceptado, $completado, $id_conductor)
+{
+  require '../conexion.php';
+
+  $consulta_sql = "SELECT e.Id AS Id_envio, e.Nro_pedido, e.Id_cliente, e.Id_comercio, e.Id_route, e.Fecha, e.Actualizado,
+  e.Asignado, e.Aceptado, e.Completado, e.Id_conductor,
+  com.Razon_social, com.Id_usuario AS Usuario_comercio, com.Telefono AS Telefono_comercio,
+  cl.Nombre AS Nombre_cliente, cl.Apellido AS Apellido_cliente, cl.Id_usuario AS Usuario_cliente, cl.Telefono AS Telefono_cliente,
+  c.Id
+  FROM envios AS e 
+  INNER JOIN comercios AS com ON e.Id_comercio = com.Id
+  INNER JOIN clientes AS cl ON e.Id_cliente = cl.Id
+  INNER JOIN conductores AS c ON e.Id_conductor = c.Id
+  WHERE e.Asignado=? AND e.Aceptado=? AND e.Completado=? AND e.Id_conductor=?";
+  $preparar_sql = $pdo->prepare($consulta_sql);
+  $preparar_sql->execute(array($asignado, $aceptado, $completado, $id_conductor));
+  $resultado = $preparar_sql->fetchAll();
+
+  if ($resultado) {
+       return $resultado;
+  } else {
+      return false;
+  }
 }
 
 //revisar de aqui para abajo
@@ -354,36 +461,14 @@ function ClientExist($id_usuario)
     $preparar_sql->execute(array($id_usuario));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $id_cliente = $resultado[0]['Id'];
         return $id_cliente;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
-
-function DriverData($id_conductor)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM conductores INNER JOIN motos ON motos.Id_conductor = conductores.Id WHERE conductores.Id=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($id_conductor));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-        return $resultado;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 function DriverStatus($id_usuario)
 {
@@ -394,12 +479,9 @@ function DriverStatus($id_usuario)
     $preparar_sql->execute(array($id_usuario));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -414,13 +496,10 @@ function UserEmail($id_usuario)
     $preparar_sql->execute(array($id_usuario));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $email = $resultado[0]['Correo'];
         return $email;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -434,17 +513,13 @@ function StockProducts($id_producto)
     $preparar_sql->execute(array($id_producto));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $cantidad = $resultado[0]['Existencia'];
         return $cantidad;
-    }
-    else
-    {
+    } else {
         $cantidad = 0;
         return $cantidad;
     }
-
 }
 
 function StockCommerce($id_comercio)
@@ -456,15 +531,11 @@ function StockCommerce($id_comercio)
     $preparar_sql->execute(array($id_comercio));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
-
 }
 
 function Rating($id_producto)
@@ -476,18 +547,13 @@ function Rating($id_producto)
     $preparar_sql->execute(array($id_producto));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $cantidad = $resultado[0]['Votos'];
         return $cantidad;
-    }
-    else
-    {
+    } else {
         $cantidad = 0;
         return $cantidad;
     }
-
-
 }
 
 
@@ -501,12 +567,9 @@ function ShowProduct($id_producto)
     $preparar_sql->execute(array($id_producto));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         $resultado = 0;
         return $resultado;
     }
@@ -521,14 +584,11 @@ function ProductInCar($id_producto)
     $preparar_sql->execute(array($id_producto));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
-    
+    if ($resultado) {
+
         return true;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -542,15 +602,12 @@ function ProductName($id_producto)
     $preparar_sql->execute(array($id_producto));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
-    
+    if ($resultado) {
+
         $producto = $resultado[0]['Descripcion'];
         return $producto;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -568,20 +625,16 @@ function SubtotalCar($id_cliente, $id_comercio)
 
     $subtotal = 0;
 
-    if($resultado)
-    {
- 
-        foreach($resultado as $dato)
-        {
-           $precio = $dato['P_siva'] * $dato['Cantidad'];
+    if ($resultado) {
 
-           $subtotal += $precio;
+        foreach ($resultado as $dato) {
+            $precio = $dato['P_siva'] * $dato['Cantidad'];
+
+            $subtotal += $precio;
         }
         return $subtotal;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -597,21 +650,17 @@ function IvaCar($id_cliente, $id_comercio)
 
     $iva = 0;
 
-    if($resultado)
-    {
- 
-        foreach($resultado as $dato)
-        {
-           $precio = $dato['P_civa'] - $dato['P_siva'];
-           $precio = $precio * $dato['Cantidad'];
+    if ($resultado) {
 
-           $iva += $precio;
+        foreach ($resultado as $dato) {
+            $precio = $dato['P_civa'] - $dato['P_siva'];
+            $precio = $precio * $dato['Cantidad'];
+
+            $iva += $precio;
         }
         return $iva;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -627,20 +676,16 @@ function TotalCar($id_cliente, $id_comercio)
 
     $total = 0;
 
-    if($resultado)
-    {
- 
-        foreach($resultado as $dato)
-        {
-           $precio = $dato['P_civa'] * $dato['Cantidad'];
+    if ($resultado) {
 
-           $total += $precio;
+        foreach ($resultado as $dato) {
+            $precio = $dato['P_civa'] * $dato['Cantidad'];
+
+            $total += $precio;
         }
         return $total;
-    }
-    else
-    {
-    
+    } else {
+
         return false;
     }
 }
@@ -658,39 +703,13 @@ function OrderClientName($nro_pedido)
     $preparar_sql->execute(array($nro_pedido));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
-        $cliente = $resultado[0]['Nombre'].' '.$resultado[0]['Apellido'];
+    if ($resultado) {
+        $cliente = $resultado[0]['Nombre'] . ' ' . $resultado[0]['Apellido'];
 
         return $cliente;
-    }
-    else
-    {
+    } else {
         return false;
     }
-
-}
-
-function OrderStatus($nro_pedido)
-{
-    require '../conexion.php';
-
-    $consulta_sql = "SELECT * FROM estatus_pedidos WHERE Nro_pedido=?";
-    $preparar_sql = $pdo->prepare($consulta_sql);
-    $preparar_sql->execute(array($nro_pedido));
-    $resultado = $preparar_sql->fetchAll();
-
-    if($resultado)
-    {
-       
-      return $resultado;
-
-    }
-    else
-    {
-        return false;
-    }
-
 }
 
 
@@ -703,28 +722,21 @@ function StaticLocationName($id_location, $id_usuario)
     $preparar_sql->execute(array($id_location, $id_usuario));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $name = $resultado[0]['Ubicacion'];
         return $name;
-    }
-    else
-    {
+    } else {
         $consulta_sql = "SELECT * FROM locations WHERE Id=? AND Id_usuario=?";
         $preparar_sql = $pdo->prepare($consulta_sql);
         $preparar_sql->execute(array($id_location, $id_usuario));
         $resultado = $preparar_sql->fetchAll();
 
-        if($resultado)
-        {
+        if ($resultado) {
             $name = $resultado[0]['Ubicacion'];
             return $name;
-        }
-        else
-        {
+        } else {
             return false;
         }
-
     }
 }
 
@@ -732,93 +744,36 @@ function StaticLocationName($id_location, $id_usuario)
 
 function CheckPersonalData($table, $id_usuario)
 {
-  require '../conexion.php';
+    require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM $table WHERE Id_usuario=?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_usuario));
-  $resultado = $preparar_sql->fetchAll();
+    $consulta_sql = "SELECT * FROM $table WHERE Id_usuario=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_usuario));
+    $resultado = $preparar_sql->fetchAll();
 
-  if($resultado)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+    if ($resultado) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function OptionsCategories($id_comercio)
 {
-  require '../conexion.php';
+    require '../conexion.php';
 
-  $consulta_sql = "SELECT * FROM categoria_comercios INNER JOIN categorias ON categoria_comercios.Id_categoria = categorias.Id WHERE Id_comercio=?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($id_comercio));
-  $resultado = $preparar_sql->fetchAll();
+    $consulta_sql = "SELECT * FROM categoria_comercios INNER JOIN categorias ON categoria_comercios.Id_categoria = categorias.Id WHERE Id_comercio=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_comercio));
+    $resultado = $preparar_sql->fetchAll();
 
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
 }
 
-
-
-function ListDelivery($asignado, $aceptado, $completado)
-{
-  require '../conexion.php';
-
-  $consulta_sql = "SELECT envios.Id, envios.Nro_pedido, envios.Id_conductor, envios.Id_cliente, envios.Id_comercio, envios.Id_route, envios.Fecha, envios.U_movimiento,
-  clientes.Nombre, clientes.Apellido, clientes.Telefono, comercios.Razon_social, routes.Salida, routes.Destino, routes.Url_ruta, routes.Tiempo, routes.Distancia
-   FROM envios 
-  INNER JOIN routes ON envios.Id_route = routes.Id
-  INNER JOIN clientes ON envios.Id_cliente = clientes.Id
-  INNER JOIN comercios ON envios.Id_comercio = comercios.Id
-  WHERE envios.Asignado=? AND envios.Aceptado=? AND envios.Completado=?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($asignado, $aceptado, $completado));
-  $resultado = $preparar_sql->fetchAll();
-
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-function ListDeliveryByDriver($asignado, $aceptado, $completado, $id_conductor)
-{
-  require '../conexion.php';
-
-  $consulta_sql = "SELECT envios.Id, envios.Nro_pedido, envios.Id_conductor, envios.Id_cliente, envios.Id_comercio, envios.Id_route, envios.Fecha, envios.U_movimiento,
-  clientes.Nombre, clientes.Apellido, clientes.Telefono, comercios.Razon_social, routes.Salida, routes.Destino, routes.Url_ruta, routes.Tiempo, routes.Distancia
-    FROM envios 
-  INNER JOIN routes ON envios.Id_route = routes.Id
-  INNER JOIN clientes ON envios.Id_cliente = clientes.Id
-  INNER JOIN comercios ON envios.Id_comercio = comercios.Id
-  WHERE envios.Asignado=? AND envios.Aceptado=? AND envios.Completado=? AND Id_conductor=?";
-  $preparar_sql = $pdo->prepare($consulta_sql);
-  $preparar_sql->execute(array($asignado, $aceptado, $completado, $id_conductor));
-  $resultado = $preparar_sql->fetchAll();
-
-  if($resultado)
-  {
-    return $resultado;
-  }
-  else
-  {
-    return false;
-  }
-}
 
 function RouteData($id_route)
 {
@@ -828,14 +783,11 @@ function RouteData($id_route)
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($id_route));
     $resultado = $preparar_sql->fetchAll();
-  
-    if($resultado)
-    {
-      return $resultado;
-    }
-    else
-    {
-      return false;
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
     }
 }
 
@@ -849,34 +801,13 @@ function DriverListForDelivery($estatus)
     $preparar_sql->execute(array($estatus));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
-function UserList($nivel)
-{
-   require '../conexion.php';
-
-   $consulta_sql = "SELECT * FROM usuarios WHERE Nivel=? ORDER BY Fecha DESC";
-   $preparar_sql = $pdo->prepare($consulta_sql);
-   $preparar_sql->execute(array($nivel));
-   $resultado = $preparar_sql->fetchAll();
-
-   if($resultado)
-   {
-    return $resultado;
-   }
-   else
-   {
-     return false;
-   }
-}
 
 function MySchedule($id_comercio)
 {
@@ -886,14 +817,11 @@ function MySchedule($id_comercio)
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($id_comercio));
     $resultado = $preparar_sql->fetchAll();
- 
-    if($resultado)
-    {
-     return $resultado;
-    }
-    else
-    {
-      return false;
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
     }
 }
 
@@ -902,33 +830,27 @@ function UserStatus($id_usuario, $nivel)
     require '../conexion.php';
     $tabla = '';
     $estatus = '';
- 
-    if($nivel === '2')
-    {
-      $tabla = 'conductores';
+
+    if ($nivel === '2') {
+        $tabla = 'conductores';
     }
-    if($nivel === '3')
-    {
-      $tabla = 'comercios';
+    if ($nivel === '3') {
+        $tabla = 'comercios';
     }
 
-    if($tabla)
-    { 
-      $consulta_sql = "SELECT * FROM $tabla WHERE Id_usuario=?";
-      $preparar_sql = $pdo->prepare($consulta_sql);
-      $preparar_sql->execute(array($id_usuario));
-      $resultado = $preparar_sql->fetchAll();
+    if ($tabla) {
+        $consulta_sql = "SELECT * FROM $tabla WHERE Id_usuario=?";
+        $preparar_sql = $pdo->prepare($consulta_sql);
+        $preparar_sql->execute(array($id_usuario));
+        $resultado = $preparar_sql->fetchAll();
 
-      if($resultado)
-      {
-        $estado = $resultado[0]['Disponible'];
-        
-        if(!$estado)
-        {
-          $estatus = 'checked';
+        if ($resultado) {
+            $estado = $resultado[0]['Disponible'];
+
+            if (!$estado) {
+                $estatus = 'checked';
+            }
         }
-  
-      }
     }
 
     return $estatus;
@@ -943,15 +865,11 @@ function ComercioDisponible($id_comercio)
     $preparar_sql->execute(array($id_comercio));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return $resultado[0]['Disponible'];
-    }
-    else
-    {
+    } else {
         return;
     }
-
 }
 
 function ComercioDisponiblePorFecha($id_comercio, $dia, $hora)
@@ -963,15 +881,11 @@ function ComercioDisponiblePorFecha($id_comercio, $dia, $hora)
     $preparar_sql->execute(array($id_comercio, $dia, $hora));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
-
 }
 
 
@@ -984,21 +898,15 @@ function VerifyPassword($id_usuario, $clave)
     $preparar_sql->execute(array($id_usuario));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $pass = $resultado[0]['Pass'];
 
-        if(password_verify($clave, $pass))
-        {
+        if (password_verify($clave, $pass)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
@@ -1012,14 +920,11 @@ function ShowCode($correo)
     $preparar_sql->execute(array($correo));
     $resultado = $preparar_sql->fetchAll();
 
-    if($resultado)
-    {
+    if ($resultado) {
         $codigo = $resultado[0]['Codigo'];
 
         return $codigo;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }

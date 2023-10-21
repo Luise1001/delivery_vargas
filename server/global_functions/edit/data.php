@@ -1,5 +1,20 @@
 <?php
 
+function UpdateActualizado($table, $UserID, $actualizado)
+{
+   require '../conexion.php';
+  $editsql = "UPDATE $table SET Actualizado=?  WHERE Id_usuario=?";
+  $editar_sentence = $pdo->prepare($editsql);
+  if($editar_sentence->execute(array($actualizado, $UserID)))
+  {
+    return true;
+  }
+  else
+  {
+     return false;
+  }
+}
+
 function editar_cliente($UserID, $nombre, $apellido, $tipo_id, $cedula, $telefono, $genero, $actualizado)
 {
    require '../conexion.php';

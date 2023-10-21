@@ -44,6 +44,7 @@ function HeaderMenu($AdminLevel)
   {
     $respuesta =
     "
+    <a class='sidebar-item' href='../administradores/mis_envios'><i class='fas fa-motorcycle'></i> Mis Deliveries</a>
     <a class='sidebar-item mi-carrito' href='../administradores/mi_carrito'><i class='fas fa-shopping-cart'></i> 
     Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
     <a class='sidebar-item' href='../administradores/lista_de_comercios'><i class='fas fa-building'></i> Comercios</a>
@@ -53,9 +54,9 @@ function HeaderMenu($AdminLevel)
     <a class='sidebar-item' href='../administradores/lista_de_motos'><i class='fas fa-motorcycle'></i> Motos</a>
     <a class='sidebar-item' href='../administradores/lista_de_tarifas'><i class='fas fa-money-bill-alt'></i> Tarifas</a>
     <a class='sidebar-item' href='../administradores/lista_de_administradores'><i class='fas fa-user-friends'></i> Administradores</a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
+    <a class='sidebar-item' href='../inicio/informacion'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' href='../inicio/terminos'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' href='../inicio/cambiar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
@@ -65,10 +66,13 @@ function HeaderMenu($AdminLevel)
   {
     $respuesta = 
     "
-    <a class='sidebar-item' data-toggle='modal' data-target='#acerca_de'><i class='fas fa-info'></i> Información</a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#politicas'><i class='fas fa-info-circle'></i> Políticas</i></a>
-    <a class='sidebar-item' data-toggle='modal' data-target='#editar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
-    <a class='sidebar-item' id='reload'><i class='fas fa-sync-alt'></i> Actualizar </a>
+    <a class='sidebar-item' href='../conductores/mis_envios'><i class='fas fa-motorcycle'></i> Mis Deliveries</a>
+    <a class='sidebar-item' href='../conductores/mis_direcciones'><i class='fas fa-map-marker-alt'></i> Mis Direcciones</a>
+    <a class='sidebar-item mi-carrito' href='../conductores/mi_carrito'><i class='fas fa-shopping-cart'></i> 
+              Carrito <span class='badge car-badge bg-primary visually-hidden'></span></i></a>
+    <a class='sidebar-item' href='../inicio/informacion'><i class='fas fa-info'></i> Información</a>
+    <a class='sidebar-item' href='../inicio/terminos'><i class='fas fa-info-circle'></i> Políticas</i></a>
+    <a class='sidebar-item' href='../inicio/cambiar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>
     <a class='sidebar-item' id='cerrar_sesion'><i class='fas fa-sign-out-alt'></i> Salir</a>
     ";
   }
@@ -80,6 +84,9 @@ function HeaderMenu($AdminLevel)
     <a class='sidebar-item' href='../comercios/mis_datos_bancarios'><i class='fas fa-dollar-sign'></i> Datos Bancarios</a>
     <a class='sidebar-item' href='../comercios/agregar_db'><i class='fa-solid fa-comments-dollar'></i> Agregar Datos Bancarios</a>
     <a class='sidebar-item' href='../comercios/agregar_producto'><i class='fa-solid fa-cart-plus'></i> Agregar Producto</a>
+    <a class='sidebar-item' href='../comercios/mis_categorias'><i class='fa-solid fa-tag'></i> Mis Categorías</a>
+    <a class='sidebar-item' href='../comercios/horario'><i class='fa-solid fa-clock'></i> Horario de Atención</a>
+    <a class='sidebar-item' href='../comercios/metodos_pago'><i class='fa-solid fa-comment-dollar'></i> Métodos de Pago</a>
     <a class='sidebar-item' href='../inicio/informacion' ><i class='fas fa-info'></i> Información</a>
     <a class='sidebar-item' href='../inicio/terminos' ><i class='fas fa-info-circle'></i> Políticas</i></a>
     <a class='sidebar-item' href='../inicio/cambiar_clave'><i class='fas fa-lock'></i> Cambiar Contraseña</a>

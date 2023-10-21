@@ -24,6 +24,50 @@ body {
   place-items: center;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  grid-gap: 1rem;
+  max-width: 768px;
+  width: 100%;
+  height: 100vh;
+  overflow-x: auto;
+  scroll-snap-type: x;
+  cursor: grab;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px;
+}
+
+.wrapper::-webkit-scrollbar {
+  /* for chrome */
+  display: none;
+}
+
+.slider {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  user-select: none;
+}
+
+
 .empty-page {
   width: 90%;
   background: #fce944 !important;
@@ -223,6 +267,11 @@ body {
   border-radius: 0px 10px 10px 0px;
 }
 
+.search-result {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /*productos*/
 
 /*Carrito*/
@@ -274,7 +323,7 @@ body {
 }
 
 .card-product-title {
-  position: fixed;
+  position: absolute;
   left: 110px;
   padding: 5px;
   font-size: large;
@@ -289,7 +338,7 @@ body {
 }
 
 .card-product-price {
-  position: fixed;
+  position: absolute;
   left: 110px;
   margin-top: 20px;
 }
@@ -371,9 +420,8 @@ body {
   font-size: large;
   font-weight: bold;
   color: rgb(14, 39, 165);
-  margin-top: -10px;
-  border-top: solid 1px;
   border-bottom: solid 1px;
+  margin-top: -10px;
 }
 
 .card-order {
@@ -476,7 +524,7 @@ body {
 }
 
 .detail-badge {
-  position: fixed;
+  position: absolute;
   left: 90px;
 }
 
@@ -555,9 +603,8 @@ body {
   display: none;
 }
 
-.fa-camera
-{
-   color: rgb(14, 39, 165);
+.fa-camera {
+  color: rgb(14, 39, 165);
 }
 
 .file-selector-label {
@@ -587,46 +634,267 @@ body {
 
 /*Perfil*/
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+/*Direcciones*/
+.card-direction {
+  width: 98%;
+  background: white;
+  border: solid 1px lightgray;
+  border-radius: 10px;
+  margin: 5px;
 }
 
-body {
-
-  justify-content: center;
-  align-items: center;
-}
-
-.wrapper {
+.card-direction-header {
   display: flex;
-  grid-gap: 1rem;
-  max-width: 768px;
+  justify-content: space-between;
+  border: solid 1px lightgray;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card-direction-title {
+  font-family: serif;
+  font-size: large;
+  color: rgb(14, 39, 165);
+  padding: 5px;
+  font-weight: bold;
+}
+
+.input-direccion {
+  border: none;
+  padding-left: 10px;
+}
+
+.card-time {
+  color: rgb(14, 39, 165);
+  font-family: serif;
+  padding-right: 5px;
+  font-size: medium;
+}
+
+.card-direction-body {
+  font-family: serif;
+  padding: 5px;
+
+}
+
+.card-direction-links {
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-direction-link {
+  text-decoration: none;
+  color: rgb(14, 39, 165);
+}
+
+/*Direcciones*/
+
+/*Envios*/
+.delivery-title {
+  width: 110%;
+  background: #fce944;
+  padding: 5px;
+  text-align: center;
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+  border-bottom: solid 1px;
+  margin-top: -10px;
+}
+
+.card-delivery {
   width: 100%;
-  height: 100vh;
-  overflow-x: auto;
-  scroll-snap-type: x;
-  cursor: grab;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  margin-top: 12%;
+  border-bottom: solid 1px gray;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.card-delivery-header {
+  border-bottom: solid 1px lightgray;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 10px;
+}
+
+.card-delivery-body {
+  display: flex;
+}
+
+.delivery-data {
+  padding-left: 5px;
+}
+
+.delivery-img {
+  width: 100px;
+  height: 100px;
+}
+
+.img-delivery {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: solid 1px grey;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.card-delivery-title {
+  font-size: large;
+  font-weight: bold;
+  font-family: serif;
+  color: rgb(14, 39, 165);
+  text-decoration: none;
+}
+
+.delivery-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
+}
+
+.delivery-links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.delivery-link {
+  text-decoration: none;
+  font-family: serif;
+  font-size: large;
+}
+
+.asignar-conductor-button {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  background: rgb(14, 39, 165);
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #fce944;
+}
+
+/*Envios*/
+
+/*Detalle Envio*/
+.delivery-detail {
+  background: white;
+  padding: 10px;
+  border: solid 1px;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.delivery-header {
+  display: inline-flex;
+  align-items: baseline;
+  border: none;
+  padding: 5px;
+}
+
+.delivery-name {
+  padding-left: 10px;
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+}
+
+.delivery-directions {
+  display: flex;
+}
+
+.delivery-direction-title {
+  font-size: large;
+  font-family: serif;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+  padding-right: 5px;
+}
+
+.delivery-direction-body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/*Detalle Envio*/
+
+/*Listados*/
+.lista-de-comercios, .lista-de-clientes, .lista-de-conductores, .lista-de-motos
+{
   padding: 10px;
 }
-
-.wrapper::-webkit-scrollbar {
-  /* for chrome */
-  display: none;
-}
-
-.slider {
+.card-list {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: start;
-  user-select: none;
+  border-bottom: solid 1px gray;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 5px;
 }
+
+.card-list-header {
+  border-bottom: solid 1px lightgray;
+  justify-content: space-between;
+  display: flex;
+  padding-left: 10px;
+  color: rgb(14, 39, 165);
+}
+
+.card-list-body {
+  display: flex;
+}
+
+.list-data {
+  padding-left: 5px;
+}
+
+.list-img {
+  width: 100px;
+  height: 100px;
+}
+
+.img-list {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: solid 1px grey;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.card-list-title {
+  font-size: large;
+  font-weight: bold;
+  font-family: serif;
+  color: rgb(14, 39, 165);
+  text-decoration: none;
+}
+
+.list-text {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
+  color: rgb(14, 39, 165);
+}
+
+.list-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-link {
+  text-decoration: none;
+  font-family: serif;
+  font-size: large;
+  color: rgb(14, 39, 165);
+}
+/*Listados*/
+
+/*Detalle Conductor*/
+.detalle-conductor
+{
+  padding: 10px;
+}
+/*Detalle Conductor*/

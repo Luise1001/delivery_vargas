@@ -16,7 +16,7 @@ function editar_admin()
             $user_name = filter_var($user_name, FILTER_SANITIZE_STRING);
             $user_name = ucwords($user_name);
         
-            $editsql = 'UPDATE usuarios SET User_name=?, Correo=?, Nivel=?, U_movimiento=? WHERE Id=?';
+            $editsql = 'UPDATE usuarios SET User_name=?, Correo=?, Nivel=?, Actualizado=? WHERE Id=?';
             $editar_sentence = $pdo->prepare($editsql);
             $editar_sentence->execute(array($user_name, $correo, $nivel, $movimiento, $id));
         }
@@ -27,19 +27,37 @@ function editar_admin()
     }
 }
 
-function editar_usuario_cliente()
+function convertir_usuario()
 {
     include_once '../conexion.php';
+
+    $respuesta = 
+    [
+      'titulo'=> 'Ups',
+      'cuerpo'=> 'No Pudimos Procesar Su Solicitud',
+      'accion'=> 'warning'
+    ];
+    
     if(isset($_POST['id_usuario']))
     {
       $id_usuario = $_POST['id_usuario'];
       $nivel = $_POST['nivel'];
-      $movimiento = CurrentTime();
+      $actualizado = CurrentTime();
   
-      $editsql = 'UPDATE usuarios SET Nivel=?, U_movimiento=?  WHERE Id=?';
+      $editsql = 'UPDATE usuarios SET Nivel=?, Actualizado=?  WHERE Id=?';
       $editar_sentence = $pdo->prepare($editsql);
-      $editar_sentence->execute(array($nivel, $movimiento, $id_usuario));
+      if($editar_sentence->execute(array($nivel, $actualizado, $id_usuario)))
+      {
+         $respuesta = 
+         [
+           'titulo'=> 'Operación Exitosa',
+           'cuerpo'=> '',
+           'accion'=> 'success'
+         ];
+      }
     }
+
+    echo json_encode($respuesta);
 }
 
 function editar_nombre_usuario()
@@ -53,7 +71,7 @@ function editar_nombre_usuario()
       $user_name = ucwords($user_name);
       $user_name = filter_var($user_name, FILTER_SANITIZE_STRING);
   
-      $editsql = 'UPDATE usuarios SET User_name=?, U_movimiento=?  WHERE Id=?';
+      $editsql = 'UPDATE usuarios SET User_name=?, Actualizado=?  WHERE Id=?';
       $editar_sentence = $pdo->prepare($editsql);
       $editar_sentence->execute(array($user_name, $movimiento, $id_usuario));
     }
@@ -204,7 +222,7 @@ function Cambiar_clave($id_usuario, $clave)
   $movimiento = CurrentTime();
   $nueva_clave = password_hash($clave, PASSWORD_DEFAULT);
 
-  $editsql = 'UPDATE usuarios SET Pass=?, U_movimiento=?  WHERE Id=?';
+  $editsql = 'UPDATE usuarios SET Pass=?, Actualizado=?  WHERE Id=?';
   $editar_sentence = $pdo->prepare($editsql);
   $editar_sentence->execute(array($nueva_clave, $movimiento, $id_usuario));
 

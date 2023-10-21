@@ -17,6 +17,7 @@ function mis_envios()
   })
   .done(function(res)
   { 
+    $('.titulo-app').html(res.titulo);
     $('#pendientes').html(res.pendientes);
     $('#transito').html(res.transito);
     $('#completados').html(res.completados);
@@ -28,19 +29,6 @@ function mis_envios()
   })
 }
 
-$(document).on('click', '.revisar-ruta', function(data)
-{
-  revisar_ruta(data);
-})
-
-function revisar_ruta(data)
-{
-  const ruta = data.target.attributes.ruta.value;
-
-  const googleMap = window.open(ruta, '_blank');
-
-}
-
 $(document).on('click', '.aceptar-envio', function(data)
 {
    aceptar_envio(data);
@@ -48,7 +36,6 @@ $(document).on('click', '.aceptar-envio', function(data)
 
 function aceptar_envio(data)
 {
-  let ruta = data.target.attributes.ruta.value;
   let nro_pedido = data.target.attributes.pedido.value;
 
   funcion = 'aceptar_envio';
@@ -110,33 +97,5 @@ function ruta_completada(data)
 }
 
 
-$(document).on('click', '.ws-btn-envios', function(data)
-{
-   ContactoWhatsapp(data);
-})
 
-function ContactoWhatsapp(data)
-{
-  let telefono = data.currentTarget.attributes.telefono.value;
-  
-  window.location.href = "https://api.whatsapp.com/send/?phone="+telefono+"&text=&type=phone_number&app_absent=0"
-}
-
-$(document).on('click', '.envio-detalle', function(data)
-{ 
-  let id = data.target.id;
-  let id_name = 'detalle_'+id;
-  let detalle = document.getElementById(id_name);
-
-  detalle.classList.toggle("active");
-  if(detalle.style.display === 'block')
-  {
-    detalle.style.display = 'none';
-  }
-  else
-  {
-    detalle.style.display = 'block';
-  }
-
-})
 

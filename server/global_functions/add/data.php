@@ -21,13 +21,23 @@ function NewPaymentReference($id_cliente, $nro_pedido, $id_comercio, $referencia
 {
    require '../conexion.php';
    $fecha = CurrentDate();
+   $actualizado = CurrentTime();
 
    $insert_sql = 'INSERT INTO referencias_pagos (Id_cliente, Nro_pedido, Id_comercio, Referencia, Metodo_pago, Fecha) VALUES (?,?,?,?,?,?)';
    $sent = $pdo->prepare($insert_sql);
    
    if($sent->execute(array($id_cliente, $nro_pedido, $id_comercio, $referencia,$metodo_pago, $fecha)))
    {
-      return true;
+      $editsql = 'UPDATE estatus_pedidos SET Pagado=?, Actualizado=?  WHERE Nro_pedido=?';
+      $editar_sentence = $pdo->prepare($editsql);
+      if($editar_sentence->execute(array(1, $actualizado, $nro_pedido)))
+      {
+        return true;
+      }
+      else
+      {
+         return false;
+      }
    }
    else
    {

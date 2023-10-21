@@ -8,7 +8,7 @@ function lista_de_clientes()
   ({
      url: '../../server/functions/consultas.php',
      type: 'POST',
-     dataType: 'html',
+     dataType: 'json',
      data: 
      {
        funcion : funcion
@@ -17,12 +17,13 @@ function lista_de_clientes()
   })
   .done(function(res)
   {
-    $('.lista-de-clientes').html(res);
+    $('.titulo-app').html(res.titulo);
+    $('.lista-de-clientes').html(res.clientes);
 
   })
-  .fail(function()
+  .fail(function(err)
   {
-    console.log("error ejecutando Ajax");
+    console.log(err);
   })
 }
 

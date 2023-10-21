@@ -97,7 +97,7 @@ function ProcessOrderStatus($nro_pedido)
           }
           if($order['Asignado'])
           {
-             $estado['Asignado'];
+             $estado = 'Asignado';
              $progress = 60;
              $enlaces = 'hidden';
           }

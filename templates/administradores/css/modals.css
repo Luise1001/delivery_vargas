@@ -35,3 +35,81 @@
   font-size: large;
   font-weight: bold;
 }
+
+/*Asignar Conductor*/
+.asignar-content {
+  background: #fce944 !important;
+}
+
+.asignar-header {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.asignar-title {
+  font-family: serif;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+}
+
+.asignar-select
+{
+  font-family: serif;
+  font-size: large !important;
+  color: rgb(14,39,165) !important;
+}
+
+.asignar-button-parent {
+  text-align: center;
+  padding: 10px;
+}
+
+.asignar-button {
+  width: 50%;
+  padding: 5px;
+  border: none;
+  background: rgb(14, 39, 165);
+  color: #fce944;
+  border-radius: 10px;
+}
+
+/*Asignar Conductor*/
+
+/*Convertir Cliente a Comercio*/
+.convertir-content {
+  background: #fce944 !important;
+}
+
+.convertir-header {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.convertir-title {
+  font-family: serif;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+}
+
+.convertir-select
+{
+  font-family: serif;
+  font-size: large !important;
+  color: rgb(14,39,165) !important;
+}
+
+.convertir-button-parent {
+  text-align: center;
+  padding: 10px;
+}
+
+.convertir-button {
+  width: 50%;
+  padding: 5px;
+  border: none;
+  background: rgb(14, 39, 165);
+  color: #fce944;
+  border-radius: 10px;
+}
+
+/*Convertir Cliente a Comercio*/

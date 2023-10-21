@@ -1,6 +1,6 @@
-$(document).on('click', '#eliminar_conductor_btn', function(data)
+$(document).on('click', '.eliminar-conductor', function(e)
 {   
-    id_conductor = data.target.parentNode.attributes.conductor.value;
+    let id_conductor = e.currentTarget.attributes.conductor.value;
 
     swal('Seguro que desea eliminar','', 'warning',
     {
@@ -14,7 +14,7 @@ $(document).on('click', '#eliminar_conductor_btn', function(data)
       switch (value) {
      
         case "Confirmar":
-          eliminar_conductor();
+          eliminar_conductor(id_conductor);
           break;
           
         default: false;
@@ -22,7 +22,7 @@ $(document).on('click', '#eliminar_conductor_btn', function(data)
     });
 })
 
-function eliminar_conductor()
+function eliminar_conductor(id_conductor)
 {
     let funcion = 'eliminar_conductor';
 
@@ -30,7 +30,7 @@ function eliminar_conductor()
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           funcion: funcion,
@@ -40,10 +40,21 @@ function eliminar_conductor()
     })
     .done(function(res)
     {
-      lista_de_conductores(); 
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+        lista_de_conductores();
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      }
     })
-    .fail(function()
+    .fail(function(err)
     {
-      console.log("error ejecutando Ajax");
+      console.log(err);
     })
 }
