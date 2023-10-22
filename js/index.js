@@ -199,7 +199,6 @@ $(document).on('click', '#reset_pass', function()
     })
 })
 
-
 let deferredPrompt = null;
 const installButton = document.getElementById('installButton');
 

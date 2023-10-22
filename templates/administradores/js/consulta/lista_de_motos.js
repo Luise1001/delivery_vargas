@@ -18,6 +18,7 @@ function lista_de_motos()
   .done(function(res)
   {
     $('.titulo-app').html(res.titulo);
+    $('.header-icons').html(res.botones);
     $('.lista-de-motos').html(res.motos);
   })
   .fail(function(err)

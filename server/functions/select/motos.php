@@ -7,11 +7,13 @@ function lista_de_motos()
     $UserID = UserID($admin);
     $AdminLevel = AdminLevel($UserID);
     $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+    $plus_btn = "<a  href='nueva_moto' class='back-button' ><i class='fa-solid fa-plus-circle'></i></a>";
     $MotorcycleList = MotorcycleList();
     $respuesta = 
     [
       'titulo'=> $back_btn.'MOTOS',
-      'motos'=> '',
+      'botones'=> $plus_btn,
+      'motos'=> ''
     ];
     
     if($MotorcycleList)

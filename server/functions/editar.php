@@ -34,6 +34,10 @@ if($funcion === 'editar_conductor')
 {
     editar_conductor();
 }
+if($funcion === 'editar_admin')
+{
+    editar_admin();
+}
 
 
 
@@ -46,10 +50,6 @@ if($funcion === 'editar_moto')
 if($funcion === 'editar_tarifa')
 {
     editar_tarifa();
-}
-if($funcion === 'editar_admin')
-{
-    editar_admin();
 }
 if($funcion === 'aceptar_envio')
 {

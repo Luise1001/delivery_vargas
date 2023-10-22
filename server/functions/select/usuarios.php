@@ -22,9 +22,11 @@ function lista_de_administradores()
   $UserID = UserID($admin);
   $AdminLevel = AdminLevel($UserID);
   $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $plus_btn = "<a  href='nuevo_administrador' class='back-button' ><i class='fa-solid fa-plus-circle'></i></a>";
   $mis_administradores =
     [
       'titulo' => $back_btn . 'ADMINISTRADORES',
+      'botones'=> $plus_btn,
       'administradores' => AdminUsers(),
       'conductores'=> DriverUsers()
 
@@ -74,6 +76,10 @@ function AdminUsers()
         <div class='card-list-title'>$user_name</div>
         <div class='list-text'>
         <div>$correo  <a class='list-link' href='mailto:$correo' target='_blank'><i class='fa-solid fa-envelope'></i></a></div>
+        </div>
+        <div class='list-links'>
+        <a class='list-link' href='editar_admin?admin=$id'>Editar</a>
+        <a class='list-link eliminar-admin' admin='$id'>Eliminar</a>
         </div>
       </div>
     </div>
@@ -128,6 +134,10 @@ function DriverUsers()
         <div class='card-list-title'>$user_name</div>
         <div class='list-text'>
         <div>$correo  <a class='list-link' href='mailto:$correo' target='_blank'><i class='fa-solid fa-envelope'></i></a></div>
+        </div>
+        <div class='list-links'>
+        <a class='list-link' href='editar_admin?admin=$id'>Editar</a>
+        <a class='list-link eliminar-admin' admin='$id'>Eliminar</a>
         </div>
       </div>
     </div>
@@ -266,4 +276,106 @@ function usuarios_comercios()
     $respuesta = EmptyPage('Sin Usuarios Para Mostrar.');
     return $respuesta;
   }
+}
+
+function detalle_admin()
+{
+  include_once '../conexion.php';
+  $admin = $_SESSION['DLV']['admin'];
+  $UserID = UserID($admin);
+  $AdminLevel = AdminLevel($UserID);
+  $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $respuesta = 
+  [
+    'titulo'=> $back_btn.'EDITAR ADMINISTRADOR',
+    'admin'=> '',
+  ];
+
+  if(isset($_POST['id_usuario']))
+  {
+     $id_usuario = $_POST['id_usuario'];
+
+     $UserData = UserData($id_usuario);
+
+     if($UserData)
+     {
+        foreach($UserData as $user)
+        {
+          $correo = $user['Correo'];
+          $nivel = $user['Nivel'];
+          $WriteLevel = WriteLevel($nivel);
+        }
+
+        if($nivel === '1')
+        {
+          $option = "<option value='2'>Conductor</option>";
+        }
+        
+        if($nivel === '2')
+        {
+          $option = "<option value='1'>Administrador</option>";
+        }
+
+
+
+        $respuesta['admin'] .=
+        "
+        <div class='personal-data'>
+        <label class='form-label' for='correo'>Correo<span class='text-danger'>*</span></label>
+        <input readonly class='form-control perfil-input' type='email' id='correo' name='correo' value='$correo'>
+        <div><span class='red-email'></span></div>
+        <label class='form-label' for='nivel'>Nivel Administrativo<span class='text-danger'>*</span></label>
+        <div class='input-group'>
+            <select class='form-select perfil-select' id='nivel' name='nivel'>
+                <option value='$nivel'>$WriteLevel</option>
+                $option
+            </select>
+        </div>
+        <div class='container'>
+            <button id='guardar_admin' class='perfil-button'>Guardar</button>
+        </div>
+      </div>
+      </div>
+        ";
+     }
+
+
+
+     echo json_encode($respuesta);
+  }
+
+}
+
+
+function correo_usuario()
+{
+   include_once '../conexion.php';
+   $respuesta =
+   [
+     'alert'=> 'La Dirección De Correo ya Está En Uso',
+     'attr'=> 'hidden',
+     'status' => true
+   ];
+
+   if(isset($_POST['correo']) && isset($_POST['t']) && isset($_POST['c']))
+   {
+      $correo = $_POST['correo'];
+      $table = $_POST['t'];
+      $column = $_POST['c'];
+      
+      $VeryfyDB = VerifyDB($table, $column, $correo);
+
+      if(!$VeryfyDB)
+      {
+        $respuesta =
+        [
+          'alert'=> '',
+          'attr'=> 'hidden',
+          'status'=> false
+        ];
+      }
+
+      echo json_encode($respuesta);
+
+   }
 }

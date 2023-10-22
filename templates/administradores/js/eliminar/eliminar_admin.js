@@ -1,6 +1,6 @@
-$(document).on('click', '#eliminar_admin_btn', function(data)
+$(document).on('click', '.eliminar-admin', function(e)
 {   
-    id_admin = data.target.parentNode.attributes.admin.value;
+    let id_usuario = e.currentTarget.attributes.admin.value;
 
     swal('Seguro que desea eliminar','', 'warning',
     {
@@ -14,7 +14,7 @@ $(document).on('click', '#eliminar_admin_btn', function(data)
       switch (value) {
      
         case "Confirmar":
-          eliminar_admin();
+          eliminar_admin(id_usuario);
           break;
           
         default: false;
@@ -22,7 +22,7 @@ $(document).on('click', '#eliminar_admin_btn', function(data)
     });
 })
 
-function eliminar_admin()
+function eliminar_admin(id_usuario)
 {
     let funcion = 'eliminar_admin';
 
@@ -30,20 +30,32 @@ function eliminar_admin()
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           funcion: funcion,
-          id_admin: id_admin
+          id_usuario: id_usuario
        }
   
     })
     .done(function(res)
     {
-      lista_de_administradores(); 
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+      
+      if(accion === 'success')
+      {
+        lista_de_administradores(); 
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      }
+      
     })
-    .fail(function()
+    .fail(function(err)
     {
-      console.log("error ejecutando Ajax");
+      console.log(err);
     })
 }

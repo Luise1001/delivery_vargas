@@ -240,6 +240,24 @@ function MotorcycleList()
 
 }
 
+function TypeIDList($letra)
+{
+   $array = array('V', 'E', 'P', 'J', 'G');
+   $letras = array();
+
+   foreach($array as $arr)
+   {
+      if($letra != $arr)
+      {
+        array_push($letras, $arr);
+      }
+    
+   }
+
+   return $letras;
+   
+}
+
 //revisar de aqui para abajo
 
 

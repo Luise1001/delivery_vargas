@@ -3,27 +3,34 @@
 function editar_admin()
 {
     include_once '../conexion.php';
-    if(isset($_POST['id_admin']) && isset($_POST['user_name']) && isset($_POST['correo']) && isset($_POST['nivel']))
-    {
-        $id = $_POST['id_admin'];
-        $user_name = $_POST['user_name'];
-        $correo = $_POST['correo'];
-        $nivel = $_POST['nivel'];
-        $movimiento = CurrentTime();
 
-        if(filter_var($correo, FILTER_VALIDATE_EMAIL))
-        {
-            $user_name = filter_var($user_name, FILTER_SANITIZE_STRING);
-            $user_name = ucwords($user_name);
-        
-            $editsql = 'UPDATE usuarios SET User_name=?, Correo=?, Nivel=?, Actualizado=? WHERE Id=?';
+    $respuesta = 
+    [
+      'titulo'=> 'Ups',
+      'cuerpo'=> 'No Pudimos Procesar Su Solicitud',
+      'accion'=> 'warning'
+    ];
+    
+    if(isset($_POST['id_usuario']) && isset($_POST['nivel']))
+    {
+        $id_usuario = $_POST['id_usuario'];
+        $nivel = $_POST['nivel'];
+        $actualizado = CurrentTime();
+
+
+            $editsql = 'UPDATE usuarios SET Nivel=?, Actualizado=? WHERE Id=?';
             $editar_sentence = $pdo->prepare($editsql);
-            $editar_sentence->execute(array($user_name, $correo, $nivel, $movimiento, $id));
-        }
-        else
-        {
-            die();
-        }
+            if($editar_sentence->execute(array($nivel, $actualizado, $id_usuario)))
+            {
+              $respuesta = 
+              [
+                'titulo'=> 'Operación Exitosa',
+                'cuerpo'=> '',
+                'accion'=> 'success'
+              ];
+            }
+   
+      echo json_encode($respuesta);
     }
 }
 

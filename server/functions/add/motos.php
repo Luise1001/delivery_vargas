@@ -5,40 +5,50 @@ function nueva_moto()
     include_once '../conexion.php'; 
     $fecha = CurrentDate();
     $admin = $_SESSION['DLV']['admin'];
-    $usuario = UserID($admin);
+    $UserID = UserID($admin);
+    $respuesta =
+    [
+        'titulo' => 'ups!',
+        'cuerpo' => 'No Se Pudo Procesar Su Solicitud',
+        'accion'=> 'warning'
+    ];
 
-    $marca = $_POST['marca'];
-    $modelo =$_POST['modelo'];
-    $placa = $_POST['placa'];
-    $year = $_POST['year'];
-    $cedula = $_POST['cedula'];
-
-    $marca = filter_var($marca, FILTER_SANITIZE_STRING);
-    $modelo = filter_var($modelo, FILTER_SANITIZE_STRING);
-    $placa = filter_var($placa, FILTER_SANITIZE_STRING);
-    $year = filter_var($year, FILTER_SANITIZE_NUMBER_INT);
-    $cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT);
-
-    $marca = ucwords($marca);
-    $modelo = ucwords($modelo);
-    $placa = strtoupper($placa);
-
-
-    if($marca && $modelo && $placa && $year && $cedula)
+    if(isset($_POST['marca']) && isset($_POST['modelo']) && isset($_POST['placa']) && isset($_POST['year']) && isset($_POST['cedula']))
     {
-        $id_conductor = DriverID($cedula);
-
-        $insert_sql = 'INSERT INTO motos (Marca, Modelo, Placa, Year_moto, Id_conductor, Administrador, Fecha) VALUES (?,?,?,?,?,?,?)';
-        $sent = $pdo->prepare($insert_sql);
-        $sent->execute(array($marca, $modelo, $placa, $year, $id_conductor, $usuario, $fecha));
+        $marca = $_POST['marca'];
+        $modelo =$_POST['modelo'];
+        $placa = $_POST['placa'];
+        $year = $_POST['year'];
+        $cedula = $_POST['cedula'];
+    
+        $marca = filter_var($marca, FILTER_UNSAFE_RAW);
+        $modelo = filter_var($modelo, FILTER_UNSAFE_RAW);
+        $placa = filter_var($placa, FILTER_UNSAFE_RAW);
+        $year = filter_var($year, FILTER_UNSAFE_RAW);
+        $cedula = filter_var($cedula, FILTER_UNSAFE_RAW);
+    
+        $marca = ucwords($marca);
+        $modelo = ucwords($modelo);
+        $placa = strtoupper($placa);
 
         
-        $pdo = null;
-        $sent = null;
-    }
-    else 
-    {
-       return 'No se Pueden Registrar Datos Vacíos.';
-    }
+       if($marca && $modelo && $placa && $year && $cedula)
+       {
+         $id_conductor = DriverID($cedula);
 
+         $insert_sql = 'INSERT INTO motos (Marca, Modelo, Placa, Year_moto, Id_conductor, Administrador, Fecha) VALUES (?,?,?,?,?,?,?)';
+         $sent = $pdo->prepare($insert_sql);
+         if($sent->execute(array($marca, $modelo, $placa, $year, $id_conductor, $UserID, $fecha)))
+         {
+            $respuesta =
+            [
+                'titulo' => 'Operación Exitosa',
+                'cuerpo' => '',
+                'accion'=> 'success'
+            ];
+         }
+       }
+
+      echo json_encode($respuesta);
+    }
 }

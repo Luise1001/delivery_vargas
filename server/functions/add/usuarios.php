@@ -18,74 +18,71 @@ function nueva_foto_perfil()
 function nuevo_admin()
 {
   include_once '../conexion.php';
-  $fecha = CurrentDate();
-  
-  $correo = $_POST['correo'];
-  $pass = $_POST['pass'];
-  $pass_2 = $_POST['pass_2'];
-  $nivel = $_POST['nivel'];
+  $respuesta = 
+  [
+    'titulo'=> 'Ups',
+    'cuerpo'=> 'No Pudimos Procesar Su Solicitud',
+    'accion'=> 'warning'
+  ];
 
-  $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
-  $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-  $pass_2 = filter_var($pass_2, FILTER_SANITIZE_STRING);
-  $nivel = filter_var($nivel, FILTER_SANITIZE_STRING);
-
-  if(!filter_var($correo, FILTER_VALIDATE_EMAIL))
+  if(isset($_POST['correo']) && isset($_POST['pass']) && isset($_POST['pass_2']) && isset($_POST['nivel']))
   {
-     echo 'Debe Ingresar una Dirección de correo Valida';
-     die();
-  }
+     $correo = $_POST['correo'];
+     $pass = $_POST['pass'];
+     $pass_2 = $_POST['pass_2'];
+     $nivel = $_POST['nivel'];
+     $fecha = CurrentDate();
 
-  $user_explode = explode('@', $correo);
-  $user_name = $user_explode[0];
+     $correo = filter_var($correo, FILTER_SANITIZE_EMAIL);
+     $pass = filter_var($pass, FILTER_UNSAFE_RAW);
+     $pass_2 = filter_var($pass_2, FILTER_UNSAFE_RAW);
+     $nivel = filter_var($nivel, FILTER_UNSAFE_RAW);
 
+     if(!filter_var($correo, FILTER_VALIDATE_EMAIL))
+     {
+        $respuesta['cuerpo'] = 'Debe Ingresar Una Dirección de Correo Valida';
+     }
+     else
+     {
+       $user_explode = explode('@', $correo);
+       $user_name = $user_explode[0];
 
-  if($correo && $pass && $pass_2 && $nivel)
-  {
-    if($pass === $pass_2)
-    {
-       $usuario = UserID($correo);
+       if($correo && $pass && $pass_2)
+       {
+         if($pass === $pass_2)
+         {
+            $UserID = UserID($correo);
+     
+           if(!$UserID)
+           {
+             $pass = password_hash($pass, PASSWORD_DEFAULT);
+     
+             $AddUser = AddUser($user_name, $correo, $pass, $nivel, $fecha);
 
-      if($usuario)
-      {
-        echo'Esta Dirección de correo ya se encuentra registrada';
-         die();
-      }
-      else
-      {
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-
-        $AddUser = AddUser($user_name, $correo, $pass, $nivel, $fecha);
-
-        if($AddUser)
-        {
-          $res = ['Usuario Agregado Con Éxito'];
+             if($AddUser)
+             {
+              $respuesta = 
+              [
+                'titulo'=> 'Operación Exitosa',
+                'cuerpo'=> '',
+                'accion'=> 'success'
+              ];
+             }
+           }
+          }
         }
         else
         {
-          $res = ['No Se Pudo Procesar El Registro.'];
+           $respuesta['cuerpo'] = 'No Se Pueden Guardar Campos Vacíos';
         }
-        
-        
-        echo json_encode($res);
-     
       }
 
- }
-    else 
-    {
-      echo 'Las contraseñas no coinciden';
-    }
-
-  }
-  else
-  {
-      return $emty_dates;
+      
+    echo json_encode($respuesta);
   }
 
-  $pdo = null;
-  $sent = null;
 }
+
 
 function nuevo_usuario()
 {

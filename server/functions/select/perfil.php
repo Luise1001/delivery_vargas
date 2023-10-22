@@ -56,27 +56,20 @@ function mi_perfil()
           $telefono = $client['Telefono'];
           $genero = $client['Genero'];
        }
-       $v = '';
-       $e = '';
-       $p = '';
+
+       $TypeIDList = TypeIDList($tipo_id);
+       $options = '';
+
+       foreach($TypeIDList as $type)
+       {
+          $options .=
+          "
+          <option value='$type'>$type</option>
+          ";
+       }
+
        $f = '';
        $m = '';
-
-       switch ($tipo_id) {
-        case "V":
-          $v = 'selected';
-          break;
-        case "E":
-          $e = 'selected';
-          break;
-        case "P":
-         $p = 'selected';
-          break;
-        default:
-          $v = '';
-          $e = '';
-          $p = '';
-      }
 
        switch ($genero) {
         case "F":
@@ -102,9 +95,8 @@ function mi_perfil()
        <label class='form-label' for='cedula'>Cédula de Identidad<span class='text-danger'>*</span></label>
        <div class='input-group'>
          <select class='form-select perfil-select' id='tipo_id' name='tipo_id'>
-           <option $v value='V'>V</option>
-           <option $e value='E'>E</option>
-           <option $p value='P'>P</option>
+           <option value='$tipo_id'>$tipo_id</option>
+           $options
          </select>
          <input class='form-control perfil-input' type='number' id='cedula' name='cedula' value='$cedula'>
        </div>
@@ -235,37 +227,17 @@ function mi_perfil_juridico()
          $rif = $comercio['Rif'];
          $telefono = $comercio['Telefono'];
        }
-       $j = '';
-       $g = '';
-       $v = '';
-       $e = '';
-       $p = '';
+       
+       $TypeIDList = TypeIDList($tipo_id);
+       $options = '';
 
-       switch ($tipo_id) {
-        case "V":
-          $v = 'selected';
-          break;
-        case "E":
-          $e = 'selected';
-          break;
-        case "P":
-         $p = 'selected';
-          break;
-        case "J":
-         $j = 'selected';
-          break;
-        case "G":
-         $g = 'selected';
-          break;
-
-        default:
-          $j = '';
-          $g = '';
-          $v = '';
-          $e = '';
-          $p = '';
-      }
-
+       foreach($TypeIDList as $type)
+       {
+          $options .=
+          "
+          <option value='$type'>$type</option>
+          ";
+       }
 
        $respuesta['information'] = 
        "
@@ -277,11 +249,8 @@ function mi_perfil_juridico()
        <label class='form-label' for='cedula'>Cédula de Identidad<span class='text-danger'>*</span></label>
        <div class='input-group'>
          <select class='form-select perfil-select' id='tipo_id_juridico' name='tipo_id_juridico'>
-           <option $j value='J'>J</option>
-           <option $g value='G'>G</option>
-           <option $v value='V'>V</option>
-           <option $e value='E'>E</option>
-           <option $p value='P'>P</option>
+           <option value='$tipo_id'>$tipo_id</option>
+           $options
          </select>
          <input class='form-control perfil-input' type='number' id='rif' name='rif' value='$rif'>
        </div>
@@ -304,11 +273,11 @@ function mi_perfil_juridico()
       <label class='form-label' for='cedula'>Cédula de Identidad<span class='text-danger'>*</span></label>
       <div class='input-group'>
         <select class='form-select perfil-select' id='tipo_id_juridico' name='tipo_id_juridico'>
-          <option $j value='J'>J</option>
-          <option $g value='G'>G</option>
-          <option $v value='V'>V</option>
-          <option $e value='E'>E</option>
-          <option $p value='P'>P</option>
+          <option value='J'>J</option>
+          <option value='G'>G</option>
+          <option value='V'>V</option>
+          <option value='E'>E</option>
+          <option value='P'>P</option>
         </select>
         <input class='form-control perfil-input' type='number' id='rif' name='rif' value=''>
       </div>

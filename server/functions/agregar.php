@@ -42,10 +42,10 @@ if($funcion === 'nuevos_datos_bancarios')
 {
     nuevos_datos_bancarios();
 }
-
-
-
-
+if($funcion === 'nuevo_admin')
+{
+    nuevo_admin();
+}
 if($funcion === 'nuevo_conductor')
 {
     nuevo_conductor();
@@ -54,10 +54,11 @@ if($funcion === 'nueva_moto')
 {
     nueva_moto();
 }
-if($funcion === 'nuevo_admin')
-{
-    nuevo_admin();
-}
+
+
+
+
+
 if($funcion === 'nueva_tarifa')
 {
     nueva_tarifa();

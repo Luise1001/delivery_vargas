@@ -42,7 +42,7 @@ function UserData($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT u.User_name, u.Correo, u.Actualizado FROM usuarios AS u WHERE Id=?";
+    $consulta_sql = "SELECT u.User_name, u.Correo, u.Actualizado, u.Nivel FROM usuarios AS u WHERE Id=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($UserID));
     $resultado = $preparar_sql->fetchAll();

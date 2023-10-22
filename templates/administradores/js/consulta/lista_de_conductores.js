@@ -18,6 +18,7 @@ function lista_de_conductores()
   .done(function(res)
   {
     $('.titulo-app').html(res.titulo);
+    $('.header-icons').html(res.botones);
     $('.lista-de-conductores').html(res.conductores);
 
   })

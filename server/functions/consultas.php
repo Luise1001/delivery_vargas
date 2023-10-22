@@ -150,6 +150,10 @@ if($funcion === 'cedula_conductor')
 {
     cedula_conductor();
 }
+if($funcion === 'correo_conductor')
+{
+    correo_conductor();
+}
 if($funcion === 'lista_de_motos')
 {
     lista_de_motos();
@@ -165,6 +169,14 @@ if($funcion === 'lista_de_tarifas')
 if($funcion === 'administradores')
 {
     lista_de_administradores();
+}
+if($funcion === 'detalle_admin')
+{
+    detalle_admin();
+}
+if($funcion === 'correo_usuario')
+{
+    correo_usuario();
 }
 
 

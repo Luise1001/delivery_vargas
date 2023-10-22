@@ -15,11 +15,11 @@ include_once 'redirect.php';
     <?php include_once '../inicio/menu.php'; ?>
 
     <div class="principal-layout">
-        <div class="detalle-conductor">
+        <div class="detalle-admin"></div>
 
     </div>
 
-    <script src="js/editar/editar_conductor.js"></script>
+    <script src="js/editar/editar_admin.js"></script>
     <?php include_once 'scripts.php'; ?>
 </body>
 

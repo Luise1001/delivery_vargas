@@ -89,7 +89,7 @@ body {
   padding-right: 10px;
 }
 
-.red-alert {
+.red-alert, .red-email {
   font-family: 'Times New Roman', Times, serif;
   font-size: small;
   font-weight: bold;
@@ -964,3 +964,10 @@ body {
 }
 
 /*tarifas*/
+
+/*Administradores*/
+.detalle-admin
+{
+  padding: 10px;
+}
+/*Administradores*/

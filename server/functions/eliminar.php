@@ -31,17 +31,17 @@ if($funcion === 'eliminar_moto')
 {
     eliminar_moto();
 }
-
+if($funcion === 'eliminar_admin')
+{
+    eliminar_admin();
+}
 
 
 if($funcion === 'eliminar_tarifa')
 {
     eliminar_tarifa();
 }
-if($funcion === 'eliminar_admin')
-{
-    eliminar_admin();
-}
+
 if($funcion === 'eliminar_cliente')
 {
     eliminar_cliente();

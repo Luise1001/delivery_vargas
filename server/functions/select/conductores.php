@@ -8,9 +8,11 @@ function lista_de_conductores()
     $AdminLevel = AdminLevel($UserID);
     $DriverList = DriverList();
     $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+    $plus_btn = "<a  href='nuevo_conductor' class='back-button' ><i class='fa-solid fa-plus-circle'></i></a>";
     $respuesta = 
     [
       'titulo'=> $back_btn.'CONDUCTORES',
+      'botones'=> $plus_btn,
       'conductores'=> '',
     ];
 
@@ -95,7 +97,7 @@ function detalle_conductor()
       $id_usuario = $_POST['id_usuario'];
       $id_conductor = $_POST['id_conductor'];
       $DriverData = DriverData($id_usuario);
-
+    ;
       if($DriverData)
       {
         foreach($DriverData as $driver)
@@ -109,6 +111,17 @@ function detalle_conductor()
            $direccion = $driver['Direccion'];
         }
 
+        $TypeIDList = TypeIDList($tipo_id);
+        $options = '';
+
+        foreach($TypeIDList as $type)
+        {
+           $options .=
+           "
+           <option value='$type'>$type</option>
+           ";
+        }
+
         $respuesta['conductor'] =
         "
         <div class='personal-data'>
@@ -120,6 +133,7 @@ function detalle_conductor()
         <div class='input-group'>
           <select class='form-select perfil-select' id='tipo_id' name='tipo_id'>
             <option value='$tipo_id'>$tipo_id</option>
+            $options
           </select>
           <input class='form-control perfil-input' type='number' id='cedula' name='cedula' value='$cedula'>
         </div>
@@ -172,6 +186,49 @@ function cedula_conductor()
           'attr'=> 'hidden',
           'status'=> false
         ];
+      }
+
+      echo json_encode($respuesta);
+
+   }
+}
+
+function correo_conductor()
+{
+   include_once '../conexion.php';
+   $respuesta =
+   [
+     'alert'=> 'La Dirección De Correo Debe Estar Registrada Como Conductor',
+     'attr'=> 'hidden',
+     'status' => true
+   ];
+
+   if(isset($_POST['correo']) && isset($_POST['t']) && isset($_POST['c']))
+   {
+      $correo = $_POST['correo'];
+      $table = $_POST['t'];
+      $column = $_POST['c'];
+      
+      $VeryfyDB = VerifyDB($table, $column, $correo);
+
+      if($VeryfyDB)
+      {
+        $UserID = UserID($correo);
+        $DriverData = DriverData($UserID);
+
+        if($DriverData)
+        {
+          $respuesta['alert'] = 'Esta Dirección De Correo Pertenece a Otro Conductor';
+        }
+        else
+        {
+          $respuesta =
+          [
+            'alert'=> '',
+            'attr'=> 'hidden',
+            'status'=> false
+          ];
+        }
       }
 
       echo json_encode($respuesta);
