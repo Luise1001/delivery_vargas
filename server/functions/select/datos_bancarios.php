@@ -9,9 +9,11 @@ function mis_datos_bancarios()
   $comercioData = ComercioData($UserID);
   $id_comercio = $comercioData[0]['Id'];
   $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $plus_btn = "<a  href='agregar_db' class='back-button' ><i class='fa-solid fa-plus-circle'></i></a>";
   $respuesta =
     [
       'titulo' => $back_btn . 'DATOS BANCARIOS',
+      'botones'=> $plus_btn,
       'pm' => '',
       'tr' => '',
       'zl' => ''

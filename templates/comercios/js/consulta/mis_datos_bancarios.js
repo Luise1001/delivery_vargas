@@ -17,6 +17,7 @@ function mis_datos_bancarios()
     .done(function(res)
     {
       $('.titulo-app').html(res.titulo);
+      $('.header-icons').html(res.botones);
       $('.pm').html(res.pm);
       $('.tr').html(res.tr);
       $('.zl').html(res.zl);

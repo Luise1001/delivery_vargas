@@ -70,9 +70,11 @@ function mis_productos()
   $UserID = UserID($admin);
   $AdminLevel = AdminLevel($UserID);
   $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+  $plus_btn = "<a  href='agregar_producto' class='back-button' ><i class='fa-solid fa-plus-circle'></i></a>";
   $mis_productos =
     [
       'titulo' => $back_btn . ' MIS PRODUCTOS',
+       'botones'=> $plus_btn,
       'productos' => ''
     ];
 

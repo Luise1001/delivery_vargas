@@ -26,6 +26,10 @@ if($funcion === 'mi_perfil_conductor')
 {
     mi_perfil_conductor();
 }
+if($funcion === 'ads')
+{
+    SliderAds();
+}
 if($funcion === 'categorias')
 {
     categorias();

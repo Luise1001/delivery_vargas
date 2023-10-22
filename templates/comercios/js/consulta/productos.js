@@ -18,6 +18,7 @@ function mis_productos()
   .done(function(res)
   {
     $('.titulo-app').html(res.titulo);
+    $('.header-icons').html(res.botones);
     $('.my-products').html(res.productos);
 
   })

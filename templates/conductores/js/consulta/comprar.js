@@ -26,6 +26,33 @@ function categorias()
   })
 }
 
+$(document).ready(SliderAds());
+
+function SliderAds()
+{ 
+   funcion = 'ads';
+ 
+  $.ajax
+  ({
+     url: '../../server/functions/consultas.php',
+     type: 'POST',
+     dataType: 'html',
+     data: 
+     {
+       funcion : funcion
+    }
+
+  })
+  .done(function(res)
+  {
+    $('#publicidad').html(res);
+  })
+  .fail(function(err)
+  {
+    console.log(err);
+  })
+}
+
 $(document).ready(productos_nuevos);
 
 function productos_nuevos()
