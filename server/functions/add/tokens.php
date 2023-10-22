@@ -17,7 +17,7 @@ function nuevo_token_firebase()
 
     if($firebase_id)
     {
-      $editsql = 'UPDATE firebase_users SET Token =?, U_movimiento=? WHERE Id_usuario=?';
+      $editsql = 'UPDATE firebase_users SET Token =?, Actualizado=? WHERE Id_usuario=?';
       $editar_sentence = $pdo->prepare($editsql);
       $editar_sentence->execute(array($token,$movimiento, $id_usuario));
 

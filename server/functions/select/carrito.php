@@ -92,7 +92,7 @@ function mi_carrito()
                 $pciva = $item['Pciva'];
                 $iva = $pciva - $psiva;
                 $cantidad = $item['Cantidad'];
-                $foto = SearchProductPhoto($id_comercio, $id_producto);
+                $foto = SearchProductPhoto($id_comercio, $codigo);
                 $subtotal += $psiva * $cantidad;
                 $alicuota += $iva * $cantidad;
                 $total += $pciva * $cantidad;
