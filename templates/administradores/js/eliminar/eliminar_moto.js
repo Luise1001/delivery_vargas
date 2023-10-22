@@ -1,6 +1,6 @@
-$(document).on('click', '#eliminar_moto_btn', function(data)
+$(document).on('click', '.eliminar-moto', function(e)
 {   
-    id_moto = data.target.parentNode.attributes.moto.value;
+    let id_moto = e.currentTarget.attributes.moto.value;
     
     swal('Seguro que desea eliminar','', 'warning',
     {
@@ -14,7 +14,7 @@ $(document).on('click', '#eliminar_moto_btn', function(data)
       switch (value) {
      
         case "Confirmar":
-          eliminar_moto();
+          eliminar_moto(id_moto);
           break;
           
         default: false;
@@ -22,7 +22,7 @@ $(document).on('click', '#eliminar_moto_btn', function(data)
     });
 })
 
-function eliminar_moto()
+function eliminar_moto(id_moto)
 { 
     let funcion = 'eliminar_moto';
 
@@ -30,7 +30,7 @@ function eliminar_moto()
     ({
        url: '../../server/functions/eliminar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           funcion: funcion,
@@ -40,10 +40,21 @@ function eliminar_moto()
     })
     .done(function(res)
     {
-      lista_de_motos(); 
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+         lista_de_motos();
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      } 
     })
-    .fail(function()
+    .fail(function(err)
     {
-      console.log("error ejecutando Ajax");
+      console.log(err);
     })
 }

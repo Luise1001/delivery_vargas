@@ -27,15 +27,13 @@ if($funcion === 'eliminar_conductor')
 {
     eliminar_conductor();
 }
-
-
-
-
-
 if($funcion === 'eliminar_moto')
 {
     eliminar_moto();
 }
+
+
+
 if($funcion === 'eliminar_tarifa')
 {
     eliminar_tarifa();

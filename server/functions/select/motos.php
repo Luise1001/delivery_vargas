@@ -80,6 +80,68 @@ function lista_de_motos()
     echo json_encode($respuesta);
 }
 
+function detalle_moto()
+{
+   include_once '../conexion.php';
+   $admin = $_SESSION['DLV']['admin'];
+   $UserID = UserID($admin);
+   $AdminLevel = AdminLevel($UserID);
+   $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+   $respuesta = 
+   [
+     'titulo'=> $back_btn.'EDITAR MOTO',
+     'moto'=> '',
+   ];
+
+   if(isset($_POST['id_moto']) && isset($_POST['id_conductor']))
+   {
+      $id_moto = $_POST['id_moto'];
+      $id_conductor = $_POST['id_conductor'];
+      $MotoData = MotoData($id_conductor);
+
+      if($MotoData)
+      {
+        foreach($MotoData as $moto)
+        {
+          $marca = $moto['Marca'];
+          $modelo = $moto['Modelo'];
+          $placa = $moto['Placa'];
+          $year = $moto['Year_moto'];
+          $cedula = $moto['Cedula'];
+        }
+
+        $respuesta['moto'] =
+        "
+        <div class='personal-data'>
+        <label class='form-label' for='marca'>Marca<span class='text-danger'>*</span></label>
+        <input class='form-control perfil-input' type='text' id='marca' name='marca' value='$marca'>
+        <label class='form-label' for='modelo'>Modelo<span class='text-danger'>*</span></label>
+        <input class='form-control perfil-input' type='text' id='modelo' name='modelo' value='$modelo'>
+        <label class='form-label' for='placa'>Placa<span class='text-danger'>*</span></label>
+        <input class='form-control perfil-input' type='text' id='placa' name='placa' value='$placa'>
+        <label class='form-label' for='year'>Año<span class='text-danger'>*</span></label>
+        <input class='form-control perfil-input' type='number' id='year' name='year' value='$year'>
+        <label class='form-label' for='cedula'>Cédula Del Conductor<span class='text-danger'>*</span></label>
+        <input class='form-control perfil-input' type='text' id='cedula' name='cedula' value='$cedula'>
+        <span class='red-alert'></span>
+
+        <div class='container'>
+        <button id='guardar_moto' class='perfil-button'>Guardar</button>
+      </div>
+      </div>
+      ";
+
+      }
+      else
+      {
+         $respuesta['moto'] = EmptyPage('Sin Datos De La Moto En la Base de Datos');
+      }
+
+      echo json_encode($respuesta);
+   }
+}
+
+
 function mi_moto()
 {
     require '../conexion.php';

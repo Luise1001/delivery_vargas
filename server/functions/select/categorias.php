@@ -18,7 +18,7 @@ function categorias()
     foreach ($BusinessCategories as $category) {
       $id = $category['Id'];
       $categoria = $category['Categoria'];
-      $icon = $categoria.'_On.png';
+      $icon = $categoria . '_On.png';
 
       $respuesta['categorias'] .=
         "
@@ -42,16 +42,14 @@ function productos_nuevos()
   $admin = $_SESSION['DLV']['admin'];
   $UserID = UserID($admin);
   $AdminLevel = AdminLevel($UserID);
-  $respuesta = 
-  [
-    'productos'=>'',
-  ];
+  $respuesta =
+    [
+      'productos' => '',
+    ];
   $NewProducts = NewProducts();
 
-  if($NewProducts)
-  {
-    foreach($NewProducts as $product)
-    {
+  if ($NewProducts) {
+    foreach ($NewProducts as $product) {
       $id_comercio = $product['comercio'];
       $descripcion = $product['descripcion'];
       $codigo = $product['codigo'];
@@ -59,7 +57,7 @@ function productos_nuevos()
       $foto = SearchProductPhoto($id_comercio, $codigo);
 
       $respuesta['productos'] .=
-      "
+        "
       <div class='item-grid'>
       <div class='img-grid'>
       <img class='img-product' src='$foto' class='card-img-top' alt='Nuevo Producto'>
@@ -74,12 +72,10 @@ function productos_nuevos()
     </div>
       ";
     }
+  } else {
+    $respuesta['productos'] = EmptyPage('Sin Productos Disponibles');
   }
-  else
-  {
-     $respuesta['productos'] = EmptyPage('Sin Productos Disponibles');
-  }
- 
+
   echo json_encode($respuesta);
 }
 
@@ -88,72 +84,56 @@ function mis_categorias()
 {
   include_once '../conexion.php';
   $admin = $_SESSION['DLV']['admin'];
-  $id_usuario = UserID($admin);
-  $rif_comercio = ComercioRif($id_usuario);
-  $id_comercio = ComercioID($rif_comercio);
-  $mis_categorias = OptionsCategories($id_comercio);
+  $UserID = UserID($admin);
+  $ComercioData = ComercioData($UserID);
+  $id_comercio = $ComercioData[0]['Id'];
+  $OptionsCategories = OptionsCategories($id_comercio);
+  $BusinessCategories = BusinessCategories();
+  $categorias = '';
 
-  $categorias =
-    "
-  <ul>
-  <div class='opciones'>
-      <a  class='btn menu_opciones list-cat-btn' title='Mis Categorías'>
-      <i class='fas fa-tags'></i> Mis Categorías
-     </i> <i id='arrow_cat' class='fas fa-angle-down'></i>
-      </a>
-<div class='dropdown-container'>
-
-";
-
-  if ($mis_categorias) {
-    foreach ($mis_categorias as $dato) {
-      $id = $dato['Id'];
-      $categoria_name = $dato['Categoria'];
+  if ($OptionsCategories) {
+    foreach ($OptionsCategories as $category) {
+      $id = $category['Id'];
+      $category_name = $category['Categoria'];
 
       $categorias .=
-        "
-  <li class='form-check form-switch form-check-reverse'>
-  <div class='text-switch'>
-   $categoria_name
-   </div>
-   <input class='form-check-input select-cat-comer' type='checkbox' role='switch' checked  value='$categoria_name' id='$categoria_name' name='$id'>
-   <label class='form-check-label' for='$id'></label> 
-   </li>
-  ";
+      "
+       <div class='form-check form-switch form-check-reverse switch-container'>
+          <div class='cat-text-switch'>
+           $category_name
+           </div>
+           <div class='cat-input-switch'>
+           <input class='form-check-input select-cat-comer' type='checkbox' role='switch' checked  value='$category_name' id='$category_name' name='$id'>
+           <label class='form-check-label' for='$id'></label> 
+         </div>
+       </div>
+      ";
     }
   }
 
-  $lista_de_categorias = BusinessCategories();
-
-  if ($lista_de_categorias) {
-    foreach ($lista_de_categorias as $categoria) {
+  if ($BusinessCategories) {
+    foreach ($BusinessCategories as $categoria) {
       $id = $categoria['Id'];
-      $categoria_name = $categoria['Categoria'];
+      $category_name = $categoria['Categoria'];
 
-      $checked = CheckCategory($id, $id_comercio);
+      $CheckCategory = CheckCategory($id, $id_comercio);
 
-      if (!$checked) {
+      if (!$CheckCategory) {
         $categorias .=
-          "
-        <li class='form-check form-switch form-check-reverse'>
-        <div class='text-switch'>
-        $categoria_name
-        </div>
-         <input class='form-check-input select-cat-comer' type='checkbox' role='switch'  value='$categoria_name' id='$categoria_name' name='$id'>
-         <label class='form-check-label' for='$id'></label> 
-         </li>
+        "
+          <div class='form-check form-switch form-check-reverse switch-container'>
+            <div class='cat-text-switch'>
+              $category_name
+            </div>
+            <div class='cat-input-switch'>
+            <input class='form-check-input select-cat-comer' type='checkbox' role='switch'  value='$category_name' id='$category_name' name='$id'>
+            <label class='form-check-label' for='$id'></label> 
+            </div>
+         </div>
         ";
       }
     }
   }
 
-  $categorias .=
-    "  
-  </div>
-  </div>
-  </ul>
-  ";
-
   echo $categorias;
 }
-

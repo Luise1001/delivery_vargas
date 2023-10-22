@@ -146,6 +146,39 @@ function detalle_conductor()
    }
 }
 
+function cedula_conductor()
+{
+   include_once '../conexion.php';
+   $respuesta =
+   [
+     'alert'=> 'El Número De Cédula Debe Estar Registrado Como Conductor',
+     'attr'=> 'hidden',
+     'status' => true
+   ];
+
+   if(isset($_POST['cedula']) && isset($_POST['t']) && isset($_POST['c']))
+   {
+      $cedula = $_POST['cedula'];
+      $table = $_POST['t'];
+      $column = $_POST['c'];
+      
+      $VeryfyDB = VerifyDB($table, $column, $cedula);
+
+      if($VeryfyDB)
+      {
+        $respuesta =
+        [
+          'alert'=> '',
+          'attr'=> 'hidden',
+          'status'=> false
+        ];
+      }
+
+      echo json_encode($respuesta);
+
+   }
+}
+
 
 function conductores_disponibles()
 {

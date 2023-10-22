@@ -232,9 +232,8 @@ body {
   justify-content: space-between;
 }
 
-.nuevo-producto
-{
-   padding: 10px;
+.nuevo-producto {
+  padding: 10px;
 }
 
 .button-grid {
@@ -352,8 +351,8 @@ body {
   color: #fce944;
   padding: 5px;
 }
-#alert_code
-{
+
+#alert_code {
   font-family: serif;
   font-weight: bold;
   padding: 5px;
@@ -482,16 +481,16 @@ body {
 /*Detalle Pedido*/
 
 /*Detalle Producto*/
-.detalle-producto
-{
+.detalle-producto {
   padding: 10px;
 }
-.header-producto
-{
+
+.header-producto {
   display: grid;
   place-items: center;
 }
- #img_producto{
+
+#img_producto {
   width: 200px;
   height: 200px;
   border-radius: 20px;
@@ -499,11 +498,12 @@ body {
   border: solid 2px rgb(14, 39, 165);
   margin: 20px;
 }
-.exento
-{
+
+.exento {
   display: flex;
   justify-content: space-evenly;
 }
+
 /*Detalle Producto*/
 
 
@@ -597,8 +597,7 @@ body {
   font-weight: bold;
 }
 
-.input-direccion
-{
+.input-direccion {
   border: none;
   padding-left: 10px;
 }
@@ -631,39 +630,76 @@ body {
 /*Direcciones*/
 
 /*Datos Bancarios*/
-.datos-bank
-{
-   padding: 10px;
-}
-.nuevo-db
-{
-   padding: 10px;
-}
-/*Datos Bancarios*/
-
-/*Horario*/
-.schedule
-{
-  background: white;
+.datos-bank {
   padding: 10px;
 }
-.form-switch
-{
-    display: flex !important;
-    padding: 0px !important;
-    justify-content: space-between;
-    font-weight: bold;
-    font-family: serif !important;
-    font-size: large;
-    color: rgb(14,39,165);
+
+.nuevo-db {
+  padding: 10px;
 }
-.form-check-input
-{
-  width: 50px !important;
-  height: 25px !important;
+
+/*Datos Bancarios*/
+
+
+/*Mis Categorias*/
+.categorias {
+  padding: 10px;
 }
-.input-hora
-{
-  
+
+.switch-container {
+  display: flex !important;
+  justify-content: space-between;
 }
-/*Horario*/
+
+.cat-text-switch {
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+}
+
+.cat-input-switch {}
+
+/*Mis Categorias*/
+
+/*Mi Horario*/
+.schedule {
+  padding: 10px;
+}
+
+.schedule-switch {
+  display: flex !important;
+  justify-content: space-between;
+  padding-left: 0px !important;
+}
+
+.text-switch {
+  font-family: serif;
+  font-size: large;
+  color: rgb(14, 39, 165);
+  font-weight: bold;
+  width: 100px;
+}
+
+.open-hour,
+.close-hour {
+  background: white;
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  padding: 5px;
+  color: rgb(14, 39, 165);
+}
+
+.schedule-button {
+  text-decoration: none;
+  color: #fce944;
+  background: rgb(14, 39, 165);
+  width: 100%;
+  display: block;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 20px;
+}
+
+/*Mi Horario*/

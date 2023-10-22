@@ -23,52 +23,54 @@ function mi_horario()
          $abrir = $schedule['Abrir'];
          $cerrar = $schedule['Cerrar'];
 
-            $respuesta['horario'] .=
+         $respuesta['horario'] .=
             "
-            <div class='form-check form-switch'>
-            <div class='text-switch'>
-            $dia
-            </div>
-            <input id='switch_$id_dia' dia='$id_dia' checked class='form-check-input switch-time' type='checkbox' role='switch'>
-            <div id='div_hour_$id_dia' class='input-hour'>
-            <input dia='$id_dia' id='open_$id_dia' class='input-opcion-2 open-hour' type='time' value='$abrir'>
-            <input dia='$id_dia' id='closed_$id_dia' class='input-opcion-2 close-hour' type='time' value='$cerrar'>
-            </div>
+            <div class='form-check form-switch schedule-switch'>
+               <div class='text-switch'>
+                 $dia
+               </div>
+               <div id='div_hour_$id_dia' class='input-hour'>
+                <input dia='$id_dia' id='open_$id_dia' class='open-hour' type='time' value='$abrir'>
+                <input dia='$id_dia' id='closed_$id_dia' class='close-hour' type='time' value='$cerrar'>
+              </div>
+              <div class='input-switch'>
+              <input id='switch_$id_dia' dia='$id_dia' checked class='form-check-input switch-time' type='checkbox' role='switch'>
+              </div>
             </div>
             ";
       }
 
 
-            foreach ($Days as $day) {
-               $id_dia = $day['Id'];
-               $dia = $day['Dia'];
-               $CheckSchedule = checkSchedule($id_dia, $id_comercio);
-               
-               if(!$CheckSchedule)
-               {
-                  $respuesta['horario'] .=
-                  "
-                  <div class='form-check form-switch'>
-                  <div class='text-switch'>
-                  $dia
-                  </div>
-                  <input id='switch_$id_dia' dia='$id_dia' class='form-check-input switch-time' type='checkbox' role='switch'>
-                  <div hidden id='div_hour_$id_dia' class='input-hour'>
-                  <input id='open_$id_dia' class='input-opcion-2' type='time' value='08:00'>
-                  <input id='closed_$id_dia' class='input-opcion-2' type='time' value='12:00'>
-                  </div>
-                  </div>
-                ";
-               }
+      foreach ($Days as $day) {
+         $id_dia = $day['Id'];
+         $dia = $day['Dia'];
+         $CheckSchedule = checkSchedule($id_dia, $id_comercio);
 
-               $respuesta['horario'] .=
-               "
-               <div class='text-center p-2'>
-                <a hidden id='guardar_horario' class='btn'> <i class='fas fa-save'></i> Guardar</a>
+         if (!$CheckSchedule) {
+            $respuesta['horario'] .=
+            "
+             <div class='form-check form-switch schedule-switch'>
+                <div class='text-switch'>
+                   $dia
+                </div>
+                <div hidden id='div_hour_$id_dia' class='input-hour'>
+                   <input id='open_$id_dia' class='open-hour' type='time' value='08:00'>
+                   <input id='closed_$id_dia' class='close-hour' type='time' value='12:00'>
+                </div>
+                <div class='input-switch'>
+                    <input id='switch_$id_dia' dia='$id_dia' class='form-check-input switch-time' type='checkbox' role='switch'>
+                </div>
+             </div>
+            "; 
+         }
+      }
+
+         $respuesta['horario'] .=
+            "
+               <div class='schedule-button-parent'>
+                  <a hidden id='guardar_horario' class='schedule-button'> <i class='fas fa-save'></i> Guardar</a>
                </div>
                ";
-
-            }
    }
 
    echo json_encode($respuesta);

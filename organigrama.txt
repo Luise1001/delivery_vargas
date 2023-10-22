@@ -1,10 +1,8 @@
-TE QUEDASTE EN CREAR LA PAGINA DE AGREGAR PRODUCTOS
+********************************************************************
+EDITAR TARIFAS
+AGREGAR TARIFAS
 
-CALCULADORA: INPUT DESTINO ONCHANGE 
-
-TODAS LAS FUNCIONES DEL SERVER DEBEN FUNCIONAR CON PARAMETROS
-
-
+********************************************************************
 
 AGREGAR EL INICIO CON TELÉFONO *********HAS ESTO PRIMERO*********
 

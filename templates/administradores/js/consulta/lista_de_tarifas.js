@@ -2,7 +2,7 @@ $(document).ready(lista_de_tarifas());
 
 function lista_de_tarifas()
 {
-  funcion = 'lista_de_tarifas';
+  let funcion = 'lista_de_tarifas';
  
   $.ajax
   ({
@@ -17,7 +17,7 @@ function lista_de_tarifas()
   })
   .done(function(res)
   {
-    $('.header-icons').html(res.botones);
+    $('.titulo-app').html(res.titulo);
     $('.lista-de-tarifas').html(res.tarifas);
 
   })

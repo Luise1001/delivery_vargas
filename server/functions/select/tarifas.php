@@ -3,61 +3,47 @@
 function lista_de_tarifas()
 {
     include_once '../conexion.php';
-    $lista_de_tarifas = ListaTarifas();
-    $boton = 
-    '
-      <a class="nav-link" data-toggle="modal" data-target="#nueva_tarifa" title="Nueva Tarifa">
-       <i class="fas fa-plus-circle"></i>
-      </a>
-    ';
-    $resp = 
+    $ListaTarifas = ListaTarifas();
+    $back_btn = "<button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>";
+    $respuesta = 
     [
-      'botones'=> $boton,
-      'tarifas'=> ''
+      'titulo'=> $back_btn.'TARIFAS',
+      'tarifas'=> '',
     ];
 
-
-    if($lista_de_tarifas)
+    if($ListaTarifas)
     {
-        foreach($lista_de_tarifas as $tarifa)
+        foreach($ListaTarifas as  $tarifa)
         {
           $id = $tarifa['Id'];
-          $km = $tarifa['Desde'];
+          $desde = $tarifa['Desde'];
           $hasta = $tarifa['Hasta'];
           $precio = $tarifa['Precio'];
     
-          $resp['tarifas'] .=
+          $respuesta['tarifas'] .=
           "
-          <div class='card mb-2'>
-            <div class='card-header'>
-            Tarifa
+          <div class='card-tarifa'>
+            <div class='card-tarifa-container'>
+               <div class='tarifa-title'>Desde: <input class='input-tarifa' id='desde_$id' type'number' value='$desde'> KM.</div>
+               <div class='tarifa-title'>Hasta: <input class='input-tarifa' id='hasta_$id' type'number' value='$hasta'> KM.</div>
+               <div class='tarifa-title'>Precio: $.<input class='input-tarifa' id='precio_$id' type'number' value='$precio'></div>
+               <div class='buttons-tarifa-parent'>
+                 <a class='button-tarifa editar-tarifa' id='tarifa_$id'> Editar</a>
+                 <a hidden class='button-tarifa guardar-tarifa' tarifa='$id'> Guardar</a>
+                 <a class='button-tarifa eliminar-tarifa' tarifa='$id'> Eliminar</a>
+              </div>
             </div>
-            <ul class='list-group list-group-flush'>
-               <li class='list-group-item'><h6>Cantidad:</h6> $km KM.</li>
-               <li class='list-group-item'><h6>Precio:</h6> $$precio</li>
-               <li class='list-group-item text-center'>
-               <a class='btn' id='editar_tarifa_btn'
-               tarifa='$id' km='$km' precio='$precio'  title='Editar' data-toggle='modal' data-target='#editar_tarifa'>
-              <i class='fas fa-edit'></i>
-              </a>
-            
-              <a id='eliminar_tarifa_btn' class='btn p-0' title='Eliminar' tarifa='$id'>
-              <i class='fas fa-trash'></i>
-              </a>
-              </li>
-            </ul>
-           </div>
+          </div>
           ";
         }
 
     }
     else
     {
-        $resp['tarifas'] = EmptyPage('Sin Datos Para Mostrar.');
-      
+        $respuesta['tarifas'] = EmptyPage('Sin Datos Para Mostrar.');
     }
 
-    echo json_encode($resp);     
+    echo json_encode($respuesta);     
 }
 
 function calcular_tarifa()

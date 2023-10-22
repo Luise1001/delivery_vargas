@@ -23,7 +23,7 @@ include_once 'redirect.php';
                 </div>
                 <div class="slider">
                     <div class="type-order-title">Administradores</div>
-                    <div id="admins"></div>
+                    <div id="administradores"></div>
                 </div>
             </div>
         </div>

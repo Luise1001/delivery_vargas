@@ -126,12 +126,29 @@ function DriverData($UserID)
 {
     require '../conexion.php';
 
-    $consulta_sql = "SELECT c.*, m.*, u.Correo FROM conductores AS c
-    INNER JOIN motos AS m ON m.Id_conductor = c.Id 
+    $consulta_sql = "SELECT c.*, u.Correo FROM conductores AS c
     INNER JOIN usuarios AS u ON u.Id = c.Id_usuario
     WHERE c.Id_usuario=?";
     $preparar_sql = $pdo->prepare($consulta_sql);
     $preparar_sql->execute(array($UserID));
+    $resultado = $preparar_sql->fetchAll();
+
+    if ($resultado) {
+        return $resultado;
+    } else {
+        return false;
+    }
+}
+
+function MotoData($id_conductor)
+{
+    require '../conexion.php';
+
+    $consulta_sql = "SELECT c.*, m.* FROM motos AS m
+    INNER JOIN conductores AS c ON c.Id = m.Id_conductor
+    WHERE m.Id_conductor=?";
+    $preparar_sql = $pdo->prepare($consulta_sql);
+    $preparar_sql->execute(array($id_conductor));
     $resultado = $preparar_sql->fetchAll();
 
     if ($resultado) {

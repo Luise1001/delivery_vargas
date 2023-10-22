@@ -89,6 +89,13 @@ body {
   padding-right: 10px;
 }
 
+.red-alert {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: small;
+  font-weight: bold;
+  color: red;
+}
+
 /*Comprar*/
 .container-search {
   width: 100%;
@@ -446,6 +453,8 @@ body {
 
 .order-data {
   padding-left: 5px;
+  width: calc(100% - 100px);
+  overflow-wrap: break-word;
 }
 
 .order-img {
@@ -726,6 +735,8 @@ body {
 
 .delivery-data {
   padding-left: 5px;
+  width: calc(100% - 100px);
+  overflow-wrap: break-word;
 }
 
 .delivery-img {
@@ -822,10 +833,14 @@ body {
 /*Detalle Envio*/
 
 /*Listados*/
-.lista-de-comercios, .lista-de-clientes, .lista-de-conductores, .lista-de-motos
-{
+.lista-de-comercios,
+.lista-de-clientes,
+.lista-de-conductores,
+.lista-de-motos,
+.lista-de-tarifas {
   padding: 10px;
 }
+
 .card-list {
   width: 100%;
   border-bottom: solid 1px gray;
@@ -849,6 +864,8 @@ body {
 
 .list-data {
   padding-left: 5px;
+  width: calc(100% - 100px);
+  overflow-wrap: break-word;
 }
 
 .list-img {
@@ -881,7 +898,7 @@ body {
 
 .list-links {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .list-link {
@@ -890,11 +907,60 @@ body {
   font-size: large;
   color: rgb(14, 39, 165);
 }
+
 /*Listados*/
 
 /*Detalle Conductor*/
-.detalle-conductor
-{
+.detalle-conductor {
   padding: 10px;
 }
+
 /*Detalle Conductor*/
+
+/*Detalle moto*/
+.detalle-moto {
+  padding: 10px;
+}
+
+/*Detalle moto*/
+
+/*tarifas*/
+.card-tarifa {
+  width: 100%;
+  background: white;
+  border: solid 1px gray;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.tarifa-title {
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+  padding-left: 10px;
+  border: solid 1px lightgray;
+}
+
+.input-tarifa {
+  width: 20px;
+  border: none;
+  color: rgb(14, 39, 165);
+  font-family: serif;
+  font-size: large;
+
+}
+
+.buttons-tarifa-parent {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button-tarifa {
+  text-decoration: none;
+  font-family: serif;
+  font-size: large;
+  color: rgb(14, 39, 165);
+}
+
+/*tarifas*/

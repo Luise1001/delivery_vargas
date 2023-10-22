@@ -23,8 +23,6 @@ function detalle_conductor()
    })
    .done(function(res)
    {
-      console.log(res)
-
       $('.titulo-app').html(res.titulo);
       $('.detalle-conductor').html(res.conductor);
    })

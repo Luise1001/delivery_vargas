@@ -21,6 +21,7 @@ include_once 'redirect.php';
 
   <script src="js/consulta/horario.js"></script>
   <script src="js/agregar/agregar_horario.js"></script>
+  <script src="js/editar/editar_horario.js"></script>
 
   <?php include_once 'scripts.php'; ?>
 </body>

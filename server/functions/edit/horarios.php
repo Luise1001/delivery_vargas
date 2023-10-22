@@ -17,7 +17,7 @@ function editar_horario()
         $id_dia = filter_var($id_dia, FILTER_SANITIZE_STRING);
         $abrir = filter_var($abrir, FILTER_SANITIZE_STRING);
 
-        $editsql = 'UPDATE horario SET abrir=?, U_movimiento=? WHERE Id_dia=? AND Id_comercio=?';
+        $editsql = 'UPDATE horario SET abrir=?, Actualizado=? WHERE Id_dia=? AND Id_comercio=?';
         $editar_sentence = $pdo->prepare($editsql);
         $editar_sentence->execute(array($abrir, $movimiento, $id_dia, $id_comercio));
 
@@ -31,7 +31,7 @@ function editar_horario()
         $id_dia = filter_var($id_dia, FILTER_SANITIZE_STRING);
         $cerrar = filter_var($cerrar, FILTER_SANITIZE_STRING);
 
-        $editsql = 'UPDATE horario SET cerrar=?, U_movimiento=? WHERE Id_dia=? AND Id_comercio=?';
+        $editsql = 'UPDATE horario SET cerrar=?, Actualizado=? WHERE Id_dia=? AND Id_comercio=?';
         $editar_sentence = $pdo->prepare($editsql);
         $editar_sentence->execute(array($cerrar, $movimiento, $id_dia, $id_comercio));
 

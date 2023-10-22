@@ -1,67 +1,94 @@
-let id_moto = '';
-$(document).on('keyup', '#editar_cedula', function()
+$(document).ready(detalle_moto());
+
+function detalle_moto()
 {
-   let cedula = $('#editar_cedula').val();
-   let funcion = 'verificar_cedula';
+   const parametros = window.location.search;
+   const variables = new URLSearchParams(parametros);
+   let id_conductor = variables.get('conductor');
+   let id_moto = variables.get('moto');
+   let funcion = 'detalle_moto';
+
+   $.ajax
+   ({
+      url: '../../server/functions/consultas.php',
+      type: 'POST',
+      dataType: 'json',
+      data: 
+      {
+         funcion: funcion,
+         id_conductor: id_conductor,
+         id_moto: id_moto
+      }
+ 
+   })
+   .done(function(res)
+   {
+      $('.titulo-app').html(res.titulo);
+      $('.detalle-moto').html(res.moto);
+   })
+   .fail(function(err)
+   {
+     console.log(err);
+   })
+}
+
+$(document).on('keyup', '#cedula', function()
+{
+   let cedula = $('#cedula').val();
+   let t = 'conductores';
+   let c = 'cedula';
+   let funcion = 'cedula_conductor';
 
     $.ajax
     ({
-       url: '../../server/functions/verificar.php',
+       url: '../../server/functions/consultas.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           funcion: funcion,
-          cedula: cedula
+          cedula: cedula,
+          t: t,
+          c:c
        }
   
     })
     .done(function(res)
     {
-      if(res != 1)
-      {
-        $('.aviso').html(res);
-        $('.card-btn').addClass('d-none');
-      }
-      else
-      {
-       $('.aviso').html('');
-       $('.card-btn').removeClass('d-none');
-      }
-       
+      $('.red-alert').html(res.alert);
+      $('#guardar_moto').attr(res.attr, res.status);
     })
-    .fail(function()
+    .fail(function(err)
     {
-      console.log("error ejecutando Ajax");
+      console.log(err);
     })
 })
 
-$(document).on('click', '#editar_moto_btn', function(data)
-{
-    $('#editar_marca').val(data.target.parentNode.attributes.marca.value);
-    $('#editar_modelo').val(data.target.parentNode.attributes.modelo.value);
-    $('#editar_placa').val(data.target.parentNode.attributes.placa.value);
-    $('#editar_year').val(data.target.parentNode.attributes.year.value);
-    $('#editar_cedula').val(data.target.parentNode.attributes.cedula.value);
-    id_moto = data.target.parentNode.attributes.moto.value;
 
+$(document).on('click', '#guardar_moto', function()
+{
+
+   editar_moto();
 })
 
-$(document).on('click', '#modificar_moto', function()
+function editar_moto()
 {
-   let marca =  $('#editar_marca').val();
-   let modelo = $('#editar_modelo').val();
-   let placa = $('#editar_placa').val();
-   let year =  $('#editar_year').val();
-   let cedula = $('#editar_cedula').val();
+   const parametros = window.location.search;
+   const variables = new URLSearchParams(parametros);
 
+   let id_moto = variables.get('moto');
+   let marca =  $('#marca').val();
+   let modelo = $('#modelo').val();
+   let placa = $('#placa').val();
+   let year =  $('#year').val();
+   let cedula = $('#cedula').val();
    let funcion = 'editar_moto';
 
     $.ajax
     ({
        url: '../../server/functions/editar.php',
        type: 'POST',
-       dataType: 'html',
+       dataType: 'json',
        data: 
        {
           id_moto: id_moto,
@@ -76,10 +103,21 @@ $(document).on('click', '#modificar_moto', function()
     })
     .done(function(res)
     {
-        lista_de_motos() 
+      let titulo = res.titulo;
+      let cuerpo = res.cuerpo;
+      let accion = res.accion;
+
+      if(accion === 'success')
+      {
+         window.location.href = "lista_de_motos";
+      }
+      else
+      {
+         swal(titulo, cuerpo, accion);
+      } 
     })
-    .fail(function()
+    .fail(function(err)
     {
-      console.log("error ejecutando Ajax");
+      console.log(err);
     })
-})
+}

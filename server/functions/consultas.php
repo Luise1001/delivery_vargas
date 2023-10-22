@@ -38,6 +38,10 @@ if($funcion === 'productos_nuevos')
 {
     productos_nuevos();
 }
+if($funcion === 'catalogo_productos')
+{
+    catalogo_productos();
+}
 if($funcion === 'comercios')
 {
     comercios();
@@ -110,29 +114,63 @@ if($funcion === 'mi_horario')
 {
     mi_horario();
 }
+if($funcion === 'mis_envios')
+{
+    mis_envios();
+}
 if($funcion === 'detalle_envio')
 {
     detalle_envio();
+}
+if($funcion === 'conductores_disponibles')
+{
+    conductores_disponibles();
+}
+if($funcion === 'lista_de_comercios')
+{
+    lista_de_comercios();
+}
+if($funcion === 'lista_de_clientes')
+{
+    lista_de_clientes();
+}
+if($funcion === 'lista_de_usuarios')
+{
+    lista_de_usuarios();
+}
+if($funcion === 'conductores')
+{
+    lista_de_conductores();
 }
 if($funcion === 'detalle_conductor')
 {
     detalle_conductor();
 }
-
-
-
-if($funcion === 'conductores')
+if($funcion === 'cedula_conductor')
 {
-    lista_de_conductores();
+    cedula_conductor();
 }
 if($funcion === 'lista_de_motos')
 {
     lista_de_motos();
 }
+if($funcion === 'detalle_moto')
+{
+    detalle_moto();
+}
+if($funcion === 'lista_de_tarifas')
+{
+    lista_de_tarifas();
+}
 if($funcion === 'administradores')
 {
     lista_de_administradores();
 }
+
+
+
+
+
 if($funcion === 'metodos_de_pago')
 {
     metodos_de_pago();
@@ -146,29 +184,10 @@ if($funcion === 'lista_de_bancos')
 {
     lista_de_bancos();
 }
-if($funcion === 'mis_envios')
-{
-    mis_envios();
-}
-if($funcion === 'conductores_disponibles')
-{
-    conductores_disponibles();
-}
-if($funcion === 'lista_de_tarifas')
-{
-    lista_de_tarifas();
-}
-if($funcion === 'lista_de_clientes')
-{
-    lista_de_clientes();
-}
+
 if($funcion === 'ChequearHorario')
 {
     ChequearHorario();
-}
-if($funcion === 'lista_de_usuarios')
-{
-    lista_de_usuarios();
 }
 if($funcion === 'admin_level')
 {
@@ -179,16 +198,6 @@ if($funcion === 'admin_level')
    $nivel = AdminLevel($id_usuario);
    echo $nivel;
 }
-if($funcion === 'lista_de_comercios')
-{
-    lista_de_comercios();
-}
-
-if($funcion === 'catalogo_productos')
-{
-    catalogo_productos();
-}
-
 if($funcion === 'datos_pago_pedido')
 {
     datos_pago_pedido();

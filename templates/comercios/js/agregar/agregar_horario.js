@@ -53,3 +53,8 @@ function nuevo_horario()
       console.log(err)
     })
 }
+
+$(document).on('click', '#guardar_horario', function()
+{
+     window.location.reload();
+})
