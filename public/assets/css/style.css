@@ -1,0 +1,58 @@
+body
+{
+    background-image: url('../storage/arts/arts/light_mobile.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.principal-layout {
+    position: fixed;
+    top: 5%;
+    bottom: 7%;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.invalid-feedback
+{
+    display: block !important;
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.back-button{
+    border: none;
+    background: none;
+    color: rgb(14,39,165);
+}
+
+.swal-modal {
+    border-radius: 10px;
+  }
+  
+  .swal-icon {
+    display: none;
+  }
+  
+  .swal-title {
+    font-size: 20px;
+    color: rgb(14, 39, 165);
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .swal-text {
+    color: rgb(14, 39, 165);
+  }
+  
+  .swal-footer {
+    text-align: center;
+  }
+  
+  .swal-button {
+    background: none !important;
+    color: rgb(14, 39, 165);
+    font-family: 'Times New Roman', Times, serif;
+  }
+  

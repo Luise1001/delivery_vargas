@@ -1,0 +1,31 @@
+.back-button {
+    border: none;
+    background: none;
+    color: rgb(14, 39, 165);
+}
+.titulo-app{
+    height: 50px;
+    background: #fce944;
+    color: rgb(14,39,165);
+    font-size: large;
+    font-weight: bold;
+    font-family: serif;
+}
+
+.form-label {
+    color: rgb(14, 39, 165);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    font-weight: bold;
+}
+
+.save-button {
+    width: 100%;
+    margin-top: 30px;
+    background: rgb(14, 39, 165);
+    color: #fce944;
+    font-size: large;
+    font-family: serif;
+    border-radius: 10px;
+    padding: 5px;
+}
