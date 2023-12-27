@@ -1,0 +1,127 @@
+/*index*/
+.card-sesion
+{
+    background: transparent !important;
+    border: none !important;
+    width: 100%;
+    padding-top: 50%;
+    align-items: center;
+}
+.brand-login
+{
+  width: 60%;
+}
+.form-index
+{
+    display: contents;
+}
+.form-index-child
+{
+    width: 100%;
+    display: contents;
+}
+
+.water-mark
+{
+    width: 40%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+/*index*/
+
+/*inputs*/
+.input-option-1
+{
+    width: 100%;
+    background: #fce944;
+    color: rgb(14,39,165);
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 2px grey;
+    text-align: center;
+    margin-top: 3%;
+}
+/*inputs*/
+/*buttons*/
+.button-option-1
+{
+  width: fit-content;
+  border: solid 2px grey;
+  background: bottom;
+  border-radius: 10px;
+  color: rgb(14,39,165);
+}
+.button-google
+{
+  width: 100%;
+  text-align: center;
+  background: rgb(14,39,165);
+  border-radius: 20px;
+  color: #fce944;
+  padding: 5px;
+  font-family: serif;
+  font-size: large;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+.install-button
+{
+  width: 100%;
+  background: green;
+  border-radius: 20px;
+  padding: 5px;
+  color: #fce944;
+  font-size: large;
+  font-family: serif;
+}
+/*buttons*/
+/*Labels*/
+.label-option-1
+{
+  color: rgb(14,39,165);
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+}
+/*Labels*/
+/*Anchors*/
+.anchor-option-1
+{
+  text-decoration: none;
+  font-family: serif;
+  font-size: medium;
+  padding: 10px;
+}
+/*Anchors*/
+/*span*/
+.span-option-1
+{
+  font-size: small;
+  color: rgb(14,39,165);
+  margin: 5px;
+}
+/*span*/
+
+
+
+
+@media screen and (min-width: 500px)
+{
+ .water-mark
+ {
+    width: 10%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+ }
+ .card-sesion
+ {
+    padding-top: 10%;
+    text-align: center;
+ }
+ .brand-login
+ {
+   width: 30%;
+ }
+}
