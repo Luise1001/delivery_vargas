@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/locations/style.css') }}">
 @endsection
 
-@section('messagess')
+@section('messages')
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
@@ -38,6 +38,13 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1)
+                    <label class='form-label' for='type'>Tipo<span class='text-danger'>*</span></label>
+                    <select class="form-select" id="type" name="type">
+                        <option value="personal" {{ $static_location->type == 'personal' ? 'selected' : '' }}>Personal</option>
+                        <option value="commerce" {{ $static_location->type == 'commerce' ? 'selected' : '' }}>Comercial</option>
+                    </select>
+                    @endif
 
                     <div class='buttons'>
                         <button type="submit" id='guardar' class='save-button'>Guardar</button>

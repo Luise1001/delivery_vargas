@@ -19,10 +19,11 @@ class CreateMotorcyclesTable extends Migration
             $table->string('plate')->unique();
             $table->string('model');
             $table->string('year_model');
+            $table->boolean('active')->default(false);
             $table->unsignedBigInteger('driver_id')->unique();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
-            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('driver_id')->references('id')->on('users');
             $table->foreign('created_by')->references('id')->on('users');
         });
     }

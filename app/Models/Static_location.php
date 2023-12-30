@@ -14,6 +14,7 @@ class Static_location extends Model
         'latitude',
         'longitude',
         'address',
-        'user_id'
+        'user_id',
+        'type',
     ];
 }

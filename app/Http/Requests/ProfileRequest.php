@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileRequest extends FormRequest
 {
@@ -23,12 +25,14 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
+        $user_id =Auth::user()->id;
+
         return [
             'name' =>'required|string',
             'last_name' =>'required|string',
             'phone' =>'required|numeric',
             'document_type' => 'required|string|min:1|max:1',
-            'document' => 'required|numeric',
+            'document' => ['required', 'numeric', Rule::unique('users', 'document')->ignore($user_id, 'id')],
             'gender' => 'required|min:1|max:1',
         ];
     }
@@ -48,6 +52,7 @@ class ProfileRequest extends FormRequest
             'document_type.max' => 'El tipo de documento debe tener máximo 1 carácter',
             'document.required' => 'El número de documento es requerido',
             'document.numeric' => 'El documento debe ser numérico',
+            'document.unique' => 'El documento ya se encuentra registrado',
             'gender.required' => 'El genero es requerido'
         ];
     }

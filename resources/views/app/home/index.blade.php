@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/home/style.css') }}">
 @endsection
 
-@section('messagess')
+@section('messages')
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}

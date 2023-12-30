@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/profile/style.css') }}">
 @endsection
 
-@section('messagess')
+@section('messages')
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
@@ -32,7 +32,7 @@
                     alt="Foto de Perfil">
             @else
                 @php
-                    $letter = $user->username[0];
+                    $letter = Auth::user()->email[0];
                 @endphp
                 <img class="foto_perfil" src="{{ asset("assets/storage/profile/letters/$letter.jpg") }}"
                     alt="Foto de Perfil">
@@ -47,14 +47,14 @@
 
             </div>
                 <label class="form-label" for="name">Nombres<span class="text-danger">*</span></label>
-                <input class="form-control " type="text" id="name" name="name" value="{{ $user->name }}">
+                <input class="form-control " type="text" id="name" name="name" placeholder="Nombres" value="{{ $user->name }}">
                 @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
                 <label class="form-label" for="last_name">Apellidos<span class="text-danger">*</span></label>
-                <input class="form-control " type="text" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                <input class="form-control " type="text" id="last_name" name="last_name" placeholder="Apellidos" value="{{ $user->last_name }}">
                 @error('last_name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -66,11 +66,11 @@
                 <label class="form-label" for="document">Cédula de Identidad<span class="text-danger">*</span></label>
                 <div class="input-group">
                     <select class="form-select perfil-select" id="document_type" name="document_type">
-                        <option value="V">V</option>
-                        <option value="E">E</option>
-                        <option value="P">P</option>
+                        <option value="V" {{ $user->document_type == 'V' ? 'selected' : '' }}>V</option>
+                        <option value="E" {{ $user->document_type == 'E' ? 'selected' : '' }}>E</option>
+                        <option value="P" {{ $user->document_type == 'P' ? 'selected' : '' }}>P</option>
                     </select>
-                    <input class="form-control" type="number" id="document" name="document" value="{{ $user->document }}">
+                    <input class="form-control" type="number" id="document" name="document" placeholder="Cédula" value="{{ $user->document }}">
                     @error('document')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
                     @enderror
                 </div>
                 <label class="form-label" for="phone">Celular<span class="text-danger">*</span></label>
-                <input class="form-control " type="number" id="phone" name="phone" value="{{ $user->phone }}">
+                <input class="form-control " type="number" id="phone" name="phone" placeholder="Teléfono" value="{{ $user->phone }}">
                 @error('phone')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

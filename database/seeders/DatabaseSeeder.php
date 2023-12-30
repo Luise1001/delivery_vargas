@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Currency;
 use App\Models\Service;
 use Illuminate\Database\Seeder;
+use PHPUnit\Framework\Test;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DaySeeder::class);
         $this->call(FeeSeeder::class);
         $this->call(PaymentOptionSeeder::class);
+        $this->call(TestSeeder::class);
     }
 }

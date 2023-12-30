@@ -14,6 +14,11 @@ class ProfileController extends Controller
     {
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
+
+        if($user->role_id == 4)
+        {
+            return view('app.profile.driver', compact('user'));
+        }
         
         return view('app.profile.index', compact('user'));
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Commerce;
 
 class Commerce_category extends Model
 {
@@ -13,4 +14,9 @@ class Commerce_category extends Model
         'commerce_id',
         'category_id'
     ];
+
+    public function commerce()
+    {
+        return $this->belongsTo(Commerce::class);
+    }
 }

@@ -33,7 +33,7 @@ class CreateDeliveriesTable extends Migration
             $table->foreign('route_id')->references('id')->on('routes');
             $table->foreign('commerce_id')->references('id')->on('commerces');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('driver_id')->references('id')->on('users');
         });
     }
 

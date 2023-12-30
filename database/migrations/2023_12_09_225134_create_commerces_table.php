@@ -16,6 +16,7 @@ class CreateCommercesTable extends Migration
         Schema::create('commerces', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->boolean('photo')->default(false);
             $table->char('document_type', 1);
             $table->string('document')->unique();
             $table->string('name');

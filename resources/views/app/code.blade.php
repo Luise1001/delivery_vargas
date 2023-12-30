@@ -4,7 +4,7 @@
     <meta name="theme-color" content="#fce944" />
 @endsection
 
-@section('messagess')
+@section('messages')
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}

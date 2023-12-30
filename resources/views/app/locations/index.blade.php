@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/locations/style.css') }}">
 @endsection
 
-@section('messagess')
+@section('messages')
     @if (session()->has('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
@@ -17,7 +17,9 @@
 @endsection
 
 @section('titulo-app')
-    <div class="titulo-app">MIS DIRECCIONES</div>
+    <div class="titulo-app"> 
+        <button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>
+        MIS DIRECCIONES</div>
 @endsection
 
 @section('content')
@@ -55,27 +57,5 @@
 @endsection
 
 @section('javascripts')
-    <script>
-        $('.delete-direction').on('click', function(e) {
-            e.preventDefault();
-            const form = $(this).closest('form');
-            swal('Seguro que desea eliminar', '', 'warning', {
-                    buttons: {
-                        cancel: 'Cancelar',
-                        Confirmar: true,
-                    },
-                })
-                .then((value) => {
-                    switch (value) {
-
-                        case "Confirmar":
-                            form.submit();
-                            break;
-
-                        default:
-                            false;
-                    }
-                });
-        });
-    </script>
+    <script src="{{ asset('assets/js/locations/locations.js') }}"></script>
 @endsection

@@ -25,7 +25,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body options-menu">
-            @if (Auth::check() && Auth::user()->role->level == 1)
+            @if (Auth::check())
                 @if (Auth::user()->role->level == 1)
                     @include('app.layouts.menu.sidebar.dev')
                 @endif
@@ -51,7 +51,7 @@
 </div>
 
 <div class="footer-menu">
-    @if (Auth::check() && Auth::user()->role->level == 1)
+    @if (Auth::check())
         @if (Auth::user()->role->level == 1)
             @include('app.layouts.menu.footer.dev')
         @endif

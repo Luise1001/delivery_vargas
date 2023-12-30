@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Commerce;
 
 class User extends Authenticatable
 {
@@ -56,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function commerce()
+    {
+        return $this->hasOne(Commerce::class);
+    }
+
 }

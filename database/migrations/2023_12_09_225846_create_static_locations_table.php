@@ -16,6 +16,7 @@ class CreateStaticLocationsTable extends Migration
         Schema::create('static_locations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type', ['personal', 'commerce'])->default('personal');
             $table->double('latitude');
             $table->double('longitude');
             $table->string('address');

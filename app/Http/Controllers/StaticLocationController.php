@@ -13,7 +13,8 @@ class StaticLocationController extends Controller
   public function index()
   {
     $user_id = Auth::user()->id;
-    $static_locations = Static_location::where('user_id', $user_id)->get();
+    $static_locations = Static_location::where('user_id', $user_id)->orderBy('created_at', 'DESC')->get();
+    
 
     return view('app.locations.index', compact('static_locations'));
   }
