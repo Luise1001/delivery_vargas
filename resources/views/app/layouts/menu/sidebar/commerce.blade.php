@@ -14,7 +14,6 @@ Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Horario de Atención</a>
 
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mis Métodos de pago</a>
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mis Métodos de pago</a>
 
 {{-- <a class="sidebar-item" href="../inicio/informacion"><i class="fas fa-info"></i> Información</a>
 
