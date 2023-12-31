@@ -29,7 +29,6 @@ class MyCommerceRequest extends FormRequest
         return [
             'document_type' => 'required',
             'document' => ['required', 'numeric', Rule::unique('commerces', 'document')->ignore($user_id, 'user_id')],
-            'required|numeric|unique:commerces,document',
             'name' => 'required|string',	
             'phone' => 'required|numeric',
         ];

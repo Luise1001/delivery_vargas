@@ -16,7 +16,7 @@ class CreateMobilePaymentsTable extends Migration
         Schema::create('mobile_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('commerce_id');
-            $table->char('docuemnt_type', 1);
+            $table->char('document_type', 1);
             $table->string('document');
             $table->string('phone');
             $table->unsignedBigInteger('bank_id');

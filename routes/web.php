@@ -12,6 +12,7 @@ use App\Http\Controllers\CommerceController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MotorcycleController;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\BankController;
 
 Route::middleware(['logged'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('app.index');
@@ -77,6 +78,12 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/eliminar-tarifa', [FeeController::class, 'delete'])->name('fee.delete');
 
 
+    Route::get('/datos-bancarios', [BankController::class, 'index'])->name('data.bank.index');
+    Route::get('/nuevo-dato-bancario', [BankController::class, 'create'])->name('data.bank.create');
+    Route::post('/nuevo-dato-bancario', [BankController::class, 'store'])->name('data.bank.store');
+    Route::get('/editar-dato-bancario/{type}/{id}', [BankController::class, 'edit'])->name('data.bank.edit');
+    Route::put('/editar-dato-bancario', [BankController::class, 'update'])->name('data.bank.update');
+    Route::delete('/eliminar-dato-bancario', [BankController::class, 'delete'])->name('data.bank.delete');
 
 
 

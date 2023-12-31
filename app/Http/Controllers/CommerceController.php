@@ -37,8 +37,9 @@ class CommerceController extends Controller
     public function update(MyCommerceRequest $request)
     {
         $user_id = Auth::user()->id;
+ 
         $photo = $this->GeneratePhoto($request->input_fp, $user_id);
-
+        
         Commerce::updateOrCreate(
             ['user_id' => $user_id],
             [
