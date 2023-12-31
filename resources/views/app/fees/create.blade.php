@@ -39,7 +39,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    <label class="form-label" for="marca">Desde Km.<span class="text-danger">*</span></label>
+                    <label class="form-label" for="from">Desde Km.<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="from" name="from"
                         placeholder="Kilometraje Minimo">
                     @error('from')
