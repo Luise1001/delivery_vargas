@@ -13,6 +13,8 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MotorcycleController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ScheduleController;
 
 Route::middleware(['logged'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('app.index');
@@ -84,6 +86,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editar-dato-bancario/{type}/{id}', [BankController::class, 'edit'])->name('data.bank.edit');
     Route::put('/editar-dato-bancario', [BankController::class, 'update'])->name('data.bank.update');
     Route::delete('/eliminar-dato-bancario', [BankController::class, 'delete'])->name('data.bank.delete');
+
+    Route::get('/categorias', [CategoryController::class, 'index'])->name('commerce.category.index');
+    Route::put('/categorias', [CategoryController::class, 'update'])->name('commerce.category.update');
+
+    Route::get('/horarios', [ScheduleController::class, 'index'])->name('commerce.schedule.index');
+    Route::put('/horarios', [ScheduleController::class, 'update'])->name('commerce.schedule.update');
 
 
 

@@ -9,9 +9,9 @@ Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 
 <a class="sidebar-item" href="{{route('data.bank.index')}}"><i class="fa-solid fa-building-columns"></i> Datos Bancarios</a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-tags"></i> Mis Categorias</a>
+<a class="sidebar-item" href="{{route('commerce.category.index')}}"><i class="fa-solid fa-tags"></i> Mis Categorias</a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-calendar-days"></i> Horario de Atención</a>
+<a class="sidebar-item" href="{{route('commerce.schedule.index')}}"><i class="fa-solid fa-calendar-days"></i> Horario de Atención</a>
 
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-money-bill"></i> Mis Métodos de pago</a>
 

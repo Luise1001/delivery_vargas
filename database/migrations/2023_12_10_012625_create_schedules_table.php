@@ -19,8 +19,9 @@ class CreateSchedulesTable extends Migration
             $table->unsignedBigInteger('day_id');
             $table->time('open');
             $table->time('close');
-            $table->char('shift', 1)->comment('M: Mañana, T: Tarde, N: Noche')->nullable();
             $table->timestamps();
+            $table->foreign('commerce_id')->references('id')->on('commerces');
+            $table->foreign('day_id')->references('id')->on('days');
         });
     }
 
