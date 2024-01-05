@@ -31,10 +31,10 @@
              @include('app.products.components.available')
              @include('app.products.components.unavailable')
              @include('app.products.components.disabled')
-             @include('app.products.components.all')
         </div>
     </div>
 @endsection
 
 @section('javascripts')
+ <script src="{{asset('assets/js/products/products.js')}}"></script>
 @endsection

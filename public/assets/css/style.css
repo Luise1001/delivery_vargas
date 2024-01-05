@@ -35,6 +35,19 @@ body
     color: rgb(14,39,165);
 }
 
+.empty-page {
+  width: 90%;
+  background: #fce944 !important;
+  border-radius: 20px !important;
+  margin: 5px !important;
+  text-align: center !important;
+  font-family: serif !important;
+  font-size: large !important;
+  color: grey !important;
+  border: solid 2px grey !important;
+  padding: 5px !important;
+}
+
 .swal-modal {
     border-radius: 10px;
   }

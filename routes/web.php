@@ -99,9 +99,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/metodos-de-pago', [PaymentMethodController::class, 'update'])->name('commerce.payment.method.update');
 
     Route::get('/productos', [ProductController::class, 'index'])->name('commerce.product.index');
+    Route::get('/detalle/producto={id}', [ProductController::class, 'detail'])->name('commerce.product.detail');
     Route::get('/nuevo-producto', [ProductController::class, 'create'])->name('commerce.product.create');
     Route::post('/nuevo-producto', [ProductController::class, 'store'])->name('commerce.product.store');
-    Route::get('/editar-producto/{id}', [ProductController::class, 'edit'])->name('commerce.product.edit');
+    Route::get('/editar-producto/producto={id}', [ProductController::class, 'edit'])->name('commerce.product.edit');
     Route::put('/editar-producto', [ProductController::class, 'update'])->name('commerce.product.update');
     Route::delete('/eliminar-producto', [ProductController::class, 'delete'])->name('commerce.product.delete');
 
