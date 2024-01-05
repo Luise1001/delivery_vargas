@@ -16,7 +16,6 @@ class CreatePaymentOptionsTable extends Migration
         Schema::create('payment_options', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->char('symbol', 5);
             $table->string('target_table');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();

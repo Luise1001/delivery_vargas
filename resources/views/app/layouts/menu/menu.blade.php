@@ -11,7 +11,7 @@
                 @php
                     $id = Auth::user()->id;
                 @endphp
-                <img class="user-photo" src="{{ asset("assets/storage/profile/users/$id/photo/perfil.jpg") }}"
+                <img class="user-photo" src="{{ asset("assets/storage/profile/users/$id/photo/profile.jpg") }}"
                     alt="Foto de Perfil">
             @else
                 @php

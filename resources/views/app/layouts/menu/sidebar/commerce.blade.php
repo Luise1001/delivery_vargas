@@ -5,7 +5,7 @@ Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mi Comercio</a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-boxes-packing"></i> Productos</a>
+<a class="sidebar-item" href="{{route('commerce.product.index')}}"><i class="fa-solid fa-boxes-packing"></i> Productos</a>
 
 <a class="sidebar-item" href="{{route('data.bank.index')}}"><i class="fa-solid fa-building-columns"></i> Datos Bancarios</a>
 
@@ -13,11 +13,11 @@ Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 
 <a class="sidebar-item" href="{{route('commerce.schedule.index')}}"><i class="fa-solid fa-calendar-days"></i> Horario de Atención</a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-money-bill"></i> Mis Métodos de pago</a>
+<a class="sidebar-item" href="{{route('commerce.payment.method.index')}}"><i class="fa-solid fa-money-bill"></i> Mis Métodos de pago</a>
 
-{{-- <a class="sidebar-item" href="../inicio/informacion"><i class="fas fa-info"></i> Información</a>
+{{-- <a class="sidebar-item" href=""><i class="fas fa-info"></i> Información</a>
 
-<a class="sidebar-item" href="../inicio/terminos"><i class="fas fa-info-circle"></i> Políticas</i></a> --}}
+<a class="sidebar-item" href=""><i class="fas fa-info-circle"></i> Políticas</i></a> --}}
 
 <a class="sidebar-item" href="{{route("profile.reset.password")}}"><i class="fas fa-lock"></i> Cambiar Contraseña</a>
 

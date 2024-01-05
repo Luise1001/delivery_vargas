@@ -1,0 +1,31 @@
+.payment_methods {
+    padding: 10px;
+}
+
+.switch-container {
+    display: flex !important;
+    justify-content: space-between;
+}
+
+.text-switch {
+    font-family: serif;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(14, 39, 165);
+}
+
+.selector {
+    font-size: x-large;
+    position: fixed;
+}
+
+.save-button {
+    width: 100%;
+    margin-top: 30px;
+    background: rgb(14, 39, 165);
+    color: #fce944;
+    font-size: large;
+    font-family: serif;
+    border-radius: 10px;
+    padding: 5px;
+}

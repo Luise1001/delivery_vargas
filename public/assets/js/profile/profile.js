@@ -10,7 +10,7 @@ if (gender.value == 'F') {
     male.checked = true;
 }
 
-$(document).on('change', '#input_fp', function()
+$(document).on('change', '#image', function()
 {
   let container = '.foto_perfil';
  readImage(container, this);

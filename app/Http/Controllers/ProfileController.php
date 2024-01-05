@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+use App\Models\User;
+
 
 class ProfileController extends Controller
 {
@@ -31,16 +34,18 @@ class ProfileController extends Controller
 
         $user->update($request->all());
 
-        $photo = $this->GeneratePhoto($request->input_fp, $user_id);
-
-        if($photo)
+        if($request->hasFile('image'))
         {
-            $user->update([
-                'photo' => true
-            ]);
+            $image = $request->file('image');
+            $name = 'profile.jpg';
+            $destinationPath = $this->GeneratePath($user_id);
+            $image = Image::make($image)->save($destinationPath . '/' . $name, 75);
+            //$image->move($destinationPath, $name);
+            $user->photo = true;
+            $user->save();
         }
         
-        return redirect()->route('profile.index')->with('success', 'Perfil actualizado correctamente');
+        return redirect()->route('profile.index');
     }
 
     public function change()
@@ -77,30 +82,15 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('success', 'Contraseña actualizada correctamente');
     }
 
-    public function GeneratePhoto($file, $id)
-    {    
-        if ($file) {
-            $route = public_path("assets/storage/profile/users/$id/photo");
-            $quality = 30;
-        
-            if (file_exists($route)) {
-                $route .= '/';
-                $originalName = $file->getClientOriginalName();
-                $img = imagejpeg(imagecreatefromstring(file_get_contents($file->getRealPath())), $route .'perfil.jpg');
-        
-                return true;
-            } else {
-                mkdir($route, 0777, true); 
-        
-                $route .= '/';
-                $originalName = $file->getClientOriginalName();
-                $img = imagejpeg(imagecreatefromstring(file_get_contents($file->getRealPath())), $route .'perfil.jpg');
-
-                return true;
-            }
-        } else {
-            return false;
+    private function GeneratePath($user_id)
+    {
+        $path = public_path('/assets/storage/profile/users/' . $user_id . '/photo');
+        if(!File::exists($path))
+        {
+            File::makeDirectory($path, 0777, true, true);
         }
-        
+
+        return $path;
     }
+
 }

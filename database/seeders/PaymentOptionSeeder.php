@@ -17,13 +17,13 @@ class PaymentOptionSeeder extends Seeder
     {
         PaymentOption::create([
           'id'=> 1,
-          'name'=> 'Efectivo Bolivares',
+          'name'=> 'Efectivo VES',
           'target_table' => 'cash_payments_bs',
           'created_by' => 1,
         ]);
         PaymentOption::create([
           'id'=> 2,
-          'name'=> 'Efectivo Dólares',
+          'name'=> 'Efectivo USD',
           'target_table' => 'cash_payments_usd',
           'created_by' => 1,
         ]);

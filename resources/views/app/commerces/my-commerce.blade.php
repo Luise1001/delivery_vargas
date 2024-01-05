@@ -29,9 +29,9 @@
             <div class='header-profile'>
                 @if ($myCommerce->photo == true)
                     @php
-                        $id = $myCommerce->id;
+                        $id = $myCommerce->user_id;
                     @endphp
-                    <img class="foto_perfil" src="{{ asset("assets/storage/profile/commerces/$id/photo/perfil.jpg") }}"
+                    <img class="foto_perfil" src="{{ asset("assets/storage/profile/commerces/$id/photo/profile.jpg") }}"
                         alt="Foto de Perfil">
                 @else
                     @php
@@ -43,8 +43,8 @@
                 <form action="{{ route('commerce.myCommerce.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type='file' accept='image/*' id='input_fp' name="input_fp" class='file-selector'>
-                    <label for='input_fp' class='file-selector-label'>
+                    <input type='file' accept='image/*' id='image' name="image" class='file-selector'>
+                    <label for='image' class='file-selector-label'>
                         <span class='file-selector-span'><i class='fas fa-camera'></i></span>
                     </label>
 
@@ -94,7 +94,7 @@
 
 @section('javascripts')
     <script>
-        $(document).on('change', '#input_fp', function() {
+        $(document).on('change', '#image', function() {
             let container = '.foto_perfil';
             readImage(container, this);
         });
