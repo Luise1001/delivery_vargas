@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MyCommerceRequest;
 use Illuminate\Http\Request;
-use App\Models\Commerce;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Commerce;
+
 
 class CommerceController extends Controller
 {
@@ -38,12 +41,20 @@ class CommerceController extends Controller
     {
         $user_id = Auth::user()->id;
  
-        $photo = $this->GeneratePhoto($request->input_fp, $user_id);
+        if($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $name = "profile.jpg";
+            $destinationPath = $this->GeneratePath($user_id);
+            $image = Image::make($image)->save($destinationPath . '/' . $name, 75);
+            //$image->move($destinationPath, $name);
+            $request->merge(['photo' => true]);
+        }
         
         Commerce::updateOrCreate(
             ['user_id' => $user_id],
             [
-                'photo' => $photo,
+                'photo' => $request->photo,
                 'document_type' => $request->document_type,
                 'document' => $request->document,
                 'name' => $request->name,
@@ -54,29 +65,15 @@ class CommerceController extends Controller
         return redirect()->route('commerce.myCommerce');
     }
 
-    public function GeneratePhoto($file, $id)
+    private function GeneratePath($user_id)
     {
-        if ($file) {
-            $route = public_path("assets/storage/profile/commerces/$id/photo");
-            $quality = 30;
-
-            if (file_exists($route)) {
-                $route .= '/';
-                $originalName = $file->getClientOriginalName();
-                $img = imagejpeg(imagecreatefromstring(file_get_contents($file->getRealPath())), $route . 'perfil.jpg');
-
-                return true;
-            } else {
-                mkdir($route, 0777, true);
-
-                $route .= '/';
-                $originalName = $file->getClientOriginalName();
-                $img = imagejpeg(imagecreatefromstring(file_get_contents($file->getRealPath())), $route . 'perfil.jpg');
-
-                return true;
-            }
-        } else {
-            return false;
+        $path = public_path('/assets/storage/profile/commerces/' . $user_id . '/photo');
+        if(!File::exists($path))
+        {
+            File::makeDirectory($path, 0777, true, true);
         }
+
+        return $path;
     }
+
 }

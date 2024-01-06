@@ -70,8 +70,8 @@
 /*Mi Ubicación*/
 
 /*calculadora*/
-.calculadora-form {
-    padding: 10px;
+.calculator{
+    padding: 15px;
 }
 
 .calculator-input,
@@ -94,13 +94,14 @@
 }
 
 .calcular {
-    width: 50%;
-    background: none;
-    border: solid 2px gray;
+    width: 100%;
+    margin-top: 30px;
+    background: rgb(14, 39, 165);
+    color: #fce944;
+    font-size: large;
     font-family: serif;
-    font-weight: bold;
-    color: rgb(14, 39, 165);
-    border-radius: 10px
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .output {

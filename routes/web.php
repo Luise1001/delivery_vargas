@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StaticLocationController;
 use App\Http\Controllers\ProfileController;
@@ -13,6 +14,14 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MotorcycleController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DeliveryExpressController;
+use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\OrderController;
+
 
 Route::middleware(['logged'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('app.index');
@@ -33,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inicio', [HomeController::class, 'index'])->name('home.index');
     Route::post('/mi-ubicacion', [LocationController::class, 'store'])->name('location.store');
+
+    Route::get('/calculadora', [CalculatorController::class, 'index'])->name('calculator.index');
+    Route::post('/calcular-tarifa', [CalculatorController::class, 'fee'])->name('calculator.fee');
 
     Route::get('/mis-direcciones', [StaticLocationController::class, 'index'])->name('static.location.index');
     Route::post('/guardar-direccion', [StaticLocationController::class, 'store'])->name('static.location.store');
@@ -84,6 +96,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editar-dato-bancario/{type}/{id}', [BankController::class, 'edit'])->name('data.bank.edit');
     Route::put('/editar-dato-bancario', [BankController::class, 'update'])->name('data.bank.update');
     Route::delete('/eliminar-dato-bancario', [BankController::class, 'delete'])->name('data.bank.delete');
+
+    Route::get('/categorias', [CategoryController::class, 'index'])->name('commerce.category.index');
+    Route::put('/categorias', [CategoryController::class, 'update'])->name('commerce.category.update');
+
+    Route::get('/horarios', [ScheduleController::class, 'index'])->name('commerce.schedule.index');
+    Route::put('/horarios', [ScheduleController::class, 'update'])->name('commerce.schedule.update');
+
+    Route::get('/metodos-de-pago', [PaymentMethodController::class, 'index'])->name('commerce.payment.method.index');
+    Route::put('/metodos-de-pago', [PaymentMethodController::class, 'update'])->name('commerce.payment.method.update');
+
+    Route::get('/productos', [ProductController::class, 'index'])->name('commerce.product.index');
+    Route::get('/detalle/producto={id}', [ProductController::class, 'detail'])->name('commerce.product.detail');
+    Route::get('/nuevo-producto', [ProductController::class, 'create'])->name('commerce.product.create');
+    Route::post('/nuevo-producto', [ProductController::class, 'store'])->name('commerce.product.store');
+    Route::get('/editar-producto/producto={id}', [ProductController::class, 'edit'])->name('commerce.product.edit');
+    Route::put('/editar-producto', [ProductController::class, 'update'])->name('commerce.product.update');
+    Route::delete('/eliminar-producto', [ProductController::class, 'delete'])->name('commerce.product.delete');
+
+    Route::get('/mis-pedidos', [OrderController::class, 'index'])->name('order.index');
+
+    Route::get('/envios', [DeliveryController::class, 'index'])->name('delivery.index');
+
+    
 
 
 

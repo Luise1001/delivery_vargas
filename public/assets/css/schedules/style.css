@@ -1,0 +1,46 @@
+.schedule {
+    padding: 10px;
+}
+
+.schedule-switch {
+    display: flex !important;
+    justify-content: space-between;
+    padding-left: 0px !important;
+}
+
+.text-switch {
+    font-family: serif;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(14, 39, 165);
+    width: 50px;
+}
+
+.input-hour{
+    padding-right: 20px;
+}
+
+.selector {
+    font-size: large;
+    position: fixed;
+}
+
+.open,
+.close {
+    background: white;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    color: rgb(14, 39, 165);
+}
+
+.save-button {
+    width: 100%;
+    margin-top: 30px;
+    background: rgb(14, 39, 165);
+    color: #fce944;
+    font-size: large;
+    font-family: serif;
+    border-radius: 10px;
+    padding: 5px;
+}

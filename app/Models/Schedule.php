@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Day;
 
 class Schedule extends Model
 {
@@ -16,4 +17,9 @@ class Schedule extends Model
         'close',
         'shift'
     ];
+
+    public function day()
+    {
+        return $this->belongsTo(Day::class);
+    }
 }

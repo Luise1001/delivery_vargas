@@ -28,7 +28,7 @@
                 @php
                     $id = $user->id;
                 @endphp
-                <img class="foto_perfil" src="{{ asset("assets/storage/profile/users/$id/photo/perfil.jpg") }}"
+                <img class="foto_perfil" src="{{ asset("assets/storage/profile/users/$id/photo/profile.jpg") }}"
                     alt="Foto de Perfil">
             @else
                 @php
@@ -40,8 +40,8 @@
             <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <input type='file' accept='image/*' id='input_fp' name="input_fp" class='file-selector'>
-                <label for='input_fp' class='file-selector-label'>
+                <input type='file' accept='image/*' id='image' name="image" class='file-selector'>
+                <label for='image' class='file-selector-label'>
                     <span class='file-selector-span'><i class='fas fa-camera'></i></span>
                 </label>
 
