@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StaticLocationController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DeliveryExpressController;
 
 Route::middleware(['logged'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('app.index');
@@ -37,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inicio', [HomeController::class, 'index'])->name('home.index');
     Route::post('/mi-ubicacion', [LocationController::class, 'store'])->name('location.store');
+
+    Route::get('/calculadora', [CalculatorController::class, 'index'])->name('calculator.index');
+    Route::post('/calcular-tarifa', [CalculatorController::class, 'fee'])->name('calculator.fee');
 
     Route::get('/mis-direcciones', [StaticLocationController::class, 'index'])->name('static.location.index');
     Route::post('/guardar-direccion', [StaticLocationController::class, 'store'])->name('static.location.store');
@@ -105,6 +110,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editar-producto/producto={id}', [ProductController::class, 'edit'])->name('commerce.product.edit');
     Route::put('/editar-producto', [ProductController::class, 'update'])->name('commerce.product.update');
     Route::delete('/eliminar-producto', [ProductController::class, 'delete'])->name('commerce.product.delete');
+
+    
 
 
 

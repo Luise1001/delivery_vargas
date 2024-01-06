@@ -3,6 +3,8 @@
 <a class="sidebar-item mi-carrito" href="../administradores/mi_carrito"><i class="fas fa-shopping-cart"></i> 
 Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 
+<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-person-running"></i> Delivery Express</a>
+
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mi Comercio</a>
 
 <a class="sidebar-item" href="{{route('commerce.product.index')}}"><i class="fa-solid fa-boxes-packing"></i> Productos</a>
