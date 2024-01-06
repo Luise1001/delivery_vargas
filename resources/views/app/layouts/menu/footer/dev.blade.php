@@ -7,8 +7,8 @@
 <a class="footer-icons {{ Route::is('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">
     <img id="icon_home" class="footer-icons" src="{{ asset('assets/storage/icons/menu/' . (Route::is('home.index') ? 'Ico_Home_ON.png' : 'Ico_Home_OFF.png')) }}">
 </a>
-<a class="footer-icons" href="">
-    <img id="icon_pedido" class="footer-icons" src="{{ asset('assets/storage/icons/menu/Ico_Pedidos_OFF.png') }}">
+<a class="footer-icons {{ Route::is('order.index') ? 'active' : '' }}" href="{{ route('order.index') }}">
+    <img id="icon_order" class="footer-icons" src="{{ asset('assets/storage/icons/menu/' . (Route::is('order.index') ? 'Ico_Order_ON.png' : 'Ico_Order_OFF.png')) }}">
 </a>
 <a class="footer-icons {{ Route::is('profile.index') ? 'active' : '' }}" href="{{ route('profile.index') }}">
     <img id="icon_perfil" class="footer-icons" src="{{ asset('assets/storage/icons/menu/' . (Route::is('profile.index') ? 'Ico_Perfil_ON.png' : 'Ico_Perfil_OFF.png')) }}">

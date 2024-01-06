@@ -19,6 +19,9 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DeliveryExpressController;
+use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\OrderController;
+
 
 Route::middleware(['logged'])->group(function () {
     Route::get('/', [LoginController::class, 'index'])->name('app.index');
@@ -110,6 +113,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editar-producto/producto={id}', [ProductController::class, 'edit'])->name('commerce.product.edit');
     Route::put('/editar-producto', [ProductController::class, 'update'])->name('commerce.product.update');
     Route::delete('/eliminar-producto', [ProductController::class, 'delete'])->name('commerce.product.delete');
+
+    Route::get('/mis-pedidos', [OrderController::class, 'index'])->name('order.index');
+
+    Route::get('/envios', [DeliveryController::class, 'index'])->name('delivery.index');
 
     
 
