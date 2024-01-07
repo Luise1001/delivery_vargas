@@ -12,8 +12,13 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $commerce_id = Auth::user()->commerce->id;
-        $MyCategories = Commerce_category::with('category')->where('commerce_id', $commerce_id)->get();
+        $commerce = Commerce::where('user_id', Auth::user()->id)->first();
+        if(!$commerce)
+        {
+          return redirect()->route('commerce.myCommerce');
+        }
+
+        $MyCategories = Commerce_category::with('category')->where('commerce_id', $commerce->id)->get();
         $categories = Category::all();
 
         $filteredCategories = $categories->filter(function ($category) use ($MyCategories) {

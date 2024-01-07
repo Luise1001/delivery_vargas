@@ -29,6 +29,22 @@ class LocationController extends Controller
             ]);
         }
 
-        
+        return redirect()->route('buy.index');
+    }
+
+    public function save(Request $request)
+    {
+        $user_id = Auth::user()->id;
+
+        Location::UpdateOrCreate(
+            ['user_id' => $user_id],
+            [
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'address' => $request->address
+            ]
+        );
+
+        return response()->json(['success' => true]);
     }
 }

@@ -12,7 +12,13 @@ class PaymentMethodController extends Controller
 {
     public function index()
     {
-        $myPaymentOptions = Commerce_payment_method::with('paymentMethod')->where('commerce_id', Auth::user()->commerce->id)->get();
+        $commerce = Commerce::where('user_id', Auth::user()->id)->first();
+
+        if (!$commerce) {
+            return redirect()->route('commerce.myCommerce');
+        }
+
+        $myPaymentOptions = Commerce_payment_method::with('paymentMethod')->where('commerce_id', $commerce->id)->get();
         $paymentOptions = PaymentOption::all();
 
         $filteredOptions = $paymentOptions->filter(function ($option) use ($myPaymentOptions) {

@@ -16,33 +16,35 @@ const fcm = firebase.messaging();
 
 let badge = 0;
 
-fcm.getToken({vapidKey: "BI7RWT-PSl-0GtBNpRs6aUxBN6UPmejeZ8cRdhW_6e4HeJ83MoVhWDTzcxJZYlVvurMKXJhN8CiDRC-8HhDxBMo"}).then(
+
+fcm.getToken({vapidKey: "BMtO3lEOTcLz0oZMQbtWdi7e2IuCid-TAerWspv9TBC4L2VLkeXcQjbo7FX4EGPYHWBeSeVxc-TxcBsEIEdcTDU"}).then(
   (currentToken)=>
-{
+{ 
   if(currentToken)
   {
     let funcion = 'nuevo_token_firebase';
     let token = currentToken;
-    $.ajax
-    ({
-       url: '../../server/functions/agregar.php',
-       type: 'POST',
-       dataType: 'html',
-       data: 
-       {
-          funcion: funcion,
-          token: token
-       }
+    console.log(token)
+    // $.ajax
+    // ({
+    //    url: '../../server/functions/agregar.php',
+    //    type: 'POST',
+    //    dataType: 'html',
+    //    data: 
+    //    {
+    //       funcion: funcion,
+    //       token: token
+    //    }
   
-    })
-    .done(function(res)
-    {
+    // })
+    // .done(function(res)
+    // {
       
-    })
-    .fail(function(err)
-    {
-      console.log(err);
-    })
+    // })
+    // .fail(function(err)
+    // {
+    //   console.log(err);
+    // })
   }
   else
   {

@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inicio', [HomeController::class, 'index'])->name('home.index');
     Route::post('/mi-ubicacion', [LocationController::class, 'store'])->name('location.store');
+    Route::post('/guardar-mi-ubicacion', [LocationController::class, 'save'])->name('location.save');
 
     Route::get('/calculadora', [CalculatorController::class, 'index'])->name('calculator.index');
     Route::post('/calcular-tarifa', [CalculatorController::class, 'fee'])->name('calculator.fee');
@@ -117,6 +118,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mis-pedidos', [OrderController::class, 'index'])->name('order.index');
 
     Route::get('/envios', [DeliveryController::class, 'index'])->name('delivery.index');
+
+    Route::get('/delivery-express', [DeliveryExpressController::class, 'index'])->name('delivery.express.index');
+    Route::post('/delivery-express/confirmacion', [DeliveryExpressController::class, 'confirm'])->name('delivery.express.confirmation');
+    Route::post('/delivery-express', [DeliveryExpressController::class, 'store'])->name('delivery.express.store');
+    Route::get('/mis-envios', [DeliveryExpressController::class, 'myDeliveries'])->name('delivery.express.myDeliveries');
 
     
 

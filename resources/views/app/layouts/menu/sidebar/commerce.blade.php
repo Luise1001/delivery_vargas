@@ -3,7 +3,9 @@
 <a class="sidebar-item mi-carrito" href="../administradores/mi_carrito"><i class="fas fa-shopping-cart"></i> 
 Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fa-solid fa-person-running"></i> Delivery Express</a>
+<a class="sidebar-item" href="{{route('delivery.express.index')}}"><i class="fa-solid fa-person-running"></i> Delivery Express</a>
+
+<a class="sidebar-item" href="{{route('delivery.express.myDeliveries')}}"><i class="fa-solid fa-person-running"></i> Mis Envios Express</a>
 
 <a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mi Comercio</a>
 

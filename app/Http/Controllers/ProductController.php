@@ -18,22 +18,27 @@ class ProductController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $commerce_id = Commerce::where('user_id', $user_id)->first()->id;    
+        $commerce = Commerce::where('user_id', $user_id)->first();  
+        if(!$commerce)
+        {
+          return redirect()->route('commerce.myCommerce');
+        }
+
         $available_products = Product::with('commerce', 'stock')
-        ->where(['commerce_id' => $commerce_id, 'disabled' => false])
+        ->where(['commerce_id' => $commerce->id, 'disabled' => false])
         ->whereHas('stock', function ($query) {
             $query->where('quantity', '>', 0);
         })
         ->get();
 
         $unavailable_products = Product::with('commerce', 'stock')
-        ->where(['commerce_id' => $commerce_id, 'disabled' => false])
+        ->where(['commerce_id' => $commerce->id, 'disabled' => false])
         ->whereHas('stock', function ($query) {
             $query->where('quantity', '<', 1);
         })
         ->get();
     
-        $disabled_products = Product::with('commerce', 'stock')->where(['commerce_id'=> $commerce_id, 'disabled'=> true])->get();
+        $disabled_products = Product::with('commerce', 'stock')->where(['commerce_id'=> $commerce->id, 'disabled'=> true])->get();
 
         return view('app.products.index', compact('available_products', 'unavailable_products', 'disabled_products'));
     }

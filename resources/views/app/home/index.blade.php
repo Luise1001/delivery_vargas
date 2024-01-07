@@ -2,6 +2,7 @@
 
 @section('meta')
     <meta name="theme-color" content="#fce944" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('styles')
@@ -17,25 +18,25 @@
 @endsection
 
 @section('titulo-app')
-<div class="titulo-app">DELIVERY VARGAS</div>
+    <div class="titulo-app">DELIVERY VARGAS</div>
 @endsection
 
 @section('content')
     <div class="container-map">
         <div class="index-map">
             <div class="container-fluid">
-                <form id="my-location" action=" {{route('location.store')}} " method="post" class="form-mi-ubicacion">
+                <form id="my-location" action=" {{ route('location.store') }} " method="post" class="form-mi-ubicacion">
                     @csrf
                     <div class="form-group col-md-12 text-center">
                         <label id="label-my-location" for="from" class="form-label"> Mi Ubicación: </label>
                         <div>
                             <i class="fas fa-map-marker-alt marker-my-location"></i>
-                            <input class='input-from' id="address" name="address" type="text" placeholder="Mi Ubicación ">
+                            <input class='input-from' id="address" name="address" type="text"
+                                placeholder="Mi Ubicación ">
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                
                             @enderror
                             <input type="hidden" id="latitude" name="latitude">
                             <input type="hidden" id="longitude" name="longitude">
@@ -49,7 +50,6 @@
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                
                             @enderror
 
                         </div>
@@ -60,7 +60,8 @@
                             </button>
                         </div>
 
-                        <input class='form-check-input' type='checkbox' value='' id='save_location' name='save_location'>
+                        <input class='form-check-input' type='checkbox' value='' id='save_location'
+                            name='save_location'>
                         <label id="save_location_label" class='form-label' for='save_location'>
                             Guardar Dirección
                         </label>
@@ -93,8 +94,38 @@
 @endsection
 
 @section('javascripts')
- <script src=" {{asset('assets/js/home/maps/geocoding.js') }} "></script>
- <script src=" {{asset('assets/js/home/maps/autocomplete.js') }} "></script>
- <script src=" {{asset('assets/js/home/maps/routes.js') }} "></script>
- <script src=" {{asset('assets/js/home/maps/home.js') }} "></script>
+    <script src=" {{ asset('assets/js/home/maps/geocoding.js') }} "></script>
+    <script src=" {{ asset('assets/js/home/maps/autocomplete.js') }} "></script>
+    <script src=" {{ asset('assets/js/home/maps/routes.js') }} "></script>
+    <script src=" {{ asset('assets/js/home/maps/home.js') }} "></script>
+
+    <script>
+        function SaveLocation() {
+            let latitude = document.getElementById('latitude').value;
+            let longitude = document.getElementById('longitude').value;
+            let address = document.getElementById('address').value;
+
+            $.ajax({
+                    url: "{{ route('location.save') }}",
+                    type: 'POST',
+                    async: false,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        latitude: latitude,
+                        longitude: longitude,
+                        address: address
+                    }
+
+                })
+                .done(function(res) {
+                    
+                })
+                .fail(function(err) {
+                    console.log(err);
+                })
+        }
+    </script>
 @endsection

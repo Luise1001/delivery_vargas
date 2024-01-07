@@ -12,7 +12,12 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        $mySchedule = Schedule::with('day')->where('commerce_id', Auth::user()->commerce->id)->get();
+        $commerce = Commerce::where('user_id', Auth::user()->id)->first();
+        if (!$commerce) {
+            return redirect()->route('commerce.myCommerce');
+        }
+
+        $mySchedule = Schedule::with('day')->where('commerce_id', $commerce->id)->get();
         $days = Day::all();
 
         $filteredDays = $days->filter(function ($day) use ($mySchedule) {

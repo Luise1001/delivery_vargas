@@ -14,10 +14,15 @@ class BankController extends Controller
 {
     public function index()
     {
-        $commerce_id = Commerce::where('user_id', Auth::user()->id)->first()->id;
-        $mobile_payments = Mobile_payment::where('commerce_id', $commerce_id)->with('bank')->get();
-        $transfer_payments = Transfer_payment::where('commerce_id', $commerce_id)->with('bank')->get();
-        $zelle_payments = Zelle_payment::where('commerce_id', $commerce_id)->get();
+        $commerce = Commerce::where('user_id', Auth::user()->id)->first();
+        if(!$commerce)
+        {
+          return redirect()->route('commerce.myCommerce');
+        }
+
+        $mobile_payments = Mobile_payment::where('commerce_id', $commerce->id)->with('bank')->get();
+        $transfer_payments = Transfer_payment::where('commerce_id', $commerce->id)->with('bank')->get();
+        $zelle_payments = Zelle_payment::where('commerce_id', $commerce->id)->get();
 
         return view('app.data-bank.index', compact('mobile_payments', 'transfer_payments', 'zelle_payments'));
     }
