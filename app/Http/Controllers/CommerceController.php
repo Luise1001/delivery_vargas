@@ -49,6 +49,8 @@ class CommerceController extends Controller
             $image = Image::make($image)->save($destinationPath . '/' . $name, 75);
             //$image->move($destinationPath, $name);
             $request->merge(['photo' => true]);
+        }else {
+            $request->merge(['photo' => false]);
         }
         
         Commerce::updateOrCreate(

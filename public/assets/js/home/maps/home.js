@@ -45,7 +45,8 @@ async function MyMap() {
     latitude.value = resp.lat;
     longitude.value = resp.lng;
     address.value = resp.direction;
- 
+    
+    SaveLocation();
 }
 
 var options =
@@ -77,7 +78,7 @@ map.addListener("click", async function (e) {
     var mapOptions =
     {
         center: mylatlng,
-        zoom: 18,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
@@ -89,7 +90,6 @@ map.addListener("click", async function (e) {
     address.value = resp.direction;
 })
 
-
 $(document).on('click', '#confirm_location', function () {
     confirm_location();
 })
@@ -98,7 +98,7 @@ async function confirm_location() {
     var mapOptions =
     {
         center: mylatlng,
-        zoom: 18,
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
@@ -108,7 +108,7 @@ async function confirm_location() {
     latitude.value = resp.lat;
     longitude.value = resp.lng;
     address.value = resp.direction;
-
+    console.log(resp);
     FormMyLocation.submit();
 }
 

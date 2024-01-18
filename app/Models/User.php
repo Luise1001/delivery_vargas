@@ -27,11 +27,11 @@ class User extends Authenticatable
         'document_type',
         'document',
         'phone',
-        'address',
         'gender',
         'photo',
         'password',
-        'role_id'
+        'role_id',
+        'google_id',
     ];
 
     /**

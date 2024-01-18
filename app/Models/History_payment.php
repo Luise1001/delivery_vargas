@@ -15,7 +15,9 @@ class History_payment extends Model
         'payment_option_id',
         'amount',
          'reference',
-         'order_number',
-         'verified' 
+         'order_id',
+         'express_id',
+         'verified' ,
+         'currency_id'
     ];
 }

@@ -17,17 +17,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('route_id');
-            $table->boolean('personal')->default(false);
-            $table->boolean('comercial')->default(false);
+            $table->enum('type', ['personal', 'comercial'])->default('personal');
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->unsignedBigInteger('commerce_id')->nullable()->default(null);
             $table->double('amount');
             $table->boolean('paid')->default(false);
+            $table->boolean('confirmed')->default(false);
             $table->enum('status', 
-            ['pending',
-             'in_the_way',
-             'delivered', 
-             'cancelled'
+            ['Pendiente',
+             'En camino',
+             'Entregado', 
+             'Cancelado'
              ])->default('pending');
              $table->string('comment')->nullable()->default(null);
             $table->unsignedBigInteger('driver_id')->nullable()->default(null);

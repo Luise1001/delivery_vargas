@@ -1,11 +1,11 @@
 <a class="sidebar-item" href=" {{ route("static.location.index") }}"><i class="fas fa-map-marker-alt"></i> Mis direcciones</a>
 
-<a class="sidebar-item" href="{{route('delivery.index')}}"><i class="fas fa-motorcycle"></i> Deliveries</a>
+<a class="sidebar-item" href="{{route('delivery.express.index')}}"><i class="fa-solid fa-person-running"></i> Delivery Express</a>
 
-<a class="sidebar-item mi-carrito" href=""><i class="fas fa-shopping-cart"></i> 
-Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a>
+<a class="sidebar-item" href="{{route('delivery.express.myDeliveries')}}"><i class="fa-solid fa-person-running"></i> Mis Envios Express</a>
 
-<a class="sidebar-item" href="{{route('commerce.myCommerce')}}"><i class="fas fa-building"></i> Mi Comercio</a>
+{{-- <a class="sidebar-item mi-carrito" href=""><i class="fas fa-shopping-cart"></i> 
+Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a> --}}
 
 <a class="sidebar-item" href="{{route('commerce.list.index')}}"><i class="fas fa-building"></i> Comercios</a>
 

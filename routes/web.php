@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CalculatorController;
@@ -34,6 +38,28 @@ Route::middleware(['logged'])->group(function () {
     Route::post('/restaurar-clave', [LoginController::class, 'resetPassword'])->name('reset.password.store');
 });
 
+ 
+Route::get('/google/redirect', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.redirect');
+ 
+Route::get('/google/callback', function () {
+    $googleUser = Socialite::driver('google')->user();
+ 
+    $user = User::updateOrCreate([
+        'google_id' => $googleUser->id,
+    ], [
+        'username' => $googleUser->name,
+        'name' => $googleUser->name,
+        'email' => $googleUser->email,
+        'password' => Hash::make($googleUser->name),
+    ]);
+ 
+    Auth::login($user);
+ 
+    return redirect()->route('home.index');
+})->name('google.callback');
+
 
 
 
@@ -42,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inicio', [HomeController::class, 'index'])->name('home.index');
     Route::post('/mi-ubicacion', [LocationController::class, 'store'])->name('location.store');
+    Route::post('/guardar-mi-ubicacion', [LocationController::class, 'save'])->name('location.save');
 
     Route::get('/calculadora', [CalculatorController::class, 'index'])->name('calculator.index');
     Route::post('/calcular-tarifa', [CalculatorController::class, 'fee'])->name('calculator.fee');
@@ -117,6 +144,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mis-pedidos', [OrderController::class, 'index'])->name('order.index');
 
     Route::get('/envios', [DeliveryController::class, 'index'])->name('delivery.index');
+
+    Route::get('/delivery-express', [DeliveryExpressController::class, 'index'])->name('delivery.express.index');
+    Route::post('/delivery-express/confirmacion', [DeliveryExpressController::class, 'confirm'])->name('delivery.express.confirmation');
+    Route::post('/delivery-express/nuevo', [DeliveryExpressController::class, 'store'])->name('delivery.express.store');
+    Route::get('/delivery-express/mis-envios', [DeliveryExpressController::class, 'myDeliveries'])->name('delivery.express.myDeliveries');
+    Route::get('/delivery-express/detalle/id={id}', [DeliveryExpressController::class, 'detail'])->name('delivery.express.detail');
+    Route::get('/delivery-express/pagar/id={id}', [DeliveryExpressController::class, 'pay'])->name('delivery.express.pay');
+    Route::post('/delivery-express/registrar-pago', [DeliveryExpressController::class, 'paid'])->name('delivery.express.paid');
+    Route::DELETE('/delivery-express/eliminar', [DeliveryExpressController::class, 'delete'])->name('delivery.express.delete');
 
     
 

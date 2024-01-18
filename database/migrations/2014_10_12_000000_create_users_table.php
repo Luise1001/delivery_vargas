@@ -22,11 +22,11 @@ class CreateUsersTable extends Migration
             $table->char('document_type', 2)->nullable();
             $table->string('document')->unique()->nullable();
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
             $table->char('gender', 1)->nullable();
             $table->boolean('photo')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('google_id')->nullable();
             $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

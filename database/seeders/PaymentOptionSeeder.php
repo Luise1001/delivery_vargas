@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\PaymentOption;
-use Faker\Provider\ar_EG\Payment;
+use App\Models\Commerce_payment_method;
 
 class PaymentOptionSeeder extends Seeder
 {
@@ -44,6 +44,12 @@ class PaymentOptionSeeder extends Seeder
           'name'=> 'Zelle',
           'target_table' => 'zelle_payments',
           'created_by' => 1,
+        ]);
+
+        Commerce_payment_method::create([
+          'id'=> 1,
+          'commerce_id'=> 1,
+          'payment_option_id'=> 3,
         ]);
     }
 }

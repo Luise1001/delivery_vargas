@@ -21,7 +21,11 @@
                     alt="Foto de Perfil">
             @endif
 
-            <h5 class="offcanvas-title user-title" id="sidebar_menuLabel"></h5>
+            <div class="user-identity">
+                <h5 class="user-title" id="sidebar_menuLabel">{{Auth::user()->username}}</h5>
+                <h6 class="user-role">{{Auth::user()->role->display_name}} </h6>
+            </div>
+
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body options-menu">
