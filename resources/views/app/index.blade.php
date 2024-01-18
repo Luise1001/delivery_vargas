@@ -78,7 +78,7 @@
         </form>
 
         <div class="col-md-12 form-index-child">
-            <a href="" class="button-google">
+            <a href="{{route('google.redirect')}}" class="button-google">
                 <i class="fa-brands fa-google"></i> Continuar Con Google
             </a>
         </div>

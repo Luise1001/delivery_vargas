@@ -44,9 +44,10 @@
                 <label class="form-label" for="type">Tipo de Solicitud</label>
                 <div class="input-group">
                     <select class="form-select" id="type" name="type">
-                        <option value="personal">Personal</option>
                         @if (auth()->user()->role_id == 5)
                             <option value="comercial">Comercial</option>
+                        @else
+                            <option value="personal">Personal</option>
                         @endif
                     </select>
                 </div>

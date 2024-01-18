@@ -5,7 +5,7 @@
 @endsection
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/users/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/delivery-express/delivery-list/style.css') }}">
 @endsection
 
 @section('messages')
@@ -25,11 +25,44 @@
 
 @section('content')
     <div class="principal-layout">
-        <div class="wrapper">
-        @include('app.delivery-express.delivery-list.sender.components.pending')
-        </div>
+        @if ($role_level == 5)
+            <div class="wrapper">
+                @include('app.delivery-express.delivery-list.sender.comercial.pending')
+                @include('app.delivery-express.delivery-list.sender.comercial.delivered')
+                @include('app.delivery-express.delivery-list.sender.comercial.cancelled')
+            </div>
+        @else
+            <div class="wrapper">
+                @include('app.delivery-express.delivery-list.sender.personal.pending')
+                @include('app.delivery-express.delivery-list.sender.personal.delivered')
+                @include('app.delivery-express.delivery-list.sender.personal.cancelled')
+            </div>
+        @endif
     </div>
 @endsection
 
 @section('javascripts')
+<script>
+    $('.delete-delivery').on('click', function(e) {
+    e.preventDefault();
+    const form = $(this).closest('form');
+    swal('Seguro que desea eliminar', '', 'warning', {
+            buttons: {
+                cancel: 'Cancelar',
+                Confirmar: true,
+            },
+        })
+        .then((value) => {
+            switch (value) {
+
+                case "Confirmar":
+                    form.submit();
+                    break;
+
+                default:
+                    false;
+            }
+        });
+});
+</script>
 @endsection

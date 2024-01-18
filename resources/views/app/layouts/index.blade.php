@@ -31,9 +31,7 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
-  
+  <script type="module" src="{{asset('assets/js/home/maps/firebase.js')}}"></script>
   <title>Delivery Vargas</title>
 </head>
 
@@ -46,6 +44,7 @@
   @yield("content")
 
    <script src="{{ asset("assets/js/loader.js") }} "></script>
+
   @yield("javascripts")
 </body>
 </html>

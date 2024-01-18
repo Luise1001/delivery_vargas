@@ -1,5 +1,4 @@
-.header-menu
-{
+.header-menu {
   width: 100%;
   height: 5%;
   background: #fce944;
@@ -7,32 +6,32 @@
   top: 0px;
   z-index: 3;
 }
-.titulo-app
-{
+
+.titulo-app {
   font-size: large;
   font-family: serif;
   font-weight: bold;
-  color: rgb(14,39,165);
+  color: rgb(14, 39, 165);
   padding: 10px;
 }
-.header-icons
-{
+
+.header-icons {
   position: fixed;
   right: 10%;
   top: 1%;
 }
-.btn-setting
-{
+
+.btn-setting {
   position: fixed;
   top: 0%;
   right: 2%;
   background: none;
   border: none;
   font-size: x-large;
-  color: rgb(14,39,165);
+  color: rgb(14, 39, 165);
 }
-.footer-menu
-{
+
+.footer-menu {
   width: 100%;
   height: 6%;
   position: fixed;
@@ -42,52 +41,63 @@
   justify-content: space-between;
   padding: 2%;
 }
-.footer-icons
-{
+
+.footer-icons {
   text-align: center;
   width: 30px;
 
 }
-.span-icon
-{
+
+.span-icon {
   display: flex;
   font-size: small;
   font-family: 'Times New Roman', Times, serif;
   text-align: center;
   justify-content: space-evenly;
 }
-.offcanvas-header
-{
-   background: #fce944;
-   padding: 20px;
+
+.offcanvas-header {
+  background: #fce944;
+  padding: 20px;
 }
-.user-photo
-{
-   width: 60px;
-   height: 60px;
-   border: solid 2px grey;
-   border-radius: 50%;
+
+.user-photo {
+  width: 60px;
+  height: 60px;
+  border: solid 2px grey;
+  border-radius: 50%;
 }
-.user-title
-{
-    font-family: serif;
-    text-align: left;
-    color: rgb(14,39,165);
-    font-size: large;
-    font-weight: bold;
+
+.user-identity {
+  position: fixed;
+  left: 25%;
 }
-.options-menu
-{
+
+.user-title {
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 39, 165);
+}
+
+.user-role {
+  font-family: serif;
+  font-size: small;
+  color: gray;
+  font-weight: bold;
+}
+
+.options-menu {
   display: inline-grid;
   padding: 0px !important;
 }
-.sidebar-item
-{
+
+.sidebar-item {
   text-decoration: none;
   font-size: large;
   font-family: 'Times New Roman', Times, serif;
   margin: 5px;
   padding: 5px;
   border: solid 1px lightgray;
-  color: rgb(14,39,165);
+  color: rgb(14, 39, 165);
 }

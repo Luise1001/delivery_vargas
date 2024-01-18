@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call(BankSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(CurrencySeeder::class);
+        $this->call(RateSeeder::class);
         $this->call(DaySeeder::class);
         $this->call(FeeSeeder::class);
+        $this->call(CommerceSeeder::class);
         $this->call(PaymentOptionSeeder::class);
-        $this->call(TestSeeder::class);
+        $this->call(DataBankSeeder::class);
     }
 }

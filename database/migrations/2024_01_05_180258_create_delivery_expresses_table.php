@@ -24,10 +24,10 @@ return new class extends Migration
             $table->boolean('paid')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->enum('status', 
-            ['pending',
-             'in_the_way',
-             'delivered', 
-             'cancelled'
+            ['Pendiente',
+             'En camino',
+             'Entregado', 
+             'Cancelado'
              ])->default('pending');
              $table->string('comment')->nullable()->default(null);
             $table->unsignedBigInteger('driver_id')->nullable()->default(null);

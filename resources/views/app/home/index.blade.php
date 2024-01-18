@@ -98,7 +98,6 @@
     <script src=" {{ asset('assets/js/home/maps/autocomplete.js') }} "></script>
     <script src=" {{ asset('assets/js/home/maps/routes.js') }} "></script>
     <script src=" {{ asset('assets/js/home/maps/home.js') }} "></script>
-
     <script>
         function SaveLocation() {
             let latitude = document.getElementById('latitude').value;
