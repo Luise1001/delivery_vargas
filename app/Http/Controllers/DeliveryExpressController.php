@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Requests\DeliveryExpressRequest;
-use App\Models\Commerce;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Commerce;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Location;
 use App\Models\Static_location;
@@ -31,10 +32,16 @@ class DeliveryExpressController extends Controller
 
         if ($role_level == 2 || $role_level == 3) {
 
-            return view('app.delivery-express.delivery-list.receptor.receptor');
-        } else if ($role_level == 4) {
+            $deliveryExpress = DeliveryExpress::with('service', 'route', 'driver', 'user', 'commerce', 'payment')->get();
 
-            return view('app.delivery-express.delivery-list.driver.driver');
+            return view('app.delivery-express.delivery-list.receptor.receptor', compact('deliveryExpress'));
+        } else if ($role_level == 4) {
+            $driver_id = Auth::user()->id;
+
+            $deliveryExpress = DeliveryExpress::with('service', 'route', 'driver', 'user', 'commerce', 'payment')
+                ->where('driver_id', $driver_id)->get();
+
+            return view('app.delivery-express.delivery-list.driver.driver', compact('deliveryExpress'));
         } else if ($role_level > 4 || $role_level == 1) {
 
             $location = Location::where('user_id', Auth::user()->id)->first();
@@ -113,12 +120,74 @@ class DeliveryExpressController extends Controller
         return view('app.delivery-express.delivery-list.sender.sender', compact('role_level', 'personal'));
     }
 
+    public function drivers($id)
+    {
+
+        $deliveryExpress = DeliveryExpress::with('route')->first();
+        $drivers = User::with('location')->where('role_id', 4)->get();
+
+        return view('app.delivery-express.delivery-list.receptor.drivers.index', compact('deliveryExpress', 'drivers'));
+    }
+
     public function detail($id)
     {
         $delivery = DeliveryExpress::with('service', 'route', 'driver', 'user', 'commerce', 'payment')->find($id);
         $role_level = Auth::user()->role->level;
 
         return view('app.delivery-express.detail', compact('delivery', 'role_level'));
+    }
+
+    public function assign(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'driver_id' => 'required|exists:users,id',
+                'id' => 'required|exists:delivery_expresses,id',
+            ],
+            [
+                'driver_id.required' => 'Debe seleccionar un conductor',
+                'driver_id.exists' => 'El conductor seleccionado no existe',
+                'id.required' => 'Debe seleccionar un envio',
+                'id.exists' => 'El envio seleccionado no existe',
+            ]
+        );
+
+        $delivery = DeliveryExpress::find($request->id);
+        $delivery->update([
+            'driver_id' => $request->driver_id,
+            'status' => 'asignado'
+        ]);
+
+        return redirect()->route('delivery.express.index')->with('success', 'Envio asignado correctamente');
+    }
+
+    public function accept($id)
+    {
+        $driver_id = Auth::user()->id;
+        $delivery = DeliveryExpress::find($id);
+
+        if($delivery->driver_id != $driver_id){
+            return redirect()->route('delivery.express.index')->with('error', 'No puedes aceptar este envio');
+        }
+
+        $delivery->update(['status' => 'En camino']);
+
+        return redirect()->route('delivery.express.index')->with('success', 'Envio aceptado correctamente');
+    }
+
+    public function delivered($id)
+    {
+        $driver_id = Auth::user()->id;
+        $delivery = DeliveryExpress::find($id);
+
+        if($delivery->driver_id != $driver_id){
+            return redirect()->route('delivery.express.index')->with('error', 'No puedes Entregar este envio');
+        }
+
+        $delivery->update(['status' => 'Entregado']);
+
+        return redirect()->route('delivery.express.index')->with('success', 'Envio aceptado correctamente');
     }
 
     public function pay($id)

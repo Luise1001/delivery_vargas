@@ -55,3 +55,11 @@ input, select, textarea{
     font-family: serif;
     color: rgb(14,39,165);
 }
+
+.map{
+    padding-top: 20px;
+}
+#googleMap
+{
+  
+}

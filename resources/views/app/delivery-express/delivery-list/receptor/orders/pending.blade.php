@@ -1,8 +1,8 @@
 <div class="slider">
     <div class="type-order-title">Pendientes</div>
     <div id="pending">
-        @if ($personal->count() > 0)
-            @foreach ($personal as $delivery)
+        @if ($deliveryExpress->count() > 0)
+            @foreach ($deliveryExpress as $delivery)
                 @if ($delivery->status != 'Entregado' && $delivery->status != 'Cancelado')
                     <div id="parent_{{ $delivery->id }}" class="card-list acordion">
                         <div class="card-list-header">
@@ -51,15 +51,16 @@
                                             <input type="hidden" name="id" value="{{ $delivery->id }}">
                                             <button type="submit" class="list-link delete-delivery">Cancelar</button>
                                         </form>
-
-                                        <a href="{{ route('delivery.express.detail', $delivery->id) }}"
-                                            class="list-link">Detalle</a>
                                     @endif
-                                    @if ($delivery->paid == false)
-                                        @if (!$delivery->payment)
-                                            <a href="{{ route('delivery.express.pay', $delivery->id) }}"
-                                                class="list-link">Pagar</a>
-                                        @endif
+                                    <a href="{{ route('delivery.express.detail', $delivery->id) }}"
+                                        class="list-link">Detalle</a>
+                                    @if ($delivery->driver_id == false)
+                                        <a href="{{ route('delivery.express.drivers', $delivery->id) }}"
+                                            class="list-link">Asignar
+                                        </a>
+                                        @else
+                                        <a href="{{ route('delivery.express.drivers', $delivery->id) }}"
+                                            class="list-link">Re-asignar </a>
                                     @endif
                                 </div>
                             </div>

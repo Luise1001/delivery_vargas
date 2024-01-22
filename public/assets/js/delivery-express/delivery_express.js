@@ -63,14 +63,14 @@ async function GenerateRoute() {
     let url_ruta = "https://www.google.com/maps/dir/?api=1&origin=" + salida + "&destination=" + destino + "&travelmode=DRIVING";
 
     const route = {
-            'from': salida,
-            'to': destino,
-            'distance': distancia,
-            'duration': tiempo,
-            'url_map': url_ruta
-        }
+        'from': salida,
+        'to': destino,
+        'distance': distancia,
+        'duration': tiempo,
+        'url_map': url_ruta
+    }
 
-        let ruta = JSON.stringify(route);
-        $('#route').val(ruta);
+    let ruta = JSON.stringify(route);
+    $('#route').val(ruta);
 
 }

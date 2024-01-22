@@ -5,7 +5,7 @@
 @endsection
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/users/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/delivery-express/delivery-list/style.css') }}">
 @endsection
 
 @section('messages')
@@ -19,17 +19,42 @@
 @section('titulo-app')
     <div class="titulo-app">
         <button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>
-        DELIVERIES
+        DELIVERY EXPRESS
     </div>
 @endsection
 
 @section('content')
     <div class="principal-layout">
         <div class="wrapper">
-
+            @include('app.delivery-express.delivery-list.receptor.orders.pending')
+            @include('app.delivery-express.delivery-list.receptor.orders.delivered')
+            @include('app.delivery-express.delivery-list.receptor.orders.cancelled')
         </div>
     </div>
 @endsection
 
 @section('javascripts')
+    <script>
+        $('.delete-delivery').on('click', function(e) {
+            e.preventDefault();
+            const form = $(this).closest('form');
+            swal('Seguro que desea eliminar', '', 'warning', {
+                    buttons: {
+                        cancel: 'Cancelar',
+                        Confirmar: true,
+                    },
+                })
+                .then((value) => {
+                    switch (value) {
+
+                        case "Confirmar":
+                            form.submit();
+                            break;
+
+                        default:
+                            false;
+                    }
+                });
+        });
+    </script>
 @endsection

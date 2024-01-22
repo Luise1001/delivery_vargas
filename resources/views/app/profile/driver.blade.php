@@ -28,7 +28,7 @@
                 @php
                     $id = $user->id;
                 @endphp
-                <img class="foto_perfil" src="{{ asset("assets/storage/profile/users/$id/photo/perfil.jpg") }}"
+                <img class="foto_perfil" src="{{ asset("assets/storage/profile/users/$id/photo/profile.jpg") }}"
                     alt="Foto de Perfil">
             @else
                 @php

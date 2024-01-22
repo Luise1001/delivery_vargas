@@ -3,6 +3,8 @@
 
 <a class="sidebar-item" href="{{ route('delivery.index') }}"><i class="fas fa-motorcycle"></i> Deliveries</a>
 
+<a class="sidebar-item" href="{{route('delivery.express.index')}}"><i class="fa-solid fa-person-running"></i> Delivery Express</a>
+
 {{-- <a class="sidebar-item mi-carrito" href=""><i class="fas fa-shopping-cart"></i> 
 Carrito <span class="badge car-badge bg-primary visually-hidden"></span></i></a> --}}
 

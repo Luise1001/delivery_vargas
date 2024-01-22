@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('confirmed')->default(false);
             $table->enum('status', 
             ['Pendiente',
+             'asignado',
              'En camino',
              'Entregado', 
              'Cancelado'
