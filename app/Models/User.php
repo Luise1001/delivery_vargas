@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Commerce;
+use App\Models\Location;
 
 class User extends Authenticatable
 {
@@ -63,4 +64,8 @@ class User extends Authenticatable
         return $this->hasOne(Commerce::class);
     }
 
+    public function location()
+    {
+        return $this->hasOne(Location::class);
+    }
 }

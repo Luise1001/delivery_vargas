@@ -19,14 +19,16 @@
 @section('titulo-app')
     <div class="titulo-app">
         <button class='back-button' onclick=history.back()><i class='fa-solid fa-arrow-left'></i></button>
-        DELIVERIES
+        DELIVERY EXPRESS
     </div>
 @endsection
 
 @section('content')
     <div class="principal-layout">
         <div class="wrapper">
-
+          @include('app.delivery-express.delivery-list.driver.orders.pending')
+          @include('app.delivery-express.delivery-list.driver.orders.delivered')
+          @include('app.delivery-express.delivery-list.driver.orders.cancelled')
         </div>
     </div>
 @endsection

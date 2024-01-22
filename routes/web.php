@@ -149,6 +149,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/delivery-express/confirmacion', [DeliveryExpressController::class, 'confirm'])->name('delivery.express.confirmation');
     Route::post('/delivery-express/nuevo', [DeliveryExpressController::class, 'store'])->name('delivery.express.store');
     Route::get('/delivery-express/mis-envios', [DeliveryExpressController::class, 'myDeliveries'])->name('delivery.express.myDeliveries');
+    Route::get('delivery-express/conductores/orden={id}', [DeliveryExpressController::class, 'drivers'])->name('delivery.express.drivers');
+    Route::put('/delivery-express/conductores/asignar', [DeliveryExpressController::class, 'assign'])->name('delivery.express.assign');
+    Route::get('/delivery-express/conductores/aceptar/order={id}', [DeliveryExpressController::class, 'accept'])->name('delivery.express.accept');
+    Route::get('/delivery-express/conductores/completar/order={id}', [DeliveryExpressController::class, 'delivered'])->name('delivery.express.delivered');
     Route::get('/delivery-express/detalle/id={id}', [DeliveryExpressController::class, 'detail'])->name('delivery.express.detail');
     Route::get('/delivery-express/pagar/id={id}', [DeliveryExpressController::class, 'pay'])->name('delivery.express.pay');
     Route::post('/delivery-express/registrar-pago', [DeliveryExpressController::class, 'paid'])->name('delivery.express.paid');

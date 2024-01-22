@@ -1,9 +1,9 @@
 <div class="slider">
-    <div class="type-order-title">Pendientes</div>
-    <div id="pending">
-        @if ($personal->count() > 0)
-            @foreach ($personal as $delivery)
-                @if ($delivery->status != 'Entregado' && $delivery->status != 'Cancelado')
+    <div class="type-order-title">Eliminados</div>
+    <div id="cancelled">
+        @if ($deliveryExpress->count() > 0)
+            @foreach ($deliveryExpress->sortByDesc('id') as $delivery)
+                @if ($delivery->status == 'Cancelado')
                     <div id="parent_{{ $delivery->id }}" class="card-list acordion">
                         <div class="card-list-header">
                             <strong class="me-auto">{{ $delivery->created_at->format('d/m/y') }} </strong>
@@ -55,21 +55,17 @@
                                         <a href="{{ route('delivery.express.detail', $delivery->id) }}"
                                             class="list-link">Detalle</a>
                                     @endif
-                                    @if ($delivery->paid == false)
-                                        @if (!$delivery->payment)
-                                            <a href="{{ route('delivery.express.pay', $delivery->id) }}"
-                                                class="list-link">Pagar</a>
-                                        @endif
-                                    @endif
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                    @else
+                    <div class="empty-page">No hay Datos Para Mostrar</div>
                 @endif
             @endforeach
         @else
-            <div class="empty-page">No hay Solicitudes pendientes</div>
+            <div class="empty-page">No hay Datos Para Mostrar</div>
         @endif
     </div>
 </div>

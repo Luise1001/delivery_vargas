@@ -16,7 +16,7 @@
                                         $id = $delivery->driver_id;
                                     @endphp
                                     <img class="img-list"
-                                        src="{{ asset("assets/storage/profile/users/$id/photo/perfil.jpg") }}"
+                                        src="{{ asset("assets/storage/profile/users/$id/photo/profile.jpg") }}"
                                         alt="Conductor">
                                 @else
                                     <img class="img-list" src="{{ asset('assets/storage/logos/deliveryvargas.png') }}"

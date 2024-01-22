@@ -1,8 +1,9 @@
 <div class="slider">
-    <div class="type-order-title">Pendientes</div>
-    <div id="pending">
-        @if ($comercial->count() > 0)
-            @foreach ($comercial as $delivery)
+    <div class="type-order-title">Completados</div>
+
+    @if ($deliveryExpress->count() > 0)
+        @foreach ($deliveryExpress as $delivery)
+            @if ($delivery->status == 'Entregado')
                 <div id="parent_{{ $delivery->id }}" class="card-list acordion">
                     <div class="card-list-header">
                         <strong class="me-auto">{{ $delivery->created_at->format('d/m/y') }} </strong>
@@ -25,7 +26,7 @@
                         <div class="list-data">
                             <div class="card-list-title" data-toggle="collapse" data-target="#child_{{ $delivery->id }}"
                                 aria-expanded="true" aria-controls="child_{{ $delivery->id }}">
-                                {{ $delivery->commerce->name }}
+                                {{ $delivery->client->name . ' ' . $delivery->client->last_name }}
                             </div>
                             <div class="list-text">
                                 <div>
@@ -38,32 +39,28 @@
                                 </div>
                                 @if ($delivery->driver_id == true)
                                     <span class="span-title">Conductor:</span>
-                                    <div>{{ $delivery->driver->name .' '.$delivery->driver->last_name }}</div>
+                                    <div>{{ $delivery->driver->name . ' ' . $delivery->driver->last_name }}</div>
                                 @endif
                             </div>
                             <div class="list-links">
-                                @if($delivery->driver_id == false)
-                                <form action="{{route('delivery.express.delete')}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="id" value="{{$delivery->id}}">
-                                    <button type="submit" class="list-link delete-delivery">Cancelar</button>
-                                </form>
-
-                                <a href="{{route('delivery.express.detail', $delivery->id)}}" class="list-link">Detalle</a>
-                                
+                                @if ($delivery->driver_id == false)
+                                    <form action="{{ route('delivery.express.delete') }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value="{{ $delivery->id }}">
+                                        <button type="submit" class="list-link delete-delivery">Cancelar</button>
+                                    </form>
                                 @endif
-                                @if($delivery->paid == false)
-                                <a href="" class="list-link">Pagar</a>
-                                @endif
+                                <a href="{{ route('delivery.express.detail', $delivery->id) }}"
+                                    class="list-link">Detalle</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            @endforeach
-        @else
-            <div class="empty-page">No hay Solicitudes pendientes</div>
-        @endif
-    </div>
+            @endif
+        @endforeach
+    @else
+        <div class="empty-page">No Hay Datos Para Mostrar</div>
+    @endif
 </div>
